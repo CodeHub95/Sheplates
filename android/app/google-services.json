@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "140299340121",
+    "firebase_url": "https://sheplates-293008.firebaseio.com",
+    "project_id": "sheplates-293008",
+    "storage_bucket": "sheplates-293008.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:140299340121:android:738340aede3fe42a036448",
+        "android_client_info": {
+          "package_name": "com.example.flutter_sheplates"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "140299340121-teis08f03en1qocg2vd8acp4bhmm19ur.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvhpz40dPMADYyEDRObPfAj-q5cwKatxQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "140299340121-teis08f03en1qocg2vd8acp4bhmm19ur.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

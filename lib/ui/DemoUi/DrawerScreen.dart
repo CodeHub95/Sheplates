@@ -1,0 +1,369 @@
+import 'dart:async';
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_sheplates/Utils/NetworkUtils.dart';
+import 'package:flutter_sheplates/Utils/app_constants.dart';
+import 'package:flutter_sheplates/Utils/app_defaults.dart';
+import 'package:flutter_sheplates/Utils/app_utils.dart';
+import 'package:flutter_sheplates/Utils/hexColor.dart';
+import 'package:flutter_sheplates/auth/RestApiCalls.dart';
+import 'package:flutter_sheplates/auth/api_config.dart';
+import 'package:flutter_sheplates/modals/request/StockCheckRequest.dart';
+import 'package:flutter_sheplates/modals/request/logoutrequest.dart';
+import 'package:flutter_sheplates/modals/response/BaseResponse.dart';
+import 'package:flutter_sheplates/modals/response/CheckOutResponse.dart';
+import 'package:flutter_sheplates/modals/response/GetFeedbackResponse.dart';
+import 'package:flutter_sheplates/modals/response/GetProfileResponse.dart';
+import 'package:flutter_sheplates/modals/response/SubscriptionResponse.dart';
+import 'package:flutter_sheplates/modals/response/loginresponse.dart';
+import 'package:flutter_sheplates/ui/DemoUi/DeliveryAddress.dart';
+import 'package:flutter_sheplates/ui/DemoUi/EditProfile.dart';
+import 'package:flutter_sheplates/ui/DemoUi/FaqScreen.dart';
+import 'package:flutter_sheplates/ui/DemoUi/HomeScreen.dart';
+import 'package:flutter_sheplates/ui/DemoUi/Menu.dart';
+import 'package:flutter_sheplates/ui/DemoUi/MySubscription.dart';
+import 'package:flutter_sheplates/ui/DemoUi/Feedback.dart';
+import 'package:flutter_sheplates/ui/DemoUi/PauseMySubsciption.dart';
+import 'package:flutter_sheplates/ui/DemoUi/Support.dart';
+import 'package:flutter_sheplates/ui/LoginRegisterScreen.dart';
+
+class CustomDrawer extends StatefulWidget {
+  final CheckOutResponse stockCheckOutResponse;
+
+  const CustomDrawer({Key key, this.stockCheckOutResponse}) : super(key: key);
+
+  @override
+  _CommonDrawerState createState() =>
+      _CommonDrawerState(this.stockCheckOutResponse);
+}
+
+class _CommonDrawerState extends State<CustomDrawer> {
+  String name = "";
+  String url ;
+  final CheckOutResponse stockCheckOutResponse;
+  StreamController<GetProfileResponse> _controller = StreamController();
+  _CommonDrawerState(this.stockCheckOutResponse);
+  bool select;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getInfo();
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+
+    _controller?.close();
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          createDrawerHeader(),
+          ListTile(
+            leading: Image.asset(
+              "assets/my_subsctipion.png",
+              height: 25,
+              width: 25,
+              color: Colors.black,
+            ),
+            title: Text("My Subscriptions",
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey[600],
+                )),
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => MySubscription()));
+            },
+          ),
+          Divider(),
+          ListTile(
+            leading: Image.asset(
+              "assets/pause_subsciription.png",
+              height: 25,
+              width: 25,
+              color: Colors.black,
+            ),
+            title: Text("Pause My Subscriptions",
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey[600],
+                )),
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => PauseSubscription()));
+            },
+          ),
+          Divider(),
+          ListTile(
+            leading: Image.asset(
+              "assets/menu_icon.png",
+              height: 25,
+              width: 25,
+              color: Colors.black,
+            ),
+            title: Text("Menu",
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey[600],
+                )),
+            onTap: () => {
+              // null
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => MenuScreen()),
+              )
+            },
+          ),
+          Divider(),
+          ListTile(
+            leading: Image.asset(
+              "assets/delivery_addressw.png",
+              height: 25,
+              width: 25,
+              color: Colors.black,
+            ),
+            title: Text("Delivery Address",
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey[600],
+                )),
+            onTap: () => {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => DeliveryAddress()))
+            },
+          ),
+          Divider(),
+          ListTile(
+            leading: Image.asset(
+              "assets/feedback.png",
+              height: 25,
+              width: 25,
+              // color: Colors.black,
+            ),
+            title: Text("Feedback",
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey[600],
+                )),
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => FeedBack()));
+            },
+          ),
+          Divider(),
+          ListTile(
+            leading: Image.asset(
+              "assets/support.png",
+              height: 25,
+              width: 25,
+              color: Colors.black,
+            ),
+            title: Text("Support",
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey[600],
+                )),
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => SupportScreen()));
+            },
+          ),
+          Divider(),
+          ListTile(
+            leading: Image.asset(
+              "assets/faq.png",
+              height: 25,
+              width: 25,
+              color: Colors.black,
+            ),
+            title: Text("FAQs",
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey[600],
+                )),
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => FaqScreen()));
+            },
+          ),
+          Divider(),
+          ListTile(
+            leading: Image.asset(
+              "assets/logout_icon.png",
+              height: 25,
+              width: 25,
+              color: Colors.black,
+            ),
+            title: Text("Logout",
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey[600],
+                )),
+            onTap: () async {
+              String deviceId = await CommonUtils.getDeviceId();
+              String userData = await SharedPrefHelper()
+                  .getWithDefault(SharedPrefConstants.userData, jsonEncode({}));
+              Profile profile = Profile.fromJson(jsonDecode(userData));
+              String token =
+                  await SharedPrefHelper().getWithDefault("token", null);
+              LogoutRequest body = LogoutRequest(
+                  deviceId: deviceId, userId: profile.id.toString());
+              CommonUtils.fullScreenProgress(context);
+              BaseResponse response = await RestApiCalls().logout(body, token);
+              if (response.status == 200) {
+                CommonUtils.dismissProgressDialog(context);
+                SharedPrefHelper().clear();
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (buildContext) => LoginRegisterScreen()));
+              } else {
+                CommonUtils.dismissProgressDialog(context);
+              }
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  getInfo() async {
+    // String userData = await SharedPrefHelper()
+    //     .getWithDefault(SharedPrefConstants.userData, jsonEncode({}));
+    // Profile profile = Profile.fromJson(jsonDecode(userData));
+    // name = profile.firstName + " " + profile.lastName;
+    // url = profile.profileImage;
+    // setState(() {
+    //   name = profile.firstName + " " + profile.lastName;
+    //   url = profile.profileImage;
+    // });
+    String email = await SharedPrefHelper().getWithDefault("email", null);
+    String token = await SharedPrefHelper().getWithDefault("token", null);
+
+    var res = await NetworkUtil().get("user/profile", token: token);
+    GetProfileResponse getProfileResponse = GetProfileResponse.fromJson(res);
+
+    if (getProfileResponse.status == 200) {
+
+
+      // select = getProfileResponse.data.data.userExist.profileImage != null
+      //     ? true
+      //     : false;
+      _controller.sink.add(getProfileResponse);
+// _controller.sink.addError(getProfileResponse.message);
+    }
+
+  }
+
+  Widget createDrawerHeader() {
+
+     return Container(
+        height: 200,
+        margin: EdgeInsets.zero,
+        padding: EdgeInsets.only(top: 10, bottom: 10),
+        decoration: BoxDecoration(color: AppColor.themeButtonColor),
+      child: StreamBuilder<GetProfileResponse>(
+           stream: _controller.stream,
+           builder: (context, snapshot) {
+             // if(!snapshot.hasData)
+
+            //    return Container(
+            //      width: MediaQuery.of(context).size.width,
+            //      height: MediaQuery.of(context).size.height,
+            //      alignment: Alignment.center,
+            //      child: CircularProgressIndicator(),
+            //    );
+            // else {
+             return Column(children: [
+               Container(
+                   height: 80,
+                   width: 80,
+                   decoration: new BoxDecoration(
+                     // borderRadius: BorderRadius.circular(1.0),
+                     shape: BoxShape.circle,
+                     // color: Colors.indigo,
+                     border: Border.all(width: 2, color: Colors.white),
+                   ),
+                   child: CircleAvatar(
+                       child: snapshot.data == null
+                           ? Container(
+                         height: 80,
+                         width: 80,
+                         decoration: new BoxDecoration(
+                           // borderRadius: BorderRadius.circular(1.0),
+                           shape: BoxShape.circle,
+                           color: Colors.indigo,
+                           border: Border.all(width: 2, color: Colors.white),
+                         ),
+                       )
+                           : Container(
+                           height: 80,
+                           width: 80,
+                           decoration: new BoxDecoration(
+                             // borderRadius: BorderRadius.circular(1.0),
+                             shape: BoxShape.circle,
+                             // border: Border.all(width: 2, color: Colors.white),
+                             // ),
+                             // child: Image.network(url, fit: BoxFit.fill),
+                             image: new DecorationImage(
+                               image: new NetworkImage(
+                                   snapshot.data.data.userExist.profileImage.toString()
+                               ),
+                               fit: BoxFit.cover,
+                             ),
+                           ))
+                   )),
+               Padding(
+                 padding: EdgeInsets.only(
+                   top: 10,
+                 ),
+               ),
+               Text(
+                 snapshot.data!= null?
+                 snapshot.data.data.userExist.firstName.toString() + " " +
+                     snapshot.data.data.userExist.lastName.toString(): " ",
+                 style: TextStyle(fontSize: 20, color: Colors.white),
+               ),
+               Padding(
+                 padding: EdgeInsets.only(
+                   top: 10,
+                 ),
+               ),
+               new SizedBox(
+                   height: 30,
+                   width: 120,
+                   child: RaisedButton(
+                     shape: RoundedRectangleBorder(
+                       side: BorderSide(color: Colors.white, width: 1),
+                       borderRadius: BorderRadius.circular(2.0),
+                     ),
+                     color: Colors.transparent,
+                     child: Text(
+                       "Edit Profile",
+                       style: TextStyle(color: Colors.white),
+                     ),
+                     onPressed: () =>
+                     {
+                       Navigator.push(
+                           context,
+                           MaterialPageRoute(
+                               builder: (context) => EditProfileScreen()))
+                     },
+                   )
+               )
+             ],
+             );
+             // )
+                 ;
+           }));
+
+  // })]);
+
+}}
