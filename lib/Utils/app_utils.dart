@@ -199,9 +199,9 @@ class CommonUtils {
       @required Color textColor}) {
     toast.Fluttertoast.showToast(
         msg: msg,
-        toastLength: toast.Toast.LENGTH_SHORT,
+        toastLength: toast.Toast.LENGTH_LONG,
         gravity: toast.ToastGravity.BOTTOM,
-        timeInSecForIos: 1,
+        timeInSecForIos: 5,
         backgroundColor: bgColor,
         textColor: textColor,
         fontSize: 15.0);
