@@ -71,7 +71,13 @@ class CommonUtils {
     var _date = DateTime.parse(date);
     return new DateFormat("d MMM y").format(_date);
   }
-
+  static String getPauseDate(String date) {
+    if (date == "null") {
+      return "";
+    }
+    var _date = DateTime.parse(date);
+    return new DateFormat("yyyy-MM-dd").format(_date);
+  }
   // ignore: missing_return
   static Future<bool> isNetworkAvailable() async {
     try {
@@ -199,9 +205,9 @@ class CommonUtils {
       @required Color textColor}) {
     toast.Fluttertoast.showToast(
         msg: msg,
-        toastLength: toast.Toast.LENGTH_LONG,
+        toastLength: toast.Toast.LENGTH_SHORT,
         gravity: toast.ToastGravity.BOTTOM,
-        timeInSecForIos: 5,
+        timeInSecForIos: 1,
         backgroundColor: bgColor,
         textColor: textColor,
         fontSize: 15.0);

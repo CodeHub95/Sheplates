@@ -353,9 +353,10 @@ class _MyHomePageState extends State<RegisterScreen> with FirebaseMethods {
     RegExp regExp = new RegExp(pattern);
     if (phone.isEmpty) {
       return false;
-    } /*else if (!regExp.hasMatch(phone)) {
+    }
+    else if (!regExp.hasMatch(phone)) {
       return false;
-    }*/
+    }
     return true;
   }
 

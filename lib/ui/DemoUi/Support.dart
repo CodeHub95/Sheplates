@@ -23,7 +23,7 @@ class _HomeScreenState extends State<SupportScreen> {
 
   final _formKey = GlobalKey<FormState>();
 
-  var type = ['Food Quality', 'Packaging', 'Value For Money', 'Delivery Experience' ];
+  var type = ['Food Quality', 'Packaging', 'Payment', 'Delivery', 'Food Quantity', 'App', 'other' ];
 
   @override
   Future<void> initState() {

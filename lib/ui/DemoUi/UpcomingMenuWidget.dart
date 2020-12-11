@@ -352,7 +352,7 @@ class _HomeScreenState extends State<UpcomingMenuWidget> {
                                             ),
                                             Padding(
                                                 padding: EdgeInsets.only(
-                                                    left: 100, top: 15),
+                                                    left: 120, top: 15),
                                                 child: Text(
                                                   DateFormat('EEEE')
                                                       .format(DateTime.now()),

@@ -223,22 +223,25 @@ class _HomeScreenState extends State<VegitarianLunch> {
                       )),
                       ScreenUtils.customButton(context, title: "Subscribe",
                           onCLick: () {
-                        if (widget.suscriber) {
-                          CommonUtils.showToast(
-                              msg:
+
+                            if (widget.suscriber) {
+                              CommonUtils.showToast(
+                                  msg:
                                   "You have already one subscription plan running!",
-                              bgColor: Colors.black,
-                              textColor: Colors.white);
-                        } else {
-                          mealName = widget.rows.mealName;
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    ConfirmSubscription(widget.rows)),
-                          );
-                        }
-                      }),
+                                  bgColor: Colors.black,
+                                  textColor: Colors.white);
+                            } else {
+                              mealName = widget.rows.mealName;
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        ConfirmSubscription(widget.rows)),
+                              );
+                            }
+
+                      }
+                      ),
                     ]))));
   }
 }

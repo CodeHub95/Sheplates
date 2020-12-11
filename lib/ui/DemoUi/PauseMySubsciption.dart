@@ -30,7 +30,7 @@ class _HomeScreenState extends State<PauseSubscription> {
   // bool pause = (status == "Active" ? false : true);
   StreamController<PauseScreenDataResponse> _streamController =
       StreamController.broadcast();
-
+  DateTime selectedDate = DateTime.now();
   @override
   Future<void> initState() {
     // TODO: implement initState
@@ -201,7 +201,7 @@ class _HomeScreenState extends State<PauseSubscription> {
                                  // onPressed: _showcontent,
                                  onPressed: pause
                                      ? ()
-                                 {
+                                 async {
                                    setState(() {
                                      // pause = !pause;
 
@@ -210,9 +210,16 @@ class _HomeScreenState extends State<PauseSubscription> {
                                      else
                                        pause = true;
                                    });
-                                   _showcontent();
+
+                                   // _selectDate(context);
+                                   // _showcontent();
+                                   selectedDate = await _selectDate(context);
+                                   // if(selectedDate!= null){
+                                     _showcontent();
+                                   // }
                                  }
                                      : () async {
+                                   selectedDate = await _selectDate(context);
                                    reactiveSubcription();
                                  }
                                  )
@@ -295,6 +302,8 @@ class _HomeScreenState extends State<PauseSubscription> {
     String token = await SharedPrefHelper().getWithDefault("token", "");
     PauseSubscriptionRequest request = PauseSubscriptionRequest(
       token: token,
+       pause_subscription_date: CommonUtils.getPauseDate(selectedDate.toIso8601String()),
+      orderId: oID.toInt(),
 
     );
     var res = await NetworkUtil()
@@ -321,10 +330,10 @@ class _HomeScreenState extends State<PauseSubscription> {
     CommonUtils.fullScreenProgress(context);
     String url = "user/reactive-subscription";
     String token = await SharedPrefHelper().getWithDefault("token", "");
-      // int order = oID;
-    ReactiveSubscriptionRequest request = ReactiveSubscriptionRequest(
-        orderId: oID
 
+    ReactiveSubscriptionRequest request = ReactiveSubscriptionRequest(
+        orderId: oID,
+        resume_subscription_date: CommonUtils.getPauseDate(selectedDate.toIso8601String())
         );
     var res = await NetworkUtil()
         .post(url: url, body: jsonEncode(request), token: token);
@@ -372,4 +381,16 @@ class _HomeScreenState extends State<PauseSubscription> {
     }
 
   }
+
+  Future<DateTime> _selectDate(BuildContext context, {DateTime startDate, DateTime initialDate}) async {
+    final DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: initialDate != null ? initialDate : DateTime.now(),
+        firstDate: startDate != null ? startDate : DateTime.now(),
+        lastDate: DateTime(2500));
+    if (picked != null && picked != selectedDate)
+
+      return picked;
+  }
+
 }

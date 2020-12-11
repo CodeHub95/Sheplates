@@ -285,6 +285,7 @@ class _MyHomePageState extends State<LoginScreen> {
         var res = await NetworkUtil().post(url: url, body: request);
         LoginResponse response = LoginResponse.fromJson(res);
         if (response.status == 200) {
+
           CommonUtils.dismissProgressDialog(context);
           await SharedPrefHelper().save("token", response.token);
           await SharedPrefHelper().save("isLogin", true);

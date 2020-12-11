@@ -84,6 +84,23 @@ class _CommonDrawerState extends State<CustomDrawer> {
           ),
           Divider(),
           ListTile(
+            leading:  Icon(
+              Icons.home,
+              color: Colors.black,
+              size: 30.0,
+            ),
+            title: Text("Home",
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey[600],
+                )),
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => HomeScreen()));
+            },
+          ),
+          Divider(),
+          ListTile(
             leading: Image.asset(
               "assets/pause_subsciription.png",
               height: 25,
@@ -207,26 +224,10 @@ class _CommonDrawerState extends State<CustomDrawer> {
                   color: Colors.grey[600],
                 )),
             onTap: () async {
-              String deviceId = await CommonUtils.getDeviceId();
-              String userData = await SharedPrefHelper()
-                  .getWithDefault(SharedPrefConstants.userData, jsonEncode({}));
-              Profile profile = Profile.fromJson(jsonDecode(userData));
-              String token =
-                  await SharedPrefHelper().getWithDefault("token", null);
-              LogoutRequest body = LogoutRequest(
-                  deviceId: deviceId, userId: profile.id.toString());
-              CommonUtils.fullScreenProgress(context);
-              BaseResponse response = await RestApiCalls().logout(body, token);
-              if (response.status == 200) {
-                CommonUtils.dismissProgressDialog(context);
-                SharedPrefHelper().clear();
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (buildContext) => LoginRegisterScreen()));
-              } else {
-                CommonUtils.dismissProgressDialog(context);
-              }
+              _showcontent();
+
+
+
             },
           ),
         ],
@@ -366,4 +367,91 @@ class _CommonDrawerState extends State<CustomDrawer> {
 
   // })]);
 
-}}
+}
+  void _showcontent() {
+    showDialog(
+      context: context, barrierDismissible: false, // user must tap button!
+
+      builder: (BuildContext context) {
+        return new AlertDialog(
+          contentPadding: EdgeInsets.all(0.0),
+          content: new SingleChildScrollView(
+              child: Container(
+                height: 170,
+                child: new Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      //change here don't //worked
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        IconButton(
+                            icon: Icon(
+                              Icons.close,
+                              size: 20.0,
+                              color: Colors.black,
+                            ),
+                            onPressed: () => Navigator.pop(context)),
+                      ],
+                    ),
+                    Text(
+                      'Do You want to Logout',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                    Padding(
+                        padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
+                        child: Container(
+                            padding: EdgeInsets.fromLTRB(20, 5, 20, 0),
+                            height: 40,
+                            width: 150,
+                            child: RaisedButton(
+                                color: HexColor("#FF5657"),
+                                textColor: Colors.white,
+                                child: Text(
+                                  'Yes',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                onPressed: () {
+                                  submit();
+                                  // setState(() {
+                                  //   pause= !pause;
+                                  // });
+                                }))),
+                  ],
+                ),
+              )),
+        );
+      },
+    );
+  }
+
+  Future<void> submit() async {
+    String deviceId = await CommonUtils.getDeviceId();
+    String userData = await SharedPrefHelper()
+        .getWithDefault(SharedPrefConstants.userData, jsonEncode({}));
+    Profile profile = Profile.fromJson(jsonDecode(userData));
+    String token =
+        await SharedPrefHelper().getWithDefault("token", null);
+    LogoutRequest body = LogoutRequest(
+        deviceId: deviceId, userId: profile.id.toString());
+    CommonUtils.fullScreenProgress(context);
+    BaseResponse response = await RestApiCalls().logout(body, token);
+    if (response.status == 200) {
+      CommonUtils.dismissProgressDialog(context);
+      SharedPrefHelper().clear();
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (buildContext) => LoginRegisterScreen()));
+    } else {
+      CommonUtils.dismissProgressDialog(context);
+    }
+
+
+
+  }
+}
