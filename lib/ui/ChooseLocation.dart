@@ -7,7 +7,6 @@ import 'package:flutter_sheplates/Utils/app_utils.dart';
 import 'package:flutter_sheplates/auth/Auth.dart';
 import 'dart:async';
 import 'dart:io';
-
 import 'package:flutter/painting.dart';
 import 'package:flutter_sheplates/auth/RestApiCalls.dart';
 import 'package:flutter_sheplates/modals/request/AddDeliveryAddressRequest.dart';
@@ -22,9 +21,13 @@ import 'package:google_geocoding/google_geocoding.dart' as geo;
 class ChooseLocation extends StatefulWidget {
   final String type;
   final int is_delivery;
-  const ChooseLocation({Key key, this.type, this.is_delivery}) : super(key: key);
+
+  const ChooseLocation({Key key, this.type, this.is_delivery})
+      : super(key: key);
+
   @override
-  _ConfirmLocationScreenState createState() => _ConfirmLocationScreenState(this.type, this.is_delivery);
+  _ConfirmLocationScreenState createState() =>
+      _ConfirmLocationScreenState(this.type, this.is_delivery);
 }
 
 class _ConfirmLocationScreenState extends State<ChooseLocation> {
@@ -139,7 +142,6 @@ class _ConfirmLocationScreenState extends State<ChooseLocation> {
                               cameraPosition.target.latitude,
                               cameraPosition.target.longitude));
 
-                      // print("Length " + result.results.length.toString());
                       print(result.status);
 
                       if (result.results.length != 0) {
@@ -445,7 +447,7 @@ class _ConfirmLocationScreenState extends State<ChooseLocation> {
         }).then((value) async {
       if (value != null) {
         AddDeliveryAddressRequest request = value as AddDeliveryAddressRequest;
-          request.is_delivery_address = is_delivery;
+        request.is_delivery_address = is_delivery;
         RestApiCalls apiCalls = RestApiCalls();
 
         String token = await SharedPrefHelper().getWithDefault("token", "");
@@ -460,10 +462,7 @@ class _ConfirmLocationScreenState extends State<ChooseLocation> {
                 textColor: Colors.white);
             Navigator.of(context)
                 .pushReplacement(MaterialPageRoute(builder: (buildContext) {
-              return LocationCheckScreen(
-                address: address,
-                 type: widget.type
-              );
+              return LocationCheckScreen(address: address, type: widget.type);
             }));
           } else {
             CommonUtils.errorMessage(msg: value.message);

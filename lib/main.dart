@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sheplates/Utils/Routes.dart';
-import 'package:flutter_sheplates/ui/ChooseLocation.dart';
-import 'package:flutter_sheplates/ui/DeliveryStaticScreen.dart';
-import 'package:flutter_sheplates/ui/DemoUi/Feedback.dart';
-
 
 void main() {
   runApp(MyApp());

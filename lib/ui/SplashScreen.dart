@@ -1,16 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_sheplates/Utils/NetworkUtils.dart';
 import 'package:flutter_sheplates/Utils/app_constants.dart';
 import 'package:flutter_sheplates/Utils/app_defaults.dart';
-import 'package:flutter_sheplates/Utils/app_utils.dart';
-import 'package:flutter_sheplates/Utils/hexColor.dart';
 import 'package:flutter_sheplates/auth/Auth.dart';
-import 'package:flutter_sheplates/modals/request/PauseSubscriptionRequest.dart';
-import 'package:flutter_sheplates/modals/response/BaseResponse.dart';
 import 'package:flutter_sheplates/modals/response/loginresponse.dart';
-import 'package:flutter_sheplates/ui/DemoUi/HomeScreen.dart';
+import 'package:flutter_sheplates/ui/HomeScreen.dart';
+
 
 import 'package:flutter_sheplates/ui/LoginRegisterScreen.dart';
 

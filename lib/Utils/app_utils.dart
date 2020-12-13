@@ -71,6 +71,7 @@ class CommonUtils {
     var _date = DateTime.parse(date);
     return new DateFormat("d MMM y").format(_date);
   }
+
   static String getPauseDate(String date) {
     if (date == "null") {
       return "";
@@ -78,6 +79,7 @@ class CommonUtils {
     var _date = DateTime.parse(date);
     return new DateFormat("yyyy-MM-dd").format(_date);
   }
+
   // ignore: missing_return
   static Future<bool> isNetworkAvailable() async {
     try {

@@ -1,16 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_sheplates/Utils/ScreenUtils.dart';
-import 'package:flutter_sheplates/Utils/app_utils.dart';
 import 'package:flutter_sheplates/auth/Auth.dart';
-// import 'package:flutter_sheplates/ui/CommonDrawer.dart';
 
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-
-
-import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -85,10 +79,6 @@ class _ConfirmLocationScreenState extends State<EditLocation> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        // appBar: ScreenUtils.appBar(context, title: "Confirm Location",
-        //     onTapBack: () {
-        //       CommonUtils.dismissProgressDialog(context);
-        //     }),
         appBar: AppBar(
           backgroundColor: Colors.white,
 
@@ -105,10 +95,6 @@ class _ConfirmLocationScreenState extends State<EditLocation> {
               icon: new Icon(Icons.close, color: Colors.black,),
               onPressed: () => null,
             ),
-            // IconButton(icon: Icon(Icons.menu,size: 30.0,
-            //   color: Colors.black,), onPressed: () => {
-            //  CommonDrawer()
-            // }
           ),
 
           bottom: PreferredSize(
@@ -160,10 +146,7 @@ class _ConfirmLocationScreenState extends State<EditLocation> {
                     },
                   );
                 }),
-            // Positioned(
-            //   left: 5,
-            //   right: 5,
-            //   child:
+
               Container(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
@@ -175,8 +158,6 @@ class _ConfirmLocationScreenState extends State<EditLocation> {
                     borderRadius: BorderRadius.all(Radius.circular(5))
                 ),
 
-                  // shadowColor: Colors.grey,
-                  // elevation: 3,
                   child: Container(
                     alignment: Alignment.center,
                     padding: EdgeInsets.only(left: 10,),

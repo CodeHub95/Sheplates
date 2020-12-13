@@ -66,7 +66,6 @@ class ScreenUtils {
     );
   }
 
-
   static Widget customButton(BuildContext context,
       {@required String title, @required Function onCLick}) {
     return Container(
@@ -90,5 +89,4 @@ class ScreenUtils {
               onCLick();
             }));
   }
-
 }

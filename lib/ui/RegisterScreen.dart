@@ -83,18 +83,15 @@ class _MyHomePageState extends State<RegisterScreen> with FirebaseMethods {
                                 height: 180,
                                 width: 180,
                                 alignment: Alignment.bottomLeft,
-                                // width: MediaQuery.of(context).size.width,
                                 child: Image.asset(
                                   "assets/img1.png",
                                   fit: BoxFit.fill,
-                                  // color: Colors.transparent,
                                 ),
                               )),
                           Container(
                             height: 150,
                             width: 150,
                             alignment: Alignment.topRight,
-                            // width: MediaQuery.of(context).size.width,
                             child: Image.asset(
                               "assets/img2.png",
                               fit: BoxFit.fill,
@@ -149,10 +146,7 @@ class _MyHomePageState extends State<RegisterScreen> with FirebaseMethods {
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 16.0)),
-                        ])
-                            // 'I agree.',
-                            // style: TextStyle(fontSize: 14.0),
-                            ),
+                        ])),
                       ),
                     ),
                   ),
@@ -234,10 +228,7 @@ class _MyHomePageState extends State<RegisterScreen> with FirebaseMethods {
                                       text: "TERMS & CONDITIONS",
                                       style: TextStyle(
                                           color: Colors.black, fontSize: 16.0)),
-                                ])
-                                    // 'I agree.',
-                                    // style: TextStyle(fontSize: 14.0),
-                                    ),
+                                ])),
                                 controlAffinity:
                                     ListTileControlAffinity.leading,
                                 activeColor: Colors.green,
@@ -255,13 +246,11 @@ class _MyHomePageState extends State<RegisterScreen> with FirebaseMethods {
                             child: RaisedButton(
                               color: AppColor.themeButtonColor,
                               textColor: Colors.white,
-                              // color: HexColor("#10acff"),
                               child: Text(
                                 ('CONTINUE'),
                                 style: TextStyle(
                                     fontSize: 19, fontWeight: FontWeight.w700),
                               ),
-
                               onPressed: () => submit(),
                             )),
                         Padding(
@@ -353,8 +342,7 @@ class _MyHomePageState extends State<RegisterScreen> with FirebaseMethods {
     RegExp regExp = new RegExp(pattern);
     if (phone.isEmpty) {
       return false;
-    }
-    else if (!regExp.hasMatch(phone)) {
+    } else if (!regExp.hasMatch(phone)) {
       return false;
     }
     return true;

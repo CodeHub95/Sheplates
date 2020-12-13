@@ -67,10 +67,10 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child:Container(
+        child: Container(
       alignment: Alignment.topCenter,
       color: Colors.white,
-      height: MediaQuery.of(context).size.height /1.8,
+      height: MediaQuery.of(context).size.height / 1.8,
       padding: EdgeInsets.only(
         left: 10,
       ),

@@ -104,7 +104,7 @@ class _RangePickerPageState extends State<RangePickerPage> {
               bottomLeft: Radius.circular(24.0)),
         ),
         selectedPeriodMiddleDecoration:
-        BoxDecoration(color: Colors.red[300], shape: BoxShape.rectangle),
+            BoxDecoration(color: Colors.red[300], shape: BoxShape.rectangle),
         nextIcon: const Icon(Icons.arrow_right),
         prevIcon: const Icon(Icons.arrow_left),
         dayHeaderStyleBuilder: _dayHeaderStyleBuilder);
@@ -129,7 +129,7 @@ class _RangePickerPageState extends State<RangePickerPage> {
                   } else {
                     CommonUtils.showToast(
                         msg:
-                        "Please select different dates, No dates available for delivery for selected dates",
+                            "Please select different dates, No dates available for delivery for selected dates",
                         bgColor: Colors.black,
                         textColor: Colors.white);
                   }
@@ -159,7 +159,7 @@ class _RangePickerPageState extends State<RangePickerPage> {
                       datePickerLayoutSettings: DatePickerLayoutSettings(
                           contentPadding: EdgeInsets.zero,
                           monthPickerPortraitWidth:
-                          MediaQuery.of(context).size.width),
+                              MediaQuery.of(context).size.width),
                       eventDecorationBuilder: _eventDecorationBuilder,
                       selectableDayPredicate: _isSelectableCustom,
                       onSelectionError: _onSelectionError,
@@ -190,11 +190,11 @@ class _RangePickerPageState extends State<RangePickerPage> {
   // Block with show information about selected date
   // and boundaries of the selected period.
   Widget _selectedBlock() => Expanded(
-    child: ListView(
-      shrinkWrap: true,
-      children: getItems(),
-    ),
-  );
+        child: ListView(
+          shrinkWrap: true,
+          children: getItems(),
+        ),
+      );
 
   void _onSelectedDateChanged(DatePeriod newPeriod) {
     if (selectionType != RangeSelectionType.Custom) {
@@ -206,7 +206,7 @@ class _RangePickerPageState extends State<RangePickerPage> {
             newPeriod.start,
             newPeriod.start.add(Duration(
                 days: (byDefaultSelectedDays -
-                    (selectionType == RangeSelectionType.Weekly ? 1 : 0)) +
+                        (selectionType == RangeSelectionType.Weekly ? 1 : 0)) +
                     numberOfSundays)));
       });
     } else {
@@ -249,10 +249,10 @@ class _RangePickerPageState extends State<RangePickerPage> {
     List<DateTime> list = List();
     while (currentDay.isBefore(endDate.add(Duration(days: 1)))) {
       if (listOfHolidays
-          .where((element) =>
-          sameDate(currentDay, DateTime.parse(element.date)))
-          .toList()
-          .length ==
+              .where((element) =>
+                  sameDate(currentDay, DateTime.parse(element.date)))
+              .toList()
+              .length ==
           0) {
         list.add(currentDay);
       }
@@ -280,12 +280,12 @@ class _RangePickerPageState extends State<RangePickerPage> {
 
   EventDecoration _eventDecorationBuilder(DateTime date) {
     List<DateTime> eventsDates =
-    widget.events?.map<DateTime>((Event e) => e.date)?.toList();
+        widget.events?.map<DateTime>((Event e) => e.date)?.toList();
 
     bool isEventDate = eventsDates?.any((DateTime d) =>
-    date.year == d.year &&
-        date.month == d.month &&
-        d.day == date.day) ??
+            date.year == d.year &&
+            date.month == d.month &&
+            d.day == date.day) ??
         false;
 
     BoxDecoration roundedBorder = BoxDecoration(
@@ -363,13 +363,13 @@ class _RangePickerPageState extends State<RangePickerPage> {
             trailing: IconButton(
               icon: delivered(currentDay)
                   ? Icon(
-                Icons.check,
-                color: Colors.green,
-              )
+                      Icons.check,
+                      color: Colors.green,
+                    )
                   : Icon(
-                Icons.close,
-                color: Colors.white,
-              ),
+                      Icons.close,
+                      color: Colors.white,
+                    ),
               onPressed: () {},
             ),
           ),
@@ -388,10 +388,10 @@ class _RangePickerPageState extends State<RangePickerPage> {
 
   delivered(DateTime currentDay) {
     return listOfHolidays
-        .where(
-            (element) => sameDate(currentDay, DateTime.parse(element.date)))
-        .toList()
-        .length ==
+            .where(
+                (element) => sameDate(currentDay, DateTime.parse(element.date)))
+            .toList()
+            .length ==
         0;
   }
 

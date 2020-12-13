@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sheplates/ui/ChooseLocation.dart';
 import 'package:flutter_sheplates/ui/DeliveryStaticScreen.dart';
-import 'package:flutter_sheplates/ui/DemoUi/HomeScreen.dart';
-import 'package:flutter_sheplates/ui/DemoUi/PauseMySubsciption.dart';
-import 'package:flutter_sheplates/ui/DemoUi/PaymentScreen.dart';
-import 'package:flutter_sheplates/ui/DemoUi/ProceedToPayment.dart';
+import 'package:flutter_sheplates/ui/HomeScreen.dart';
 
 import 'package:flutter_sheplates/ui/LoginScreen.dart';
 import 'package:flutter_sheplates/ui/OtpVerificationScreen.dart';
-import 'package:flutter_sheplates/ui/RegisterDetails.dart';
+import 'package:flutter_sheplates/ui/PaymentScreen.dart';
+import 'package:flutter_sheplates/ui/ProceedToPayment.dart';
 import 'package:flutter_sheplates/ui/RegisterScreen.dart';
 import 'package:flutter_sheplates/ui/SplashScreen.dart';
 import 'package:flutter_sheplates/ui/custom/date_range_picker.dart';
@@ -27,6 +25,7 @@ class Routes {
   static const String proceedToPayment = "/ProceedToPayment";
   static const String paymentscreen = "/PaymentScreen";
   static const String pauseSubscription = "/PauseSubscription";
+
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final Map map = settings.arguments;
     switch (settings.name) {
@@ -49,18 +48,16 @@ class Routes {
       case proceedToPayment:
         return MaterialPageRoute(
             builder: (context) => ProceedToPayment(orders: map['order']));
-      // case pauseSubscription:
-      //   return MaterialPageRoute(
-      //       builder: (context) => PauseSubscription(arguments: {"isFromLogin": true}));
+
       case deliveryStaticScreen:
         return MaterialPageRoute(builder: (context) => DeliveryStaticScreen());
 
       case homeScreen:
         return MaterialPageRoute(builder: (context) => HomeScreen());
 
-
       case paymentscreen:
-        return MaterialPageRoute(builder: (context) => PaymentScreen(orders: map['order']));
+        return MaterialPageRoute(
+            builder: (context) => PaymentScreen(orders: map['order']));
 
       case otpVerificationScreen:
         return MaterialPageRoute(

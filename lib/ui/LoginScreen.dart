@@ -13,10 +13,8 @@ import 'package:flutter_sheplates/Utils/hexColor.dart';
 import 'package:flutter_sheplates/auth/Auth.dart';
 import 'package:flutter_sheplates/modals/request/loginrequest.dart';
 import 'package:flutter_sheplates/modals/response/loginresponse.dart';
-import 'package:flutter_sheplates/ui/ForgotPasswordScreen.dart';
-import 'package:flutter_sheplates/ui/DemoUi/HomeScreen.dart';
+import 'package:flutter_sheplates/ui/HomeScreen.dart';
 import 'package:flutter_sheplates/ui/RegisterScreen.dart';
-import 'package:intl_phone_field/countries.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -40,7 +38,6 @@ class _MyHomePageState extends State<LoginScreen> {
     return SafeArea(
       top: true,
       child: Scaffold(
-          // backgroundColor: Colors.white,
           body: SingleChildScrollView(
         child: Container(
             decoration: BoxDecoration(
@@ -66,15 +63,6 @@ class _MyHomePageState extends State<LoginScreen> {
                               // color: Colors.transparent,
                             ),
                           )),
-                      // Container(
-                      //   alignment: Alignment.centerRight,
-                      //   // width: MediaQuery.of(context).size.width,
-                      //   child: Image.asset(
-                      //     "assets/logo.png",
-                      //     fit: BoxFit.fill,
-                      //     // color: Colors.transparent,
-                      //   ),
-                      // ),
                     ],
                   ),
                   Container(
@@ -87,7 +75,6 @@ class _MyHomePageState extends State<LoginScreen> {
                           textAlign: TextAlign.left,
                           style: TextStyle(
                             fontSize: 25,
-                            // color: HexColor("#122345"),
                             fontWeight: FontWeight.w700,
                           ),
                         ),
@@ -119,10 +106,7 @@ class _MyHomePageState extends State<LoginScreen> {
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16.0)),
-                      ])
-                          // 'I agree.',
-                          // style: TextStyle(fontSize: 14.0),
-                          ),
+                      ])),
                     ),
                   ),
                   Padding(
@@ -136,7 +120,6 @@ class _MyHomePageState extends State<LoginScreen> {
                         Container(
                           padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
                           child: TextFormField(
-//            controller: nameController,
                             keyboardType: TextInputType.phone,
                             decoration: InputDecoration(
                               prefixIcon: CountryCodePicker(
@@ -175,16 +158,11 @@ class _MyHomePageState extends State<LoginScreen> {
                           child: TextFormField(
                             controller: passwordController,
                             obscureText: true,
-//            controller: passwordController,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
                               labelText: ('Password'),
                             ),
                             validator: (val) {
-//                            if (userPasswordController.text.length < 4) {
-//                              return CommonStrings.validPassword;
-//                            }
-//                            else
                               if (val.isEmpty) {
                                 return ('Required Password');
                               } else if (val.length < 5) {
@@ -285,7 +263,6 @@ class _MyHomePageState extends State<LoginScreen> {
         var res = await NetworkUtil().post(url: url, body: request);
         LoginResponse response = LoginResponse.fromJson(res);
         if (response.status == 200) {
-
           CommonUtils.dismissProgressDialog(context);
           await SharedPrefHelper().save("token", response.token);
           await SharedPrefHelper().save("isLogin", true);

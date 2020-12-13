@@ -13,7 +13,6 @@ import 'package:flutter_sheplates/Utils/hexColor.dart';
 import 'package:flutter_sheplates/auth/Auth.dart';
 import 'package:flutter_sheplates/modals/request/registrationrequest.dart';
 import 'package:flutter_sheplates/modals/response/loginresponse.dart';
-import 'package:flutter_sheplates/ui/DeliveryStaticScreen.dart';
 
 class RegisterDetailScreen extends StatefulWidget {
   RegisterDetailScreen(this.phoneNumber);
@@ -53,7 +52,6 @@ class _MyHomePageState extends State<RegisterDetailScreen> {
     return SafeArea(
       top: true,
       child: Scaffold(
-          // backgroundColor: Colors.white,
           body: SingleChildScrollView(
         child: Container(
             decoration: BoxDecoration(
@@ -74,7 +72,6 @@ class _MyHomePageState extends State<RegisterDetailScreen> {
                           textAlign: TextAlign.left,
                           style: TextStyle(
                             fontSize: 25,
-                            // color: HexColor("#122345"),
                             fontWeight: FontWeight.w700,
                           ),
                         ),
@@ -221,7 +218,6 @@ class _MyHomePageState extends State<RegisterDetailScreen> {
                             width: 500,
                             child: RaisedButton(
                               textColor: Colors.white,
-                              // color: Colors.orange,
                               color: HexColor("#FF5657"),
                               child: Text(
                                 'NEXT',

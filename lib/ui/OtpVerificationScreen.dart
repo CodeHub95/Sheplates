@@ -52,10 +52,7 @@ class _MyHomePageState extends State<OtpVerificationScreen>
   @override
   void initState() {
     super.initState();
-    onTapRecognizer = TapGestureRecognizer()
-      ..onTap = () {
-//        Navigator.pop(context);
-      };
+    onTapRecognizer = TapGestureRecognizer()..onTap = () {};
     @override
     void dispose() {
       errorController.close();
@@ -86,7 +83,6 @@ class _MyHomePageState extends State<OtpVerificationScreen>
     return SafeArea(
       top: true,
       child: Scaffold(
-          // backgroundColor: Colors.white,
           body: SingleChildScrollView(
         child: Container(
             decoration: BoxDecoration(
@@ -106,11 +102,9 @@ class _MyHomePageState extends State<OtpVerificationScreen>
                             height: 180,
                             width: 150,
                             alignment: Alignment.bottomLeft,
-                            // width: MediaQuery.of(context).size.width,
                             child: Image.asset(
                               "assets/img1.png",
                               fit: BoxFit.fill,
-                              // color: Colors.transparent,
                             ),
                           )),
                       Padding(
@@ -119,7 +113,6 @@ class _MyHomePageState extends State<OtpVerificationScreen>
                             height: 100,
                             width: 80,
                             alignment: Alignment.center,
-                            // width: MediaQuery.of(context).size.width,
                             child: Image.asset(
                               "assets/otp_verification.png",
                               fit: BoxFit.fill,
@@ -149,7 +142,6 @@ class _MyHomePageState extends State<OtpVerificationScreen>
                           textAlign: TextAlign.left,
                           style: TextStyle(
                             fontSize: 25,
-                            // color: HexColor("#122345"),
                             fontWeight: FontWeight.w700,
                           ),
                         ),
@@ -165,10 +157,7 @@ class _MyHomePageState extends State<OtpVerificationScreen>
                             text: "Number",
                             style:
                                 TextStyle(color: Colors.grey, fontSize: 14.0)),
-                      ])
-                          // 'I agree.',
-                          // style: TextStyle(fontSize: 14.0),
-                          ),
+                      ])),
                     ),
                   ),
                   Padding(
@@ -205,8 +194,6 @@ class _MyHomePageState extends State<OtpVerificationScreen>
                                   activeFillColor: Colors.deepOrange),
 
                               animationDuration: Duration(milliseconds: 300),
-
-                              // enableActiveFill: false,
 
                               errorAnimationController: errorController,
                               controller: textEditingController,
@@ -255,11 +242,10 @@ class _MyHomePageState extends State<OtpVerificationScreen>
                                       presenter.doPhoneAuth(widget.phoneNumber,
                                           forceResendingToken:
                                               widget.forceResendingToken);
-                                          CommonUtils.showToast(
-                                              msg: "Successfully RESEND",
-                                              bgColor: Colors.red,
-                                              textColor: Colors.white);
-
+                                      CommonUtils.showToast(
+                                          msg: "Successfully RESEND",
+                                          bgColor: Colors.red,
+                                          textColor: Colors.white);
                                     },
                                     child: Text(
                                       "RESEND",
@@ -358,10 +344,6 @@ class _MyHomePageState extends State<OtpVerificationScreen>
 
   @override
   void onCodeAutoRetrievalTimeout(String verificationId) {
-    /*CommonUtils.showToast(
-        msg: "Otp expires",
-        textColor: Colors.white,
-        bgColor: AppColor.darkThemeBlueColor);*/
     print("@Code Auto " + verificationId);
   }
 

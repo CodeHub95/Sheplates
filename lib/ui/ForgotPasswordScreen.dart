@@ -10,7 +10,6 @@ import 'package:flutter_sheplates/Utils/hexColor.dart';
 import 'package:flutter_sheplates/modals/request/registrationrequest.dart';
 import 'package:flutter_sheplates/modals/response/BaseResponse.dart';
 import 'package:flutter_sheplates/ui/LoginRegisterScreen.dart';
-import 'package:flutter_sheplates/ui/LoginScreen.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   final String phoneNumber;
@@ -67,7 +66,6 @@ class _MyHomePageState extends State<ForgotPasswordScreen> {
                           textAlign: TextAlign.left,
                           style: TextStyle(
                             fontSize: 25,
-                            // color: HexColor("#122345"),
                             fontWeight: FontWeight.w700,
                           ),
                         ),
@@ -89,7 +87,6 @@ class _MyHomePageState extends State<ForgotPasswordScreen> {
                               children: [
                                 TextFormField(
                                   keyboardType: TextInputType.phone,
-                                  // validator: validateMobile,
                                   controller: phoneController,
                                   readOnly: true,
                                   decoration: InputDecoration(
@@ -102,7 +99,6 @@ class _MyHomePageState extends State<ForgotPasswordScreen> {
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(10))),
                                   ),
-
                                   validator: (val) {
                                     if (val.length < 13)
                                       return ('Please enter a valid Mobile Number Eg.+917070707070');
@@ -111,13 +107,11 @@ class _MyHomePageState extends State<ForgotPasswordScreen> {
                                     }
                                   },
                                 ),
-
                                 Padding(
                                   padding: EdgeInsets.only(
                                     top: 20,
                                   ),
                                 ),
-
                                 TextFormField(
                                   controller: passwordController,
                                   obscureText: true,
@@ -131,33 +125,21 @@ class _MyHomePageState extends State<ForgotPasswordScreen> {
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(10))),
                                   ),
-                                  // validator: (val) {
-                                  //   if (val.isEmpty) {
-                                  //     return ('Required Password');
-                                  //   } else if (val.length < 5) {
-                                  //     return ('Password must have 5 or more characters');
-                                  //   }
-                                  //   return null;
-                                  // },
                                   validator: (val) {
                                     if (val.isEmpty) {
                                       return ('Required Password');
-                                    } else if (val.length < 5 ) {
+                                    } else if (val.length < 5) {
                                       return ('Password must have 5 or more characters');
-                                    }else if(
-                                    !val.contains(RegExp(r'\W')) && RegExp(r'\d+\w*\d+').hasMatch(val)
-                                    ){
+                                    } else if (!val.contains(RegExp(r'\W')) &&
+                                        RegExp(r'\d+\w*\d+').hasMatch(val)) {
                                       return ('Invalid Password');
-                                    }else if(val.contains(RegExp(r"^|\-|\,|\ "))){
+                                    } else if (val
+                                        .contains(RegExp(r"^|\-|\,|\ "))) {
                                       return ('Invalid Password');
                                     }
                                     return null;
                                   },
                                 ),
-                                // ),
-
-//                      Padding( padding: EdgeInsets.only(top: 20),),
-
                                 Padding(
                                   padding: EdgeInsets.only(
                                     top: 40,
@@ -170,13 +152,11 @@ class _MyHomePageState extends State<ForgotPasswordScreen> {
                                     width: 500,
                                     child: RaisedButton(
                                       textColor: Colors.white,
-                                      // color: Colors.red,
                                       color: HexColor("#FF5657"),
                                       child: Text(
                                         'CHANGE PASSWORD',
                                         style: TextStyle(
                                           fontSize: 20,
-                                          // fontWeight: FontWeight.w700,
                                         ),
                                       ),
                                       onPressed: () {

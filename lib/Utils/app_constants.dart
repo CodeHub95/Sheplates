@@ -2,7 +2,7 @@ class SharedPrefConstants {
   static const String token = "token";
   static const String isLoggedIn = "is_logged_in";
   static const String userData = "user_data";
-  static const String mealName ="mealName";
+  static const String mealName = "mealName";
 }
 
 class AppConstants {
