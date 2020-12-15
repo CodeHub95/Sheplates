@@ -56,5 +56,17 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSCameraUsageDescription</key>
+    <string>Can I use the camera please?</string>
+   	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+   	<string>Get User Current location</string>
+   	<key>NSLocationAlwaysUsageDescription</key>
+   	<string>Get User Current location</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>Reason why app needs location</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Can I use the mic please?</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Can I use the photo lib please?</string>
 </dict>
 </plist>
