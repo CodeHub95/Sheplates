@@ -88,11 +88,12 @@ class _HomeScreenState extends State<UpcomingMenuWidget> {
                                   padding: EdgeInsets.only(
                                     right: 10,
                                     left: 10,
+                                     top:10
                                   ),
                                   child: Container(
                                       height:
                                           MediaQuery.of(context).size.height /
-                                              1.1,
+                                              1.2,
                                       decoration: BoxDecoration(
                                           image: DecorationImage(
                                               fit: BoxFit.fill,
@@ -319,7 +320,7 @@ class _HomeScreenState extends State<UpcomingMenuWidget> {
                                         )),
                                   ]),
                               Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Padding(
@@ -327,55 +328,76 @@ class _HomeScreenState extends State<UpcomingMenuWidget> {
                                       child: Container(
                                         height:
                                             MediaQuery.of(context).size.height /
-                                                1.2,
+                                                1.3,
                                       )),
-                                  Padding(
-                                      padding: EdgeInsets.only(left: 30),
-                                      child: Container(
-                                        height: 90,
-                                        child: Stack(
-                                          children: [
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                  image: DecorationImage(
-                                                      fit: BoxFit.fill,
-                                                      image: AssetImage(
-                                                          "assets/chef_btn.png"))),
-                                              height: 90,
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  1.3,
-                                            ),
-                                            Padding(
-                                                padding: EdgeInsets.only(
-                                                    left: 120, top: 15),
-                                                child: Text(
-                                                  DateFormat('EEEE')
-                                                      .format(DateTime.now()),
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.w700,
-                                                    fontSize: 20,
-                                                  ),
-                                                )),
-                                            Padding(
-                                                padding: EdgeInsets.fromLTRB(
-                                                    30, 40, 30, 0),
-                                                child: FlatButton(
-                                                    textColor: Colors.white,
-                                                    child: Text(
-                                                      'Change Chef Request',
-                                                      style: TextStyle(
-                                                        fontSize: 20,
-                                                      ),
+                                  // Padding(
+                                  //   // alignment: Alignment.center,
+                                  //     padding: EdgeInsets.only(left: 100),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                    Container(
+                                      alignment: Alignment.center,
+                                      height: 80,
+                                      child: Stack(
+                                        children: [
+                                          Container(
+                                            decoration: BoxDecoration(
+                                                image: DecorationImage(
+                                                    fit: BoxFit.fill,
+                                                    image: AssetImage(
+                                                        "assets/chef_btn.png"))),
+                                            height: 50,
+                                            width: 160,
+                                          ),
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Padding(
+                                                  padding: EdgeInsets.fromLTRB(
+                                                      40, 10, 0, 20),
+                                            child:  Container(
+                                                height: 50,
+                                                     // alignment: Alignment.center,
+                                                // padding: EdgeInsets.only(
+                                                //     left: 120, top: 15),
+                                                //   color: Colors.blueAccent,
+                                                  child: Text(
+                                                    DateFormat('EEEE')
+                                                        .format(DateTime.now()),
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight: FontWeight.w700,
+                                                      fontSize: 20,
                                                     ),
-                                                    onPressed: () {
-                                                      submit();
-                                                    }))
-                                          ],
-                                        ),
-                                      )),
+                                                  ))),
+                                            ],)
+
+
+                                        ],
+                                      ),
+                                      // )
+                                    ),
+                                  ],),
+                                  //     child:
+                                  Padding(
+                                      padding: EdgeInsets.fromLTRB(
+                                          30, 0, 30, 0),
+                                      child: FlatButton(
+                                          color: HexColor("#FF5657"),
+                                          textColor: Colors.white,
+                                          child: Text(
+                                            'Change Chef Request',
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                            ),
+                                          ),
+                                          onPressed: () {
+                                            submit();
+                                          })
+                                  )
                                 ],
                               ),
                             ]),

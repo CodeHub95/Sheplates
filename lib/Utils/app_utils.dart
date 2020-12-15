@@ -43,6 +43,12 @@ class CommonUtils {
     }
     return "";
   }
+  static DateTime getDateTime(String date) {
+    if (date == "null") {
+      return DateTime.now();
+    }
+    return DateFormat("dd MMMM yyyy").parse(date);
+  }
 
   static String getSimpleDateForApi(DateTime dateTime) {
     if (dateTime != null) {

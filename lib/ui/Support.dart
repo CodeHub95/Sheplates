@@ -29,7 +29,7 @@ class _HomeScreenState extends State<SupportScreen> {
     'Delivery',
     'Food Quantity',
     'App',
-    'other'
+    'Other'
   ];
 
   @override
@@ -115,7 +115,7 @@ class _HomeScreenState extends State<SupportScreen> {
                       },
                       validator: (val) {
                         if (val.isEmpty) {
-                          return ("Please Select Quantity");
+                          return ("Please Select Type");
                         } else {
                           return null;
                         }

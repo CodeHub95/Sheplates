@@ -137,7 +137,10 @@ class _LocationCheckScreenState extends State<LocationCheckScreen> {
                                                     jsonEncode({
                                                       'type': snapshot
                                                           .data.statusCode,
-                                                      'category': 'Location'
+                                                      'category': 'Location',
+                                                      'address': widget.address.addressLine
+
+
                                                     }),
                                                     token)
                                                 .then((value) {

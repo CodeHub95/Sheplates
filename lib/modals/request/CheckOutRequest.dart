@@ -1,10 +1,11 @@
 class CheckOutRequest {
     String duration;
-    String end_date;
-    String meal_plan_id;
+
     String preferred_delivery_time;
     String quantity;
     String start_date;
+    String end_date;
+    String meal_plan_id;
 
     CheckOutRequest({this.duration, this.end_date, this.meal_plan_id, this.preferred_delivery_time, this.quantity, this.start_date});
 

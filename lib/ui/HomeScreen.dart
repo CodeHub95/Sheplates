@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sheplates/Utils/NetworkUtils.dart';
 import 'package:flutter_sheplates/Utils/Routes.dart';
 import 'package:flutter_sheplates/Utils/ScreenUtils.dart';
+import 'package:flutter_sheplates/Utils/app_constants.dart';
 import 'package:flutter_sheplates/Utils/app_defaults.dart';
 import 'package:flutter_sheplates/Utils/app_utils.dart';
 import 'package:flutter_sheplates/Utils/hexColor.dart';
@@ -14,6 +15,7 @@ import 'package:flutter_sheplates/modals/request/AppDownloadRequest.dart';
 import 'package:flutter_sheplates/modals/request/PauseSubscriptionRequest.dart';
 import 'package:flutter_sheplates/modals/response/BaseResponse.dart';
 import 'package:flutter_sheplates/modals/response/HomeListResponse.dart';
+import 'package:flutter_sheplates/modals/response/loginresponse.dart';
 import 'package:flutter_sheplates/ui/DrawerScreen.dart';
 import 'package:flutter_sheplates/ui/EditProfile.dart';
 import 'package:flutter_sheplates/ui/Vegitarian_lunch.dart';
@@ -373,9 +375,15 @@ class _HomeScreenState extends State<HomeScreen> {
     CommonUtils.fullScreenProgress(context);
     String url = "user/add-user-request";
     String token = await SharedPrefHelper().getWithDefault("token", "");
+    String userData = await SharedPrefHelper()
+        .getWithDefault(SharedPrefConstants.userData, jsonEncode({}));
+    Profile profile = Profile.fromJson(jsonDecode(userData));
+    String location = profile.userAddresses[0].fullAddress;
+
     AddUserRequest request = AddUserRequest(
       type: "Meal plan customization",
-      category: "Meal",
+     address : location.toString(),
+      category: "Meal"
     );
     var res = await NetworkUtil()
         .post(url: url, body: jsonEncode(request), token: token);

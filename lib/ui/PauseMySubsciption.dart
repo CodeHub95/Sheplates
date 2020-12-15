@@ -25,6 +25,8 @@ class _HomeScreenState extends State<PauseSubscription> {
 
   int oID;
   String status;
+String start_date;
+String end_date;
   StreamController<PauseScreenDataResponse> _streamController =
       StreamController.broadcast();
   DateTime selectedDate = DateTime.now();
@@ -198,7 +200,7 @@ class _HomeScreenState extends State<PauseSubscription> {
                                       pause = true;
                                   });
 
-                                  selectedDate = await _selectDate(context);
+                                  selectedDate = await _selectDate(context, lastdate: DateTime.parse(end_date) );
 
                                   _showcontent();
                                 }
@@ -333,7 +335,8 @@ class _HomeScreenState extends State<PauseSubscription> {
         PauseScreenDataResponse.fromJson(res);
     if (pauseScreenDataResponse.status == 200) {
       _streamController.sink.add(pauseScreenDataResponse);
-
+start_date = pauseScreenDataResponse.data.order.start_date;
+end_date = pauseScreenDataResponse.data.order.end_date;
       oID = pauseScreenDataResponse.data.order.id;
       status = pauseScreenDataResponse.data.order.status;
       pause = (status == "Active" ? true : false);
@@ -351,12 +354,12 @@ class _HomeScreenState extends State<PauseSubscription> {
   }
 
   Future<DateTime> _selectDate(BuildContext context,
-      {DateTime startDate, DateTime initialDate}) async {
+      {DateTime startDate, DateTime initialDate, DateTime lastdate}) async {
     final DateTime picked = await showDatePicker(
         context: context,
         initialDate: initialDate != null ? initialDate : DateTime.now(),
         firstDate: startDate != null ? startDate : DateTime.now(),
-        lastDate: DateTime(2500));
+        lastDate: lastdate);
     if (picked != null && picked != selectedDate) return picked;
   }
 }
