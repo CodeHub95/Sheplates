@@ -25,8 +25,10 @@ class _HomeScreenState extends State<PauseSubscription> {
 
   int oID;
   String status;
-String start_date;
-String end_date;
+String startDate;
+String endDate;
+String resume_subscription_date;
+String pause_subscription_date;
   StreamController<PauseScreenDataResponse> _streamController =
       StreamController.broadcast();
   DateTime selectedDate = DateTime.now();
@@ -183,7 +185,7 @@ String end_date;
                           color: HexColor("#FF5657"),
                           child: Text(
                             // status==pause ? 'Pause' : 'Reactive Pause',
-                            pause ? 'Pause' : 'Reactive Pause',
+                            pause ? 'Pause' : 'Reactive',
                             style: TextStyle(
                               fontSize: 20,
                             ),
@@ -200,7 +202,7 @@ String end_date;
                                       pause = true;
                                   });
 
-                                  selectedDate = await _selectDate(context, lastdate: DateTime.parse(end_date) );
+                                  selectedDate = await _selectDate(context, lastDate: DateTime.parse(endDate) );
 
                                   _showcontent();
                                 }
@@ -208,6 +210,40 @@ String end_date;
                                   selectedDate = await _selectDate(context);
                                   reactiveSubcription();
                                 })),
+                          Visibility(
+                              visible: snapshot.data.data.order.resumeSubscriptionDate != "0000-00-00" || snapshot.data.data.order.pauseSubscriptionDate !="0000-00-00",
+                              child:   Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                            RichText(
+                                text: TextSpan(children: <TextSpan>[
+                                  TextSpan(
+                                      text: "Note:",
+                                      style: TextStyle(
+                                          color: Colors.grey, fontSize: 15.0, fontWeight: FontWeight.bold)),
+                                  TextSpan(
+                                      text: " Your Subscription Will ",
+                                      style: TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 15.0)),
+                                  TextSpan(
+                                      text: pause ? 'Pause' : 'Reactive',
+                                      style: TextStyle(
+                                          color: Colors.grey, fontSize: 15.0)),
+                                  TextSpan(
+                                      text: " from\n ",
+                                      style: TextStyle(
+                                          color: Colors.grey, fontSize: 15.0)),
+                                  TextSpan(
+                                      text:pause ?  pause_subscription_date: resume_subscription_date.toString(),
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 15.0)),
+                                ])),
+                          ],))
+
                 ])));
               }
             }));
@@ -335,8 +371,10 @@ String end_date;
         PauseScreenDataResponse.fromJson(res);
     if (pauseScreenDataResponse.status == 200) {
       _streamController.sink.add(pauseScreenDataResponse);
-start_date = pauseScreenDataResponse.data.order.start_date;
-end_date = pauseScreenDataResponse.data.order.end_date;
+startDate = pauseScreenDataResponse.data.order.startDate;
+endDate = pauseScreenDataResponse.data.order.endDate;
+      pause_subscription_date = pauseScreenDataResponse.data.order.pauseSubscriptionDate;
+      resume_subscription_date = pauseScreenDataResponse.data.order.resumeSubscriptionDate;
       oID = pauseScreenDataResponse.data.order.id;
       status = pauseScreenDataResponse.data.order.status;
       pause = (status == "Active" ? true : false);
@@ -347,6 +385,7 @@ end_date = pauseScreenDataResponse.data.order.end_date;
             bgColor: AppColor.darkThemeBlueColor,
             textColor: Colors.white);
       }
+
     } else {
       CommonUtils.errorMessage(msg: pauseScreenDataResponse.message);
       CommonUtils.dismissProgressDialog(context);
@@ -354,12 +393,12 @@ end_date = pauseScreenDataResponse.data.order.end_date;
   }
 
   Future<DateTime> _selectDate(BuildContext context,
-      {DateTime startDate, DateTime initialDate, DateTime lastdate}) async {
+      {DateTime startDate, DateTime initialDate, DateTime lastDate}) async {
     final DateTime picked = await showDatePicker(
         context: context,
-        initialDate: initialDate != null ? initialDate : DateTime.now(),
-        firstDate: startDate != null ? startDate : DateTime.now(),
-        lastDate: lastdate);
+        initialDate: initialDate != null ? initialDate : DateTime.now().add(Duration(days: 1)),
+        firstDate: startDate != null ? startDate : DateTime.now().add(Duration(days: 1)),
+        lastDate:  lastDate != null ?  lastDate: DateTime.parse(endDate) );
     if (picked != null && picked != selectedDate) return picked;
   }
 }

@@ -120,27 +120,42 @@ class Order {
   int totalMealCount;
   int mealsServed;
   String status;
-  String start_date;
-  String end_date;
-  Order({this.id, this.totalMealCount, this.mealsServed, this.status, this.end_date, this.start_date});
+  String startDate;
+  String endDate;
+  String pauseSubscriptionDate;
+  String resumeSubscriptionDate;
+
+  Order(
+      {this.id,
+        this.totalMealCount,
+        this.mealsServed,
+        this.status,
+        this.startDate,
+        this.endDate,
+        this.pauseSubscriptionDate,
+        this.resumeSubscriptionDate});
 
   Order.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    end_date = json['end_date'];
-    start_date = json['start_date'];
     totalMealCount = json['total_meal_count'];
     mealsServed = json['meals_served'];
     status = json['status'];
+    startDate = json['start_date'];
+    endDate = json['end_date'];
+    pauseSubscriptionDate = json['pause_subscription_date'];
+    resumeSubscriptionDate = json['resume_subscription_date'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['total_meal_count'] = this.totalMealCount;
-    data['end_date'] = this.end_date;
-    data['start_date'] = this.start_date;
     data['meals_served'] = this.mealsServed;
     data['status'] = this.status;
+    data['start_date'] = this.startDate;
+    data['end_date'] = this.endDate;
+    data['pause_subscription_date'] = this.pauseSubscriptionDate;
+    data['resume_subscription_date'] = this.resumeSubscriptionDate;
     return data;
   }
 }
