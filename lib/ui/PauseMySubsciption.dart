@@ -25,10 +25,10 @@ class _HomeScreenState extends State<PauseSubscription> {
 
   int oID;
   String status;
-String startDate;
-String endDate;
-String resume_subscription_date;
-String pause_subscription_date;
+  String startDate;
+  String endDate;
+  String resume_subscription_date;
+  String pause_subscription_date;
   StreamController<PauseScreenDataResponse> _streamController =
       StreamController.broadcast();
   DateTime selectedDate = DateTime.now();
@@ -202,7 +202,8 @@ String pause_subscription_date;
                                       pause = true;
                                   });
 
-                                  selectedDate = await _selectDate(context, lastDate: DateTime.parse(endDate) );
+                                  selectedDate = await _selectDate(context,
+                                      lastDate: DateTime.parse(endDate));
 
                                   _showcontent();
                                 }
@@ -210,40 +211,54 @@ String pause_subscription_date;
                                   selectedDate = await _selectDate(context);
                                   reactiveSubcription();
                                 })),
-                          Visibility(
-                              visible: snapshot.data.data.order.resumeSubscriptionDate != "0000-00-00" || snapshot.data.data.order.pauseSubscriptionDate !="0000-00-00",
-                              child:   Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                            RichText(
-                                text: TextSpan(children: <TextSpan>[
-                                  TextSpan(
-                                      text: "Note:",
-                                      style: TextStyle(
-                                          color: Colors.grey, fontSize: 15.0, fontWeight: FontWeight.bold)),
-                                  TextSpan(
-                                      text: " Your Subscription Will ",
-                                      style: TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: 15.0)),
-                                  TextSpan(
-                                      text: pause ? 'Pause' : 'Reactive',
-                                      style: TextStyle(
-                                          color: Colors.grey, fontSize: 15.0)),
-                                  TextSpan(
-                                      text: " from\n ",
-                                      style: TextStyle(
-                                          color: Colors.grey, fontSize: 15.0)),
-                                  TextSpan(
-                                      text:pause ?  pause_subscription_date: resume_subscription_date.toString(),
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 15.0)),
-                                ])),
-                          ],))
-
+                  Visibility(
+                      visible:
+                          snapshot.data.data.order.resumeSubscriptionDate !=
+                                  "0000-00-00" ||
+                              snapshot.data.data.order.pauseSubscriptionDate !=
+                                  "0000-00-00",
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          RichText(
+                              text: TextSpan(children: <TextSpan>[
+                            TextSpan(
+                                text: "Note:",
+                                style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 15.0,
+                                    fontWeight: FontWeight.bold)),
+                            TextSpan(
+                                text: " Your Subscription Will be",
+                                style: TextStyle(
+                                    color: Colors.grey, fontSize: 15.0)),
+                            TextSpan(
+                                text: pause ? 'Paused' : 'Reactivated',
+                                style: TextStyle(
+                                    color: Colors.grey, fontSize: 15.0)),
+                            TextSpan(
+                                text: " from\n ",
+                                style: TextStyle(
+                                    color: Colors.grey, fontSize: 15.0)),
+                            TextSpan(
+                                text: pause
+                                    ? CommonUtils.getDate(
+                                        CommonUtils.getDateTime(
+                                                pause_subscription_date)
+                                            .toIso8601String())
+                                    : CommonUtils.getDate(
+                                        CommonUtils.getDateTime(
+                                                resume_subscription_date
+                                                    .toString())
+                                            .toIso8601String()),
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15.0)),
+                          ])),
+                        ],
+                      ))
                 ])));
               }
             }));
@@ -371,10 +386,12 @@ String pause_subscription_date;
         PauseScreenDataResponse.fromJson(res);
     if (pauseScreenDataResponse.status == 200) {
       _streamController.sink.add(pauseScreenDataResponse);
-startDate = pauseScreenDataResponse.data.order.startDate;
-endDate = pauseScreenDataResponse.data.order.endDate;
-      pause_subscription_date = pauseScreenDataResponse.data.order.pauseSubscriptionDate;
-      resume_subscription_date = pauseScreenDataResponse.data.order.resumeSubscriptionDate;
+      startDate = pauseScreenDataResponse.data.order.startDate;
+      endDate = pauseScreenDataResponse.data.order.endDate;
+      pause_subscription_date =
+          pauseScreenDataResponse.data.order.pauseSubscriptionDate;
+      resume_subscription_date =
+          pauseScreenDataResponse.data.order.resumeSubscriptionDate;
       oID = pauseScreenDataResponse.data.order.id;
       status = pauseScreenDataResponse.data.order.status;
       pause = (status == "Active" ? true : false);
@@ -385,7 +402,6 @@ endDate = pauseScreenDataResponse.data.order.endDate;
             bgColor: AppColor.darkThemeBlueColor,
             textColor: Colors.white);
       }
-
     } else {
       CommonUtils.errorMessage(msg: pauseScreenDataResponse.message);
       CommonUtils.dismissProgressDialog(context);
@@ -396,9 +412,13 @@ endDate = pauseScreenDataResponse.data.order.endDate;
       {DateTime startDate, DateTime initialDate, DateTime lastDate}) async {
     final DateTime picked = await showDatePicker(
         context: context,
-        initialDate: initialDate != null ? initialDate : DateTime.now().add(Duration(days: 1)),
-        firstDate: startDate != null ? startDate : DateTime.now().add(Duration(days: 1)),
-        lastDate:  lastDate != null ?  lastDate: DateTime.parse(endDate) );
+        initialDate: initialDate != null
+            ? initialDate
+            : DateTime.now().add(Duration(days: 1)),
+        firstDate: startDate != null
+            ? startDate
+            : DateTime.now().add(Duration(days: 1)),
+        lastDate: lastDate != null ? lastDate : DateTime.parse(endDate));
     if (picked != null && picked != selectedDate) return picked;
   }
 }
