@@ -47,7 +47,7 @@ class CommonUtils {
     if (date == "null") {
       return DateTime.now();
     }
-    return DateFormat("yyyy-MM-dd").parse(date);
+    return DateFormat("dd MMMM yyyy").parse(date);
   }
 
   static String getSimpleDateForApi(DateTime dateTime) {
