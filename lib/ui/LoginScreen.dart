@@ -82,18 +82,9 @@ class _MyHomePageState extends State<LoginScreen> {
                       contentPadding: const EdgeInsets.all(20.0),
                       subtitle: RichText(
                           text: TextSpan(children: <TextSpan>[
+
                         TextSpan(
-                            text: "Enter your ",
-                            style:
-                                TextStyle(color: Colors.grey, fontSize: 14.0)),
-                        TextSpan(
-                            text: "Mobile Number ",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16.0)),
-                        TextSpan(
-                            text: "& Password\n",
+                            text: "and ",
                             style:
                                 TextStyle(color: Colors.grey, fontSize: 14.0)),
                         TextSpan(
@@ -101,7 +92,7 @@ class _MyHomePageState extends State<LoginScreen> {
                             style:
                                 TextStyle(color: Colors.grey, fontSize: 14.0)),
                         TextSpan(
-                            text: "HOME MADE FOOD",
+                            text: "Homemade FOOD",
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,

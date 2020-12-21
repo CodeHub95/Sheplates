@@ -75,6 +75,8 @@ class ActiveSubscription {
   int totalAmount;
   String startDate;
   String endDate;
+  String pauseSubscriptionDate;
+  String resumeSubscriptionDate;
   String holidays;
   String status;
   String createdAt;
@@ -100,6 +102,8 @@ class ActiveSubscription {
         this.totalAmount,
         this.startDate,
         this.endDate,
+        this.pauseSubscriptionDate,
+        this.resumeSubscriptionDate,
         this.holidays,
         this.status,
         this.createdAt,
@@ -125,6 +129,8 @@ class ActiveSubscription {
     totalAmount = json['total_amount'];
     startDate = json['start_date'];
     endDate = json['end_date'];
+    pauseSubscriptionDate = json['pause_subscription_date'];
+    resumeSubscriptionDate = json['resume_subscription_date'];
     holidays = json['holidays'];
     status = json['status'];
     createdAt = json['createdAt'];
@@ -154,6 +160,8 @@ class ActiveSubscription {
     data['total_amount'] = this.totalAmount;
     data['start_date'] = this.startDate;
     data['end_date'] = this.endDate;
+    data['pause_subscription_date'] = this.pauseSubscriptionDate;
+    data['resume_subscription_date'] = this.resumeSubscriptionDate;
     data['holidays'] = this.holidays;
     data['status'] = this.status;
     data['createdAt'] = this.createdAt;
@@ -167,6 +175,76 @@ class ActiveSubscription {
     return data;
   }
 }
+
+class Kitchen {
+  int id;
+  String kitchenName;
+  String address;
+  String fssaiNumber;
+  Zone zone;
+
+  Kitchen(
+      {this.id, this.kitchenName, this.address, this.fssaiNumber, this.zone});
+
+  Kitchen.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    kitchenName = json['kitchen_name'];
+    address = json['address'];
+    fssaiNumber = json['fssai_number'];
+    zone = json['zone'] != null ? new Zone.fromJson(json['zone']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['kitchen_name'] = this.kitchenName;
+    data['address'] = this.address;
+    data['fssai_number'] = this.fssaiNumber;
+    if (this.zone != null) {
+      data['zone'] = this.zone.toJson();
+    }
+    return data;
+  }
+}
+
+class Zone {
+  String zoneName;
+  String city;
+
+  Zone({this.zoneName, this.city});
+
+  Zone.fromJson(Map<String, dynamic> json) {
+    zoneName = json['zone_name'];
+    city = json['city'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['zone_name'] = this.zoneName;
+    data['city'] = this.city;
+    return data;
+  }
+}
+
+class Catalog {
+  int id;
+  String mealName;
+
+  Catalog({this.id, this.mealName});
+
+  Catalog.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    mealName = json['meal_name'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['meal_name'] = this.mealName;
+    return data;
+  }
+}
+
 class PastSubscription {
   int id;
   int userId;
@@ -185,6 +263,8 @@ class PastSubscription {
   int totalAmount;
   String startDate;
   String endDate;
+  String pauseSubscriptionDate;
+  String resumeSubscriptionDate;
   String holidays;
   String status;
   String createdAt;
@@ -210,6 +290,8 @@ class PastSubscription {
         this.totalAmount,
         this.startDate,
         this.endDate,
+        this.pauseSubscriptionDate,
+        this.resumeSubscriptionDate,
         this.holidays,
         this.status,
         this.createdAt,
@@ -235,6 +317,8 @@ class PastSubscription {
     totalAmount = json['total_amount'];
     startDate = json['start_date'];
     endDate = json['end_date'];
+    pauseSubscriptionDate = json['pause_subscription_date'];
+    resumeSubscriptionDate = json['resume_subscription_date'];
     holidays = json['holidays'];
     status = json['status'];
     createdAt = json['createdAt'];
@@ -264,6 +348,8 @@ class PastSubscription {
     data['total_amount'] = this.totalAmount;
     data['start_date'] = this.startDate;
     data['end_date'] = this.endDate;
+    data['pause_subscription_date'] = this.pauseSubscriptionDate;
+    data['resume_subscription_date'] = this.resumeSubscriptionDate;
     data['holidays'] = this.holidays;
     data['status'] = this.status;
     data['createdAt'] = this.createdAt;
@@ -277,43 +363,4 @@ class PastSubscription {
     return data;
   }
 }
-class Kitchen {
-  int id;
-  String kitchenName;
-  String address;
 
-  Kitchen({this.id, this.kitchenName, this.address});
-
-  Kitchen.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    kitchenName = json['kitchen_name'];
-    address = json['address'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['kitchen_name'] = this.kitchenName;
-    data['address'] = this.address;
-    return data;
-  }
-}
-
-class Catalog {
-  int id;
-  String mealName;
-
-  Catalog({this.id, this.mealName});
-
-  Catalog.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    mealName = json['meal_name'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['meal_name'] = this.mealName;
-    return data;
-  }
-}

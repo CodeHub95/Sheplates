@@ -107,12 +107,27 @@ class _HomeScreenState extends State<PastWidget> {
                                                                           index]
                                                                       .kitchen !=
                                                                   null
-                                                              ? snapshot
-                                                                  .data[index]
-                                                                  .kitchen
-                                                                  .address
-                                                                  .toString()
+                                                              ?     snapshot.data[index].kitchen.zone.zoneName.toString() +", "+ snapshot.data[index].kitchen.zone.city.toString()
                                                               : ''),
+                                                        ])),
+                                                Padding(
+                                                    padding: EdgeInsets
+                                                        .only(top: 10,),
+
+                                                    child: Column(
+                                                        crossAxisAlignment: CrossAxisAlignment
+                                                            .center,
+                                                        children: [Text(
+                                                            snapshot
+                                                                .data[index]
+                                                                .kitchen !=
+                                                                null
+                                                                ?
+
+                                                            snapshot.data[index].kitchen.fssaiNumber.toString()
+                                                                : '',
+                                                          style: TextStyle(
+                                                              fontWeight: FontWeight.bold),),
                                                         ])),
                                                 Padding(
                                                     padding: EdgeInsets.only(
@@ -282,7 +297,7 @@ class _HomeScreenState extends State<PastWidget> {
       _streamController.sink.add(response.data.pastSubscription);
       if (response.data.pastSubscription.isEmpty == true) {
         CommonUtils.showToast(
-            msg: "Do not have any PastSubscription Plan",
+            msg: "Do not have any Past Subscription Plan",
             bgColor: AppColor.darkThemeBlueColor,
             textColor: Colors.white);
       }

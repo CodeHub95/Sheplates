@@ -126,7 +126,7 @@ class _FeedBackState extends State<FeedBack> {
                 child: Row(
                   children: [
                     Text(
-                      "Please let us know you thoughts on your\nsubscriptions",
+                      "Please let us know you thoughts on your\nsubscription",
                       style:
                           TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                     )

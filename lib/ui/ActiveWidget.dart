@@ -11,7 +11,7 @@ import 'package:flutter_sheplates/Utils/app_defaults.dart';
 import 'package:flutter_sheplates/Utils/app_utils.dart';
 import 'package:flutter_sheplates/Utils/hexColor.dart';
 import 'package:flutter_sheplates/modals/response/SubscriptionResponse.dart';
-
+import 'package:intl/intl.dart';
 class ActiveWidget extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -119,14 +119,38 @@ class _HomeScreenState extends State<ActiveWidget> {
                                                                       .kitchen !=
                                                                       null
                                                                       ?
-                                                                  snapshot
-                                                                      .data[index]
-                                                                      .kitchen
-                                                                      .address
-                                                                      .toString()
+                                                                  // snapshot
+                                                                  //     .data[index]
+                                                                  //     .kitchen
+                                                                  //     .address
+                                                                  //     .toString()
+                                                                  snapshot.data[index].kitchen.zone.zoneName.toString() +", "+ snapshot.data[index].kitchen.zone.city.toString()
                                                                       : ''),
                                                               ])),
+                                                      Padding(
+                                                          padding: EdgeInsets
+                                                              .only(top: 10,),
 
+                                                          child: Column(
+                                                              crossAxisAlignment: CrossAxisAlignment
+                                                                  .center,
+                                                              children: [Text(
+                                                                  snapshot
+                                                                      .data[index]
+                                                                      .kitchen !=
+                                                                      null
+                                                                      ?
+                                                                  // snapshot
+                                                                  //     .data[index]
+                                                                  //     .kitchen
+                                                                  //     .address
+                                                                  //     .toString()
+                                                                  snapshot.data[index].kitchen.fssaiNumber.toString()
+                                                                      : '',
+                                                                style: TextStyle(
+                                                                  fontWeight: FontWeight.bold),),
+
+                                                              ])),
                                                       Padding(
                                                           padding: EdgeInsets
                                                               .only(top: 10)),
@@ -147,7 +171,7 @@ class _HomeScreenState extends State<ActiveWidget> {
                                                         children: [
 
                                                           Text(
-                                                            "Expire on ",
+                                                            "Expires on ",
                                                             style: TextStyle(
                                                                 fontSize: 15),
                                                           ),
@@ -185,10 +209,10 @@ class _HomeScreenState extends State<ActiveWidget> {
                                                         fontSize: 16),
                                                   )),
                                               Text(
-                                                snapshot.data[index].duration,
+                                                  toBeginningOfSentenceCase( snapshot.data[index].duration),
                                                 style: TextStyle(
                                                     color: Colors.black,
-                                                    fontSize: 16),
+                                                    fontSize: 16, ),
                                               ),
                                             ])),
 

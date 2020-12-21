@@ -86,10 +86,7 @@ class _HomeScreenState extends State<UpcomingMenuWidget> {
                             Stack(children: [
                               Padding(
                                   padding: EdgeInsets.only(
-                                    right: 10,
-                                    left: 10,
-                                     top:10
-                                  ),
+                                      right: 10, left: 10, top: 10),
                                   child: Container(
                                       height:
                                           MediaQuery.of(context).size.height /
@@ -100,7 +97,7 @@ class _HomeScreenState extends State<UpcomingMenuWidget> {
                                               image: AssetImage(
                                                   "assets/menu_listing.png"))))),
                               Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Padding(padding: EdgeInsets.only(top: 65)),
@@ -183,138 +180,37 @@ class _HomeScreenState extends State<UpcomingMenuWidget> {
                                             Column(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
                                               children: [
-                                                Text(
-                                                  "Monday:",
-                                                  style: TextStyle(
-                                                      fontSize: 20,
-                                                      color: Colors.red),
-                                                ),
-                                                Container(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width /
-                                                      1.2,
-                                                  child: Text(
-                                                    snapshot.data.data.obj.menu
-                                                        .monday,
-                                                    style: TextStyle(
-                                                        fontSize: 15,
-                                                        color: Colors.white),
-                                                    maxLines: 3,
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      EdgeInsets.only(top: 20),
-                                                  child: Text("Tuesday:",
-                                                      style: TextStyle(
-                                                          fontSize: 20,
-                                                          color: Colors.red)),
-                                                ),
-                                                Container(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            1.2,
-                                                    child: Text(
-                                                      snapshot.data.data.obj
-                                                          .menu.tuesday,
-                                                      style: TextStyle(
-                                                          fontSize: 15,
-                                                          color: Colors.white),
-                                                      maxLines: 3,
-                                                    )),
-                                                Padding(
-                                                  padding:
-                                                      EdgeInsets.only(top: 20),
-                                                  child: Text("Wednesday:",
-                                                      style: TextStyle(
-                                                          fontSize: 20,
-                                                          color: Colors.red)),
-                                                ),
-                                                Container(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            1.2,
-                                                    child: Text(
-                                                      snapshot.data.data.obj
-                                                          .menu.wednesday,
-                                                      style: TextStyle(
-                                                          fontSize: 15,
-                                                          color: Colors.white),
-                                                      maxLines: 3,
-                                                    )),
-                                                Padding(
-                                                  padding:
-                                                      EdgeInsets.only(top: 20),
-                                                  child: Text("Thursday:",
-                                                      style: TextStyle(
-                                                          fontSize: 20,
-                                                          color: Colors.red)),
-                                                ),
-                                                Container(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            1.2,
-                                                    child: Text(
-                                                      snapshot.data.data.obj
-                                                          .menu.thrusday,
-                                                      style: TextStyle(
-                                                          fontSize: 15,
-                                                          color: Colors.white),
-                                                      maxLines: 3,
-                                                    )),
-                                                Padding(
-                                                  padding:
-                                                      EdgeInsets.only(top: 20),
-                                                  child: Text("Friday:",
-                                                      style: TextStyle(
-                                                          fontSize: 20,
-                                                          color: Colors.red)),
-                                                ),
-                                                Container(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            1.2,
-                                                    child: Text(
-                                                      snapshot.data.data.obj
-                                                          .menu.friday,
-                                                      style: TextStyle(
-                                                          fontSize: 15,
-                                                          color: Colors.white),
-                                                      maxLines: 3,
-                                                    )),
-                                                Padding(
-                                                  padding:
-                                                      EdgeInsets.only(top: 20),
-                                                  child: Text("Saturday:",
-                                                      style: TextStyle(
-                                                          fontSize: 20,
-                                                          color: Colors.red)),
-                                                ),
-                                                Container(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            1.2,
-                                                    child: Text(
-                                                      snapshot.data.data.obj
-                                                          .menu.friday,
-                                                      style: TextStyle(
-                                                          fontSize: 15,
-                                                          color: Colors.white),
-                                                      maxLines: 3,
-                                                    )),
-                                              ],
+                                                menuWidget(
+                                                    title: "Monday:",
+                                                    menu: snapshot.data.data.obj
+                                                        .menu.monday),
+                                                menuWidget(
+                                                    title: "Tuesday:",
+                                                    menu: snapshot.data.data.obj
+                                                        .menu.tuesday),
+                                                menuWidget(
+                                                    title: "Wednesday:",
+                                                    menu: snapshot.data.data.obj
+                                                        .menu.wednesday),
+                                                menuWidget(
+                                                    title: "Thursday:",
+                                                    menu: snapshot.data.data.obj
+                                                        .menu.thrusday),
+                                                menuWidget(
+                                                    title: "Friday:",
+                                                    menu: snapshot.data.data.obj
+                                                        .menu.friday),
+                                                menuWidget(
+                                                    title: "Saturday:",
+                                                    menu: snapshot.data.data.obj
+                                                        .menu.saturday),
+                                              ].sublist(
+                                                  DateTime.now().weekday > 5
+                                                      ? 0
+                                                      : DateTime.now().weekday),
                                             )
                                           ],
                                         )),
@@ -334,57 +230,59 @@ class _HomeScreenState extends State<UpcomingMenuWidget> {
                                   //   // alignment: Alignment.center,
                                   //     padding: EdgeInsets.only(left: 100),
                                   Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                    Container(
-                                      alignment: Alignment.center,
-                                      height: 80,
-                                      child: Stack(
-                                        children: [
-                                          Container(
-                                            decoration: BoxDecoration(
-                                                image: DecorationImage(
-                                                    fit: BoxFit.fill,
-                                                    image: AssetImage(
-                                                        "assets/chef_btn.png"))),
-                                            height: 50,
-                                            width: 160,
-                                          ),
-                                          Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-                                              Padding(
-                                                  padding: EdgeInsets.fromLTRB(
-                                                      40, 10, 0, 20),
-                                            child:  Container(
-                                                height: 50,
-                                                     // alignment: Alignment.center,
-                                                // padding: EdgeInsets.only(
-                                                //     left: 120, top: 15),
-                                                //   color: Colors.blueAccent,
-                                                  child: Text(
-                                                    DateFormat('EEEE')
-                                                        .format(DateTime.now()),
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight: FontWeight.w700,
-                                                      fontSize: 20,
-                                                    ),
-                                                  ))),
-                                            ],)
-
-
-                                        ],
+                                      Container(
+                                        alignment: Alignment.center,
+                                        height: 80,
+                                        child: Stack(
+                                          children: [
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                  image: DecorationImage(
+                                                      fit: BoxFit.fill,
+                                                      image: AssetImage(
+                                                          "assets/chef_btn.png"))),
+                                              height: 50,
+                                              width: 160,
+                                            ),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Padding(
+                                                    padding:
+                                                        EdgeInsets.fromLTRB(
+                                                            40, 10, 0, 20),
+                                                    child: Container(
+                                                        height: 50,
+                                                        child: Text(
+                                                          DateFormat('EEEE')
+                                                              .format(DateTime
+                                                                  .now()),
+                                                          style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight.w700,
+                                                            fontSize: 20,
+                                                          ),
+                                                        ))),
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                        // )
                                       ),
-                                      // )
-                                    ),
-                                  ],),
+                                    ],
+                                  ),
                                   //     child:
                                   Padding(
-                                      padding: EdgeInsets.fromLTRB(
-                                          30, 0, 30, 0),
+                                      padding:
+                                          EdgeInsets.fromLTRB(30, 0, 30, 0),
                                       child: FlatButton(
                                           color: HexColor("#FF5657"),
                                           textColor: Colors.white,
@@ -396,8 +294,7 @@ class _HomeScreenState extends State<UpcomingMenuWidget> {
                                           ),
                                           onPressed: () {
                                             submit();
-                                          })
-                                  )
+                                          }))
                                 ],
                               ),
                             ]),
@@ -490,5 +387,32 @@ class _HomeScreenState extends State<UpcomingMenuWidget> {
       CommonUtils.errorMessage(msg: response.message);
       CommonUtils.dismissProgressDialog(context);
     }
+  }
+
+  Widget menuWidget({@required String title, @required String menu}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+            padding: EdgeInsets.only(top: 20),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(title, style: TextStyle(fontSize: 20, color: Colors.red)),
+              ],
+            )),
+        Align(
+          alignment: Alignment.topLeft,
+          child: Container(
+              width: MediaQuery.of(context).size.width / 1.2,
+              child: Text(
+                menu,
+                style: TextStyle(fontSize: 15, color: Colors.white),
+                maxLines: 3,
+              )),
+        )
+      ],
+    );
   }
 }

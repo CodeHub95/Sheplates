@@ -14,6 +14,7 @@ import 'package:flutter_sheplates/modals/request/ReactiveSubscriptionRequest.dar
 import 'package:flutter_sheplates/modals/response/BaseResponse.dart';
 import 'package:flutter_sheplates/modals/response/PauseScreenDataResponse.dart';
 import 'package:flutter_sheplates/ui/DrawerScreen.dart';
+import 'package:flutter_sheplates/ui/HomeScreen.dart';
 
 class PauseSubscription extends StatefulWidget {
   @override
@@ -185,7 +186,7 @@ String pause_subscription_date;
                           color: HexColor("#FF5657"),
                           child: Text(
                             // status==pause ? 'Pause' : 'Reactive Pause',
-                            pause ? 'Pause' : 'Reactive',
+                            pause ? 'Pause' : 'Reactivate',
                             style: TextStyle(
                               fontSize: 20,
                             ),
@@ -193,22 +194,35 @@ String pause_subscription_date;
                           // onPressed: _showcontent,
                           onPressed: pause
                               ? () async {
-                                  setState(() {
-                                    // pause = !pause;
-
-                                    if (pause)
-                                      pause = false;
-                                    else
-                                      pause = true;
-                                  });
+                                  // setState(() {
+                                  //   // pause = !pause;
+                                  //
+                                  //   if (pause)
+                                  //     pause = false;
+                                  //   else
+                                  //     pause = true;
+                                  // });
 
                                   selectedDate = await _selectDate(context, lastDate: DateTime.parse(endDate) );
+if(selectedDate!= null){
+  setState(() {
+    // pause = !pause;
 
-                                  _showcontent();
+    if (pause)
+      pause = false;
+    else
+      pause = true;
+  });
+  _showcontent();
+}
+
                                 }
                               : () async {
                                   selectedDate = await _selectDate(context);
-                                  reactiveSubcription();
+                                  if(selectedDate!=null){
+                                    reactiveSubcription();
+                                  }
+
                                 })),
                           Visibility(
                               visible: snapshot.data.data.order.resumeSubscriptionDate != "0000-00-00" || snapshot.data.data.order.pauseSubscriptionDate !="0000-00-00",
@@ -276,7 +290,16 @@ String pause_subscription_date;
                           size: 20.0,
                           color: Colors.black,
                         ),
-                        onPressed: () => Navigator.pop(context)),
+                        onPressed: () =>{
+                        Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                        builder: (context) => PauseSubscription(),
+                        ),
+                        (Route<dynamic> route) => false)
+                        }
+
+                    ),
                   ],
                 ),
                 Text(
@@ -302,9 +325,7 @@ String pause_subscription_date;
                             ),
                             onPressed: () {
                               submit();
-                              // setState(() {
-                              //   pause= !pause;
-                              // });
+
                             }))),
               ],
             ),
@@ -333,7 +354,14 @@ String pause_subscription_date;
           msg: "Paused Successfully",
           bgColor: AppColor.darkThemeBlueColor,
           textColor: Colors.white);
-      Navigator.pop(context);
+
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomeScreen(),
+            ),
+                (Route<dynamic> route) => false);
+
     } else {
       CommonUtils.errorMessage(msg: response.message);
       CommonUtils.dismissProgressDialog(context);
@@ -355,7 +383,7 @@ String pause_subscription_date;
     if (response.status == 200) {
       CommonUtils.dismissProgressDialog(context);
       CommonUtils.showToast(
-          msg: "Successfully Reactive",
+          msg: "Successfully Reactivated Subscription.",
           bgColor: AppColor.darkThemeBlueColor,
           textColor: Colors.white);
       Navigator.pushNamedAndRemoveUntil(
@@ -385,7 +413,7 @@ endDate = pauseScreenDataResponse.data.order.endDate;
       if (pauseScreenDataResponse.data.address == null ||
           pauseScreenDataResponse.data.order == null) {
         CommonUtils.showToast(
-            msg: "Do not have any ActiveSubscription Plan",
+            msg: "Do not have any Active Subscription Plan",
             bgColor: AppColor.darkThemeBlueColor,
             textColor: Colors.white);
       }

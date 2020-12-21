@@ -141,7 +141,7 @@ class _MyHomePageState extends State<RegisterScreen> with FirebaseMethods {
                               style: TextStyle(
                                   color: Colors.grey, fontSize: 15.0)),
                           TextSpan(
-                              text: "HOME MADE FOOD",
+                              text: "Homemade FOOD",
                               style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,

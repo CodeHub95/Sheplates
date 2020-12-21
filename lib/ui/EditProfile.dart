@@ -44,7 +44,7 @@ class _HomeScreenState extends State<EditProfileScreen> {
   final picker = ImagePicker();
   bool select;
 
-  bool verify = true;
+  bool Verify = true;
 
   StreamController<GetProfileResponse> _controller = StreamController();
   List<GetProfileResponse> showAddress = List();
@@ -413,14 +413,14 @@ class _HomeScreenState extends State<EditProfileScreen> {
                                             onTap: () {
                                               verifyMail();
                                             },
-                                            child: !verify
+                                            child: !Verify
                                                 ? Text(
-                                                    'verify',
+                                                    'Verify',
                                                     style: TextStyle(
                                                         color: Colors.red),
                                                   )
                                                 : Text(
-                                                    'verified',
+                                                    'Verified',
                                                     style: TextStyle(
                                                         color: Colors.black),
                                                   ),
@@ -444,7 +444,7 @@ class _HomeScreenState extends State<EditProfileScreen> {
                                             onTap: () {},
                                             // this line is not working
                                             child: Text(
-                                              "verified",
+                                              "Verified",
                                               style: TextStyle(
                                                   color: Colors.black),
                                             ))),
@@ -578,7 +578,7 @@ class _HomeScreenState extends State<EditProfileScreen> {
     if (baseResponse.status == 200) {
       CommonUtils.dismissProgressDialog(context);
       CommonUtils.showToast(msg: baseResponse.message);
-      setState(() => verify = !verify);
+      setState(() => Verify = !Verify);
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => EditProfileScreen()));
     } else {

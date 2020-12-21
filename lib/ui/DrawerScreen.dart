@@ -113,7 +113,7 @@ class _CommonDrawerState extends State<CustomDrawer> {
               width: 25,
               color: Colors.black,
             ),
-            title: Text("Pause My Subscriptions",
+            title: Text("Pause My Subscription",
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.grey[600],

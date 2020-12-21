@@ -280,7 +280,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       alignment:
                                                           Alignment.centerLeft,
                                                       child: Text(
-                                                        "Customization",
+                                                        "Customisation",
                                                         style: TextStyle(
                                                             color: Colors.black,
                                                             fontSize: 20),
@@ -313,7 +313,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                   Colors.white),
                                                         ),
                                                         onPressed: () =>
-                                                            {_addRequest()},
+                                                            {
+                                                            if (suscriber!= null) {
+                                                            CommonUtils.showToast(
+                                                            msg:
+                                                            "You have already one subscription plan running!",
+                                                            bgColor: Colors.black,
+                                                            textColor: Colors.white)
+                                                            }else{
+                                                            _addRequest()
+                                                            }
+
+
+                                                            },
                                                       )))
                                             ],
                                           ),
