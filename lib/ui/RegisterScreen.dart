@@ -69,37 +69,31 @@ class _MyHomePageState extends State<RegisterScreen> with FirebaseMethods {
                     fit: BoxFit.fill,
                     image: AssetImage("assets/login_bg.png"))),
             child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
+
                   Padding(
-                      padding: EdgeInsets.only(top: 10),
+                      padding: EdgeInsets.only(top: 0),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Padding(
                               padding: EdgeInsets.only(top: 60),
                               child: Container(
                                 height: 180,
                                 width: 180,
-                                alignment: Alignment.bottomLeft,
+                                alignment: Alignment.center,
                                 child: Image.asset(
-                                  "assets/img1.png",
+                                  "assets/logo.png",
                                   fit: BoxFit.fill,
                                 ),
                               )),
-                          Container(
-                            height: 150,
-                            width: 150,
-                            alignment: Alignment.topRight,
-                            child: Image.asset(
-                              "assets/img2.png",
-                              fit: BoxFit.fill,
-                              // color: Colors.transparent,
-                            ),
-                          ),
+
                         ],
                       )),
+
                   Container(
                     height: 100,
                     child: ListTile(
@@ -254,7 +248,7 @@ class _MyHomePageState extends State<RegisterScreen> with FirebaseMethods {
                               onPressed: () => submit(),
                             )),
                         Padding(
-                          padding: EdgeInsets.only(top: 150),
+                          padding: EdgeInsets.only(top: 180),
                         ),
                       ]))
                 ])),

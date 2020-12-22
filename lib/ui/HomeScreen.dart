@@ -69,11 +69,18 @@ class _HomeScreenState extends State<HomeScreen> {
           appBar: AppBar(
             backgroundColor: Colors.white,
             title: Center(
-                child: Text(
-              "SHEPLATES",
-              style: TextStyle(color: Colors.black),
-              textAlign: TextAlign.center,
-            )),
+                child:
+        
+                Container(
+                  alignment: Alignment.center,
+                  // width: MediaQuery.of(context).size.width / 2,
+                  child: Image.asset(
+                    "assets/logo_home.png",
+                    fit: BoxFit.fill,
+                    // color: Colors.transparent,
+                  ),
+                )
+            ),
             actions: [
               IconButton(
                   icon: Image.asset(

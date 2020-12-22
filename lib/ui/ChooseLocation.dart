@@ -99,12 +99,15 @@ class _ConfirmLocationScreenState extends State<ChooseLocation> {
         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 0,
-          title: Center(
+          title:
+        Padding(
+        padding: const EdgeInsets.only(right: 30.0),
+         child: Center(
               child: Text(
             "Choose Location",
             style: TextStyle(color: Colors.black, fontSize: 15),
             textAlign: TextAlign.center,
-          )),
+          ))),
           bottom: PreferredSize(
               child: Container(
                 color: Colors.grey,

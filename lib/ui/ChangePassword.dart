@@ -136,13 +136,15 @@ class _MyHomePageState extends State<ChangePasswordScreen> {
                                           return ('Required Password');
                                         } else if (val.length < 5 ) {
                                           return ('Password must have 5 or more characters');
-                                        }else if(
-                                      !val.contains(RegExp(r'\W')) && RegExp(r'\d+\w*\d+').hasMatch(val)
-                                        ){
-                                          return ('Invalid Password');
-                                        }else if(val.contains(RegExp(r"^|\-|\,|\ "))){
-                                          return ('Invalid Password');
                                         }
+                                      //   else if(
+                                      // !val.contains(RegExp(r'\W')) && RegExp(r'\d+\w*\d+').hasMatch(val)
+                                      //   ){
+                                      //     return ('Invalid Password');
+                                      //   }
+                                      //   else if(val.contains(RegExp(r"^|\-|\,|\ "))){
+                                      //     return ('Invalid Password');
+                                      //   }
                                         return null;
                                       },
                                     ),
@@ -185,8 +187,12 @@ class _MyHomePageState extends State<ChangePasswordScreen> {
   }
 
   submit() async {
-    if (_formKey.currentState.validate()) {
-      _formKey.currentState.save();
+    final form = _formKey.currentState;
+
+    if (form.validate()) {
+      form.save();
+
+
       CommonUtils.fullScreenProgress(context);
       String url = "user/reset-password";
       String token = await SharedPrefHelper().getWithDefault("token", "");
@@ -216,8 +222,8 @@ class _MyHomePageState extends State<ChangePasswordScreen> {
         CommonUtils.dismissProgressDialog(context);
         CommonUtils.errorMessage(msg: "Something went wrong, Please try again");
       }
-    }
-  }
+
+  }}
 
   void getdetails() {
     phoneController.text = widget.phoneNumber;

@@ -21,16 +21,66 @@ class _LoginScreenState extends State<LoginRegisterScreen> {
     return SafeArea(
       top: true,
       child: Scaffold(
-        body: Align(
+        body: SingleChildScrollView(child:
+        Align(
           alignment: Alignment.center,
-          child: Stack(
+          child: Column(
             children: <Widget>[
+
+
+              Padding(
+                  padding: EdgeInsets.only(
+                    top: 70,
+                  ),
+                  child: Container(
+                    alignment: Alignment.center,
+                    width: MediaQuery.of(context).size.width / 2,
+                    child: Image.asset(
+                      "assets/logo.png",
+                      fit: BoxFit.fill,
+                      // color: Colors.transparent,
+                    ),
+                  )),
+              Padding(
+                  padding: EdgeInsets.only(
+                    top: 50,
+                  )),
+
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Column(children: [
+                    Text("Healthy", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+                    Padding(
+                        padding: EdgeInsets.only(
+                          top: 40,
+                        )),
+                    Text("Homemade Food", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+                  ],),
+
+                  Column(children: [
+                    Text("Hygienic", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),)
+                    ,
+                    Padding(
+                        padding: EdgeInsets.only(
+                          top: 40,
+                        )),
+                    Text("Delivered", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),)
+                  ],)
+
+
+                ],),
+              Padding(
+                  padding: EdgeInsets.only(
+                    top: 50,
+                  )),
               Container(
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
+                height: MediaQuery.of(context).size.height/3,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage("assets/main_bg.png"),
+                        image: AssetImage("assets/cooking_bottom.png"),
                         fit: BoxFit.cover)),
               ),
               Positioned(
@@ -69,8 +119,8 @@ class _LoginScreenState extends State<LoginRegisterScreen> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => RegisterScreen(
-                                        type: "register",
-                                      )),
+                                    type: "register",
+                                  )),
                             ),
                           ),
                         )
@@ -79,7 +129,9 @@ class _LoginScreenState extends State<LoginRegisterScreen> {
                   ]))
             ],
           ),
-        ),
+        ),   )
+
+
       ),
     );
   }
