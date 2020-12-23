@@ -177,13 +177,13 @@ class _HomeScreenState extends State<ProceedToPayment> {
                             style: TextStyle(
                                 fontSize: 15, fontWeight: FontWeight.bold),
                           ),
-                          onTap: () => {
+                          onTap: () {
                                 Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => EditProfileScreen(),
                                     ),
-                                    (Route<dynamic> route) => false)
+                                    (Route<dynamic> route) => false);
                               })
                     ],
                   ),
@@ -216,13 +216,13 @@ class _HomeScreenState extends State<ProceedToPayment> {
                             style: TextStyle(
                                 fontSize: 15, fontWeight: FontWeight.bold),
                           ),
-                          onTap: () => {
+                          onTap: ()  {
                                 Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => FaqScreen(),
                                     ),
-                                    (Route<dynamic> route) => false)
+                                    (Route<dynamic> route) => false);
                               })
                     ],
                   ),

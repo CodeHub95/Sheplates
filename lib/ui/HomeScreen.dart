@@ -70,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
             backgroundColor: Colors.white,
             title: Center(
                 child:
-        
+
                 Container(
                   alignment: Alignment.center,
                   // width: MediaQuery.of(context).size.width / 2,
@@ -272,68 +272,84 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                         ),
                                         Container(
-                                          height: 80,
+                                          height: 90,
                                           child: Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Padding(
-                                                  padding: EdgeInsets.only(
-                                                      left: 10,
-                                                      top: 10,
-                                                      right: 0,
-                                                      bottom: 10),
-                                                  child: Align(
-                                                      alignment:
-                                                          Alignment.centerLeft,
-                                                      child: Text(
-                                                        "Customisation",
-                                                        style: TextStyle(
-                                                            color: Colors.black,
-                                                            fontSize: 20),
-                                                      ))),
-                                              Padding(
-                                                  padding: EdgeInsets.only(
-                                                      left: 0,
-                                                      top: 10,
-                                                      bottom: 10,
-                                                      right: 10),
-                                                  child: new SizedBox(
-                                                      height: 30,
-                                                      width: 160,
-                                                      child: RaisedButton(
-                                                        shape:
-                                                            RoundedRectangleBorder(
-                                                          side: BorderSide(
-                                                              color: Colors.red,
-                                                              width: 1),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      5.0),
-                                                        ),
-                                                        color: Colors.red,
+                                              Column(children: [
+                                                Padding(
+                                                    padding: EdgeInsets.only(
+                                                        // left: 10,
+                                                        top: 10,
+                                                        right: 30,
+                                                        bottom: 10
+                                                    ),
+                                                    child: Align(
+                                                        alignment:
+                                                        Alignment.centerLeft,
                                                         child: Text(
-                                                          "Request Call Back",
+                                                          "Customisation",
                                                           style: TextStyle(
-                                                              color:
-                                                                  Colors.white),
-                                                        ),
-                                                        onPressed: () =>
-                                                            {
+                                                              color: Colors.black,
+                                                              fontSize: 20),
+                                                        ))),
+                                                Padding(
+                                                    padding: EdgeInsets.only(
+                                                        left: 20,
+                                                        // top: 10,
+                                                        // bottom: 10,
+                                                       ),
+                                                    child: new SizedBox(
+                                                        height: 30,
+                                                        width: 160,
+                                                        child: RaisedButton(
+                                                          shape:
+                                                          RoundedRectangleBorder(
+                                                            side: BorderSide(
+                                                                color: Colors.red,
+                                                                width: 1),
+                                                            borderRadius:
+                                                            BorderRadius
+                                                                .circular(
+                                                                5.0),
+                                                          ),
+                                                          color: Colors.red,
+                                                          child: Text(
+                                                            "Request Call Back",
+                                                            style: TextStyle(
+                                                                color:
+                                                                Colors.white),
+                                                          ),
+                                                          onPressed: () =>
+                                                          {
                                                             if (suscriber!= null) {
-                                                            CommonUtils.showToast(
-                                                            msg:
-                                                            "You have already one subscription plan running!",
-                                                            bgColor: Colors.black,
-                                                            textColor: Colors.white)
+                                                              CommonUtils.showToast(
+                                                                  msg:
+                                                                  "You have already one subscription plan running!",
+                                                                  bgColor: Colors.black,
+                                                                  textColor: Colors.white)
                                                             }else{
-                                                            _addRequest()
+                                                              _addRequest()
                                                             }
 
 
-                                                            },
-                                                      )))
+                                                          },
+                                                        )))
+                                              ],),
+
+                                                Column(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                                  children: [
+                                                    Container(
+                                                      child: Image.asset(
+                                                          '${images[7]}'),
+                                                    )
+                                                  ],
+                                                )
+
+
                                             ],
                                           ),
                                         )

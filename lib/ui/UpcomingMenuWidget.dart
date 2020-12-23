@@ -82,6 +82,8 @@ class _HomeScreenState extends State<UpcomingMenuWidget> {
                         height: MediaQuery.of(context).size.height,
                         width: MediaQuery.of(context).size.width,
                         child: Column(
+                          // crossAxisAlignment: CrossAxisAlignment.center,
+                          // mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Stack(children: [
                               Padding(
@@ -248,27 +250,47 @@ class _HomeScreenState extends State<UpcomingMenuWidget> {
                                             ),
                                             Column(
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                              CrossAxisAlignment.center,
                                               mainAxisAlignment:
                                               MainAxisAlignment.center,
                                               children: [
                                                 Padding(
                                                     padding:
                                                     EdgeInsets.fromLTRB(
-                                                        40, 10, 0, 20),
-                                                    child: Container(
-                                                        height: 50,
-                                                        child: Text(
-                                                          DateFormat('EEEE')
-                                                              .format(DateTime
-                                                              .now()),
-                                                          style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontWeight:
-                                                            FontWeight.w700,
-                                                            fontSize: 20,
-                                                          ),
-                                                        ))),
+                                                        20, 5, 0, 20),
+                                                 child:   Row(
+                                                   crossAxisAlignment:
+                                                   CrossAxisAlignment.center,
+                                                   mainAxisAlignment:
+                                                   MainAxisAlignment.center,
+                                                   children: [
+Align(
+  alignment:Alignment.center, child:   Container(
+    height: 40,
+    width: 120,
+    child: Row(
+      crossAxisAlignment:
+      CrossAxisAlignment.start,
+      mainAxisAlignment:
+      MainAxisAlignment.center,
+      children: [
+      Text(
+        DateFormat('EEEE')
+            .format(DateTime
+            .now()),
+
+        style: TextStyle(
+          color: Colors.white,
+          fontWeight:
+          FontWeight.w700,
+          fontSize: 20,
+        ),
+      )
+                  ],)
+)
+  ,)
+
+                  ],)),
                                               ],
                                             )
                                           ],

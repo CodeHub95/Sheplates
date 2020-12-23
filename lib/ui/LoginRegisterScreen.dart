@@ -21,16 +21,14 @@ class _LoginScreenState extends State<LoginRegisterScreen> {
     return SafeArea(
       top: true,
       child: Scaffold(
-        body: SingleChildScrollView(child:
-        Align(
-          alignment: Alignment.center,
+        body: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-
-
               Padding(
                   padding: EdgeInsets.only(
-                    top: 70,
+                    top: 50,
                   ),
                   child: Container(
                     alignment: Alignment.center,
@@ -43,95 +41,127 @@ class _LoginScreenState extends State<LoginRegisterScreen> {
                   )),
               Padding(
                   padding: EdgeInsets.only(
-                    top: 50,
-                  )),
-
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(children: [
-                    Text("Healthy", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
-                    Padding(
-                        padding: EdgeInsets.only(
-                          top: 40,
-                        )),
-                    Text("Homemade Food", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
-                  ],),
-
-                  Column(children: [
-                    Text("Hygienic", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),)
-                    ,
-                    Padding(
-                        padding: EdgeInsets.only(
-                          top: 40,
-                        )),
-                    Text("Delivered", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),)
-                  ],)
-
-
-                ],),
-              Padding(
-                  padding: EdgeInsets.only(
-                    top: 50,
-                  )),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height/3,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage("assets/cooking_bottom.png"),
-                        fit: BoxFit.cover)),
-              ),
+                top: 40,
+              )),
               Positioned(
                   bottom: 0,
-                  child: Row(children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: 50,
-                      color: AppColor.themeButtonColor,
-                      child: Row(children: <Widget>[
-                        Expanded(
-                          child: FlatButton(
-                            child: Text(
-                              "LOGIN",
-                              style: TextStyle(color: Colors.white),
+                  child: Column(children: [
+                    Stack(
+                      children: [
+                        Column(
+                          children: [
+                            Container(
+                              height: 130,
                             ),
-                            onPressed: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => LoginScreen()),
+                            Container(
+                              width: MediaQuery.of(context).size.width,
+                              height: MediaQuery.of(context).size.height / 3,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: AssetImage(
+                                          "assets/cooking_bottom.png"),
+                                      fit: BoxFit.cover)),
                             ),
-                          ),
+                          ],
                         ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Healthy",
+                                  style: TextStyle(
+
+                                      fontSize: 20),
+                                ),
+                                Padding(
+                                    padding: EdgeInsets.only(
+                                  top: 20,
+                                )),
+                                Text(
+                                  "Hygienic",
+                                  style: TextStyle(
+
+                                      fontSize: 20),
+                                ),
+                                Padding(
+                                    padding: EdgeInsets.only(
+                                  top: 20,
+                                )),
+                                Text(
+                                  "Homemade Food",
+                                  style: TextStyle(
+
+                                      fontSize: 20),
+                                ),
+                                Padding(
+                                    padding: EdgeInsets.only(
+                                  top: 20,
+                                )),
+                                Text(
+                                  "Delivered",
+                                  style: TextStyle(
+
+                                      fontSize: 20),
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
                         Container(
-                          width: 1,
-                          height: double.maxFinite,
-                          color: Colors.grey,
-                        ),
-                        Expanded(
-                          child: FlatButton(
-                            child: Text(
-                              "REGISTER",
-                              style: TextStyle(color: Colors.white),
+                          width: MediaQuery.of(context).size.width,
+                          height: 50,
+                          color: AppColor.themeButtonColor,
+                          child: Row(children: <Widget>[
+                            Expanded(
+                              child: FlatButton(
+                                child: Text(
+                                  "LOGIN",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                onPressed: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => LoginScreen()),
+                                ),
+                              ),
                             ),
-                            onPressed: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => RegisterScreen(
-                                    type: "register",
-                                  )),
+                            Container(
+                              width: 1,
+                              height: double.maxFinite,
+                              color: Colors.grey,
                             ),
-                          ),
+                            Expanded(
+                              child: FlatButton(
+                                child: Text(
+                                  "REGISTER",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                onPressed: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => RegisterScreen(
+                                            type: "register",
+                                          )),
+                                ),
+                              ),
+                            )
+                          ]),
                         )
-                      ]),
+                      ],
                     )
                   ]))
             ],
           ),
-        ),   )
-
-
+        ),
       ),
     );
   }

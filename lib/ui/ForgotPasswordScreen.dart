@@ -130,13 +130,8 @@ class _MyHomePageState extends State<ForgotPasswordScreen> {
                                       return ('Required Password');
                                     } else if (val.length < 5) {
                                       return ('Password must have 5 or more characters');
-                                    } else if (!val.contains(RegExp(r'\W')) &&
-                                        RegExp(r'\d+\w*\d+').hasMatch(val)) {
-                                      return ('Invalid Password');
-                                    } else if (val
-                                        .contains(RegExp(r"^|\-|\,|\ "))) {
-                                      return ('Invalid Password');
                                     }
+
                                     return null;
                                   },
                                 ),
