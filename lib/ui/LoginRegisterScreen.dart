@@ -28,7 +28,7 @@ class _LoginScreenState extends State<LoginRegisterScreen> {
             children: <Widget>[
               Padding(
                   padding: EdgeInsets.only(
-                    top: 50,
+                    top: 70,
                   ),
                   child: Container(
                     alignment: Alignment.center,
@@ -41,8 +41,8 @@ class _LoginScreenState extends State<LoginRegisterScreen> {
                   )),
               Padding(
                   padding: EdgeInsets.only(
-                top: 40,
-              )),
+                    top: 50,
+                  )),
               Positioned(
                   bottom: 0,
                   child: Column(children: [
@@ -80,8 +80,8 @@ class _LoginScreenState extends State<LoginRegisterScreen> {
                                 ),
                                 Padding(
                                     padding: EdgeInsets.only(
-                                  top: 20,
-                                )),
+                                      top: 20,
+                                    )),
                                 Text(
                                   "Hygienic",
                                   style: TextStyle(
@@ -90,8 +90,8 @@ class _LoginScreenState extends State<LoginRegisterScreen> {
                                 ),
                                 Padding(
                                     padding: EdgeInsets.only(
-                                  top: 20,
-                                )),
+                                      top: 20,
+                                    )),
                                 Text(
                                   "Homemade Food",
                                   style: TextStyle(
@@ -100,8 +100,8 @@ class _LoginScreenState extends State<LoginRegisterScreen> {
                                 ),
                                 Padding(
                                     padding: EdgeInsets.only(
-                                  top: 20,
-                                )),
+                                      top: 20,
+                                    )),
                                 Text(
                                   "Delivered",
                                   style: TextStyle(
@@ -149,8 +149,8 @@ class _LoginScreenState extends State<LoginRegisterScreen> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => RegisterScreen(
-                                            type: "register",
-                                          )),
+                                        type: "register",
+                                      )),
                                 ),
                               ),
                             )
