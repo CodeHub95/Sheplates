@@ -247,7 +247,7 @@ class CommonUtils {
 
   static List<AddressTypeModal> getAllAddressType() {
     List<AddressTypeModal> list = List();
-    list.add(AddressTypeModal(AddressType.Apartment, "Apartment"));
+    list.add(AddressTypeModal(AddressType.Apartment, "Home"));
     list.add(AddressTypeModal(AddressType.Work, "Work"));
     return list;
   }

@@ -83,6 +83,7 @@ class ActiveSubscription {
   String updatedAt;
   Kitchen kitchen;
   Catalog catalog;
+  Transaction transaction;
 
   ActiveSubscription(
       {this.id,
@@ -109,7 +110,8 @@ class ActiveSubscription {
         this.createdAt,
         this.updatedAt,
         this.kitchen,
-        this.catalog});
+        this.catalog,
+        this.transaction});
 
   ActiveSubscription.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -139,6 +141,9 @@ class ActiveSubscription {
     json['kitchen'] != null ? new Kitchen.fromJson(json['kitchen']) : null;
     catalog =
     json['catalog'] != null ? new Catalog.fromJson(json['catalog']) : null;
+    transaction = json['transaction'] != null
+        ? new Transaction.fromJson(json['transaction'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -171,6 +176,9 @@ class ActiveSubscription {
     }
     if (this.catalog != null) {
       data['catalog'] = this.catalog.toJson();
+    }
+    if (this.transaction != null) {
+      data['transaction'] = this.transaction.toJson();
     }
     return data;
   }
@@ -245,6 +253,26 @@ class Catalog {
   }
 }
 
+class Transaction {
+  int id;
+  String razorpayOrderId;
+
+  Transaction({this.id, this.razorpayOrderId});
+
+  Transaction.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    razorpayOrderId = json['razorpay_order_id'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['razorpay_order_id'] = this.razorpayOrderId;
+    return data;
+  }
+}
+
+
 class PastSubscription {
   int id;
   int userId;
@@ -271,6 +299,7 @@ class PastSubscription {
   String updatedAt;
   Kitchen kitchen;
   Catalog catalog;
+  Transaction transaction;
 
   PastSubscription(
       {this.id,
@@ -297,7 +326,8 @@ class PastSubscription {
         this.createdAt,
         this.updatedAt,
         this.kitchen,
-        this.catalog});
+        this.catalog,
+        this.transaction});
 
   PastSubscription.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -327,6 +357,9 @@ class PastSubscription {
     json['kitchen'] != null ? new Kitchen.fromJson(json['kitchen']) : null;
     catalog =
     json['catalog'] != null ? new Catalog.fromJson(json['catalog']) : null;
+    transaction = json['transaction'] != null
+        ? new Transaction.fromJson(json['transaction'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -359,6 +392,9 @@ class PastSubscription {
     }
     if (this.catalog != null) {
       data['catalog'] = this.catalog.toJson();
+    }
+    if (this.transaction != null) {
+      data['transaction'] = this.transaction.toJson();
     }
     return data;
   }

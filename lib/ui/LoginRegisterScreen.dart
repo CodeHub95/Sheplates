@@ -21,146 +21,114 @@ class _LoginScreenState extends State<LoginRegisterScreen> {
     return SafeArea(
       top: true,
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                  padding: EdgeInsets.only(
-                    top: 70,
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+                padding: EdgeInsets.only(
+                  top: 60,
+                ),
+                child: Container(
+                  alignment: Alignment.center,
+                  width: MediaQuery.of(context).size.width / 2,
+                  child: Image.asset(
+                    "assets/logo.png",
+                    fit: BoxFit.fill,
+                    // color: Colors.transparent,
                   ),
-                  child: Container(
-                    alignment: Alignment.center,
-                    width: MediaQuery.of(context).size.width / 2,
-                    child: Image.asset(
-                      "assets/logo.png",
-                      fit: BoxFit.fill,
-                      // color: Colors.transparent,
+                )),
+            Expanded(
+              child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Healthy",
+                      style: TextStyle(fontSize: 18),
                     ),
-                  )),
-              Padding(
-                  padding: EdgeInsets.only(
-                    top: 50,
-                  )),
-              Positioned(
-                  bottom: 0,
-                  child: Column(children: [
-                    Stack(
-                      children: [
-                        Column(
-                          children: [
-                            Container(
-                              height: 130,
-                            ),
-                            Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height / 3,
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: AssetImage(
-                                          "assets/cooking_bottom.png"),
-                                      fit: BoxFit.cover)),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Healthy",
-                                  style: TextStyle(
-
-                                      fontSize: 20),
-                                ),
-                                Padding(
-                                    padding: EdgeInsets.only(
-                                      top: 20,
-                                    )),
-                                Text(
-                                  "Hygienic",
-                                  style: TextStyle(
-
-                                      fontSize: 20),
-                                ),
-                                Padding(
-                                    padding: EdgeInsets.only(
-                                      top: 20,
-                                    )),
-                                Text(
-                                  "Homemade Food",
-                                  style: TextStyle(
-
-                                      fontSize: 20),
-                                ),
-                                Padding(
-                                    padding: EdgeInsets.only(
-                                      top: 20,
-                                    )),
-                                Text(
-                                  "Delivered",
-                                  style: TextStyle(
-
-                                      fontSize: 20),
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
+                    Padding(
+                        padding: EdgeInsets.only(
+                      top: 21,
+                    )),
+                    Text(
+                      "Hygienic",
+                      style: TextStyle(fontSize: 18),
                     ),
-                    Row(
-                      children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 50,
-                          color: AppColor.themeButtonColor,
-                          child: Row(children: <Widget>[
-                            Expanded(
-                              child: FlatButton(
-                                child: Text(
-                                  "LOGIN",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                                onPressed: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => LoginScreen()),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              width: 1,
-                              height: double.maxFinite,
-                              color: Colors.grey,
-                            ),
-                            Expanded(
-                              child: FlatButton(
-                                child: Text(
-                                  "REGISTER",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                                onPressed: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => RegisterScreen(
-                                        type: "register",
-                                      )),
-                                ),
-                              ),
-                            )
-                          ]),
-                        )
-                      ],
+                    Padding(
+                        padding: EdgeInsets.only(
+                      top: 21,
+                    )),
+                    Text(
+                      "Homemade Food",
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    Padding(
+                        padding: EdgeInsets.only(
+                      top: 21,
+                    )),
+                    Text(
+                      "Delivered",
+                      style: TextStyle(fontSize: 18),
                     )
-                  ]))
-            ],
-          ),
+                  ],
+                ),
+                Image.asset(
+                  ("assets/cooking_bottom.png"),
+                  width: MediaQuery.of(context).size.width,
+                  fit: BoxFit.cover,
+                ),
+              ]),
+            ),
+            Row(
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 50,
+                  color: AppColor.themeButtonColor,
+                  child: Row(children: <Widget>[
+                    Expanded(
+                      child: FlatButton(
+                        child: Text(
+                          "LOGIN",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => LoginScreen()),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      width: 1,
+                      height: double.maxFinite,
+                      color: Colors.grey,
+                    ),
+                    Expanded(
+                      child: FlatButton(
+                        child: Text(
+                          "REGISTER",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => RegisterScreen(
+                                type: "register",
+                              )),
+                        ),
+                      ),
+                    )
+                  ]),
+                )
+              ],
+            )
+          ],
         ),
       ),
     );

@@ -66,12 +66,12 @@ class _HomeScreenState extends State<PastWidget> {
                                       padding: EdgeInsets.only(
                                           left: 30, right: 30, top: 30),
                                       child: Container(
-                                        height: 180,
+                                        height: 200,
                                         width:
                                             MediaQuery.of(context).size.width,
                                         child: DottedBorder(
                                           padding:
-                                              EdgeInsets.fromLTRB(20, 10, 0, 0),
+                                              EdgeInsets.fromLTRB(0, 10, 0, 0),
                                           dashPattern: [5, 2],
                                           child: Container(
                                             child: Column(
@@ -128,6 +128,30 @@ class _HomeScreenState extends State<PastWidget> {
                                                                 : '',
                                                           style: TextStyle(
                                                               fontWeight: FontWeight.bold),),
+                                                        ])),
+                                                Padding(
+                                                    padding: EdgeInsets
+                                                        .only(top: 10,),
+
+                                                    child: Column(
+                                                        crossAxisAlignment: CrossAxisAlignment
+                                                            .center,
+                                                        children: [Text(
+                                                          snapshot
+                                                              .data[index]
+                                                              .kitchen !=
+                                                              null
+                                                              ?
+                                                          // snapshot
+                                                          //     .data[index]
+                                                          //     .kitchen
+                                                          //     .address
+                                                          //     .toString()
+                                                          snapshot.data[index].transaction.razorpayOrderId.toString()
+                                                              : '',
+                                                          style: TextStyle(
+                                                              fontWeight: FontWeight.bold),),
+
                                                         ])),
                                                 Padding(
                                                     padding: EdgeInsets.only(

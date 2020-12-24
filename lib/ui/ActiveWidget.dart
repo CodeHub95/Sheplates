@@ -62,7 +62,9 @@ class _HomeScreenState extends State<ActiveWidget> {
                   else {
                     return Container(
                         child: SingleChildScrollView(
-                          child: Column(children: [
+                          child: Column(
+
+                            children: [
                             ListView.builder(
                                 shrinkWrap: true,
                                 physics: NeverScrollableScrollPhysics(),
@@ -74,7 +76,7 @@ class _HomeScreenState extends State<ActiveWidget> {
                                             padding: EdgeInsets.only(
                                                 left: 30, right: 30, top: 30),
                                             child: Container(
-                                              height: 180,
+                                              height: 200,
                                               width:
                                               MediaQuery
                                                   .of(context)
@@ -82,7 +84,7 @@ class _HomeScreenState extends State<ActiveWidget> {
                                                   .width,
                                               child: DottedBorder(
                                                 padding: EdgeInsets.fromLTRB(
-                                                    20, 10, 0, 0),
+                                                    0, 10, 0, 0),
                                                 dashPattern: [5, 2],
 
                                                 child: Container(
@@ -149,6 +151,30 @@ class _HomeScreenState extends State<ActiveWidget> {
                                                                       : '',
                                                                 style: TextStyle(
                                                                   fontWeight: FontWeight.bold),),
+
+                                                              ])),
+                                                      Padding(
+                                                          padding: EdgeInsets
+                                                              .only(top: 10,),
+
+                                                          child: Column(
+                                                              crossAxisAlignment: CrossAxisAlignment
+                                                                  .center,
+                                                              children: [Text(
+                                                                snapshot
+                                                                    .data[index]
+                                                                    .kitchen !=
+                                                                    null
+                                                                    ?
+                                                                // snapshot
+                                                                //     .data[index]
+                                                                //     .kitchen
+                                                                //     .address
+                                                                //     .toString()
+                                                                snapshot.data[index].transaction.razorpayOrderId.toString()
+                                                                    : '',
+                                                                style: TextStyle(
+                                                                    fontWeight: FontWeight.bold),),
 
                                                               ])),
                                                       Padding(

@@ -123,71 +123,76 @@ class _HomeScreenState extends State<ProceedToPayment> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Container(
-                  height: 80,
-                  width: 150,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
-                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Image.asset(
-                        "assets/customer_care.png",
-                        fit: BoxFit.fill,
-                      ),
-                      GestureDetector(
-                          child: Text(
-                            "Support",
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold),
+                GestureDetector(child:   Container(
+                    height: 80,
+                    width: 150,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                    ),
+
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Image.asset(
+                              "assets/customer_care.png",
+                              fit: BoxFit.fill,
+                            ),
+                            Text(
+                              "Support",
+                              style: TextStyle(
+                                  fontSize: 15, fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+               ),
+                    onTap: () => {
+                      // null
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SupportScreen(),
                           ),
-                          onTap: () => {
-                                // null
-                                Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => SupportScreen(),
-                                    ),
-                                    (Route<dynamic> route) => false)
-                              })
-                    ],
-                  ),
-                ),
+                              (Route<dynamic> route) => false)
+                    }),
+
+
+                GestureDetector(child:
                 Container(
-                  height: 80,
-                  width: 150,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
-                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Image.asset(
-                        "assets/profile_icon.png",
-                        fit: BoxFit.fill,
-                      ),
-                      GestureDetector(
-                          child: Text(
-                            "Profile",
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold),
+                    height: 80,
+                    width: 150,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                    ),
+
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Image.asset(
+                              "assets/profile_icon.png",
+                              fit: BoxFit.fill,
+                            ),
+                            Text(
+                              "Profile",
+                              style: TextStyle(
+                                  fontSize: 15, fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                    ),
+                    onTap: () {
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => EditProfileScreen(),
                           ),
-                          onTap: () {
-                                Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => EditProfileScreen(),
-                                    ),
-                                    (Route<dynamic> route) => false);
-                              })
-                    ],
-                  ),
-                )
+                              (Route<dynamic> route) => false);
+                    }
+                  )
+
               ],
             ),
             Padding(padding: EdgeInsets.only(top: 20)),
@@ -195,70 +200,73 @@ class _HomeScreenState extends State<ProceedToPayment> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Container(
+                GestureDetector(
+              child: Container(
                   height: 80,
                   width: 150,
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.grey),
                     borderRadius: BorderRadius.all(Radius.circular(5.0)),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Image.asset(
-                        "assets/faq.png",
-                        fit: BoxFit.fill,
-                      ),
-                      GestureDetector(
-                          child: Text(
+
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Image.asset(
+                            "assets/faq.png",
+                            fit: BoxFit.fill,
+                          ),
+                          Text(
                             "FAQ's",
                             style: TextStyle(
                                 fontSize: 15, fontWeight: FontWeight.bold),
                           ),
-                          onTap: ()  {
-                                Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => FaqScreen(),
-                                    ),
-                                    (Route<dynamic> route) => false);
-                              })
-                    ],
-                  ),
-                ),
-                Container(
-                  height: 80,
-                  width: 150,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
-                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Image.asset(
-                        "assets/feedback.png",
-                        fit: BoxFit.fill,
+                        ],
                       ),
-                      GestureDetector(
-                          child: Text(
-                            "Feedback",
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold),
+             ),
+                    onTap: () {
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => FaqScreen(),
                           ),
-                          onTap: () {
-                            Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => FeedBack(),
-                                ),
-                                (Route<dynamic> route) => false);
-                          })
-                    ],
-                  ),
-                )
+                              (Route<dynamic> route) => false);
+                    }
+                ),
+
+                GestureDetector(child: Container(
+                    height: 80,
+                    width: 150,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                    ),
+
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Image.asset(
+                              "assets/feedback.png",
+                              fit: BoxFit.fill,
+                            ),
+                            Text(
+                              "Feedback",
+                              style: TextStyle(
+                                  fontSize: 15, fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                  ),       onTap: () {
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => FeedBack(),
+                      ),
+                          (Route<dynamic> route) => false);
+                })
+
               ],
             ),
           ]))),
