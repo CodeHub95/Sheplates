@@ -76,7 +76,7 @@ class _HomeScreenState extends State<ActiveWidget> {
                                             padding: EdgeInsets.only(
                                                 left: 30, right: 30, top: 30),
                                             child: Container(
-                                              height: 200,
+                                              // height: 250,
                                               width:
                                               MediaQuery
                                                   .of(context)
@@ -84,7 +84,7 @@ class _HomeScreenState extends State<ActiveWidget> {
                                                   .width,
                                               child: DottedBorder(
                                                 padding: EdgeInsets.fromLTRB(
-                                                    0, 10, 0, 0),
+                                                    0, 10, 0, 10),
                                                 dashPattern: [5, 2],
 
                                                 child: Container(
