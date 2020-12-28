@@ -26,13 +26,9 @@ class _LoginScreenState extends State<LoginRegisterScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Padding(
-                padding: EdgeInsets.only(
-                  top: 60,
-                  bottom: 30
-                ),
+                padding: EdgeInsets.only(top: 60),
                 child: Container(
                   alignment: Alignment.center,
-                  width: MediaQuery.of(context).size.width / 2,
                   child: Image.asset(
                     "assets/logo.png",
                     fit: BoxFit.fill,
@@ -54,24 +50,24 @@ class _LoginScreenState extends State<LoginRegisterScreen> {
                         ),
                         Padding(
                             padding: EdgeInsets.only(
-                              top: 21,
-                            )),
+                          top: 21,
+                        )),
                         Text(
                           "Hygienic",
                           style: TextStyle(fontSize: 18),
                         ),
                         Padding(
                             padding: EdgeInsets.only(
-                              top: 21,
-                            )),
+                          top: 21,
+                        )),
                         Text(
                           "Homemade Food",
                           style: TextStyle(fontSize: 18),
                         ),
                         Padding(
                             padding: EdgeInsets.only(
-                              top: 21,
-                            )),
+                          top: 21,
+                        )),
                         Text(
                           "Delivered",
                           style: TextStyle(fontSize: 18),
@@ -120,8 +116,8 @@ class _LoginScreenState extends State<LoginRegisterScreen> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => RegisterScreen(
-                                type: "register",
-                              )),
+                                    type: "register",
+                                  )),
                         ),
                       ),
                     )

@@ -29,7 +29,7 @@ class Data {
 
   Data.fromJson(Map<String, dynamic> json) {
     address =
-    json['address'] != null ? new Address.fromJson(json['address']) : null;
+        json['address'] != null ? new Address.fromJson(json['address']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -85,19 +85,19 @@ class Rows {
 
   Rows(
       {this.id,
-        this.userId,
-        this.fullAddress,
-        this.city,
-        this.area,
-        this.pincode,
-        this.landmark,
-        this.latitude,
-        this.longitude,
-        this.placeType,
-        this.placeName,
-        this.isDeliveryAddress,
-        this.createdAt,
-        this.updatedAt});
+      this.userId,
+      this.fullAddress,
+      this.city,
+      this.area,
+      this.pincode,
+      this.landmark,
+      this.latitude,
+      this.longitude,
+      this.placeType,
+      this.placeName,
+      this.isDeliveryAddress,
+      this.createdAt,
+      this.updatedAt});
 
   Rows.fromJson(Map<String, dynamic> json) {
     id = json['id'];

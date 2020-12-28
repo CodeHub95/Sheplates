@@ -28,7 +28,7 @@ class _DeliveryAddressState extends State<DeliveryAddress> {
 // Declare this variable
   int selectedRadioTile;
   int selectedRadio;
-  int _value = 1;
+  int _value = 0;
 
   @override
   Future<void> initState() {
@@ -205,43 +205,48 @@ class _DeliveryAddressState extends State<DeliveryAddress> {
                                     ),
                                   ),
                                   onPressed: () async {
-                                    CommonUtils.fullScreenProgress(context);
-                                    String token = await SharedPrefHelper()
-                                        .getWithDefault("token", "");
-                                    print(token);
-
-                                    SetAddressRequest request =
-                                        SetAddressRequest(
-                                            latitude:
-                                                snapshot.data[_value].latitude,
-                                            longitude: snapshot
-                                                .data[_value].longitude);
-
-                                    int sid = snapshot.data[_value].id;
-                                    String url = "user/set-delvery-address/";
-                                    var res = await NetworkUtil().post(
-                                        url: url + sid.toString(),
-                                        body: jsonEncode(request),
-                                        token: token);
-
-                                    BaseResponse response =
-                                        BaseResponse.fromJson(res);
-
-                                    if (response.status == 200) {
-                                      CommonUtils.dismissProgressDialog(
-                                          context);
-
-                                      Navigator.pushNamedAndRemoveUntil(context,
-                                          Routes.homeScreen, (route) => false);
-                                      CommonUtils.showToast(
-                                          msg: response.message,
-                                          bgColor: Colors.black,
-                                          textColor: Colors.white);
+                                    if (_value == null) {
                                     } else {
-                                      CommonUtils.errorMessage(
-                                          msg: response.message);
-                                      CommonUtils.dismissProgressDialog(
-                                          context);
+                                      CommonUtils.fullScreenProgress(context);
+                                      String token = await SharedPrefHelper()
+                                          .getWithDefault("token", "");
+                                      print(token);
+
+                                      SetAddressRequest request =
+                                          SetAddressRequest(
+                                              latitude: snapshot
+                                                  .data[_value].latitude,
+                                              longitude: snapshot
+                                                  .data[_value].longitude);
+
+                                      int sid = snapshot.data[_value].id;
+                                      String url = "user/set-delvery-address/";
+                                      var res = await NetworkUtil().post(
+                                          url: url + sid.toString(),
+                                          body: jsonEncode(request),
+                                          token: token);
+
+                                      BaseResponse response =
+                                          BaseResponse.fromJson(res);
+
+                                      if (response.status == 200) {
+                                        CommonUtils.dismissProgressDialog(
+                                            context);
+
+                                        Navigator.pushNamedAndRemoveUntil(
+                                            context,
+                                            Routes.homeScreen,
+                                            (route) => false);
+                                        CommonUtils.showToast(
+                                            msg: response.message,
+                                            bgColor: Colors.black,
+                                            textColor: Colors.white);
+                                      } else {
+                                        CommonUtils.errorMessage(
+                                            msg: response.message);
+                                        CommonUtils.dismissProgressDialog(
+                                            context);
+                                      }
                                     }
                                   })),
                         ],
@@ -278,6 +283,16 @@ class _DeliveryAddressState extends State<DeliveryAddress> {
 
     if (response.status == 200) {
       _streamController.sink.add(response.data.address.rows);
+
+      int i = 0;
+      response.data.address.rows.forEach((element) {
+        if (element.isDeliveryAddress == 1) {
+          _value = i;
+        }
+        i++;
+      });
+
+      setState(() {});
     } else {
       CommonUtils.showToast(
           msg: "Please Select Delivery Address",
