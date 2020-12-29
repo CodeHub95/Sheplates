@@ -25,61 +25,63 @@ class _LoginScreenState extends State<LoginRegisterScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Padding(
-                padding: EdgeInsets.only(top: 60),
-                child: Container(
-                  alignment: Alignment.center,
-                  child: Image.asset(
-                    "assets/logo.png",
-                    fit: BoxFit.fill,
-                    // color: Colors.transparent,
-                  ),
-                )),
             Expanded(
-              child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Healthy",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                        Padding(
-                            padding: EdgeInsets.only(
-                          top: 21,
-                        )),
-                        Text(
-                          "Hygienic",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                        Padding(
-                            padding: EdgeInsets.only(
-                          top: 21,
-                        )),
-                        Text(
-                          "Homemade Food",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                        Padding(
-                            padding: EdgeInsets.only(
-                          top: 21,
-                        )),
-                        Text(
-                          "Delivered",
-                          style: TextStyle(fontSize: 18),
-                        )
-                      ],
-                    ),
-                    Image.asset(
-                      ("assets/cooking_bottom.png"),
-                      width: MediaQuery.of(context).size.width,
-                      fit: BoxFit.cover,
-                    ),
-                  ]),
+              child: SingleChildScrollView(
+                child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                          padding: EdgeInsets.only(top: 50, bottom: 10),
+                          child: Container(
+                            alignment: Alignment.center,
+                            child: Image.asset(
+                              "assets/logo.png",
+
+                              // color: Colors.transparent,
+                            ),
+                          )),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Healthy",
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          Padding(
+                              padding: EdgeInsets.only(
+                            top: 21,
+                          )),
+                          Text(
+                            "Hygienic",
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          Padding(
+                              padding: EdgeInsets.only(
+                            top: 21,
+                          )),
+                          Text(
+                            "Homemade Food",
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          Padding(
+                              padding: EdgeInsets.only(
+                            top: 21,
+                          )),
+                          Text(
+                            "Delivered",
+                            style: TextStyle(fontSize: 18),
+                          )
+                        ],
+                      ),
+                      Image.asset(
+                        "assets/cooking_bottom.png",
+                        width: MediaQuery.of(context).size.width,
+                        fit: BoxFit.cover,
+                      ),
+                    ]),
+              ),
             ),
             Row(
               children: [

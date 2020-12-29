@@ -79,7 +79,7 @@ class _HomeScreenState extends State<UpcomingMenuWidget> {
                             image: DecorationImage(
                                 fit: BoxFit.fill,
                                 image: AssetImage("assets/bg_menu.png"))),
-                        height: MediaQuery.of(context).size.height,
+
                         width: MediaQuery.of(context).size.width,
                         child: Column(
                           // crossAxisAlignment: CrossAxisAlignment.center,

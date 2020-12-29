@@ -75,151 +75,168 @@ class _HomeScreenState extends State<VegitarianLunch> {
                               padding:
                                   EdgeInsets.only(top: 30, right: 10, left: 10),
                               child: Container(
-                                  height: MediaQuery.of(context).size.height,
-                                  decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                          fit: BoxFit.fill,
-                                          image: AssetImage(
-                                              "assets/menu_listing.png"))))),
+                                height: MediaQuery.of(context).size.height,
+                              )),
                           Container(
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      fit: BoxFit.fill,
+                                      image: AssetImage(
+                                          "assets/menu_listing.png"))),
                               child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                Padding(padding: EdgeInsets.only(top: 60)),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Text(
-                                          "QUALITY",
-                                          style: TextStyle(
-                                              fontSize: 25,
-                                              color: Colors.white),
-                                        ),
-                                        Padding(
-                                            padding: EdgeInsets.only(top: 10),
-                                            child: Text(
-                                              "A Taste of Home Made Food",
-                                              style: TextStyle(
-                                                  fontSize: 17,
-                                                  color: Colors.white),
-                                            ))
-                                      ],
-                                    )
-                                  ],
-                                ),
-                                Padding(
-                                    padding: EdgeInsets.only(
-                                        top: 10, right: 30, left: 30),
-                                    child: Container(
-                                        height: 10,
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                                fit: BoxFit.fill,
-                                                image: AssetImage(
-                                                    "assets/arrow_menu.png"))))),
-                                Padding(
-                                    padding: EdgeInsets.only(
-                                        top: 20, left: 30, right: 30),
-                                    child: Column(
+                                    Padding(padding: EdgeInsets.only(top: 60)),
+                                    Row(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
-                                        Text(
-                                          "Monday:",
-                                          style: TextStyle(
-                                              fontSize: 20, color: Colors.red),
-                                        ),
-                                        Padding(
-                                            padding: EdgeInsets.only(top: 5),
-                                            child: Text(widget.rows.menu.monday,
-                                                style: TextStyle(
-                                                    fontSize: 15,
-                                                    color: Colors.white))),
-                                        Padding(
-                                          padding: EdgeInsets.only(top: 20),
-                                          child: Text("Tuesday:",
+                                        Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Text(
+                                              "QUALITY",
                                               style: TextStyle(
-                                                  fontSize: 20,
-                                                  color: Colors.red)),
-                                        ),
-                                        Padding(
-                                            padding: EdgeInsets.only(top: 5),
-                                            child: Text(
-                                                widget.rows.menu.tuesday,
-                                                style: TextStyle(
-                                                    fontSize: 15,
-                                                    color: Colors.white))),
-                                        Padding(
-                                          padding: EdgeInsets.only(top: 20),
-                                          child: Text("Wednesday:",
-                                              style: TextStyle(
-                                                  fontSize: 20,
-                                                  color: Colors.red)),
-                                        ),
-                                        Padding(
-                                            padding: EdgeInsets.only(top: 5),
-                                            child: Text(
-                                                widget.rows.menu.wednesday,
-                                                style: TextStyle(
-                                                    fontSize: 15,
-                                                    color: Colors.white))),
-                                        Padding(
-                                          padding: EdgeInsets.only(top: 20),
-                                          child: Text("Thursday:",
-                                              style: TextStyle(
-                                                  fontSize: 20,
-                                                  color: Colors.red)),
-                                        ),
-                                        Padding(
-                                            padding: EdgeInsets.only(top: 5),
-                                            child: Text(
-                                                widget.rows.menu.thrusday,
-                                                style: TextStyle(
-                                                    fontSize: 15,
-                                                    color: Colors.white))),
-                                        Padding(
-                                          padding: EdgeInsets.only(top: 20),
-                                          child: Text("Friday:",
-                                              style: TextStyle(
-                                                  fontSize: 20,
-                                                  color: Colors.red)),
-                                        ),
-                                        Padding(
-                                            padding: EdgeInsets.only(top: 5),
-                                            child: Text(widget.rows.menu.friday,
-                                                style: TextStyle(
-                                                    fontSize: 15,
-                                                    color: Colors.white))),
-                                        Padding(
-                                          padding: EdgeInsets.only(top: 20),
-                                          child: Text("Saturday:",
-                                              style: TextStyle(
-                                                  fontSize: 20,
-                                                  color: Colors.red)),
-                                        ),
-                                        Padding(
-                                            padding: EdgeInsets.only(top: 5),
-                                            child: Text(
-                                                widget.rows.menu.saturday,
-                                                style: TextStyle(
-                                                    fontSize: 15,
-                                                    color: Colors.white))),
+                                                  fontSize: 25,
+                                                  color: Colors.white),
+                                            ),
+                                            Padding(
+                                                padding:
+                                                    EdgeInsets.only(top: 10),
+                                                child: Text(
+                                                  "A Taste of Home Made Food",
+                                                  style: TextStyle(
+                                                      fontSize: 17,
+                                                      color: Colors.white),
+                                                ))
+                                          ],
+                                        )
                                       ],
-                                    )),
-                              ])),
+                                    ),
+                                    Padding(
+                                        padding: EdgeInsets.only(
+                                            top: 10, right: 30, left: 30),
+                                        child: Container(
+                                            height: 10,
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            decoration: BoxDecoration(
+                                                image: DecorationImage(
+                                                    fit: BoxFit.fill,
+                                                    image: AssetImage(
+                                                        "assets/arrow_menu.png"))))),
+                                    Padding(
+                                        padding: EdgeInsets.only(
+                                            top: 20, left: 30, right: 30),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Monday:",
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  color: Colors.red),
+                                            ),
+                                            Padding(
+                                                padding:
+                                                    EdgeInsets.only(top: 5),
+                                                child: Text(
+                                                    widget.rows.menu.monday,
+                                                    style: TextStyle(
+                                                        fontSize: 15,
+                                                        color: Colors.white))),
+                                            Padding(
+                                              padding: EdgeInsets.only(top: 20),
+                                              child: Text("Tuesday:",
+                                                  style: TextStyle(
+                                                      fontSize: 20,
+                                                      color: Colors.red)),
+                                            ),
+                                            Padding(
+                                                padding:
+                                                    EdgeInsets.only(top: 5),
+                                                child: Text(
+                                                    widget.rows.menu.tuesday,
+                                                    style: TextStyle(
+                                                        fontSize: 15,
+                                                        color: Colors.white))),
+                                            Padding(
+                                              padding: EdgeInsets.only(top: 20),
+                                              child: Text("Wednesday:",
+                                                  style: TextStyle(
+                                                      fontSize: 20,
+                                                      color: Colors.red)),
+                                            ),
+                                            Padding(
+                                                padding:
+                                                    EdgeInsets.only(top: 5),
+                                                child: Text(
+                                                    widget.rows.menu.wednesday,
+                                                    style: TextStyle(
+                                                        fontSize: 15,
+                                                        color: Colors.white))),
+                                            Padding(
+                                              padding: EdgeInsets.only(top: 20),
+                                              child: Text("Thursday:",
+                                                  style: TextStyle(
+                                                      fontSize: 20,
+                                                      color: Colors.red)),
+                                            ),
+                                            Padding(
+                                                padding:
+                                                    EdgeInsets.only(top: 5),
+                                                child: Text(
+                                                    widget.rows.menu.thrusday,
+                                                    style: TextStyle(
+                                                        fontSize: 15,
+                                                        color: Colors.white))),
+                                            Padding(
+                                              padding: EdgeInsets.only(top: 20),
+                                              child: Text("Friday:",
+                                                  style: TextStyle(
+                                                      fontSize: 20,
+                                                      color: Colors.red)),
+                                            ),
+                                            Padding(
+                                                padding:
+                                                    EdgeInsets.only(top: 5),
+                                                child: Text(
+                                                    widget.rows.menu.friday,
+                                                    style: TextStyle(
+                                                        fontSize: 15,
+                                                        color: Colors.white))),
+                                            Padding(
+                                              padding: EdgeInsets.only(top: 20),
+                                              child: Text("Saturday:",
+                                                  style: TextStyle(
+                                                      fontSize: 20,
+                                                      color: Colors.red)),
+                                            ),
+                                            Padding(
+                                                padding:
+                                                    EdgeInsets.only(top: 5),
+                                                child: Text(
+                                                    widget.rows.menu.saturday,
+                                                    style: TextStyle(
+                                                        fontSize: 15,
+                                                        color: Colors.white))),
+                                            SizedBox(
+                                              height: 80,
+                                            )
+                                          ],
+                                        )),
+                                  ])),
                         ],
                       ),
                       Padding(
                           padding: EdgeInsets.only(
-                        top: 30,
+                        top: 10,
                       )),
                       ScreenUtils.customButton(context, title: "Subscribe",
                           onCLick: () {

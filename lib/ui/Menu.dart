@@ -40,7 +40,7 @@ class _HomeScreenState extends State<MenuScreen>
                 ),
                 Tab(
                   child: Text(
-                    "UpComing",
+                    "Upcoming",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),

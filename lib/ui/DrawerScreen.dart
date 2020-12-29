@@ -287,9 +287,14 @@ class _CommonDrawerState extends State<CustomDrawer> {
                                   decoration: new BoxDecoration(
                                     shape: BoxShape.circle,
                                     image: new DecorationImage(
-                                      image: new NetworkImage(snapshot
-                                          .data.data.userExist.profileImage
-                                          .toString()),
+                                      image: snapshot.data.data.userExist
+                                                  .profileImage !=
+                                              null
+                                          ? NetworkImage(snapshot
+                                              .data.data.userExist.profileImage
+                                              .toString())
+                                          : AssetImage(
+                                              "assets/2.0x/profile_icon.png"),
                                       fit: BoxFit.cover,
                                     ),
                                   )))),
