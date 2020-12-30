@@ -58,26 +58,24 @@ class _HomeScreenState extends State<VegitarianLunch> {
               ),
               preferredSize: Size.fromHeight(1.0)),
         ),
-        body: SingleChildScrollView(
-            child: Container(
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        fit: BoxFit.fill,
-                        image: AssetImage("assets/bg_menu.png"))),
-                child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Stack(
+        body: Stack(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      fit: BoxFit.fill,
+                      image: AssetImage("assets/bg_menu.png"))),
+              height: MediaQuery.of(context).size.height,
+            ),
+            SingleChildScrollView(
+                child: Container(
+                    child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Padding(
-                              padding:
-                                  EdgeInsets.only(top: 30, right: 10, left: 10),
-                              child: Container(
-                                height: MediaQuery.of(context).size.height,
-                              )),
                           Container(
+                            margin : EdgeInsets.all(8.0),
                               decoration: BoxDecoration(
                                   image: DecorationImage(
                                       fit: BoxFit.fill,
@@ -232,30 +230,30 @@ class _HomeScreenState extends State<VegitarianLunch> {
                                           ],
                                         )),
                                   ])),
-                        ],
-                      ),
-                      Padding(
-                          padding: EdgeInsets.only(
-                        top: 10,
-                      )),
-                      ScreenUtils.customButton(context, title: "Subscribe",
-                          onCLick: () {
-                        if (widget.suscriber) {
-                          CommonUtils.showToast(
-                              msg:
-                                  "You have already one subscription plan running!",
-                              bgColor: Colors.black,
-                              textColor: Colors.white);
-                        } else {
-                          mealName = widget.rows.mealName;
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    ConfirmSubscription(widget.rows)),
-                          );
-                        }
-                      }),
-                    ]))));
+                          Padding(
+                              padding: EdgeInsets.only(
+                            top: 10,
+                          )),
+                          ScreenUtils.customButton(context, title: "Subscribe",
+                              onCLick: () {
+                            if (widget.suscriber) {
+                              CommonUtils.showToast(
+                                  msg:
+                                      "You have already one subscription plan running!",
+                                  bgColor: Colors.black,
+                                  textColor: Colors.white);
+                            } else {
+                              mealName = widget.rows.mealName;
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        ConfirmSubscription(widget.rows)),
+                              );
+                            }
+                          }),
+                        ]))),
+          ],
+        ));
   }
 }

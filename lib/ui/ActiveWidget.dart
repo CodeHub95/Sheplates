@@ -366,7 +366,7 @@ class _HomeScreenState extends State<ActiveWidget> {
       _streamController.sink.add(response.data.activeSubscription);
       if (response.data.activeSubscription.isEmpty == true) {
         CommonUtils.showToast(
-            msg: "Do not have any ActiveSubscription Plan",
+            msg: "Do not have any active subscription plan",
             bgColor: AppColor.darkThemeBlueColor,
             textColor: Colors.white);
       }

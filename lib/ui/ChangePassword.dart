@@ -199,7 +199,7 @@ class _MyHomePageState extends State<ChangePasswordScreen> {
         CommonUtils.dismissProgressDialog(context);
         if (baseResponse.status == 200) {
           CommonUtils.showToast(
-              msg: "Password Reset Successfully",
+              msg: "Password reset successfully",
               bgColor: Colors.white,
               textColor: Colors.black);
           Navigator.of(context).pushAndRemoveUntil(

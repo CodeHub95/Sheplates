@@ -434,7 +434,7 @@ class _HomeScreenState extends State<PauseSubscription> {
       if (pauseScreenDataResponse.data.address == null ||
           pauseScreenDataResponse.data.order == null) {
         CommonUtils.showToast(
-            msg: "Do not have any Active Subscription Plan",
+            msg: "Do not have any active Subscription Plan",
             bgColor: AppColor.darkThemeBlueColor,
             textColor: Colors.white);
       }

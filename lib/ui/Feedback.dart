@@ -580,7 +580,7 @@ class _FeedBackState extends State<FeedBack> {
           }
         } else {
           CommonUtils.showToast(
-              msg: "Do not have any ActiveSubscription Plan",
+              msg: "Do not have any active subscription Plan",
               bgColor: AppColor.darkThemeBlueColor,
               textColor: Colors.white);
           Navigator.push(
@@ -590,7 +590,7 @@ class _FeedBackState extends State<FeedBack> {
         }
       } else {
         CommonUtils.showToast(
-            msg: "Do not have any ActiveSubscription Plan",
+            msg: "Do not have any active subscription Plan",
             bgColor: AppColor.darkThemeBlueColor,
             textColor: Colors.white);
         Navigator.push(

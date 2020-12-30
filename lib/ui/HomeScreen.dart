@@ -391,17 +391,19 @@ class _HomeScreenState extends State<HomeScreen> {
     var res = await NetworkUtil().get("user/subscription-plans", token: token);
     HomeListResponse homeListResponse = HomeListResponse.fromJson(res);
     if (homeListResponse.status == 200) {
-      _streamController.sink
-          .add(homeListResponse.data.subscriptionPlanData.rows);
-      suscriber = homeListResponse.data.suscriber;
+
 
       if (homeListResponse.data.deliveryAddressExist == 0) {
         CommonUtils.showToast(
-            msg: "You have't added your delivery Location Please add",
+            msg: "You have't added your delivery location, Please add",
             bgColor: Colors.black,
             textColor: Colors.white);
         Navigator.pushNamedAndRemoveUntil(
             context, Routes.deliveryStaticScreen, (route) => false);
+      }else{
+        _streamController.sink
+            .add(homeListResponse.data.subscriptionPlanData.rows);
+        suscriber = homeListResponse.data.suscriber;
       }
     }
   }
