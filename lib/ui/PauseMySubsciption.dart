@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sheplates/Utils/NetworkUtils.dart';
 import 'package:flutter_sheplates/Utils/Routes.dart';
+import 'package:flutter_sheplates/Utils/ScreenUtils.dart';
 import 'package:flutter_sheplates/Utils/app_defaults.dart';
 import 'package:flutter_sheplates/Utils/app_utils.dart';
 import 'package:flutter_sheplates/Utils/hexColor.dart';
@@ -85,14 +86,7 @@ class _HomeScreenState extends State<PauseSubscription> {
         body: StreamBuilder<PauseScreenDataResponse>(
             stream: _streamController.stream,
             builder: (context, snapshot) {
-              if (!snapshot.hasData) {
-                return Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
-                  alignment: Alignment.center,
-                  child: CircularProgressIndicator(),
-                );
-              } else {
+              if (snapshot.hasData) {
                 return Container(
                     child: SingleChildScrollView(
                         child: Column(children: [
@@ -286,6 +280,30 @@ class _HomeScreenState extends State<PauseSubscription> {
                         ),
                       ))
                 ])));
+              } else if (snapshot.hasError) {
+                return Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset("assets/not_delivering.png"),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 20.0),
+                        child: ScreenUtils.customText(data: snapshot.error),
+                      )
+                    ],
+                  ),
+                );
+              } else {
+                return Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  alignment: Alignment.center,
+                  child: CircularProgressIndicator(),
+                );
               }
             }));
   }
@@ -421,22 +439,23 @@ class _HomeScreenState extends State<PauseSubscription> {
     PauseScreenDataResponse pauseScreenDataResponse =
         PauseScreenDataResponse.fromJson(res);
     if (pauseScreenDataResponse.status == 200) {
-      _streamController.sink.add(pauseScreenDataResponse);
-      startDate = pauseScreenDataResponse.data.order.startDate;
-      endDate = pauseScreenDataResponse.data.order.endDate;
-      pause_subscription_date =
-          pauseScreenDataResponse.data.order.pauseSubscriptionDate;
-      resume_subscription_date =
-          pauseScreenDataResponse.data.order.resumeSubscriptionDate;
-      oID = pauseScreenDataResponse.data.order.id;
-      status = pauseScreenDataResponse.data.order.status;
-      pause = (status == "Active" ? true : false);
-      if (pauseScreenDataResponse.data.address == null ||
-          pauseScreenDataResponse.data.order == null) {
+      if (pauseScreenDataResponse.data.order == null) {
         CommonUtils.showToast(
-            msg: "Do not have any active Subscription Plan",
+            msg: pauseScreenDataResponse.message,
             bgColor: AppColor.darkThemeBlueColor,
             textColor: Colors.white);
+        _streamController.sink.addError(pauseScreenDataResponse.message);
+      } else {
+        _streamController.sink.add(pauseScreenDataResponse);
+        startDate = pauseScreenDataResponse.data.order.startDate;
+        endDate = pauseScreenDataResponse.data.order.endDate;
+        pause_subscription_date =
+            pauseScreenDataResponse.data.order.pauseSubscriptionDate;
+        resume_subscription_date =
+            pauseScreenDataResponse.data.order.resumeSubscriptionDate;
+        oID = pauseScreenDataResponse.data.order.id;
+        status = pauseScreenDataResponse.data.order.status;
+        pause = (status == "Active" ? true : false);
       }
     } else {
       CommonUtils.errorMessage(msg: pauseScreenDataResponse.message);

@@ -323,7 +323,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           ),
                                                           onPressed: () =>
                                                           {
-                                                            if (suscriber!= null) {
+                                                            if (suscriber) {
                                                               CommonUtils.showToast(
                                                                   msg:
                                                                   "You have already one subscription plan running!",

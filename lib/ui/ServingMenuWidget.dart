@@ -45,34 +45,7 @@ class _HomeScreenState extends State<ServingMenuWidget> {
       stream: _controller.stream,
       builder: (context, snapshot) {
         print("build");
-        if (!snapshot.hasData)
-          return Container(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              child: Center(
-                child: CircularProgressIndicator(),
-              ));
-
-        if (snapshot.data.data.obj == null) {
-          return Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height / 2,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Padding(
-                    padding: const EdgeInsets.only(top: 0.0),
-                    child: Text(
-                      "Not Available",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.black),
-                    )),
-              ],
-            ),
-          );
-        } else {
+        if (snapshot.hasData) {
           return Container(
               decoration: BoxDecoration(
                   image: DecorationImage(
@@ -109,7 +82,7 @@ class _HomeScreenState extends State<ServingMenuWidget> {
                                   children: [
                                     Text(
                                       // snapshot.data.data.obj.kitchen,
-                                      snapshot.data.data.obj.kitchen != null
+                                      snapshot.data.data.obj?.kitchen != null
                                           ? snapshot.data.data.obj.kitchen
                                               .toString()
                                           : '',
@@ -119,7 +92,7 @@ class _HomeScreenState extends State<ServingMenuWidget> {
                                     Padding(
                                         padding: EdgeInsets.only(top: 10),
                                         child: Text(
-                                          snapshot.data.data.obj.kitchen != null
+                                          snapshot.data.data.obj?.kitchen != null
                                               ? snapshot
                                                   .data.data.obj.kitchenAddress
                                                   .toString()
@@ -151,7 +124,7 @@ class _HomeScreenState extends State<ServingMenuWidget> {
                                   children: [
                                     Text(
                                       toBeginningOfSentenceCase(snapshot
-                                          .data.data.obj.mealName
+                                          .data.data.obj?.mealName
                                           .toString()),
                                       style: TextStyle(
                                           fontSize: 25, color: Colors.red),
@@ -181,7 +154,7 @@ class _HomeScreenState extends State<ServingMenuWidget> {
                                                 )),
                                             Text(
                                               toBeginningOfSentenceCase(snapshot
-                                                  .data.data.obj.duration
+                                                  .data.data.obj?.duration
                                                   .toString()),
                                               style: TextStyle(
                                                   color: Colors.white,
@@ -203,7 +176,7 @@ class _HomeScreenState extends State<ServingMenuWidget> {
                                                       fontSize: 20),
                                                 )),
                                             Text(
-                                              snapshot.data.data.obj.startDate
+                                              snapshot.data.data.obj?.startDate
                                                   .toString(),
                                               style: TextStyle(
                                                   color: Colors.white,
@@ -225,7 +198,7 @@ class _HomeScreenState extends State<ServingMenuWidget> {
                                                       fontSize: 20),
                                                 )),
                                             Text(
-                                              snapshot.data.data.obj.amountPaid
+                                              snapshot.data.data.obj?.amountPaid
                                                   .toString(),
                                               style: TextStyle(
                                                   color: Colors.white,
@@ -247,7 +220,7 @@ class _HomeScreenState extends State<ServingMenuWidget> {
                                                       fontSize: 20),
                                                 )),
                                             Text(
-                                              snapshot.data.data.obj.mealsServed
+                                              snapshot.data.data.obj?.mealsServed
                                                   .toString(),
                                               style: TextStyle(
                                                   color: Colors.white,
@@ -270,7 +243,7 @@ class _HomeScreenState extends State<ServingMenuWidget> {
                                                 )),
                                             Text(
                                               snapshot
-                                                  .data.data.obj.mealsRemaining
+                                                  .data.data.obj?.mealsRemaining
                                                   .toString(),
                                               style: TextStyle(
                                                   color: Colors.white,
@@ -319,7 +292,7 @@ class _HomeScreenState extends State<ServingMenuWidget> {
                                                       EdgeInsets.only(top: 20)),
                                               Text(
                                                 snapshot
-                                                    .data.data.obj.servingToday
+                                                    .data.data.obj?.servingToday
                                                     .toString(),
                                                 style: TextStyle(
                                                     fontSize: 16,
@@ -334,6 +307,30 @@ class _HomeScreenState extends State<ServingMenuWidget> {
                       ),
                     ]),
                   ]));
+        } else if (snapshot.hasError) {
+          return Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset("assets/not_delivering.png"),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
+                  child: ScreenUtils.customText(data: snapshot.error),
+                )
+              ],
+            ),
+          );
+        } else {
+          return Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              child: Center(
+                child: CircularProgressIndicator(),
+              ));
         }
       },
     )));
@@ -345,16 +342,19 @@ class _HomeScreenState extends State<ServingMenuWidget> {
     var res = await NetworkUtil().get("user/my-menu", token: token);
     MenuResponse menuResponse = MenuResponse.fromJson(res);
     if (menuResponse.status == 200) {
-      _controller.sink.add(menuResponse);
-      if (menuResponse.data == null) {
+      if (menuResponse.data.obj == null) {
+        _controller.sink.addError(menuResponse.message);
         CommonUtils.showToast(
             msg: "Do not have any ActiveSubscription Plan",
             bgColor: AppColor.darkThemeBlueColor,
             textColor: Colors.white);
+      } else {
+        _controller.sink.add(menuResponse);
       }
     } else {
       CommonUtils.dismissProgressDialog(context);
       CommonUtils.showToast(msg: menuResponse.message);
+      _controller.sink.addError(menuResponse.message);
     }
   }
 }

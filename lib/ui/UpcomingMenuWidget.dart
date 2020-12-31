@@ -57,14 +57,15 @@ class _HomeScreenState extends State<UpcomingMenuWidget> {
                   if (snapshot.data.data.obj == null) {
                     return Container(
                       width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height / 2,
+                      height: MediaQuery.of(context).size.height,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         mainAxisSize: MainAxisSize.max,
                         children: [
+                          Image.asset("assets/not_delivering.png"),
                           Padding(
-                              padding: const EdgeInsets.only(top: 0.0),
+                              padding: const EdgeInsets.only(top: 10.0),
                               child: Text(
                                 "Not Available",
                                 textAlign: TextAlign.center,
@@ -377,12 +378,14 @@ Align(
 
     if (menuResponse.status == 200) {
       _controller.sink.add(menuResponse);
-      id = menuResponse.data.obj.subscriptionPlanId;
+
       if (menuResponse.data.obj == null) {
         CommonUtils.showToast(
             msg: "Do not have any ActiveSubscription Plan",
             bgColor: AppColor.darkThemeBlueColor,
             textColor: Colors.white);
+      }else{
+        id = menuResponse.data.obj.subscriptionPlanId;
       }
     } else {
       CommonUtils.dismissProgressDialog(context);

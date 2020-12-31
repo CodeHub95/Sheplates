@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter_sheplates/Utils/NetworkUtils.dart';
+import 'package:flutter_sheplates/Utils/ScreenUtils.dart';
 import 'package:flutter_sheplates/Utils/app_constants.dart';
 import 'package:flutter_sheplates/Utils/app_defaults.dart';
 import 'package:flutter_sheplates/Utils/app_utils.dart';
@@ -45,14 +46,7 @@ class _HomeScreenState extends State<ActiveWidget> {
             child: StreamBuilder<List<ActiveSubscription>>(
                 stream: _streamController.stream,
                 builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height,
-                      alignment: Alignment.center,
-                      child: CircularProgressIndicator(),
-                    );
-                  } else {
+                  if (snapshot.hasData) {
                     return Container(
                         child: SingleChildScrollView(
                       child: Column(
@@ -353,6 +347,30 @@ class _HomeScreenState extends State<ActiveWidget> {
                         ],
                       ),
                     ));
+                  } else if (snapshot.hasError) {
+                    return Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset("assets/not_delivering.png"),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 20.0),
+                            child: ScreenUtils.customText(data: snapshot.error),
+                          )
+                        ],
+                      ),
+                    );
+                  } else {
+                    return Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
+                      alignment: Alignment.center,
+                      child: CircularProgressIndicator(),
+                    );
                   }
                 })));
   }
@@ -363,12 +381,15 @@ class _HomeScreenState extends State<ActiveWidget> {
     var res = await NetworkUtil().get("user/my-subscription", token: token);
     SubscriptionResponse response = SubscriptionResponse.fromJson(res);
     if (response.status == 200) {
-      _streamController.sink.add(response.data.activeSubscription);
       if (response.data.activeSubscription.isEmpty == true) {
         CommonUtils.showToast(
             msg: "Do not have any active subscription plan",
             bgColor: AppColor.darkThemeBlueColor,
             textColor: Colors.white);
+        _streamController.sink
+            .addError("Do not have any active subscription plan");
+      } else {
+        _streamController.sink.add(response.data.activeSubscription);
       }
     }
   }
