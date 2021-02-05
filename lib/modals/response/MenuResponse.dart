@@ -110,6 +110,7 @@ class Menu {
   String thrusday;
   String friday;
   String saturday;
+  String sunday;
 
   Menu(
       {this.monday,
@@ -117,7 +118,8 @@ class Menu {
         this.wednesday,
         this.thrusday,
         this.friday,
-        this.saturday});
+        this.saturday,
+      this.sunday});
 
   Menu.fromJson(Map<String, dynamic> json) {
     monday = json['monday'];
@@ -126,6 +128,7 @@ class Menu {
     thrusday = json['thrusday'];
     friday = json['friday'];
     saturday = json['saturday'];
+    sunday = json['sunday'];
   }
 
   Map<String, dynamic> toJson() {
@@ -136,6 +139,7 @@ class Menu {
     data['thrusday'] = this.thrusday;
     data['friday'] = this.friday;
     data['saturday'] = this.saturday;
+    data['sunday'] = this.sunday;
     return data;
   }
 }

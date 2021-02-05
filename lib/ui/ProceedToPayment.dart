@@ -89,7 +89,7 @@ class _HomeScreenState extends State<ProceedToPayment> {
                 padding: EdgeInsets.only(top: 5),
                 child: Text(
                   CommonUtils.getSimpleDate(
-                      DateTime.parse(widget.orders.start_date)),
+                      DateTime.parse(widget.orders.startDate)),
                   style: TextStyle(
                       fontSize: 25,
                       color: Colors.red,

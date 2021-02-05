@@ -57,15 +57,14 @@ class _HomeScreenState extends State<UpcomingMenuWidget> {
                   if (snapshot.data.data.obj == null) {
                     return Container(
                       width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height,
+                      height: MediaQuery.of(context).size.height / 2,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          Image.asset("assets/not_delivering.png"),
                           Padding(
-                              padding: const EdgeInsets.only(top: 10.0),
+                              padding: const EdgeInsets.only(top: 0.0),
                               child: Text(
                                 "Not Available",
                                 textAlign: TextAlign.center,
@@ -80,7 +79,7 @@ class _HomeScreenState extends State<UpcomingMenuWidget> {
                             image: DecorationImage(
                                 fit: BoxFit.fill,
                                 image: AssetImage("assets/bg_menu.png"))),
-
+                        height: MediaQuery.of(context).size.height,
                         width: MediaQuery.of(context).size.width,
                         child: Column(
                           // crossAxisAlignment: CrossAxisAlignment.center,
@@ -210,8 +209,16 @@ class _HomeScreenState extends State<UpcomingMenuWidget> {
                                                 menuWidget(
                                                     title: "Saturday:",
                                                     menu: snapshot.data.data.obj
-                                                        .menu.saturday),
-                                              ].sublist(DateTime.now().weekday >5? 0: DateTime.now().weekday),
+                                                        .menu.saturday
+                                                ),
+
+                                                  menuWidget(
+                                                      title: snapshot.data.data.obj.menu.sunday!= null && snapshot.data.data.obj.menu.sunday != " " ? "Sunday:" : "",
+                                                      menu: snapshot.data.data.obj.menu.sunday!= null && snapshot.data.data.obj.menu.sunday != " " ? snapshot.data.data.obj
+                                                          .menu.sunday : " "
+                                                  ),
+
+                                              ].sublist(DateTime.now().weekday >6? 0: DateTime.now().weekday),
                                             )
                                           ],
                                         )),
@@ -378,14 +385,12 @@ Align(
 
     if (menuResponse.status == 200) {
       _controller.sink.add(menuResponse);
-
+      id = menuResponse.data.obj.subscriptionPlanId;
       if (menuResponse.data.obj == null) {
         CommonUtils.showToast(
             msg: "Do not have any ActiveSubscription Plan",
             bgColor: AppColor.darkThemeBlueColor,
             textColor: Colors.white);
-      }else{
-        id = menuResponse.data.obj.subscriptionPlanId;
       }
     } else {
       CommonUtils.dismissProgressDialog(context);

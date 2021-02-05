@@ -1,22 +1,20 @@
 class CheckOutResponse {
-  CheckOutData data;
-  String message;
   int status;
+  String message;
+  Data data;
 
-  CheckOutResponse({this.data, this.message, this.status});
+  CheckOutResponse({this.status, this.message, this.data});
 
-  factory CheckOutResponse.fromJson(Map<String, dynamic> json) {
-    return CheckOutResponse(
-      data: json['data'] != null ? CheckOutData.fromJson(json['data']) : null,
-      message: json['message'],
-      status: json['status'],
-    );
+  CheckOutResponse.fromJson(Map<String, dynamic> json) {
+    status = json['status'];
+    message = json['message'];
+    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['message'] = this.message;
     data['status'] = this.status;
+    data['message'] = this.message;
     if (this.data != null) {
       data['data'] = this.data.toJson();
     }
@@ -24,15 +22,16 @@ class CheckOutResponse {
   }
 }
 
-class CheckOutData {
+class Data {
   Orders orders;
+  Gst gst;
 
-  CheckOutData({this.orders});
+  Data({this.orders, this.gst});
 
-  factory CheckOutData.fromJson(Map<String, dynamic> json) {
-    return CheckOutData(
-      orders: json['orders'] != null ? Orders.fromJson(json['orders']) : null,
-    );
+  Data.fromJson(Map<String, dynamic> json) {
+    orders =
+    json['orders'] != null ? new Orders.fromJson(json['orders']) : null;
+    gst = json['gst'] != null ? new Gst.fromJson(json['gst']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -40,93 +39,121 @@ class CheckOutData {
     if (this.orders != null) {
       data['orders'] = this.orders.toJson();
     }
+    if (this.gst != null) {
+      data['gst'] = this.gst.toJson();
+    }
     return data;
   }
 }
 
 class Orders {
+  int mealsServed;
+  int gstPercentage;
   String createdAt;
-  num delievery_charges;
-  String duration;
-  String end_date;
-  num gst_amount;
-  int gst_percentage;
-  int id;
-  String meal_plan_id;
-  int meals_served;
-  num packaging_charges;
-  String preferred_delivery_time;
-  String quantity;
-  String start_date;
-  String status;
-  num total_amount;
   String updatedAt;
-  int user_id;
-  int total_meal_count;
+  int id;
+  int userId;
+  String mealPlanId;
+  String preferredDeliveryTime;
+  String quantity;
+  String duration;
+  int basicSubscriptionPrice;
+  int totalMealCount;
+  int delieveryCharges;
+  int packagingCharges;
+  int gstAmount;
+  int totalAmount;
+  String startDate;
+  String endDate;
+  String status;
+  String holidays;
 
   Orders(
-      {this.createdAt,
-      this.delievery_charges,
-      this.total_meal_count,
-      this.duration,
-      this.end_date,
-      this.gst_amount,
-      this.gst_percentage,
-      this.id,
-      this.meal_plan_id,
-      this.meals_served,
-      this.packaging_charges,
-      this.preferred_delivery_time,
-      this.quantity,
-      this.start_date,
-      this.status,
-      this.total_amount,
-      this.updatedAt,
-      this.user_id});
+      {this.mealsServed,
+        this.gstPercentage,
+        this.createdAt,
+        this.updatedAt,
+        this.id,
+        this.userId,
+        this.mealPlanId,
+        this.preferredDeliveryTime,
+        this.quantity,
+        this.duration,
+        this.basicSubscriptionPrice,
+        this.totalMealCount,
+        this.delieveryCharges,
+        this.packagingCharges,
+        this.gstAmount,
+        this.totalAmount,
+        this.startDate,
+        this.endDate,
+        this.status,
+        this.holidays});
 
-  factory Orders.fromJson(Map<String, dynamic> json) {
-    return Orders(
-      createdAt: json['createdAt'],
-      delievery_charges: json['delievery_charges'],
-      total_meal_count: json['total_meal_count'],
-      duration: json['duration'],
-      end_date: json['end_date'],
-      gst_amount: json['gst_amount'],
-      gst_percentage: json['gst_percentage'],
-      id: json['id'],
-      meal_plan_id: json['meal_plan_id'],
-      meals_served: json['meals_served'],
-      packaging_charges: json['packaging_charges'],
-      preferred_delivery_time: json['preferred_delivery_time'],
-      quantity: json['quantity'],
-      start_date: json['start_date'],
-      status: json['status'],
-      total_amount: json['total_amount'],
-      updatedAt: json['updatedAt'],
-      user_id: json['user_id'],
-    );
+  Orders.fromJson(Map<String, dynamic> json) {
+    mealsServed = json['meals_served'];
+    gstPercentage = json['gst_percentage'];
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
+    id = json['id'];
+    userId = json['user_id'];
+    mealPlanId = json['meal_plan_id'];
+    preferredDeliveryTime = json['preferred_delivery_time'];
+    quantity = json['quantity'];
+    duration = json['duration'];
+    basicSubscriptionPrice = json['basic_subscription_price'];
+    totalMealCount = json['total_meal_count'];
+    delieveryCharges = json['delievery_charges'];
+    packagingCharges = json['packaging_charges'];
+    gstAmount = json['gst_amount'];
+    totalAmount = json['total_amount'];
+    startDate = json['start_date'];
+    endDate = json['end_date'];
+    status = json['status'];
+    holidays = json['holidays'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['meals_served'] = this.mealsServed;
+    data['gst_percentage'] = this.gstPercentage;
     data['createdAt'] = this.createdAt;
-    data['delievery_charges'] = this.delievery_charges;
-    data['duration'] = this.duration;
-    data['end_date'] = this.end_date;
-    data['gst_amount'] = this.gst_amount;
-    data['gst_percentage'] = this.gst_percentage;
-    data['id'] = this.id;
-    data['meal_plan_id'] = this.meal_plan_id;
-    data['total_meal_count'] = this.total_meal_count;
-    data['meals_served'] = this.meals_served;
-    data['packaging_charges'] = this.packaging_charges;
-    data['preferred_delivery_time'] = this.preferred_delivery_time;
-    data['quantity'] = this.quantity;
-    data['start_date'] = this.start_date;
-    data['status'] = this.status;
-    data['total_amount'] = this.total_amount;
     data['updatedAt'] = this.updatedAt;
-    data['user_id'] = this.user_id;
+    data['id'] = this.id;
+    data['user_id'] = this.userId;
+    data['meal_plan_id'] = this.mealPlanId;
+    data['preferred_delivery_time'] = this.preferredDeliveryTime;
+    data['quantity'] = this.quantity;
+    data['duration'] = this.duration;
+    data['basic_subscription_price'] = this.basicSubscriptionPrice;
+    data['total_meal_count'] = this.totalMealCount;
+    data['delievery_charges'] = this.delieveryCharges;
+    data['packaging_charges'] = this.packagingCharges;
+    data['gst_amount'] = this.gstAmount;
+    data['total_amount'] = this.totalAmount;
+    data['start_date'] = this.startDate;
+    data['end_date'] = this.endDate;
+    data['status'] = this.status;
+    data['holidays'] = this.holidays;
+    return data;
+  }
+}
+
+class Gst {
+  double cgst;
+  double sgst;
+
+  Gst({this.cgst, this.sgst});
+
+  Gst.fromJson(Map<String, dynamic> json) {
+    cgst = json['cgst'];
+    sgst = json['sgst'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['cgst'] = this.cgst;
+    data['sgst'] = this.sgst;
     return data;
   }
 }
