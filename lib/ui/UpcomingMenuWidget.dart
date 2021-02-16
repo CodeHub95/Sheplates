@@ -91,8 +91,8 @@ class _HomeScreenState extends State<UpcomingMenuWidget> {
                                       right: 10, left: 10, top: 10),
                                   child: Container(
                                       height:
-                                          MediaQuery.of(context).size.height /
-                                              1.2,
+                                      MediaQuery.of(context).size.height /
+                                          1.2,
                                       decoration: BoxDecoration(
                                           image: DecorationImage(
                                               fit: BoxFit.fill,
@@ -105,18 +105,18 @@ class _HomeScreenState extends State<UpcomingMenuWidget> {
                                     Padding(padding: EdgeInsets.only(top: 65)),
                                     Row(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.center,
+                                      CrossAxisAlignment.center,
                                       mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      MainAxisAlignment.center,
                                       children: [
                                         Column(
                                           children: [
                                             Text(
                                               snapshot.data.data.obj.kitchen !=
-                                                      null
+                                                  null
                                                   ? snapshot
-                                                      .data.data.obj.kitchen
-                                                      .toString()
+                                                  .data.data.obj.kitchen
+                                                  .toString()
                                                   : '',
                                               style: TextStyle(
                                                   fontSize: 22,
@@ -124,14 +124,14 @@ class _HomeScreenState extends State<UpcomingMenuWidget> {
                                             ),
                                             Padding(
                                                 padding:
-                                                    EdgeInsets.only(top: 10),
+                                                EdgeInsets.only(top: 10),
                                                 child: Text(
                                                   snapshot.data.data.obj
-                                                              .kitchen !=
-                                                          null
+                                                      .kitchen !=
+                                                      null
                                                       ? snapshot.data.data.obj
-                                                          .kitchenAddress
-                                                          .toString()
+                                                      .kitchenAddress
+                                                      .toString()
                                                       : '',
                                                   style: TextStyle(
                                                       fontSize: 15,
@@ -154,39 +154,40 @@ class _HomeScreenState extends State<UpcomingMenuWidget> {
                                                     fit: BoxFit.fill,
                                                     image: AssetImage(
                                                         "assets/arrow_menu.png"))))),
-                                    Padding(padding: EdgeInsets.only(top: 10)),
-                                    Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            width: MediaQuery.of(context).size.width,
-                                            padding: EdgeInsets.only(
-                                                left: 21, right: 21),
-                                            child: Text(
+                                    Padding(
+                                        padding: EdgeInsets.only(top: 10),
+                                        child: Row(
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                          children: [
+                  Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.only(
+                  left: 21, right: 21),
+                  child:
+                                            Text(
                                               snapshot.data.data.obj.mealName,
                                               style: TextStyle(
                                                   fontSize: 25,
                                                   color: Colors.red),
-                                            ),
-                                          ),
-                                        ]),
+                                            ))
+                                          ],
+                                        )),
                                     Padding(
                                         padding:
-                                            EdgeInsets.only(top: 10, left: 30),
+                                        EdgeInsets.only(top: 10, left: 30),
                                         child: Row(
                                           crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                          CrossAxisAlignment.start,
                                           mainAxisAlignment:
-                                              MainAxisAlignment.start,
+                                          MainAxisAlignment.start,
                                           children: [
                                             Column(
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
+                                              CrossAxisAlignment.start,
+                                              mainAxisAlignment: MainAxisAlignment.start,
                                               children: [
                                                 menuWidget(
                                                     title: "Monday:",
@@ -205,51 +206,24 @@ class _HomeScreenState extends State<UpcomingMenuWidget> {
                                                     menu: snapshot.data.data.obj
                                                         .menu.thrusday),
                                                 menuWidget(
-                                                    title: "Friday:",
+
+                                                    title:
+                                                    "Friday:",
                                                     menu: snapshot.data.data.obj
                                                         .menu.friday),
                                                 menuWidget(
                                                     title: "Saturday:",
                                                     menu: snapshot.data.data.obj
-                                                        .menu.saturday),
-                                                menuWidget(
-                                                    title: snapshot
-                                                                    .data
-                                                                    .data
-                                                                    .obj
-                                                                    .menu
-                                                                    .sunday !=
-                                                                null &&
-                                                            snapshot
-                                                                    .data
-                                                                    .data
-                                                                    .obj
-                                                                    .menu
-                                                                    .sunday !=
-                                                                " "
-                                                        ? "Sunday:"
-                                                        : "",
-                                                    menu: snapshot
-                                                                    .data
-                                                                    .data
-                                                                    .obj
-                                                                    .menu
-                                                                    .sunday !=
-                                                                null &&
-                                                            snapshot
-                                                                    .data
-                                                                    .data
-                                                                    .obj
-                                                                    .menu
-                                                                    .sunday !=
-                                                                " "
-                                                        ? snapshot.data.data.obj
-                                                            .menu.sunday
-                                                        : " "),
-                                              ].sublist(
-                                                  DateTime.now().weekday > 6
-                                                      ? 0
-                                                      : DateTime.now().weekday),
+                                                        .menu.saturday
+                                                ),
+
+                                                  menuWidget(
+                                                      title: snapshot.data.data.obj.menu.sunday!= null && snapshot.data.data.obj.menu.sunday != " " ? "Sunday:" : "",
+                                                      menu: snapshot.data.data.obj.menu.sunday!= null && snapshot.data.data.obj.menu.sunday != " " ? snapshot.data.data.obj
+                                                          .menu.sunday : " "
+                                                  ),
+
+                                              ].sublist(DateTime.now().weekday >6? 0: DateTime.now().weekday),
                                             )
                                           ],
                                         )),
@@ -262,15 +236,15 @@ class _HomeScreenState extends State<UpcomingMenuWidget> {
                                       padding: EdgeInsets.only(top: 20),
                                       child: Container(
                                         height:
-                                            MediaQuery.of(context).size.height /
-                                                1.3,
+                                        MediaQuery.of(context).size.height /
+                                            1.3,
                                       )),
                                   // Padding(
                                   //   // alignment: Alignment.center,
                                   //     padding: EdgeInsets.only(left: 100),
                                   Row(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                    CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Container(
@@ -289,57 +263,47 @@ class _HomeScreenState extends State<UpcomingMenuWidget> {
                                             ),
                                             Column(
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
+                                              CrossAxisAlignment.center,
                                               mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                              MainAxisAlignment.center,
                                               children: [
                                                 Padding(
                                                     padding:
-                                                        EdgeInsets.fromLTRB(
-                                                            20, 5, 0, 20),
-                                                    child: Row(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Align(
-                                                          alignment:
-                                                              Alignment.center,
-                                                          child: Container(
-                                                              height: 40,
-                                                              width: 120,
-                                                              child: Row(
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .center,
-                                                                children: [
-                                                                  Text(
-                                                                    DateFormat(
-                                                                            'EEEE')
-                                                                        .format(
-                                                                            DateTime.now()),
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: Colors
-                                                                          .white,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w700,
-                                                                      fontSize:
-                                                                          20,
-                                                                    ),
-                                                                  )
-                                                                ],
-                                                              )),
-                                                        )
-                                                      ],
-                                                    )),
+                                                    EdgeInsets.fromLTRB(
+                                                        20, 5, 0, 20),
+                                                 child:   Row(
+                                                   crossAxisAlignment:
+                                                   CrossAxisAlignment.center,
+                                                   mainAxisAlignment:
+                                                   MainAxisAlignment.center,
+                                                   children: [
+Align(
+  alignment:Alignment.center, child:   Container(
+    height: 40,
+    width: 120,
+    child: Row(
+      crossAxisAlignment:
+      CrossAxisAlignment.start,
+      mainAxisAlignment:
+      MainAxisAlignment.center,
+      children: [
+      Text(
+        DateFormat('EEEE')
+            .format(DateTime
+            .now()),
+
+        style: TextStyle(
+          color: Colors.white,
+          fontWeight:
+          FontWeight.w700,
+          fontSize: 20,
+        ),
+      )
+                  ],)
+)
+  ,)
+
+                  ],)),
                                               ],
                                             )
                                           ],
@@ -351,7 +315,7 @@ class _HomeScreenState extends State<UpcomingMenuWidget> {
                                   //     child:
                                   Padding(
                                       padding:
-                                          EdgeInsets.fromLTRB(30, 0, 30, 0),
+                                      EdgeInsets.fromLTRB(30, 0, 30, 0),
                                       child: FlatButton(
                                           color: HexColor("#FF5657"),
                                           textColor: Colors.white,
@@ -382,38 +346,38 @@ class _HomeScreenState extends State<UpcomingMenuWidget> {
           contentPadding: EdgeInsets.all(0),
           content: new SingleChildScrollView(
               child: Container(
-            height: 130,
-            child: new Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                height: 130,
+                child: new Column(
                   children: [
-                    IconButton(
-                        icon: Icon(
-                          Icons.close,
-                          size: 20.0,
-                          color: Colors.black,
-                        ),
-                        onPressed: () => {
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        IconButton(
+                            icon: Icon(
+                              Icons.close,
+                              size: 20.0,
+                              color: Colors.black,
+                            ),
+                            onPressed: () => {
                               Navigator.of(context).pushNamedAndRemoveUntil(
                                 Routes.homeScreen,
-                                (route) => false,
+                                    (route) => false,
                               )
                               // Navigator.pop(context)
                             }),
+                      ],
+                    ),
+                    Padding(
+                        padding: EdgeInsets.only(left: 10, right: 10),
+                        child: Text(
+                          'Your Request will be Processed in 24 hours',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        )),
                   ],
                 ),
-                Padding(
-                    padding: EdgeInsets.only(left: 10, right: 10),
-                    child: Text(
-                      'Your Request will be Processed in 24 hours',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.center,
-                    )),
-              ],
-            ),
-          )),
+              )),
         );
       },
     );
@@ -463,24 +427,27 @@ class _HomeScreenState extends State<UpcomingMenuWidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-            padding: EdgeInsets.only(top: 20),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(title, style: TextStyle(fontSize: 20, color: Colors.red)),
-              ],
-            )),
-        Align(
-          alignment: Alignment.topLeft,
-          child: Container(
-              width: MediaQuery.of(context).size.width / 1.2,
-              child: Text(
-                menu,
-                style: TextStyle(fontSize: 15, color: Colors.white),
-                maxLines: 3,
-              )),
-        )
+          padding: EdgeInsets.only(top: 20),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+            Text(
+
+
+                title, style: TextStyle(fontSize: 20, color: Colors.red)),
+          ],)
+
+        ),
+        Align(alignment: Alignment.topLeft,
+        child: Container(
+            width: MediaQuery.of(context).size.width / 1.2,
+            child: Text(
+              menu,
+              style: TextStyle(fontSize: 15, color: Colors.white),
+              maxLines: 3,
+            )) ,)
+
       ],
     );
   }

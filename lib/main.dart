@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
       title: 'Sheplates',
       initialRoute: Routes.initialRoute,
       onGenerateRoute: Routes.generateRoute,
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: "Ubuntu",
         primarySwatch: Colors.blue,

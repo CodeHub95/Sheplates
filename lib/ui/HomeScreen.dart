@@ -70,14 +70,14 @@ class _HomeScreenState extends State<HomeScreen> {
             backgroundColor: Colors.white,
             title: Center(
                 child: Container(
-              alignment: Alignment.center,
-              // width: MediaQuery.of(context).size.width / 2,
-              child: Image.asset(
-                "assets/logo_home.png",
-                fit: BoxFit.fill,
-                // color: Colors.transparent,
-              ),
-            )),
+                  alignment: Alignment.center,
+                  // width: MediaQuery.of(context).size.width / 2,
+                  child: Image.asset(
+                    "assets/logo_home.png",
+                    fit: BoxFit.fill,
+                    // color: Colors.transparent,
+                  ),
+                )),
             actions: [
               IconButton(
                   icon: Image.asset(
@@ -85,13 +85,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     fit: BoxFit.fill,
                   ),
                   onPressed: () => {
-                        // null
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => EditProfileScreen()),
-                        )
-                      }),
+                    // null
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => EditProfileScreen()),
+                    )
+                  }),
             ],
             leading: Builder(
               builder: (context) => IconButton(
@@ -111,29 +111,158 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           body: SingleChildScrollView(
               child: Column(children: [
-            Container(
-                child: StreamBuilder<List<Rows>>(
-                    stream: _streamController.stream,
-                    builder: (context, snapshot) {
-                      if (!snapshot.hasData)
-                        return Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height,
-                          alignment: Alignment.center,
-                          child: CircularProgressIndicator(),
-                        );
-                      if (snapshot.data.length != 0) {
-                        return Column(
-                          children: [
-                            ListView.builder(
-                                shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
-                                padding: const EdgeInsets.all(8),
-                                itemCount: snapshot.data.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return Padding(
+                Container(
+                    child: StreamBuilder<List<Rows>>(
+                        stream: _streamController.stream,
+                        builder: (context, snapshot) {
+                          if (!snapshot.hasData)
+                            return Container(
+                              width: MediaQuery.of(context).size.width,
+                              height: MediaQuery.of(context).size.height,
+                              alignment: Alignment.center,
+                              child: CircularProgressIndicator(),
+                            );
+                          if (snapshot.data.length != 0) {
+                            return Column(
+                              children: [
+                                ListView.builder(
+                                    shrinkWrap: true,
+                                    physics: NeverScrollableScrollPhysics(),
+                                    padding: const EdgeInsets.all(8),
+                                    itemCount: snapshot.data.length,
+                                    itemBuilder: (BuildContext context, int index) {
+                                      return Padding(
+                                        padding: EdgeInsets.only(
+                                            left: 5, right: 5, top: 15),
+                                        child: Container(
+                                            decoration: BoxDecoration(
+                                                border: Border.all(
+                                                  color: Colors.grey[300],
+                                                ),
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(5))),
+                                            child: Column(
+                                              children: [
+                                                Center(
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                          color: Colors.grey[300],
+                                                        ),
+                                                        borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                5))),
+                                                    height: 2,
+                                                    width: MediaQuery.of(context)
+                                                        .size
+                                                        .width,
+                                                  ),
+                                                ),
+                                                Row(
+                                                  // textDirection: TextDirection.rtl,
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                                  children: [
+                                                    Column(
+                                                      // textDirection: TextDirection.rtl,
+                                                      crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                      mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                      children: [
+                                                        Padding(
+                                                            padding:
+                                                            EdgeInsets.only(
+                                                                left: 10,
+                                                                top: 10),
+                                                            child: Align(
+                                                              alignment: Alignment
+                                                                  .centerLeft,
+                                                              child: Container(
+                                                                  width: 220,
+
+                                                                  padding: EdgeInsets.all(2.0),
+                                                                  child: (Column(
+                                                                      mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .start,
+                                                                      crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                      children: [
+                                                                        Text(
+                                                                          snapshot
+                                                                              .data[index]
+                                                                              .mealName,
+                                                                          style: TextStyle(
+                                                                              color: Colors.black,
+                                                                              fontSize: 20),
+                                                                          // overflow: TextOverflow.ellipsis,
+                                                                        )
+                                                                      ]))),
+                                                            )),
+                                                        Padding(
+                                                            padding:
+                                                            EdgeInsets.only(
+                                                                left: 20,
+                                                                top: 10,
+                                                                bottom: 10),
+                                                            child: new SizedBox(
+                                                                height: 20,
+                                                                width: 90,
+                                                                child: RaisedButton(
+                                                                  shape:
+                                                                  RoundedRectangleBorder(
+                                                                    side: BorderSide(
+                                                                        color: Colors
+                                                                            .red,
+                                                                        width: 1),
+                                                                    borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                        5.0),
+                                                                  ),
+                                                                  color:
+                                                                  Colors.white,
+                                                                  child: Text(
+                                                                    "Explore",
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .red),
+                                                                  ),
+                                                                  onPressed: () => {
+                                                                    // null
+                                                                    Navigator.push(
+                                                                        context,
+                                                                        MaterialPageRoute(
+                                                                            builder: (context) =>
+                                                                                VegitarianLunch(
+                                                                                  rows: snapshot.data[index],
+                                                                                  suscriber: suscriber,
+                                                                                )))
+                                                                  },
+                                                                )))
+                                                      ],
+                                                    ),
+                                                    Column(
+                                                      children: [
+                                                        Container(
+                                                          child: Image.asset(
+                                                              '${images[index]}'),
+                                                        )
+                                                      ],
+                                                    )
+                                                  ],
+                                                ),
+                                              ],
+                                            )),
+                                      );
+                                    }),
+                                Padding(
                                     padding: EdgeInsets.only(
-                                        left: 5, right: 5, top: 15),
+                                        left: 10, right: 10, top: 15, bottom: 10),
                                     child: Container(
                                         decoration: BoxDecoration(
                                             border: Border.all(
@@ -149,261 +278,131 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     border: Border.all(
                                                       color: Colors.grey[300],
                                                     ),
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(
-                                                                5))),
+                                                    borderRadius: BorderRadius.all(
+                                                        Radius.circular(5))),
                                                 height: 2,
                                                 width: MediaQuery.of(context)
                                                     .size
                                                     .width,
                                               ),
                                             ),
-                                            Row(
-                                              // textDirection: TextDirection.rtl,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Column(
-                                                  // textDirection: TextDirection.rtl,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  children: [
-                                                    Padding(
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                                left: 10,
-                                                                top: 10),
-                                                        child: Align(
-                                                          alignment: Alignment
-                                                              .centerLeft,
-
-                                                              child: Container(
-                                                                  width: 220,
-
-                                                                  padding: EdgeInsets.all(2.0),
-                                                                  child: (Column(
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .start,
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .start,
-                                                                      children: [
-                                                                        Text(
-                                                                          snapshot
-                                                                              .data[index]
-                                                                              .mealName,
-                                                                          style: TextStyle(
-                                                                              color: Colors.black,
-                                                                              fontSize: 20),
-                                                                          // overflow: TextOverflow.ellipsis,
-                                                                        )
-                                                                      ]))),
-                                                        )),
-                                                    Padding(
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                                left: 20,
-                                                                top: 10,
-                                                                bottom: 10),
-                                                        child: new SizedBox(
-                                                            height: 20,
-                                                            width: 90,
-                                                            child: RaisedButton(
-                                                              shape:
-                                                                  RoundedRectangleBorder(
-                                                                side: BorderSide(
-                                                                    color: Colors
-                                                                        .red,
-                                                                    width: 1),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            5.0),
-                                                              ),
-                                                              color:
-                                                                  Colors.white,
+                                            Container(
+                                              height: 90,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Column(
+                                                    children: [
+                                                      Padding(
+                                                          padding: EdgeInsets.only(
+                                                            // left: 10,
+                                                              top: 10,
+                                                              right: 30,
+                                                              bottom: 10),
+                                                          child: Align(
+                                                              alignment: Alignment
+                                                                  .centerLeft,
                                                               child: Text(
-                                                                "Explore",
+                                                                "Customisation",
                                                                 style: TextStyle(
                                                                     color: Colors
-                                                                        .red),
-                                                              ),
-                                                              onPressed: () => {
-                                                                // null
-                                                                Navigator.push(
-                                                                    context,
-                                                                    MaterialPageRoute(
-                                                                        builder: (context) =>
-                                                                            VegitarianLunch(
-                                                                              rows: snapshot.data[index],
-                                                                              suscriber: suscriber,
-                                                                            )))
-                                                              },
-                                                            )))
-                                                  ],
-                                                ),
-                                                Column(
-                                                  children: [
-                                                    Container(
-                                                      child: Image.asset(
-                                                          '${images[index]}'),
-                                                    )
-                                                  ],
-                                                )
-                                              ],
-                                            ),
-                                          ],
-                                        )),
-                                  );
-                                }),
-                            Padding(
-                                padding: EdgeInsets.only(
-                                    left: 10, right: 10, top: 15, bottom: 10),
-                                child: Container(
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                          color: Colors.grey[300],
-                                        ),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(5))),
-                                    child: Column(
-                                      children: [
-                                        Center(
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                                border: Border.all(
-                                                  color: Colors.grey[300],
-                                                ),
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(5))),
-                                            height: 2,
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                          ),
-                                        ),
-                                        Container(
-                                          height: 90,
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Column(
-                                                children: [
-                                                  Padding(
-                                                      padding: EdgeInsets.only(
-                                                          // left: 10,
-                                                          top: 10,
-                                                          right: 30,
-                                                          bottom: 10),
-                                                      child: Align(
-                                                          alignment: Alignment
-                                                              .centerLeft,
-                                                          child: Text(
-                                                            "Customisation",
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .black,
-                                                                fontSize: 20),
-                                                          ))),
-                                                  Padding(
-                                                      padding: EdgeInsets.only(
-                                                        left: 20,
-                                                        // top: 10,
-                                                        // bottom: 10,
-                                                      ),
-                                                      child: new SizedBox(
-                                                          height: 30,
-                                                          width: 160,
-                                                          child: RaisedButton(
-                                                            shape:
+                                                                        .black,
+                                                                    fontSize: 20),
+                                                              ))),
+                                                      Padding(
+                                                          padding: EdgeInsets.only(
+                                                            left: 20,
+                                                            // top: 10,
+                                                            // bottom: 10,
+                                                          ),
+                                                          child: new SizedBox(
+                                                              height: 30,
+                                                              width: 160,
+                                                              child: RaisedButton(
+                                                                shape:
                                                                 RoundedRectangleBorder(
-                                                              side: BorderSide(
-                                                                  color: Colors
-                                                                      .red,
-                                                                  width: 1),
-                                                              borderRadius:
+                                                                  side: BorderSide(
+                                                                      color: Colors
+                                                                          .red,
+                                                                      width: 1),
+                                                                  borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          5.0),
-                                                            ),
-                                                            color: Colors.red,
-                                                            child: Text(
-                                                              "Request Call Back",
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .white),
-                                                            ),
-                                                            onPressed: () => {
-                                                              if (suscriber !=
-                                                                  null)
-                                                                {
-                                                                  CommonUtils.showToast(
-                                                                      msg:
+                                                                      5.0),
+                                                                ),
+                                                                color: Colors.red,
+                                                                child: Text(
+                                                                  "Request Call Back",
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .white),
+                                                                ),
+                                                                onPressed: () => {
+                                                                  if (suscriber !=
+                                                                      null)
+                                                                    {
+                                                                      CommonUtils.showToast(
+                                                                          msg:
                                                                           "You have already one subscription plan running!",
-                                                                      bgColor:
+                                                                          bgColor:
                                                                           Colors
                                                                               .black,
-                                                                      textColor:
+                                                                          textColor:
                                                                           Colors
                                                                               .white)
-                                                                }
-                                                              else
-                                                                {_addRequest()}
-                                                            },
-                                                          )))
-                                                ],
-                                              ),
-                                              Column(
-                                                mainAxisAlignment:
+                                                                    }
+                                                                  else
+                                                                    {_addRequest()}
+                                                                },
+                                                              )))
+                                                    ],
+                                                  ),
+                                                  Column(
+                                                    mainAxisAlignment:
                                                     MainAxisAlignment.center,
-                                                crossAxisAlignment:
+                                                    crossAxisAlignment:
                                                     CrossAxisAlignment.center,
-                                                children: [
-                                                  Container(
-                                                    child: Image.asset(
-                                                        '${images[7]}'),
+                                                    children: [
+                                                      Container(
+                                                        child: Image.asset(
+                                                            '${images[7]}'),
+                                                      )
+                                                    ],
                                                   )
                                                 ],
-                                              )
-                                            ],
-                                          ),
+                                              ),
+                                            )
+                                          ],
                                         )
-                                      ],
-                                    )
 
-                                    // ),
+                                      // ),
                                     )),
-                          ],
-                        );
-                      } else {
-                        return Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Image.asset("assets/not_delivering.png"),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 30.0),
-                                child: ScreenUtils.customText(
-                                    data:
+                              ],
+                            );
+                          } else {
+                            return Container(
+                              width: MediaQuery.of(context).size.width,
+                              height: MediaQuery.of(context).size.height,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Image.asset("assets/not_delivering.png"),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 30.0),
+                                    child: ScreenUtils.customText(
+                                        data:
                                         "We aren't in your location yet! However, we will strive to serve you soon :)",
-                                    textAlign: TextAlign.center),
+                                        textAlign: TextAlign.center),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        );
-                      }
-                    }))
-          ]))),
+                            );
+                          }
+                        }))
+              ]))),
     );
   }
 
