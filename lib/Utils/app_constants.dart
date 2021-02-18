@@ -17,4 +17,7 @@ class AppConstants {
   static const String NO_ORDER_LIST_TEXT = "No orders available!";
 
   static const String SEND_REQUEST = "SEND REQUEST";
+
+  static const String RazorPayLiveKeyId = "rzp_live_VRpc8zU9W952YF";
+  static const String RazorPayTestKeyId = "rzp_test_ImjhrLwWSMXD55";
 }

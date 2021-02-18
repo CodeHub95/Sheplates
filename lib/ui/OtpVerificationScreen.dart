@@ -174,6 +174,7 @@ class _MyHomePageState extends State<OtpVerificationScreen>
                             child: PinCodeTextField(
                               length: 6,
                               obsecureText: false,
+                              textInputType: TextInputType.number,
                               animationType: AnimationType.fade,
                               validator: (v) {
                                 if (v.length < 6) {
