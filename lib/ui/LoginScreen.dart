@@ -259,6 +259,8 @@ class _MyHomePageState extends State<LoginScreen> {
           await SharedPrefHelper().save("isLogin", true);
           await SharedPrefHelper().save(
               SharedPrefConstants.userData, jsonEncode(response.data.profile));
+          await SharedPrefHelper().save("phone", response.data.profile.phone.toString());
+          await SharedPrefHelper().save("email", response.data.profile.email.toString());
           Auth auth = Auth();
           auth.profile = response.data.profile;
           auth.token = response.token;

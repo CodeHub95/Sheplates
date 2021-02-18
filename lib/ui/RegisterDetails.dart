@@ -265,6 +265,8 @@ class _MyHomePageState extends State<RegisterDetailScreen> {
         SharedPrefHelper().save("isLogin", true);
         await SharedPrefHelper().save(
             SharedPrefConstants.userData, jsonEncode(response.data.profile));
+        SharedPrefHelper().save("email", response.data.profile.email);
+        SharedPrefHelper().save("phone", response.data.profile.phone);
         Auth auth = Auth();
         auth.profile = response.data.profile;
         auth.token = response.token;

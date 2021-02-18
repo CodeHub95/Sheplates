@@ -59,10 +59,10 @@ class Orders {
   String duration;
   int basicSubscriptionPrice;
   int totalMealCount;
-  int delieveryCharges;
-  int packagingCharges;
-  int gstAmount;
-  int totalAmount;
+  num delieveryCharges;
+  num packagingCharges;
+  num gstAmount;
+  num totalAmount;
   String startDate;
   String endDate;
   String status;
