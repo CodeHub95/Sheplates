@@ -45,6 +45,7 @@ class _HomeScreenState extends State<Checkout> {
   int payment_capture;
   String email;
   String phone;
+
   Future<void> completePayment(
       PaymentSuccessResponse paymentSuccessResponse) async {
     CommonUtils.fullScreenProgress(context);
@@ -89,7 +90,6 @@ class _HomeScreenState extends State<Checkout> {
     String phone = await SharedPrefHelper().getWithDefault("phone", "");
     print("Order Id " + order_id);
     var options = {
-
       'key': AppConstants.RazorPayLiveKeyId,
       'amount': amount,
       'name': name,

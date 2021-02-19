@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:140299340121:android:738340aede3fe42a036448",
+        "mobilesdk_app_id": "1:140299340121:android:c477a3c4a9402ff7036448",
         "android_client_info": {
-          "package_name": "com.example.flutter_sheplates"
+          "package_name": "com.app.sheplates"
         }
       },
       "oauth_client": [
@@ -30,6 +30,97 @@
             {
               "client_id": "140299340121-teis08f03en1qocg2vd8acp4bhmm19ur.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "140299340121-rb8cb138l81qh21d8mpnc08s108qe8d5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ongraph.sheplates"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:140299340121:android:738340aede3fe42a036448",
+        "android_client_info": {
+          "package_name": "com.example.flutter_sheplates"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "140299340121-0spvivntnih9e81r18t6lh0qsievcbvm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.flutter_sheplates",
+            "certificate_hash": "ccd9685ca7d82c842daafe5f6cf849e43d9fc29e"
+          }
+        },
+        {
+          "client_id": "140299340121-6c0qm6gqcm143c9emvq3h8esr39egefp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.flutter_sheplates",
+            "certificate_hash": "ab4e52346a9f9aa140ae932df4aa34ce93e1c35a"
+          }
+        },
+        {
+          "client_id": "140299340121-72q67a80673l2hpu6uo9mmjspfk4hf1r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.flutter_sheplates",
+            "certificate_hash": "9e0e99845a674ed07c7581d0460e148aff0f9aa5"
+          }
+        },
+        {
+          "client_id": "140299340121-f3g0c10aqm2sov7el9iutukcit3cr57g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.flutter_sheplates",
+            "certificate_hash": "5a9ca0e34c7fe4753d6ef43db0d02b9e7a85feb5"
+          }
+        },
+        {
+          "client_id": "140299340121-j8b0uqan54ls8952vv3asniphn4b8aqr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.flutter_sheplates",
+            "certificate_hash": "b5c2f6bc5116e57690a82896c904cbd6d7d3ca09"
+          }
+        },
+        {
+          "client_id": "140299340121-p212e9og3qgvctfo00ntg6f9gl5aln04.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.flutter_sheplates",
+            "certificate_hash": "60dc858b7be09bb8b8818c14f0b3afdae15718d9"
+          }
+        },
+        {
+          "client_id": "140299340121-teis08f03en1qocg2vd8acp4bhmm19ur.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvhpz40dPMADYyEDRObPfAj-q5cwKatxQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "140299340121-teis08f03en1qocg2vd8acp4bhmm19ur.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "140299340121-rb8cb138l81qh21d8mpnc08s108qe8d5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ongraph.sheplates"
+              }
             }
           ]
         }
