@@ -48,7 +48,7 @@ class Data {
 
 class Orders {
   int mealsServed;
-  int gstPercentage;
+  num gstPercentage;
   String createdAt;
   String updatedAt;
   int id;
@@ -57,8 +57,8 @@ class Orders {
   String preferredDeliveryTime;
   String quantity;
   String duration;
-  int basicSubscriptionPrice;
-  int totalMealCount;
+  num basicSubscriptionPrice;
+  num totalMealCount;
   num delieveryCharges;
   num packagingCharges;
   num gstAmount;
