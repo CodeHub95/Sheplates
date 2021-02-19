@@ -65,14 +65,14 @@ class ActiveSubscription {
   String preferredDeliveryTime;
   int quantity;
   String duration;
-  int basicSubscriptionPrice;
+  num basicSubscriptionPrice;
   int totalMealCount;
-  int delieveryCharges;
-  int packagingCharges;
+  num delieveryCharges;
+  num packagingCharges;
   int mealsServed;
-  int gstPercentage;
-  int gstAmount;
-  int totalAmount;
+  num gstPercentage;
+  num gstAmount;
+  num totalAmount;
   String startDate;
   String endDate;
   String pauseSubscriptionDate;
@@ -281,14 +281,14 @@ class PastSubscription {
   String preferredDeliveryTime;
   int quantity;
   String duration;
-  int basicSubscriptionPrice;
+  num basicSubscriptionPrice;
   int totalMealCount;
-  int delieveryCharges;
-  int packagingCharges;
+  num delieveryCharges;
+  num packagingCharges;
   int mealsServed;
-  int gstPercentage;
-  int gstAmount;
-  int totalAmount;
+  num gstPercentage;
+  num gstAmount;
+  num totalAmount;
   String startDate;
   String endDate;
   String pauseSubscriptionDate;
@@ -399,4 +399,3 @@ class PastSubscription {
     return data;
   }
 }
-
