@@ -47,6 +47,62 @@ class _HomeScreenState extends State<HomeScreen> {
     'assets/img6.png',
     'assets/img7.png',
     'assets/img8.png',
+    'assets/img1.png',
+    'assets/img2.png',
+    'assets/img3.png',
+    'assets/img4.png',
+    'assets/img5.png',
+    'assets/img6.png',
+    'assets/img7.png',
+    'assets/img8.png',
+    'assets/img1.png',
+    'assets/img2.png',
+    'assets/img3.png',
+    'assets/img4.png',
+    'assets/img5.png',
+    'assets/img6.png',
+    'assets/img7.png',
+    'assets/img8.png',
+    'assets/img1.png',
+    'assets/img2.png',
+    'assets/img3.png',
+    'assets/img4.png',
+    'assets/img5.png',
+    'assets/img6.png',
+    'assets/img7.png',
+    'assets/img8.png',
+    'assets/img1.png',
+    'assets/img2.png',
+    'assets/img3.png',
+    'assets/img4.png',
+    'assets/img5.png',
+    'assets/img6.png',
+    'assets/img7.png',
+    'assets/img8.png',
+    'assets/img1.png',
+    'assets/img2.png',
+    'assets/img3.png',
+    'assets/img4.png',
+    'assets/img5.png',
+    'assets/img6.png',
+    'assets/img7.png',
+    'assets/img8.png',
+    'assets/img1.png',
+    'assets/img2.png',
+    'assets/img3.png',
+    'assets/img4.png',
+    'assets/img5.png',
+    'assets/img6.png',
+    'assets/img7.png',
+    'assets/img8.png',
+    'assets/img1.png',
+    'assets/img2.png',
+    'assets/img3.png',
+    'assets/img4.png',
+    'assets/img5.png',
+    'assets/img6.png',
+    'assets/img7.png',
+    'assets/img8.png',
   ];
 
   StreamController<List<Rows>> _streamController = StreamController.broadcast();
@@ -112,6 +168,8 @@ class _HomeScreenState extends State<HomeScreen> {
           body: SingleChildScrollView(
               child: Column(children: [
                 Container(
+                    // width: MediaQuery.of(context).size.width,
+                    // height: MediaQuery.of(context).size.height,
                     child: StreamBuilder<List<Rows>>(
                         stream: _streamController.stream,
                         builder: (context, snapshot) {
@@ -135,6 +193,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         padding: EdgeInsets.only(
                                             left: 5, right: 5, top: 15),
                                         child: Container(
+
                                             decoration: BoxDecoration(
                                                 border: Border.all(
                                                   color: Colors.grey[300],

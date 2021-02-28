@@ -242,7 +242,7 @@ class _MyHomePageState extends State<OtpVerificationScreen>
                                       CommonUtils.fullScreenProgress(context);
                                       presenter.doPhoneAuth(widget.phoneNumber,
                                           forceResendingToken:
-                                              widget.forceResendingToken);
+                                              widget.forceResendingToken, );
                                       CommonUtils.showToast(
                                           msg: "Successfully RESEND",
                                           bgColor: Colors.red,
@@ -309,13 +309,13 @@ class _MyHomePageState extends State<OtpVerificationScreen>
     final AuthCredential credential = PhoneAuthProvider.getCredential(
       verificationId: widget.verificationId,
       smsCode: textEditingController.text,
+
     );
     FirebaseAuth.instance.signInWithCredential(credential).then((value) async {
       //CommonUtils.dismissProgressDialog(context);
       if (value.user != null) {
         Auth auth = Auth();
         auth.firebaseUser = value.user;
-
         if (widget.type == "register") {
           Navigator.push(
             context,
@@ -341,16 +341,23 @@ class _MyHomePageState extends State<OtpVerificationScreen>
             msg: error.message, textColor: Colors.white, bgColor: Colors.red);
       }
     });
+    // await .verifyPhoneNumber(
+    //     timeout: Duration(seconds: 0),
+    //     codeAutoRetrievalTimeout: null
+    // );
+
   }
 
   @override
   void onCodeAutoRetrievalTimeout(String verificationId) {
+
     print("@Code Auto " + verificationId);
   }
 
   @override
   void onCodeSent(String verificationId, [int forceResendingToken]) {
     print("@Code Sent " + verificationId);
+
     CommonUtils.dismissProgressDialog(context);
     widget.verificationId = verificationId;
   }
@@ -363,13 +370,12 @@ class _MyHomePageState extends State<OtpVerificationScreen>
       if (value.user != null) {
         print("done");
         Auth auth = Auth();
-        auth.firebaseUser = value.user;
 
+        auth.firebaseUser = value.user;
         DocumentSnapshot snapshot = await Firestore.instance
             .collection(DatabaseConstants.user_db)
             .document(auth.firebaseUser.uid)
             .get();
-
         if (widget.type == "register") {
           Navigator.of(context).pushNamedAndRemoveUntil(
             snapshot.exists ? Routes.homeScreen : Routes.registerdetailScreen,
@@ -412,4 +418,5 @@ class _MyHomePageState extends State<OtpVerificationScreen>
     print("Code Updated");
     textEditingController.text = code;
   }
+
 }

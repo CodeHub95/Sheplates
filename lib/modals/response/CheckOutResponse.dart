@@ -57,8 +57,8 @@ class Orders {
   String preferredDeliveryTime;
   String quantity;
   String duration;
-  num basicSubscriptionPrice;
-  num totalMealCount;
+  int basicSubscriptionPrice;
+  int totalMealCount;
   num delieveryCharges;
   num packagingCharges;
   num gstAmount;

@@ -37,7 +37,7 @@ class CommonUtils {
 
   static String getSimpleDate(DateTime dateTime) {
     if (dateTime != null) {
-      var formatter = new DateFormat('dd MMMM yyyy');
+      var formatter = new DateFormat('dd MMMM, yyyy');
       String formatted = formatter.format(dateTime);
       return formatted;
     }
