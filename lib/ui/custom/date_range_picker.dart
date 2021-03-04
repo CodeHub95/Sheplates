@@ -55,7 +55,13 @@ class _RangePickerPageState extends State<RangePickerPage> {
   void initState() {
     super.initState();
 
-    _firstDate = DateTime.now().add(Duration(days: 1));
+    // _firstDate = DateTime.now().add(Duration(days: 1));
+
+    if(DateTime.now().hour >= 4){
+      _firstDate = DateTime.now().add(Duration(days: 2));
+    }else {
+      _firstDate = DateTime.now();
+    }
     _lastDate = DateTime.now().add(Duration(days: 365));
 
     holidayStreamController = StreamController.broadcast();
@@ -68,7 +74,8 @@ class _RangePickerPageState extends State<RangePickerPage> {
       byDefaultSelectedDays = 0;
     }
 
-    DateTime selectedPeriodStart = DateTime.now().add(Duration(days: 1));
+    DateTime selectedPeriodStart = _firstDate;
+
     DateTime selectedPeriodEnd = DateTime.now();
     _selectedPeriod = DatePeriod(selectedPeriodStart, selectedPeriodEnd);
 

@@ -53,9 +53,12 @@ class _HomeScreenState extends State<ConfirmSubscription> {
   Future<Null> _selectDate(BuildContext context) async {
     Navigator.of(context).pushNamed(Routes.rangePickerPage,
         arguments: {'selectionType': selectionType}).then((value) {
+
       if (value != null) {
+
         Map<String, dynamic> map = value as Map;
         datePeriod = map['period'] as DatePeriod;
+
         dateController.text = CommonUtils.getSimpleDate(datePeriod.start) +
             " - " +
             CommonUtils.getSimpleDate(datePeriod.end);
