@@ -24,7 +24,8 @@ class StockCheckRequest {
         mealPlanId: json['meal_plan_id'],
         quantity: json['quantity'],
         startDate: json['startDate'],
-        holidays: json['holidays']);
+        holidays: json['holidays']
+    );
   }
 
   Map<String, dynamic> toJson() {

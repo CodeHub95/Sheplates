@@ -140,8 +140,8 @@ class Orders {
 }
 
 class Gst {
-  double cgst;
-  double sgst;
+  num cgst;
+  num sgst;
 
   Gst({this.cgst, this.sgst});
 

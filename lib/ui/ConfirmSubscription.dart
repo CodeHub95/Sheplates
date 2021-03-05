@@ -335,10 +335,10 @@ class _HomeScreenState extends State<ConfirmSubscription> {
 
     StockCheckRequest request = StockCheckRequest(
         mealPlanId: widget.rows.id.toString(),
-        quantity: quantityValue,
-        holidays: holidays.join(","),
-        startDate: CommonUtils.getSimpleDateForApi(datePeriod.start),
-        endDate: CommonUtils.getSimpleDateForApi(datePeriod.end));
+        quantity: quantityValue.toString(),
+        holidays: holidays.join(",").toString(),
+        startDate: CommonUtils.getSimpleDateForApi(datePeriod.start).toString(),
+        endDate: CommonUtils.getSimpleDateForApi(datePeriod.end).toString());
 
     if (selectionType == RangeSelectionType.Weekly) {
       request.duration = "weekly";
@@ -348,7 +348,7 @@ class _HomeScreenState extends State<ConfirmSubscription> {
       request.duration = "custom";
     }
 
-    request.preferred_delivery_time = prefferedTime;
+    request.preferred_delivery_time = prefferedTime.toString();
 
     CommonUtils.fullScreenProgress(context);
     NetworkUtil()
