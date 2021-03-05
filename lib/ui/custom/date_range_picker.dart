@@ -11,7 +11,7 @@ import 'package:flutter_sheplates/auth/Auth.dart';
 import 'package:flutter_sheplates/auth/RestApiCalls.dart';
 import 'package:flutter_sheplates/modals/response/HolidayListResponse.dart';
 import 'event.dart';
-
+import 'package:intl/intl.dart';
 /// Page with the [RangePicker].
 enum RangeSelectionType { Weekly, Monthly, Custom }
 
@@ -56,12 +56,18 @@ class _RangePickerPageState extends State<RangePickerPage> {
     super.initState();
 
     // _firstDate = DateTime.now().add(Duration(days: 1));
-
-    if(DateTime.now().hour >= 4){
+    DateFormat.jm().format(DateTime.now());
+    print("tttttt" + DateTime.now().hour.toString());
+    var time = DateTime.now().hour.toString();
+    if(DateTime.now().hour >= 16 ){
       _firstDate = DateTime.now().add(Duration(days: 2));
-    }else {
+      // _firstDate = DateTime.now();
+      print("bjhbb");
+    }else{
       _firstDate = DateTime.now();
     }
+
+
     _lastDate = DateTime.now().add(Duration(days: 365));
 
     holidayStreamController = StreamController.broadcast();

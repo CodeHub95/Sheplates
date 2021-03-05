@@ -351,7 +351,8 @@ class _HomeScreenState extends State<Checkout> {
                                           Text(
                                               stockCheckOutResponse
                                                   .data.orders.totalAmount
-                                                  .toString(),
+                                                  .toStringAsFixed(2),
+        // .toStringAsFixed(3)
                                               style: TextStyle(
                                                   fontSize: 16,
                                                   fontWeight: FontWeight.bold))
