@@ -18,7 +18,7 @@ import 'package:flutter_sheplates/auth/firebase_utils.dart';
 import 'package:flutter_sheplates/ui/ForgotPasswordScreen.dart';
 import 'package:flutter_sheplates/ui/RegisterDetails.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:sms_autofill/sms_autofill.dart';
+// import 'package:sms_autofill/sms_autofill.dart';
 
 class OtpVerificationScreen extends StatefulWidget {
   final String type;
@@ -34,7 +34,7 @@ class OtpVerificationScreen extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<OtpVerificationScreen>
-    with FirebaseMethods, CodeAutoFill {
+    with FirebaseMethods {
   final _formKey = GlobalKey<FormState>();
   var onTapRecognizer;
 
@@ -64,18 +64,18 @@ class _MyHomePageState extends State<OtpVerificationScreen>
 
     presenter = FirebasePresenter(this);
 
-    SmsAutoFill smsAutoFill = SmsAutoFill();
-
-    smsAutoFill.getAppSignature.then((value) {
-      print("App Signature " + value);
-      smsAutoFill.listenForCode.then((value) {
-        print("Successfully Register");
-        smsAutoFill.code.listen((event) {
-          print("@Auto Code Read " + event);
-          textEditingController.text = event;
-        });
-      });
-    });
+    // SmsAutoFill smsAutoFill = SmsAutoFill();
+    //
+    // smsAutoFill.getAppSignature.then((value) {
+    //   print("App Signature " + value);
+    //   smsAutoFill.listenForCode.then((value) {
+    //     print("Successfully Register");
+    //     smsAutoFill.code.listen((event) {
+    //       print("@Auto Code Read " + event);
+    //       textEditingController.text = event;
+    //     });
+    //   });
+    // });
   }
 
   @override
@@ -309,8 +309,8 @@ class _MyHomePageState extends State<OtpVerificationScreen>
     final AuthCredential credential = PhoneAuthProvider.getCredential(
       verificationId: widget.verificationId,
       smsCode: textEditingController.text,
-
     );
+    print("ppppppppp" + widget.verificationId);
     FirebaseAuth.instance.signInWithCredential(credential).then((value) async {
       //CommonUtils.dismissProgressDialog(context);
       if (value.user != null) {
@@ -413,10 +413,10 @@ class _MyHomePageState extends State<OtpVerificationScreen>
         bgColor: Colors.red);
   }
 
-  @override
-  void codeUpdated() {
-    print("Code Updated");
-    textEditingController.text = code;
-  }
+  // @override
+  // void codeUpdated() {
+  //   print("Code Updated");
+  //   textEditingController.text = code;
+  // }
 
 }

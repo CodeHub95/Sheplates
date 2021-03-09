@@ -14,6 +14,7 @@ import 'package:flutter_sheplates/auth/Auth.dart';
 import 'package:flutter_sheplates/auth/database_helper.dart';
 import 'package:flutter_sheplates/auth/firebase_utils.dart';
 import 'package:flutter_sheplates/ui/OtpVerificationScreen.dart';
+import 'package:flutter_sheplates/ui/RegisterDetails.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -279,9 +280,32 @@ class _MyHomePageState extends State<RegisterScreen> with FirebaseMethods {
     }
   }
 
+
+
   @override
-  void onCodeAutoRetrievalTimeout(String verificationId) {
-    print("@Code Auto " + verificationId);
+  void onVerificationCompleted(AuthCredential phoneAuthCredential) {
+    firebaseAuth.signInWithCredential(phoneAuthCredential).then((value) async {
+      // if (value.user != null) {
+      //   print("done");
+      //   Auth auth = Auth();
+      //   auth.firebaseUser = value.user;
+      //
+      //   DocumentSnapshot snapshot = await Firestore.instance
+      //       .collection(DatabaseConstants.user_db)
+      //       .document(auth.firebaseUser.uid)
+      //       .get();
+      //
+      //   Navigator.of(context).pushNamedAndRemoveUntil(
+      //       snapshot.exists ? Routes.homeScreen : Routes.registerdetailScreen,
+      //       (route) => false,
+      //       arguments: {"isFromLogin": true});
+      // }
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => RegisterDetailScreen(phoneNumber)),
+      );
+    });
   }
 
   @override
@@ -290,7 +314,7 @@ class _MyHomePageState extends State<RegisterScreen> with FirebaseMethods {
     print("phone number" + phoneNumber);
     CommonUtils.dismissProgressDialog(_context);
     verificationId = verificationId;
-
+    print("tttttt" + verificationId);
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -299,28 +323,10 @@ class _MyHomePageState extends State<RegisterScreen> with FirebaseMethods {
       ),
     );
   }
-
   @override
-  void onVerificationCompleted(AuthCredential phoneAuthCredential) {
-    firebaseAuth.signInWithCredential(phoneAuthCredential).then((value) async {
-      if (value.user != null) {
-        print("done");
-        Auth auth = Auth();
-        auth.firebaseUser = value.user;
-
-        DocumentSnapshot snapshot = await Firestore.instance
-            .collection(DatabaseConstants.user_db)
-            .document(auth.firebaseUser.uid)
-            .get();
-
-        Navigator.of(context).pushNamedAndRemoveUntil(
-            snapshot.exists ? Routes.homeScreen : Routes.registerdetailScreen,
-            (route) => false,
-            arguments: {"isFromLogin": true});
-      }
-    });
+  void onCodeAutoRetrievalTimeout(String verificationId) {
+    print("@Code Auto " + verificationId);
   }
-
   @override
   void onVerificationFailed(AuthException authException) {
     CommonUtils.dismissProgressDialog(_context);
