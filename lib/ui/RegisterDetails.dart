@@ -249,7 +249,8 @@ class _MyHomePageState extends State<RegisterDetailScreen> {
       String deviceId = await CommonUtils.getDeviceId();
       String deviceToken = await CommonUtils().getFcmToken();
       RegisterRequest request = RegisterRequest(
-          phone: numberController.text,
+          // phone: numberController.text,
+        phone: widget.phoneNumber,
           first_Name: nameController.text,
           last_Name: lastnameController.text,
           email: emailController.text,
@@ -257,6 +258,7 @@ class _MyHomePageState extends State<RegisterDetailScreen> {
           deviceId: deviceId,
           deviceToken: deviceToken,
           deviceType: Platform.isAndroid ? "Android" : "Ios");
+      print("nnnnumber" + widget.phoneNumber);
       var res = await NetworkUtil().post(url: url, body: jsonEncode(request));
       LoginResponse response = LoginResponse.fromJson(res);
       if (response.status == 200) {

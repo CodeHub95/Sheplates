@@ -76,7 +76,7 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
+        // mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
@@ -234,8 +234,8 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                       // Validation Done
                       AddDeliveryAddressRequest request =
                           AddDeliveryAddressRequest(
-                              full_address: address.addressLine,
-                              address_line1: _areaTextEditingController.text,
+                              address_line1: address.addressLine,
+                              full_address: _areaTextEditingController.text,
                               area: _areaTextEditingController.text,
                               landmark: _landmarkTextEditingController.text,
                               pincode: _pinCodeTextEditingController.text,

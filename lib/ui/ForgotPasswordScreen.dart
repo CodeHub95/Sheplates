@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_sheplates/Utils/NetworkUtils.dart';
+import 'package:flutter_sheplates/Utils/app_defaults.dart';
 import 'package:flutter_sheplates/Utils/app_utils.dart';
 import 'package:flutter_sheplates/Utils/hexColor.dart';
 import 'package:flutter_sheplates/modals/request/registrationrequest.dart';
@@ -175,12 +176,14 @@ class _MyHomePageState extends State<ForgotPasswordScreen> {
       _formKey.currentState.save();
       CommonUtils.fullScreenProgress(context);
       String url = "user/reset-password";
-
+      String token = await SharedPrefHelper().getWithDefault("token", "");
+      print("tokennnnnn" + token.toString());
       RegisterRequest request = RegisterRequest(
-        phone: widget.phoneNumber,
+        // phone: widget.phoneNumber,
+        phone: phoneController.text,
         password: passwordController.text,
       );
-      var res = await NetworkUtil().putApi(url: url, body: request);
+      var res = await NetworkUtil().putApi(url: url, body: request, token: token);
       if (res != null) {
         BaseResponse baseResponse = BaseResponse.fromJson(res);
         CommonUtils.dismissProgressDialog(context);
@@ -192,6 +195,8 @@ class _MyHomePageState extends State<ForgotPasswordScreen> {
           Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(builder: (context) => LoginRegisterScreen()),
               (Route<dynamic> route) => false);
+
+
         } else {
           CommonUtils.showToast(
               msg: baseResponse.message,

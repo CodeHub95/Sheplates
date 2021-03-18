@@ -67,8 +67,8 @@ class _MyHomePageState extends State<PaymentScreen> {
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
-    Fluttertoast.showToast(
-        msg: "ERROR: " + response.code.toString() + " - " + response.message);
+    // Fluttertoast.showToast(
+    //     msg: "ERROR: " + response.code.toString() + " - " + response.message);
   }
 
   void _handleExternalWallet(ExternalWalletResponse response) {

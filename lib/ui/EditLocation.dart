@@ -177,6 +177,7 @@ child: Column(
                               // new Expanded(
                                TextFormField(
                                   // LOGIN SCREEN EMAIL
+                                 controller: _controllerTextAddress,
                                   maxLines: 2,
                                   autofocus: false,
                                   textAlign: TextAlign.left,

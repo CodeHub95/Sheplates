@@ -124,9 +124,9 @@ class _HomeScreenState extends State<Checkout> {
   void _handlePaymentError(PaymentFailureResponse response) {
     print("@Error");
     print(response.message);
-    Fluttertoast.showToast(
-        msg: "ERROR: " + response.code.toString() + " - " + response.message,
-        timeInSecForIos: 4);
+    // Fluttertoast.showToast(
+    //     msg: "ERROR: " + response.code.toString() + " - " + response.message,
+    //     timeInSecForIos: 4);
   }
 
   void _handleExternalWallet(ExternalWalletResponse response) {

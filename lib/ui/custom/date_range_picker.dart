@@ -64,7 +64,7 @@ class _RangePickerPageState extends State<RangePickerPage> {
       // _firstDate = DateTime.now();
       print("bjhbb");
     }else{
-      _firstDate = DateTime.now();
+      _firstDate = DateTime.now().add(Duration(days:1));
     }
 
 

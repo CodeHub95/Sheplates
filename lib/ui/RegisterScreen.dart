@@ -13,6 +13,8 @@ import 'package:flutter_sheplates/Utils/hexColor.dart';
 import 'package:flutter_sheplates/auth/Auth.dart';
 import 'package:flutter_sheplates/auth/database_helper.dart';
 import 'package:flutter_sheplates/auth/firebase_utils.dart';
+import 'package:flutter_sheplates/ui/ForgotPasswordScreen.dart';
+import 'package:flutter_sheplates/ui/LoginScreen.dart';
 import 'package:flutter_sheplates/ui/OtpVerificationScreen.dart';
 import 'package:flutter_sheplates/ui/RegisterDetails.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
@@ -300,25 +302,40 @@ class _MyHomePageState extends State<RegisterScreen> with FirebaseMethods {
       //       (route) => false,
       //       arguments: {"isFromLogin": true});
       // }
+if(widget.type =="register"){
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => RegisterDetailScreen(phoneNumber)),
+  );
+}else {
+  // Navigator.push(
+  //   context,
+  //   MaterialPageRoute(builder: (context) => ForgotPasswordScreen()),
+  // );
+  Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+          builder: (context) => ForgotPasswordScreen(
+            phoneNumber: phoneNumber,
+          )),
+          (Route<dynamic> route) => false);
+}
 
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => RegisterDetailScreen(phoneNumber)),
-      );
     });
   }
 
   @override
   void onCodeSent(String verificationId, [int forceResendingToken]) {
     print("@Code Sent " + verificationId);
-    print("phone number" + phoneNumber);
+    print("phone number" + code +phoneNumber);
     CommonUtils.dismissProgressDialog(_context);
     verificationId = verificationId;
     print("tttttt" + verificationId);
+    phoneNumber = code + phoneNumber.toString();
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => OtpVerificationScreen(code + phoneNumber,
+        builder: (context) => OtpVerificationScreen( phoneNumber,
             verificationId, forceResendingToken, widget.type),
       ),
     );
