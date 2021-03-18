@@ -395,7 +395,7 @@ class _HomeScreenState extends State<Checkout> {
       currency: 'INR',
       payment_capture: "",
       receipt: stockCheckOutResponse.data.orders.id.toString(),
-      amount: stockCheckOutResponse.data.orders.totalAmount * 100,
+      amount: (stockCheckOutResponse.data.orders.totalAmount * 100).toInt(),
     );
 
     String token = await SharedPrefHelper().getWithDefault("token", "");

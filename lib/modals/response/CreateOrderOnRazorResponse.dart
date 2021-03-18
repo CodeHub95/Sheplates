@@ -44,8 +44,8 @@ class Order {
   String id;
   String entity;
   num amount;
-  int amountPaid;
-  int amountDue;
+  num amountPaid;
+  num amountDue;
   String currency;
   String receipt;
   Null offerId;

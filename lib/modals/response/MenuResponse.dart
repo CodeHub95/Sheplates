@@ -44,7 +44,7 @@ class Obj {
   int subscriptionPlanId;
   String duration;
   String startDate;
-  int amountPaid;
+  num amountPaid;
   int mealsServed;
   int mealsRemaining;
   String mealName;
