@@ -1,13 +1,17 @@
 import 'dart:async';
 import 'dart:convert';
 
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/style.dart';
 import 'package:flutter_sheplates/Utils/NetworkUtils.dart';
 import 'package:flutter_sheplates/Utils/Routes.dart';
 import 'package:flutter_sheplates/Utils/app_defaults.dart';
 import 'package:flutter_sheplates/modals/response/FaqResponse.dart';
 import 'package:flutter_sheplates/ui/DrawerScreen.dart';
+import 'package:flutter_html/flutter_html.dart';
+
 
 class FaqScreen extends StatefulWidget {
   @override
@@ -29,9 +33,10 @@ class _HomeScreenState extends State<FaqScreen> {
 
   bool _pressAttention = true;
   bool _pressMapping = true;
+  bool _presssMapping = true;
   bool viewVisible = false;
   bool viewMapping = false;
-
+  bool viewwMapping = false;
   @override
   Future<void> initState() {
     // TODO: implement initState
@@ -81,6 +86,12 @@ class _HomeScreenState extends State<FaqScreen> {
                         child: CircularProgressIndicator(),
                       );
                     if (snapshot.data.length != 0) {
+                    // return  ListView.builder(
+                    //       shrinkWrap: true,
+                    //       physics: NeverScrollableScrollPhysics(),
+                    //       padding: const EdgeInsets.all(8),
+                    //       itemCount: snapshot.data.length,
+                    //       itemBuilder: (BuildContext context, int index) {
                       return Column(
                         children: [
                           Padding(padding: EdgeInsets.only(top: 20)),
@@ -142,13 +153,28 @@ class _HomeScreenState extends State<FaqScreen> {
                                       top: 10, bottom: 10, left: 10, right: 10),
                                   child: Align(
                                       alignment: Alignment.topLeft,
-                                      child: Text(
+                                      child: Html(
+
                                           // 'Show Hide Text View Widget in Flutter',
-                                          snapshot.data[0].answer.toString(),
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 15))))),
+                                         data: snapshot.data[0].answer.toString(),
+
+                                          // defaultTextStyle: TextStyle(
+                                          //       color: Colors.black,
+                                          //       fontSize: 15
+                                          // )
+                                        // style( fontSize: 15)
+                                          style: {
+                                            // tables will have the below background color
+                                            "p": Style(
+                                            color: Colors.grey,
+                                            alignment: Alignment.center,
+
+                                            // fontSize: FontSize.medium
+                                            //     fontSize: 15
+                                          )
+                                         }
+
+                                  )))),
                           Padding(padding: EdgeInsets.only(top: 10)),
                           Container(
                             height: 60,
@@ -214,7 +240,74 @@ class _HomeScreenState extends State<FaqScreen> {
                                           snapshot.data[1].answer,
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
-                                              color: Colors.black,
+                                              color: Colors.grey,
+                                              fontSize: 15))))),
+                          Padding(padding: EdgeInsets.only(top: 10)),
+                          Container(
+                            height: 60,
+                            width: MediaQuery.of(context).size.width,
+                            color: Colors.grey[200],
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 10, right: 10),
+                                    child: Text(
+                                      // 'Mapping between the direction of \nthe icon and the',
+                                      snapshot.data[2].question,
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 15),
+                                    )),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 10, right: 10),
+                                        child: IconButton(
+                                            icon: (_presssMapping
+                                                ? Icon(Icons.add,
+                                                color: Colors.grey)
+                                                : Icon(Icons.minimize,
+                                                color: Colors.grey)),
+                                            onPressed: _presssMapping
+                                                ? () {
+                                              setState(() {
+                                                if (_presssMapping) {
+                                                  _presssMapping = false;
+                                                } else {
+                                                  _presssMapping = true;
+                                                }
+                                              });
+
+                                              shMapping();
+                                            }
+                                                : () {
+                                              hiMapping();
+                                            }))
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                          Visibility(
+                              visible: viewwMapping,
+                              child: Container(
+                                  height: 50,
+                                  width: MediaQuery.of(context).size.width,
+                                  // color: Colors.green,
+                                  margin: EdgeInsets.only(
+                                      top: 10, bottom: 10, left: 10, right: 10),
+                                  child: Align(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(
+                                        // 'Show Hide Text View Widget in Flutter',
+                                          snapshot.data[2].answer,
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              color: Colors.grey,
                                               fontSize: 15))))),
                         ],
                       );
@@ -263,6 +356,20 @@ class _HomeScreenState extends State<FaqScreen> {
     setState(() {
       viewMapping = false;
       _pressMapping = true;
+    });
+  }
+
+  void shMapping() {
+    setState(() {
+      viewwMapping = true;
+      _presssMapping = false;
+    });
+  }
+
+  void hiMapping() {
+    setState(() {
+      viewwMapping = false;
+      _presssMapping = true;
     });
   }
 

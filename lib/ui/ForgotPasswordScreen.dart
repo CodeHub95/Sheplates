@@ -199,7 +199,8 @@ class _MyHomePageState extends State<ForgotPasswordScreen> {
 
         } else {
           CommonUtils.showToast(
-              msg: baseResponse.message,
+              // msg: baseResponse.message,
+            msg: "User Not Exist!",
               bgColor: Colors.white,
               textColor: Colors.black);
         }

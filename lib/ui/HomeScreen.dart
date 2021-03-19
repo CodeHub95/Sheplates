@@ -398,8 +398,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                           .white),
                                                                 ),
                                                                 onPressed: () => {
-                                                                  if (suscriber !=
-                                                                      null)
+                                                                  if (suscriber ==
+                                                                     true )
                                                                     {
                                                                       CommonUtils.showToast(
                                                                           msg:

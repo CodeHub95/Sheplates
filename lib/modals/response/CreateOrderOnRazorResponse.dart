@@ -48,7 +48,7 @@ class Order {
   num amountDue;
   String currency;
   String receipt;
-  Null offerId;
+  String offerId;
   String status;
   int attempts;
   int createdAt;

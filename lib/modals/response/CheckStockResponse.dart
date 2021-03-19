@@ -34,20 +34,20 @@ class Stock {
 }
 
 class Data {
-  int _effectivePlanDuration;
-  int _mealPlanPrice;
-  int _delieveryCharges;
-  int _packagingCharges;
-  int _gst;
-  int _total;
+  String _effectivePlanDuration;
+  num _mealPlanPrice;
+  num _delieveryCharges;
+  num _packagingCharges;
+  num _gst;
+  num _total;
 
   Data(
-      {int effectivePlanDuration,
-        int mealPlanPrice,
-        int delieveryCharges,
-        int packagingCharges,
-        int gst,
-        int total}) {
+      {String effectivePlanDuration,
+        num mealPlanPrice,
+        num delieveryCharges,
+        num packagingCharges,
+        num gst,
+        num total}) {
     this._effectivePlanDuration = effectivePlanDuration;
     this._mealPlanPrice = mealPlanPrice;
     this._delieveryCharges = delieveryCharges;
@@ -56,21 +56,21 @@ class Data {
     this._total = total;
   }
 
-  int get effectivePlanDuration => _effectivePlanDuration;
-  set effectivePlanDuration(int effectivePlanDuration) =>
+  String get effectivePlanDuration => _effectivePlanDuration;
+  set effectivePlanDuration(String effectivePlanDuration) =>
       _effectivePlanDuration = effectivePlanDuration;
-  int get mealPlanPrice => _mealPlanPrice;
-  set mealPlanPrice(int mealPlanPrice) => _mealPlanPrice = mealPlanPrice;
-  int get delieveryCharges => _delieveryCharges;
-  set delieveryCharges(int delieveryCharges) =>
+  num get mealPlanPrice => _mealPlanPrice;
+  set mealPlanPrice(num mealPlanPrice) => _mealPlanPrice = mealPlanPrice;
+  num get delieveryCharges => _delieveryCharges;
+  set delieveryCharges(num delieveryCharges) =>
       _delieveryCharges = delieveryCharges;
-  int get packagingCharges => _packagingCharges;
-  set packagingCharges(int packagingCharges) =>
+  num get packagingCharges => _packagingCharges;
+  set packagingCharges(num packagingCharges) =>
       _packagingCharges = packagingCharges;
-  int get gst => _gst;
-  set gst(int gst) => _gst = gst;
-  int get total => _total;
-  set total(int total) => _total = total;
+  num get gst => _gst;
+  set gst(num gst) => _gst = gst;
+  num get total => _total;
+  set total(num total) => _total = total;
 
   Data.fromJson(Map<String, dynamic> json) {
     _effectivePlanDuration = json['effectivePlanDuration'];

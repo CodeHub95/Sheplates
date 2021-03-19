@@ -1,7 +1,7 @@
 class PaymentSubmitRequest {
   String orderId;
   String transactionId;
-  int amount;
+  num amount;
   String paymentMode;
   String status;
   String type;

@@ -1,7 +1,7 @@
 class StockCheckOutResponse {
   StockData data;
   String message;
-  num status;
+  int status;
 
   StockCheckOutResponse({this.data, this.message, this.status});
 

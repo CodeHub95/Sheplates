@@ -17,7 +17,7 @@ class PaymentScreen extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<PaymentScreen> {
-  int totalAmount = 0;
+  num totalAmount;
   Razorpay _razorpay;
 
   @override
@@ -39,8 +39,8 @@ class _MyHomePageState extends State<PaymentScreen> {
 
   void openCheckout() async {
     var options = {
-      'key': 'rzp_test_LvOEXD853GPDQQ',
-      'amount': totalAmount * 100,
+      'key': 'rzp_test_ImjhrLwWSMXD55',
+      'amount': totalAmount.toInt() ,
       'name': 'SHEPLATES',
       'description': 'Test Payment',
       'prefill': {'contact': '', 'email': ''},
@@ -67,8 +67,8 @@ class _MyHomePageState extends State<PaymentScreen> {
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
-    // Fluttertoast.showToast(
-    //     msg: "ERROR: " + response.code.toString() + " - " + response.message);
+    Fluttertoast.showToast(
+        msg: "ERROR: " + response.code.toString() + " - " + response.message);
   }
 
   void _handleExternalWallet(ExternalWalletResponse response) {
