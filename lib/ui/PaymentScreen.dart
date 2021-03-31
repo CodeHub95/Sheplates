@@ -40,7 +40,7 @@ class _MyHomePageState extends State<PaymentScreen> {
   void openCheckout() async {
     var options = {
       'key': 'rzp_test_ImjhrLwWSMXD55',
-      'amount': totalAmount.toInt() ,
+      'amount': totalAmount ,
       'name': 'SHEPLATES',
       'description': 'Test Payment',
       'prefill': {'contact': '', 'email': ''},

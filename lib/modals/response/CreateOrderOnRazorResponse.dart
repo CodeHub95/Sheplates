@@ -1,6 +1,6 @@
 class CreateOrderOnRazorResponse {
   int status;
-  String message;
+  dynamic message;
   Data data;
 
   CreateOrderOnRazorResponse({this.status, this.message, this.data});

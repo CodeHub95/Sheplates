@@ -39,16 +39,17 @@ class _HomeScreenState extends State<Checkout> {
 
   String create_order_id;
   Razorpay _razorpay;
-  num amount;
+  int amount;
   String currency;
   String receipt;
-  int payment_capture;
+  String payment_capture;
 String email;
 String phone;
   Future<void> completePayment(
       PaymentSuccessResponse paymentSuccessResponse) async {
     CommonUtils.fullScreenProgress(context);
     String url = "user/payment";
+
     PaymentSubmitRequest request = PaymentSubmitRequest(
       razorpay_payment_id: paymentSuccessResponse.paymentId,
       razorpay_order_id: paymentSuccessResponse.orderId,
@@ -57,7 +58,7 @@ String phone;
       status: "Success",
       paymentMode: "Razor Pay",
       orderId: stockCheckOutResponse.data.orders.id.toString(),
-      amount: stockCheckOutResponse.data.orders.totalAmount.toInt(),
+      amount: stockCheckOutResponse.data.orders.totalAmount,
     );
     String token = await SharedPrefHelper().getWithDefault("token", "");
     var res = await NetworkUtil()
@@ -82,7 +83,7 @@ String phone;
 
   void openCheckout(
       String name,
-      num amount,
+      int amount,
       String order_id,
       ) async {
     String email = await SharedPrefHelper().getWithDefault("email", "");
@@ -91,7 +92,7 @@ String phone;
 
     var options = {
       'key': AppConstants.RazorPayTestKeyId,
-      'amount': amount,
+      'amount': stockCheckOutResponse.data.orders.totalAmount.toInt(),
       'name': name,
       'order_id': order_id,
       'description': 'Payment',
@@ -391,12 +392,12 @@ String phone;
     String url = "user/create-order";
 
     CreateOrderOnRazorRequest request = CreateOrderOnRazorRequest(
-      currency: 'INR',
+      currency: "INR",
       payment_capture: "",
       receipt: stockCheckOutResponse.data.orders.id.toString(),
-      amount: stockCheckOutResponse.data.orders.totalAmount *100,
+      amount: (stockCheckOutResponse.data.orders.totalAmount*100).toInt(),
     );
-
+    print("create order razorpay request" + stockCheckOutResponse.data.orders.totalAmount.toString());
     String token = await SharedPrefHelper().getWithDefault("token", "");
     var res = await NetworkUtil()
         .post(url: url, body: jsonEncode(request), token: token);
@@ -410,9 +411,9 @@ String phone;
       String name = await SharedPrefHelper().getWithDefault("name", "");
       String email = await SharedPrefHelper().getWithDefault("email", "");
       String phone = await SharedPrefHelper().getWithDefault("phone", "");
-
+      print("create order razorpay response" + orderResponse.data.order.amount.toString());
       openCheckout(
-        name, amount, orderId,
+        name, stockCheckOutResponse.data.orders.totalAmount.toInt(), orderId,
         // email, phone
       );
     } else {
