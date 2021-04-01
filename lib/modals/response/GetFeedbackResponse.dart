@@ -46,14 +46,16 @@ class LastPlanFeedback {
   int id;
   String startDate;
   String endDate;
+  int meals_served;
   Feedback feedback;
 
-  LastPlanFeedback({this.id, this.startDate, this.endDate, this.feedback});
+  LastPlanFeedback({this.id, this.startDate, this.endDate, this.feedback,this.meals_served});
 
   LastPlanFeedback.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     startDate = json['start_date'];
     endDate = json['end_date'];
+    meals_served = json['meals_served'];
     feedback = json['feedback'] != null
         ? new Feedback.fromJson(json['feedback'])
         : null;
@@ -64,6 +66,7 @@ class LastPlanFeedback {
     data['id'] = this.id;
     data['start_date'] = this.startDate;
     data['end_date'] = this.endDate;
+    data['meals_served'] = this.meals_served;
     if (this.feedback != null) {
       data['feedback'] = this.feedback.toJson();
     }

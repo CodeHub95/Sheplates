@@ -322,7 +322,8 @@ class _FeedBackState extends State<FeedBack> {
                       ),
                     ),
                     onPressed: () {
-                      submit();
+                      checkMealServed();
+
                     },
                   )),
             ])));
@@ -335,6 +336,7 @@ class _FeedBackState extends State<FeedBack> {
 
     String url = "user/add-feedback";
     UserFeedbackRequest request = UserFeedbackRequest(
+
       orderId: id.toInt(),
       taste: _tasterating.toInt(),
       quantity: _qualityrating.toInt(),
@@ -603,6 +605,58 @@ class _FeedBackState extends State<FeedBack> {
         msg: feedbackResponse.message,
       );
       CommonUtils.dismissProgressDialog(context);
+    }
+  }
+
+  void checkMealServed() async{
+    String token = await SharedPrefHelper().getWithDefault("token", "");
+    var getFeedback = await NetworkUtil().get("user/feedback", token: token);
+    GetFeedbackResponse feedbackResponse =
+    GetFeedbackResponse.fromJson(getFeedback);
+    _controller.sink.add(feedbackResponse);
+
+    if (feedbackResponse.status == 200) {
+      if (feedbackResponse.data.lastPlanFeedback.meals_served != 0) {
+    submit();
+      }else {
+       return
+         showDialog(
+           context: context, barrierDismissible: false, // user must tap button!
+
+           builder: (BuildContext context) {
+             return new AlertDialog(
+               contentPadding: EdgeInsets.all(0.0),
+               content: new SingleChildScrollView(
+                 child: Container(
+                     height: 130,
+                     child: new Column(
+                       children: [
+                         Row(
+                           mainAxisAlignment: MainAxisAlignment.end,
+                           crossAxisAlignment: CrossAxisAlignment.start,
+                           children: [
+                             IconButton(
+                                 icon: Icon(
+                                   Icons.close,
+                                   size: 20.0,
+                                   color: Colors.black,
+                                 ),
+                                 onPressed: () => Navigator.pop(context)),
+                           ],
+                         ),
+                         Text(
+                           'Meal has not been sent yet',
+                           style:
+                           TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                           textAlign: TextAlign.center,
+                         ),
+                       ],
+                     )),
+               ),
+             );
+           },
+         );
+       }
     }
   }
 }
