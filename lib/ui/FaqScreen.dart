@@ -4,13 +4,13 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_html/style.dart';
+// import 'package:flutter_html/style.dart';
 import 'package:flutter_sheplates/Utils/NetworkUtils.dart';
 import 'package:flutter_sheplates/Utils/Routes.dart';
 import 'package:flutter_sheplates/Utils/app_defaults.dart';
 import 'package:flutter_sheplates/modals/response/FaqResponse.dart';
 import 'package:flutter_sheplates/ui/DrawerScreen.dart';
-import 'package:flutter_html/flutter_html.dart';
+// import 'package:flutter_html/flutter_html.dart';
 
 
 class FaqScreen extends StatefulWidget {
@@ -153,26 +153,26 @@ class _HomeScreenState extends State<FaqScreen> {
                                       top: 10, bottom: 10, left: 10, right: 10),
                                   child: Align(
                                       alignment: Alignment.topLeft,
-                                      child: Html(
+                                      child: Text(
 
                                           // 'Show Hide Text View Widget in Flutter',
-                                         data: snapshot.data[0].answer.toString(),
+                                          snapshot.data[0].answer.toString(),
 
                                           // defaultTextStyle: TextStyle(
                                           //       color: Colors.black,
                                           //       fontSize: 15
                                           // )
                                         // style( fontSize: 15)
-                                          style: {
+                                          style: 
                                             // tables will have the below background color
-                                            "p": Style(
+                                            TextStyle(
                                             color: Colors.grey,
-                                            alignment: Alignment.center,
+                                            // alignment: Alignment.center,
 
                                             // fontSize: FontSize.medium
                                             //     fontSize: 15
                                           )
-                                         }
+                                         
 
                                   )))),
                           Padding(padding: EdgeInsets.only(top: 10)),
