@@ -219,7 +219,7 @@ class _HomeScreenState extends State<PauseSubscription> {
                   Visibility(
                       visible:
                           snapshot.data.data.order.resumeSubscriptionDate !=
-                                  "0000-00-00" &&
+                                  "0000-00-00" ||
                               snapshot.data.data.order.pauseSubscriptionDate !=
                                   "0000-00-00",
                       child: Container(
