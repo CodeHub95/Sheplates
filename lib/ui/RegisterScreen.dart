@@ -1,5 +1,6 @@
 import 'dart:convert';
-
+import 'package:flutter/gestures.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -221,10 +222,22 @@ class _MyHomePageState extends State<RegisterScreen> with FirebaseMethods {
                                       text: "I Agree ",
                                       style: TextStyle(
                                           color: Colors.grey, fontSize: 14.0)),
-                                  TextSpan(
-                                      text: "TERMS & CONDITIONS",
-                                      style: TextStyle(
-                                          color: Colors.black, fontSize: 16.0)),
+                                      TextSpan(
+                                        text: "TERMS OF USE",
+                                        style: TextStyle(
+                                            color: Colors.black, fontSize: 16.0),
+
+                                        recognizer: new TapGestureRecognizer()
+                                          ..onTap = () async {
+                                            final url = 'https://sheplates-staging-959022279.ap-south-1.elb.amazonaws.com/terms-of-use';
+                                            if (await canLaunch(url)) {
+                                              await launch(
+                                                url,
+                                                forceSafariVC: false,
+                                              );
+                                            }
+                                          },
+                                      ),
                                 ])),
                                 controlAffinity:
                                     ListTileControlAffinity.leading,
