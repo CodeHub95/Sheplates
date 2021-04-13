@@ -219,7 +219,7 @@ class _HomeScreenState extends State<PauseSubscription> {
                   Visibility(
                       visible:
                           snapshot.data.data.order.resumeSubscriptionDate !=
-                                  "0000-00-00" ||
+                                  "0000-00-00" &&
                               snapshot.data.data.order.pauseSubscriptionDate !=
                                   "0000-00-00",
                       child: Container(
@@ -246,26 +246,30 @@ class _HomeScreenState extends State<PauseSubscription> {
                                               fontSize: 15.0,
                                               fontWeight: FontWeight.bold)),
                                       TextSpan(
-                                          text: " Your Subscription Will be ",
+                                          text:pause && snapshot.data.data.order.resumeSubscriptionDate.compareTo(DateTime.now().toString())>0 ? " Your Subscription is ": " Your Subscription Will be ",
                                           style: TextStyle(
                                               color: Colors.black,
                                               fontSize: 15.0)),
                                       TextSpan(
                                           text:
-                                              pause ? 'Paused' : 'Reactivated',
+                                              pause && snapshot.data.data.order.resumeSubscriptionDate.compareTo(DateTime.now().toString())>0 ? 'Paused' : 'Reactivated',
                                           style: TextStyle(
                                               color: Colors.black,
                                               fontSize: 15.0)),
                                       TextSpan(
-                                          text: " from\n ",
+                                          text:pause && snapshot.data.data.order.resumeSubscriptionDate.compareTo(DateTime.now().toString())>0
+                                              ?
+                                          "": " from ",
                                           style: TextStyle(
                                               color: Colors.black,
                                               fontSize: 15.0)),
                                       TextSpan(
-                                          text: pause
-                                              ? CommonUtils.getSimpleDate(
-                                                  DateTime.parse(
-                                                      pause_subscription_date))
+                                          text: pause && snapshot.data.data.order.resumeSubscriptionDate.compareTo(DateTime.now().toString())>0
+                                              ?
+                                              ""
+                                          // CommonUtils.getSimpleDate(
+                                          //         DateTime.parse(
+                                          //             pause_subscription_date))
                                               : CommonUtils.getSimpleDate(
                                                   DateTime.parse(
                                                       resume_subscription_date)),
