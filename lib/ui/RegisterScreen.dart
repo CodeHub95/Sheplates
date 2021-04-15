@@ -1,11 +1,11 @@
 import 'dart:convert';
-import 'package:flutter/gestures.dart';
-import 'package:url_launcher/url_launcher.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth_platform_interface/firebase_auth_platform_interface.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_sheplates/Utils/Routes.dart';
@@ -19,6 +19,7 @@ import 'package:flutter_sheplates/ui/LoginScreen.dart';
 import 'package:flutter_sheplates/ui/OtpVerificationScreen.dart';
 import 'package:flutter_sheplates/ui/RegisterDetails.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class RegisterScreen extends StatefulWidget {
   final String type;
@@ -222,22 +223,21 @@ class _MyHomePageState extends State<RegisterScreen> with FirebaseMethods {
                                       text: "I Agree ",
                                       style: TextStyle(
                                           color: Colors.grey, fontSize: 14.0)),
-                                      TextSpan(
-                                        text: "TERMS OF USE",
-                                        style: TextStyle(
-                                            color: Colors.black, fontSize: 16.0),
-
-                                        recognizer: new TapGestureRecognizer()
-                                          ..onTap = () async {
-                                            final url = 'https://sheplates-staging-959022279.ap-south-1.elb.amazonaws.com/terms-of-use';
-                                            if (await canLaunch(url)) {
-                                              await launch(
-                                                url,
-                                                forceSafariVC: false,
-                                              );
-                                            }
-                                          },
-                                      ),
+                                  TextSpan(
+                                      text: "TERMS OF USE",
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 16.0),
+                                    recognizer: new TapGestureRecognizer()
+                                      ..onTap = () async {
+                                        final url = 'https://sheplates-staging-959022279.ap-south-1.elb.amazonaws.com/terms-of-use';
+                                        if (await canLaunch(url)) {
+                                          await launch(
+                                            url,
+                                            forceSafariVC: false,
+                                          );
+                                        }
+                                      },
+                                  ),
                                 ])),
                                 controlAffinity:
                                     ListTileControlAffinity.leading,
@@ -316,9 +316,10 @@ class _MyHomePageState extends State<RegisterScreen> with FirebaseMethods {
       //       arguments: {"isFromLogin": true});
       // }
 if(widget.type =="register"){
+  String phoneNumber = code + phoneController.text;
   Navigator.push(
     context,
-    MaterialPageRoute(builder: (context) => RegisterDetailScreen(phoneNumber)),
+    MaterialPageRoute(builder: (context) => RegisterDetailScreen(phoneNumber )),
   );
 }else {
   // Navigator.push(
@@ -329,7 +330,7 @@ if(widget.type =="register"){
       context,
       MaterialPageRoute(
           builder: (context) => ForgotPasswordScreen(
-            phoneNumber: phoneNumber,
+            phoneNumber: code + phoneController.text,
           )),
           (Route<dynamic> route) => false);
 }

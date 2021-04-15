@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_sheplates/Utils/NetworkUtils.dart';
@@ -15,8 +16,8 @@ import 'package:flutter_sheplates/modals/request/loginrequest.dart';
 import 'package:flutter_sheplates/modals/response/loginresponse.dart';
 import 'package:flutter_sheplates/ui/HomeScreen.dart';
 import 'package:flutter_sheplates/ui/RegisterScreen.dart';
-import 'package:flutter/gestures.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 class LoginScreen extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -199,22 +200,23 @@ class _MyHomePageState extends State<LoginScreen> {
                                     text: "I Agree ",
                                     style: TextStyle(
                                         color: Colors.grey, fontSize: 14.0)),
-                                    TextSpan(
-                                      text: "TERMS OF USE",
-                                      style: TextStyle(
-                                          color: Colors.black, fontSize: 16.0),
+                                TextSpan(
+                                    text: "TERMS OF USE",
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 16.0),
 
-                                      recognizer: new TapGestureRecognizer()
-                                        ..onTap = () async {
-                                          final url = 'https://sheplates-staging-959022279.ap-south-1.elb.amazonaws.com/terms-of-use';
-                                          if (await canLaunch(url)) {
-                                            await launch(
-                                              url,
-                                              forceSafariVC: false,
-                                            );
-                                          }
-                                        },
-                                    ),
+                                    recognizer: new TapGestureRecognizer()
+                                    ..onTap = () async {
+                              final url = 'https://sheplates-staging-959022279.ap-south-1.elb.amazonaws.com/terms-of-use';
+                              if (await canLaunch(url)) {
+                              await launch(
+                              url,
+                              forceSafariVC: false,
+                              );
+                              }
+                              },
+                                ),
+                             // onTap = () { launch('https://docs.flutter.io/flutter/services/UrlLauncher-class.html');
                               ])),
                               controlAffinity: ListTileControlAffinity.leading,
                               activeColor: Colors.green,
