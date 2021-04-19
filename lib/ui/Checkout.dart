@@ -91,7 +91,7 @@ String phone;
     print("Order Id " + order_id);
 
     var options = {
-      'key': AppConstants.RazorPayTestKeyId,
+      'key': AppConstants.RazorPayLiveKeyId,
       'amount': stockCheckOutResponse.data.orders.totalAmount.toInt(),
       'name': name,
       'order_id': order_id,
