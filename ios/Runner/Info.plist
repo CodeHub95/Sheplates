@@ -8,6 +8,8 @@
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>Sheplates</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -38,21 +40,21 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>Can I use the camera please?</string>
+	<string>Sheplates want to access the Camera to capture the photo of your Dish</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Get User Current location</string>
+	<string>Sheplates wants to access your current location to show nearby avaialble foods</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Get User Current location</string>
+	<string>Sheplates wants to access your current location to show nearby avaialble foods</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Reason why app needs location</string>
+	<string>Sheplates wants to access your current location to show nearby avaialble foods</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Can I use the mic please?</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Can I use the photo lib please?</string>
+	<string>Sheplates want to access the Photos to select the Image of your Dish</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
-		<string>processing</string>
+		<string>location</string>
 		<string>remote-notification</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
