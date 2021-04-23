@@ -72,8 +72,9 @@ class Rows {
   String answer;
   String createdAt;
   String updatedAt;
-
-  Rows({this.id, this.question, this.answer, this.createdAt, this.updatedAt});
+  bool selected;
+  bool selected1;
+  Rows({this.id, this.question, this.answer, this.createdAt, this.updatedAt, this.selected, this.selected1});
 
   Rows.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -81,6 +82,9 @@ class Rows {
     answer = json['answer'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
+    // selected = json['selected'];
+    selected = json['selected'] != null ? json['selected'] : false;
+    selected1 = json['selected1'] != null ? json['selected1'] : false;
   }
 
   Map<String, dynamic> toJson() {
@@ -90,6 +94,8 @@ class Rows {
     data['answer'] = this.answer;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
+    data['selected'] = this.selected;
+    data['selected1'] = this.selected1;
     return data;
   }
 }

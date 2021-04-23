@@ -18,7 +18,7 @@ class NetworkUtil {
   NetworkUtil.internal() {
     dio = Dio()
       ..options.baseUrl =
-          "http://ec2-15-206-211-59.ap-south-1.compute.amazonaws.com:5000/api/v1/";
+          "http://ec2-13-235-86-192.ap-south-1.compute.amazonaws.com:5000/api/v1";
     dio.interceptors.add(LogInterceptor(requestBody: true, responseBody: true));
   }
 
