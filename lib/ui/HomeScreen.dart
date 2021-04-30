@@ -439,7 +439,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     )),
                               ],
                             );
-                          } else {
+                          }
+                          else {
                             return Container(
                               width: MediaQuery.of(context).size.width,
                               height: MediaQuery.of(context).size.height,
@@ -470,8 +471,10 @@ class _HomeScreenState extends State<HomeScreen> {
     var res = await NetworkUtil().get("user/subscription-plans", token: token);
     HomeListResponse homeListResponse = HomeListResponse.fromJson(res);
     if (homeListResponse.status == 200) {
+      if(homeListResponse.data.subscriptionPlanData!= null){
       _streamController.sink
           .add(homeListResponse.data.subscriptionPlanData.rows);
+      }
       suscriber = homeListResponse.data.suscriber;
 
       if (homeListResponse.data.deliveryAddressExist == 0) {
