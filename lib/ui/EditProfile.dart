@@ -91,7 +91,7 @@ class _HomeScreenState extends State<EditProfileScreen> {
                     "Edit Profile",
                     style: TextStyle(color: Colors.black, fontSize: 18),
                     textAlign: TextAlign.center,
-                  ))),
+                  ),),),
           leading: Builder(
             builder: (context) => IconButton(
               icon: Image.asset(

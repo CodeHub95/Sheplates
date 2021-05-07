@@ -16,21 +16,14 @@ class NetworkUtil {
   Dio dio;
 
   NetworkUtil.internal() {
-    dio = Dio()
-      ..options.baseUrl =
-          "http://ec2-13-235-86-192.ap-south-1.compute.amazonaws.com:5000/api/v1";
+    dio = Dio()..options.baseUrl = "http://ec2-13-235-86-192.ap-south-1.compute.amazonaws.com:5000/api/v1/";
     dio.interceptors.add(LogInterceptor(requestBody: true, responseBody: true));
   }
 
   factory NetworkUtil() => _instance;
 
   Future<dynamic> post(
-      {Key key,
-      String url,
-      var body,
-      String token,
-      bool isFormData: false,
-      BuildContext context}) async {
+      {Key key, String url, var body, String token, bool isFormData: false, BuildContext context}) async {
     Map<String, String> map = new Map();
 
     if (!isFormData) {
@@ -43,13 +36,9 @@ class NetworkUtil {
       map["Authorization"] = "Bearer " + token;
     }
 
-    Options options = Options(
-        headers: map,
-        contentType: isFormData ? "multipart/form-data" : "application/json");
+    Options options = Options(headers: map, contentType: isFormData ? "multipart/form-data" : "application/json");
 
-    return await dio
-        .post(Uri.encodeFull(url), data: body, options: options)
-        .then((response) async {
+    return await dio.post(Uri.encodeFull(url), data: body, options: options).then((response) async {
       final int statusCode = response.statusCode;
       if (statusCode < 200 || statusCode > 400 || json == null) {
         if (statusCode == 401) {
@@ -91,8 +80,7 @@ class NetworkUtil {
     });
   }
 
-  Future<dynamic> get(String url,
-      {String token, queryMap, BuildContext context}) {
+  Future<dynamic> get(String url, {String token, queryMap, BuildContext context}) {
     Map<String, String> map = new Map();
     Map<String, dynamic> queryParams = new Map();
     map["Content-Type"] = "application/json";
@@ -106,10 +94,7 @@ class NetworkUtil {
 
     Options options = new Options(headers: map);
 
-    return dio
-        .get(Uri.encodeFull(url),
-            options: options, queryParameters: queryParams)
-        .then((response) {
+    return dio.get(Uri.encodeFull(url), options: options, queryParameters: queryParams).then((response) {
       final int statusCode = response.statusCode;
 
       if (statusCode < 200 || statusCode > 400 || json == null) {
@@ -128,8 +113,7 @@ class NetworkUtil {
     });
   }
 
-  Future<dynamic> putApi(
-      {body, String url, String token, bool isFormData: false}) {
+  Future<dynamic> putApi({body, String url, String token, bool isFormData: false}) {
     Map<String, String> map = new Map();
 
     if (!isFormData) {
@@ -143,9 +127,7 @@ class NetworkUtil {
       map["Authorization"] = "Bearer " + token;
     }
 
-    Options options = Options(
-        headers: map,
-        contentType: isFormData ? "multipart/form-data" : "application/json");
+    Options options = Options(headers: map, contentType: isFormData ? "multipart/form-data" : "application/json");
     return dio.put(url, data: body, options: options).then((response) {
       final int statusCode = response.statusCode;
 
@@ -175,10 +157,7 @@ class NetworkUtil {
 
     Options options = new Options(headers: map);
 
-    return dio
-        .get(Uri.encodeFull(url),
-            options: options, queryParameters: queryParams)
-        .then((response) {
+    return dio.get(Uri.encodeFull(url), options: options, queryParameters: queryParams).then((response) {
       final int statusCode = response.statusCode;
 
       if (statusCode < 200 || statusCode > 400 || json == null) {

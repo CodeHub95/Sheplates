@@ -34,8 +34,7 @@ class CustomDrawer extends StatefulWidget {
   const CustomDrawer({Key key, this.stockCheckOutResponse}) : super(key: key);
 
   @override
-  _CommonDrawerState createState() =>
-      _CommonDrawerState(this.stockCheckOutResponse);
+  _CommonDrawerState createState() => _CommonDrawerState(this.stockCheckOutResponse);
 }
 
 class _CommonDrawerState extends State<CustomDrawer> {
@@ -84,8 +83,7 @@ class _CommonDrawerState extends State<CustomDrawer> {
                   color: Colors.grey[600],
                 )),
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => MySubscription()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => MySubscription()));
             },
           ),
           Divider(),
@@ -101,8 +99,7 @@ class _CommonDrawerState extends State<CustomDrawer> {
                   color: Colors.grey[600],
                 )),
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => HomeScreen()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
             },
           ),
           Divider(),
@@ -119,8 +116,7 @@ class _CommonDrawerState extends State<CustomDrawer> {
                   color: Colors.grey[600],
                 )),
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => PauseSubscription()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => PauseSubscription()));
             },
           ),
           Divider(),
@@ -157,10 +153,7 @@ class _CommonDrawerState extends State<CustomDrawer> {
                   fontSize: 16,
                   color: Colors.grey[600],
                 )),
-            onTap: () => {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => DeliveryAddress()))
-            },
+            onTap: () => {Navigator.push(context, MaterialPageRoute(builder: (context) => DeliveryAddress()))},
           ),
           Divider(),
           ListTile(
@@ -176,8 +169,7 @@ class _CommonDrawerState extends State<CustomDrawer> {
                   color: Colors.grey[600],
                 )),
             onTap: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => FeedBack()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => FeedBack()));
             },
           ),
           Divider(),
@@ -194,8 +186,7 @@ class _CommonDrawerState extends State<CustomDrawer> {
                   color: Colors.grey[600],
                 )),
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => SupportScreen()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => SupportScreen()));
             },
           ),
           Divider(),
@@ -212,8 +203,7 @@ class _CommonDrawerState extends State<CustomDrawer> {
                   color: Colors.grey[600],
                 )),
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => FaqScreen()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => FaqScreen()));
             },
           ),
           Divider(),
@@ -277,8 +267,7 @@ class _CommonDrawerState extends State<CustomDrawer> {
                                   decoration: new BoxDecoration(
                                     shape: BoxShape.circle,
                                     color: Colors.indigo,
-                                    border: Border.all(
-                                        width: 2, color: Colors.white),
+                                    border: Border.all(width: 2, color: Colors.white),
                                   ),
                                 )
                               : Container(
@@ -287,14 +276,9 @@ class _CommonDrawerState extends State<CustomDrawer> {
                                   decoration: new BoxDecoration(
                                     shape: BoxShape.circle,
                                     image: new DecorationImage(
-                                      image: snapshot.data.data.userExist
-                                                  .profileImage !=
-                                              null
-                                          ? NetworkImage(snapshot
-                                              .data.data.userExist.profileImage
-                                              .toString())
-                                          : AssetImage(
-                                              "assets/2.0x/profile_icon.png"),
+                                      image: snapshot.data.data.userExist.profileImage != null
+                                          ? NetworkImage(snapshot.data.data.userExist.profileImage.toString())
+                                          : AssetImage("assets/2.0x/profile_icon.png"),
                                       fit: BoxFit.cover,
                                     ),
                                   )))),
@@ -329,12 +313,8 @@ class _CommonDrawerState extends State<CustomDrawer> {
                           "Edit Profile",
                           style: TextStyle(color: Colors.white),
                         ),
-                        onPressed: () => {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => EditProfileScreen()))
-                        },
+                        onPressed: () =>
+                            {Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfileScreen()))},
                       ))
                 ],
               );
@@ -349,51 +329,56 @@ class _CommonDrawerState extends State<CustomDrawer> {
         return new AlertDialog(
           contentPadding: EdgeInsets.all(0.0),
           content: new SingleChildScrollView(
-              child: Container(
-            height: 170,
-            child: new Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  //change here don't //worked
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    IconButton(
+            child: Container(
+              height: 170,
+              child: new Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    //change here don't //worked
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      IconButton(
                         icon: Icon(
                           Icons.close,
                           size: 20.0,
                           color: Colors.black,
                         ),
-                        onPressed: () => Navigator.pop(context)),
-                  ],
-                ),
-                Text(
-                  'Do You want to Logout',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
-                ),
-                Padding(
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                    ],
+                  ),
+                  Text(
+                    'Do You want to Logout',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
+                  Padding(
                     padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
                     child: Container(
-                        padding: EdgeInsets.fromLTRB(20, 5, 20, 0),
-                        height: 40,
-                        width: 150,
-                        child: RaisedButton(
-                            color: HexColor("#FF5657"),
-                            textColor: Colors.white,
-                            child: Text(
-                              'Yes',
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                            onPressed: () {
-                              submit();
-                            }))),
-              ],
+                      padding: EdgeInsets.fromLTRB(20, 5, 20, 0),
+                      height: 40,
+                      width: 150,
+                      child: RaisedButton(
+                        color: HexColor("#FF5657"),
+                        textColor: Colors.white,
+                        child: Text(
+                          'Yes',
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        onPressed: () {
+                          submit();
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          )),
+          ),
         );
       },
     );
@@ -401,19 +386,16 @@ class _CommonDrawerState extends State<CustomDrawer> {
 
   Future<void> submit() async {
     String deviceId = await CommonUtils.getDeviceId();
-    String userData = await SharedPrefHelper()
-        .getWithDefault(SharedPrefConstants.userData, jsonEncode({}));
+    String userData = await SharedPrefHelper().getWithDefault(SharedPrefConstants.userData, jsonEncode({}));
     Profile profile = Profile.fromJson(jsonDecode(userData));
     String token = await SharedPrefHelper().getWithDefault("token", null);
-    LogoutRequest body =
-        LogoutRequest(deviceId: deviceId, userId: profile.id.toString());
+    LogoutRequest body = LogoutRequest(deviceId: deviceId, userId: profile.id.toString());
     CommonUtils.fullScreenProgress(context);
     BaseResponse response = await RestApiCalls().logout(body, token);
     if (response.status == 200) {
       CommonUtils.dismissProgressDialog(context);
       SharedPrefHelper().clear();
-      Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (buildContext) => LoginRegisterScreen()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (buildContext) => LoginRegisterScreen()));
     } else {
       CommonUtils.dismissProgressDialog(context);
     }

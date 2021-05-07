@@ -19,6 +19,8 @@ class CommonUtils {
 
   Future<String> getFcmToken() async {
     String token = await firebaseMessaging.getToken();
+
+    print(token);
     return token;
   }
 
@@ -43,6 +45,7 @@ class CommonUtils {
     }
     return "";
   }
+
   static DateTime getDateTime(String date) {
     if (date == "null") {
       return DateTime.now();
@@ -59,8 +62,7 @@ class CommonUtils {
     return "";
   }
 
-  static Future<DateTime> setCalender(BuildContext context,
-      {DateTime initialDate}) async {
+  static Future<DateTime> setCalender(BuildContext context, {DateTime initialDate}) async {
     final DateTime selectDate = await showDatePicker(
         context: context,
         initialDate: initialDate != null ? initialDate : DateTime.now(),
@@ -116,9 +118,7 @@ class CommonUtils {
                 child: Container(
                     height: 100,
                     width: 100,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(10))),
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: SpinKitFadingCircle(
@@ -141,9 +141,7 @@ class CommonUtils {
         child: Container(
             height: 100,
             width: 100,
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(10))),
+            decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(10))),
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: SpinKitFadingCircle(
@@ -154,8 +152,7 @@ class CommonUtils {
     );
   }
 
-  static void fullScreenProgressWithMessage(
-      BuildContext context, String message) {
+  static void fullScreenProgressWithMessage(BuildContext context, String message) {
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -172,9 +169,8 @@ class CommonUtils {
                   child: Container(
                       height: 100,
                       width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      decoration:
+                          BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(10))),
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Row(
@@ -206,11 +202,7 @@ class CommonUtils {
         });
   }
 
-  static void showToast(
-      {Key key,
-      @required String msg,
-      @required Color bgColor,
-      @required Color textColor}) {
+  static void showToast({Key key, @required String msg, @required Color bgColor, @required Color textColor}) {
     toast.Fluttertoast.showToast(
         msg: msg,
         toastLength: toast.Toast.LENGTH_SHORT,
@@ -221,8 +213,7 @@ class CommonUtils {
         fontSize: 15.0);
   }
 
-  static void showSnackBar(
-      GlobalKey<ScaffoldState> scaffoldState, String message,
+  static void showSnackBar(GlobalKey<ScaffoldState> scaffoldState, String message,
       {@required MaterialColor backgroundColor,
       @required Function onClick,
       @required String actionText,
@@ -252,10 +243,8 @@ class CommonUtils {
     return list;
   }
 
-  static Future<Address> getAddressDetailsFromLatLong(
-      BuildContext context, Coordinates latLng) async {
-    List<Address> addresses =
-        await Geocoder.local.findAddressesFromCoordinates(latLng);
+  static Future<Address> getAddressDetailsFromLatLong(BuildContext context, Coordinates latLng) async {
+    List<Address> addresses = await Geocoder.local.findAddressesFromCoordinates(latLng);
 
     if (addresses != null && addresses.length != 0) {
       return addresses[0];

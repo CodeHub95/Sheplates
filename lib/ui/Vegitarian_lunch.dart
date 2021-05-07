@@ -31,272 +31,219 @@ class _HomeScreenState extends State<VegitarianLunch> {
     final color = Theme.of(context).accentColor;
     String mealName;
     return Scaffold(
-        drawer: CustomDrawer(),
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          title: Center(
-              child: Padding(
-                  padding: EdgeInsets.only(right: 20),
-                  child: Text(
-                    widget.rows.mealName,
-                    style: TextStyle(color: Colors.black, fontSize: 17),
-                    textAlign: TextAlign.center,
-                  ))),
-          leading: Builder(
-            builder: (context) => IconButton(
-              icon: new Icon(
-                Icons.arrow_back,
-                color: Colors.black,
-              ),
-              onPressed: () => {Navigator.pop(context)},
+      drawer: CustomDrawer(),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: Center(
+            child: Padding(
+                padding: EdgeInsets.only(right: 20),
+                child: Text(
+                  widget.rows.mealName,
+                  style: TextStyle(color: Colors.black, fontSize: 17),
+                  textAlign: TextAlign.center,
+                ))),
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: new Icon(
+              Icons.arrow_back,
+              color: Colors.black,
             ),
+            onPressed: () => {Navigator.pop(context)},
           ),
-          bottom: PreferredSize(
-              child: Container(
-                color: Colors.grey,
-                height: 1.0,
-              ),
-              preferredSize: Size.fromHeight(1.0)),
         ),
-        body: SingleChildScrollView(
+        bottom: PreferredSize(
             child: Container(
-              // height:  MediaQuery.of(context).size.height,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        fit: BoxFit.fill,
-                        image: AssetImage("assets/bg_menu.png")
-                                      // image: AssetImage(
-                                      //     "assets/menu_listing.png")
-                    )),
-                child:
-                Column(
-                    // mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Stack(
-                        children: [
-                          Container(
-                              height: MediaQuery.of(context).size.height,
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      fit: BoxFit.fill,
-                                      image: AssetImage(
-                                          "assets/menu_listing.png"))),
-                            // height: MediaQuery.of(context).size.height,
-                              child: Column(
-                                  // mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
+              color: Colors.grey,
+              height: 1.0,
+            ),
+            preferredSize: Size.fromHeight(1.0)),
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          // height:  MediaQuery.of(context).size.height,
+          decoration: BoxDecoration(
+              image: DecorationImage(fit: BoxFit.fill, image: AssetImage("assets/bg_menu.png")
+                  // image: AssetImage(
+                  //     "assets/menu_listing.png")
+                  )),
+          child: Column(
+            // mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Stack(
+                children: [
+                  Container(
+                      height: MediaQuery.of(context).size.height,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(fit: BoxFit.fill, image: AssetImage("assets/menu_listing.png"))),
+                      // height: MediaQuery.of(context).size.height,
+                      child: Column(
+                          // mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Padding(padding: EdgeInsets.only(top: 25)),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Column(
+                                  mainAxisSize: MainAxisSize.min,
                                   children: [
-                                Padding(padding: EdgeInsets.only(top: 25)),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Column(
-                                      mainAxisSize: MainAxisSize.min,
+                                    Text(
+                                      "QUALITY",
+                                      style: TextStyle(fontSize: 25, color: Colors.white),
+                                    ),
+                                    Padding(
+                                        padding: EdgeInsets.only(top: 10),
+                                        child: Text(
+                                          "A Taste of Home Made Food",
+                                          style: TextStyle(fontSize: 17, color: Colors.white),
+                                        ))
+                                  ],
+                                )
+                              ],
+                            ),
+                            Padding(
+                                padding: EdgeInsets.only(top: 10, right: 30, left: 30),
+                                child: Container(
+                                    height: 10,
+                                    width: MediaQuery.of(context).size.width,
+                                    decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                            fit: BoxFit.fill, image: AssetImage("assets/arrow_menu.png"))))),
+                            Container(
+                              height: MediaQuery.of(context).size.height / 1.2,
+                              child: SingleChildScrollView(
+                                child: Padding(
+                                    padding: EdgeInsets.only(top: 5, left: 30, right: 30),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          "QUALITY",
-                                          style: TextStyle(
-                                              fontSize: 25,
-                                              color: Colors.white),
+                                          "Monday:",
+                                          style: TextStyle(fontSize: 20, color: Colors.red),
                                         ),
                                         Padding(
-                                            padding: EdgeInsets.only(top: 10),
-                                            child: Text(
-                                              "A Taste of Home Made Food",
-                                              style: TextStyle(
-                                                  fontSize: 17,
-                                                  color: Colors.white),
-                                            ))
+                                            padding: EdgeInsets.only(top: 0),
+                                            child: Text(widget.rows.menu.monday,
+                                                maxLines: 3, style: TextStyle(fontSize: 14, color: Colors.white))),
+                                        Padding(
+                                          padding: EdgeInsets.only(top: 10),
+                                          child: Text("Tuesday:", style: TextStyle(fontSize: 20, color: Colors.red)),
+                                        ),
+                                        Padding(
+                                            padding: EdgeInsets.only(top: 0),
+                                            child: Text(widget.rows.menu.tuesday,
+                                                maxLines: 3, style: TextStyle(fontSize: 14, color: Colors.white))),
+                                        Padding(
+                                          padding: EdgeInsets.only(top: 10),
+                                          child: Text("Wednesday:", style: TextStyle(fontSize: 20, color: Colors.red)),
+                                        ),
+                                        Padding(
+                                            padding: EdgeInsets.only(top: 0),
+                                            child: Text(widget.rows.menu.wednesday,
+                                                maxLines: 3, style: TextStyle(fontSize: 14, color: Colors.white))),
+                                        Padding(
+                                          padding: EdgeInsets.only(top: 10),
+                                          child: Text("Thursday:", style: TextStyle(fontSize: 20, color: Colors.red)),
+                                        ),
+                                        Padding(
+                                            padding: EdgeInsets.only(top: 0),
+                                            child: Text(widget.rows.menu.thrusday,
+                                                maxLines: 3, style: TextStyle(fontSize: 14, color: Colors.white))),
+                                        Padding(
+                                          padding: EdgeInsets.only(top: 10),
+                                          child: Text("Friday:", style: TextStyle(fontSize: 20, color: Colors.red)),
+                                        ),
+                                        Padding(
+                                            padding: EdgeInsets.only(top: 0),
+                                            child: Text(widget.rows.menu.friday,
+                                                maxLines: 3, style: TextStyle(fontSize: 14, color: Colors.white))),
+                                        Padding(
+                                          padding: EdgeInsets.only(top: 10),
+                                          child: Text("Saturday:", style: TextStyle(fontSize: 20, color: Colors.red)),
+                                        ),
+                                        Padding(
+                                            padding: EdgeInsets.only(top: 0),
+                                            child: Text(widget.rows.menu.saturday,
+                                                maxLines: 3, style: TextStyle(fontSize: 14, color: Colors.white))),
+                                        Padding(
+                                          padding: EdgeInsets.only(top: 10),
+                                          child: Text(
+                                              widget.rows.menu.sunday != null && widget.rows.menu.sunday != ""
+                                                  ? "Sunday:"
+                                                  : "",
+                                              style: TextStyle(fontSize: 20, color: Colors.red)),
+                                        ),
+                                        Padding(
+                                            padding: EdgeInsets.only(top: 0),
+                                            child: Container(
+                                                width: MediaQuery.of(context).size.width / 1.1,
+                                                // child: SingleChildScrollView(
+                                                //   scrollDirection: Axis.horizontal,
+
+                                                child: Text(
+                                                    widget.rows.menu.sunday != null && widget.rows.menu.sunday != ""
+                                                        ? widget.rows.menu.sunday
+                                                        : "",
+                                                    maxLines: 3,
+                                                    style: TextStyle(
+                                                      fontSize: 14,
+                                                      color: Colors.white,
+                                                    )))
+
+                                            // Container(
+                                            //   width: MediaQuery.of(context).size.width/1.1,
+                                            //   // child: SingleChildScrollView(
+                                            //   //   scrollDirection: Axis.horizontal,
+                                            //     child: Expanded(
+                                            //       child: Text(
+                                            //         widget.rows.menu.sunday !=
+                                            //             null && widget.rows.menu.sunday != ""
+                                            //             ?
+                                            //         widget.rows.menu.sunday: "",
+                                            //         softWrap: true,
+                                            //
+                                            //     ),
+                                            //   ),
+                                            //
+                                            // ),
+                                            ),
                                       ],
-                                    )
-                                  ],
-                                ),
-                                Padding(
-                                    padding: EdgeInsets.only(
-                                        top: 10, right: 30, left: 30),
-                                    child: Container(
-                                        height: 10,
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                                fit: BoxFit.fill,
-                                                image: AssetImage(
-                                                    "assets/arrow_menu.png"))))),
-                                Container(
-                                  height: MediaQuery.of(context).size.height/1.2,
-                                  child: SingleChildScrollView(
-                                    child:      Padding(
-                                        padding: EdgeInsets.only(
-                                            top: 5, left: 30, right: 30),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              "Monday:",
-                                              style: TextStyle(
-                                                  fontSize: 20, color: Colors.red),
-                                            ),
-                                            Padding(
-                                                padding: EdgeInsets.only(top: 0),
-                                                child: Text(widget.rows.menu.monday,maxLines: 3,
-                                                    style: TextStyle(
-                                                        fontSize: 14,
+                                    )),
+                              ),
+                            )
+                          ])),
+                  Padding(padding: EdgeInsets.only(bottom: 10)),
+                ],
+              ),
+              // Padding(
+              //     padding: EdgeInsets.only(
+              //   top: 30,
+              // )),
 
-                                                        color: Colors.white))),
-                                            Padding(
-                                              padding: EdgeInsets.only(top: 10),
-                                              child: Text("Tuesday:",
-                                                  style: TextStyle(
-                                                      fontSize: 20,
-                                                      color: Colors.red)),
-                                            ),
-                                            Padding(
-                                                padding: EdgeInsets.only(top: 0),
-                                                child: Text(
-                                                    widget.rows.menu.tuesday,maxLines: 3,
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        color: Colors.white))),
-                                            Padding(
-                                              padding: EdgeInsets.only(top: 10),
-                                              child: Text("Wednesday:",
-                                                  style: TextStyle(
-                                                      fontSize: 20,
-                                                      color: Colors.red)),
-                                            ),
-                                            Padding(
-                                                padding: EdgeInsets.only(top: 0),
-                                                child: Text(
-                                                    widget.rows.menu.wednesday,maxLines: 3,
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        color: Colors.white))),
-                                            Padding(
-                                              padding: EdgeInsets.only(top: 10),
-                                              child: Text("Thursday:",
-                                                  style: TextStyle(
-                                                      fontSize: 20,
-                                                      color: Colors.red)),
-                                            ),
-                                            Padding(
-                                                padding: EdgeInsets.only(top: 0),
-                                                child: Text(
-                                                    widget.rows.menu.thrusday,maxLines: 3,
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        color: Colors.white))),
-                                            Padding(
-                                              padding: EdgeInsets.only(top: 10),
-                                              child: Text("Friday:",
-                                                  style: TextStyle(
-                                                      fontSize: 20,
-                                                      color: Colors.red)),
-                                            ),
-                                            Padding(
-                                                padding: EdgeInsets.only(top: 0),
-                                                child: Text(widget.rows.menu.friday,maxLines: 3,
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        color: Colors.white))),
-                                            Padding(
-                                              padding: EdgeInsets.only(top: 10),
-                                              child: Text("Saturday:",
-                                                  style: TextStyle(
-                                                      fontSize: 20,
-                                                      color: Colors.red)),
-                                            ),
-                                            Padding(
-                                                padding: EdgeInsets.only(top: 0),
-                                                child: Text(
-                                                    widget.rows.menu.saturday,maxLines: 3,
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        color: Colors.white))),
-                                            Padding(
-                                              padding: EdgeInsets.only(top: 10),
-                                              child: Text(
-                                                  widget.rows.menu.sunday !=
-                                                      null && widget.rows.menu.sunday != ""
-                                                      ?
-                                                  "Sunday:" : "",
-                                                  style: TextStyle(
-                                                      fontSize: 20,
-                                                      color: Colors.red)),
-                                            ),
-                                            Padding(
-                                                padding: EdgeInsets.only(top: 0),
-                                                child:
-                                                Container(
-                                                    width: MediaQuery.of(context).size.width/1.1,
-                                                    // child: SingleChildScrollView(
-                                                    //   scrollDirection: Axis.horizontal,
-
-                                                    child: Text(
-                                                        widget.rows.menu.sunday !=
-                                                            null && widget.rows.menu.sunday != ""
-                                                            ?
-                                                        widget.rows.menu.sunday: "",maxLines: 3,
-                                                        style: TextStyle(
-                                                          fontSize: 14,
-                                                          color: Colors.white, )))
-
-                                              // Container(
-                                              //   width: MediaQuery.of(context).size.width/1.1,
-                                              //   // child: SingleChildScrollView(
-                                              //   //   scrollDirection: Axis.horizontal,
-                                              //     child: Expanded(
-                                              //       child: Text(
-                                              //         widget.rows.menu.sunday !=
-                                              //             null && widget.rows.menu.sunday != ""
-                                              //             ?
-                                              //         widget.rows.menu.sunday: "",
-                                              //         softWrap: true,
-                                              //
-                                              //     ),
-                                              //   ),
-                                              //
-                                              // ),
-                                            ),
-                                          ],
-                                        )
-                                    ),
-                                  ),
-                                )
-
-                              ])),
-                          Padding(
-                              padding: EdgeInsets.only(bottom: 10)),
-                        ],
-                      ),
-                      // Padding(
-                      //     padding: EdgeInsets.only(
-                      //   top: 30,
-                      // )),
-
-                      ScreenUtils.customButton(context, title: "Subscribe",
-                          onCLick: () {
-                        if (widget.suscriber) {
-                          CommonUtils.showToast(
-                              msg:
-                                  "You have already one subscription plan running!",
-                              bgColor: Colors.black,
-                              textColor: Colors.white);
-                        } else {
-                          mealName = widget.rows.mealName;
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    ConfirmSubscription(widget.rows)),
-                          );
-                        }
-                      }),
-                    ]))));
+              ScreenUtils.customButton(context, title: "Subscribe", onCLick: () {
+                if (widget.suscriber) {
+                  CommonUtils.showToast(
+                      msg: "You have already one subscription plan running!",
+                      bgColor: Colors.black,
+                      textColor: Colors.white);
+                } else {
+                  mealName = widget.rows.mealName;
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ConfirmSubscription(widget.rows),
+                    ),
+                  );
+                }
+              }),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
