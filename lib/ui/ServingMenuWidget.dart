@@ -81,6 +81,8 @@ class _HomeScreenState extends State<ServingMenuWidget> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Column(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
                                         // snapshot.data.data.obj.kitchen,
@@ -91,18 +93,18 @@ class _HomeScreenState extends State<ServingMenuWidget> {
                                         style: TextStyle(
                                             fontSize: 22, color: Colors.red),
                                       ),
-                                      Padding(
-                                          padding: EdgeInsets.only(top: 10),
-                                          child: Text(
-                                            snapshot.data.data.obj?.kitchen != null
-                                                ? snapshot
-                                                    .data.data.obj.kitchenAddress
-                                                    .toString()
-                                                : '',
-                                            style: TextStyle(
-                                                fontSize: 15,
-                                                color: Colors.white),
-                                          ))
+                                      // Padding(
+                                      //     padding: EdgeInsets.only(top: 10),
+                                      //     child: Text(
+                                      //       snapshot.data.data.obj?.kitchen != null
+                                      //           ? snapshot
+                                      //               .data.data.obj.kitchenAddress
+                                      //               .toString()
+                                      //           : '',
+                                      //       style: TextStyle(
+                                      //           fontSize: 15,
+                                      //           color: Colors.white),
+                                      //     ))
                                     ],
                                   )
                                 ],
