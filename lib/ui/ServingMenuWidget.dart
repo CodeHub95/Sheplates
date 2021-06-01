@@ -47,10 +47,8 @@ class _HomeScreenState extends State<ServingMenuWidget> {
         print("build");
         if (snapshot.hasData) {
           return Container(
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: AssetImage("assets/bg_menu.png"))),
+              decoration:
+                  BoxDecoration(image: DecorationImage(fit: BoxFit.fill, image: AssetImage("assets/bg_menu.png"))),
               width: MediaQuery.of(context).size.width,
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -63,16 +61,13 @@ class _HomeScreenState extends State<ServingMenuWidget> {
                             right: 10,
                             left: 10,
                           ),
-                          child: Container(
-                              height: MediaQuery.of(context).size.height / 1.1,
-                              decoration: BoxDecoration())),
+                          child:
+                              Container(height: MediaQuery.of(context).size.height / 1.1, decoration: BoxDecoration())),
                       Padding(
-                        padding: const EdgeInsets.only(left:10.0, right: 10),
+                        padding: const EdgeInsets.only(left: 10.0, right: 10),
                         child: Container(
                           decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  fit: BoxFit.fill,
-                                  image: AssetImage("assets/menu_listing.png"))),
+                              image: DecorationImage(fit: BoxFit.fill, image: AssetImage("assets/menu_listing.png"))),
                           child: Column(
                             children: [
                               Padding(padding: EdgeInsets.only(top: 70)),
@@ -87,11 +82,9 @@ class _HomeScreenState extends State<ServingMenuWidget> {
                                       Text(
                                         // snapshot.data.data.obj.kitchen,
                                         snapshot.data.data.obj?.kitchen != null
-                                            ? snapshot.data.data.obj.kitchen
-                                                .toString()
+                                            ? snapshot.data.data.obj.kitchen.toString()
                                             : '',
-                                        style: TextStyle(
-                                            fontSize: 22, color: Colors.red),
+                                        style: TextStyle(fontSize: 22, color: Colors.red),
                                       ),
                                       // Padding(
                                       //     padding: EdgeInsets.only(top: 10),
@@ -110,33 +103,27 @@ class _HomeScreenState extends State<ServingMenuWidget> {
                                 ],
                               ),
                               Padding(
-                                  padding: EdgeInsets.only(
-                                      top: 10, right: 30, left: 30),
+                                  padding: EdgeInsets.only(top: 10, right: 30, left: 30),
                                   child: Container(
                                       height: 10,
                                       width: MediaQuery.of(context).size.width,
                                       decoration: BoxDecoration(
                                           image: DecorationImage(
-                                              fit: BoxFit.fill,
-                                              image: AssetImage(
-                                                  "assets/arrow_menu.png"))))),
+                                              fit: BoxFit.fill, image: AssetImage("assets/arrow_menu.png"))))),
                               Padding(
                                   padding: EdgeInsets.only(top: 20),
                                   child: Row(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                    Container(
-        // width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.only(left:20.0),
-        child:
-                                      Text(
-                                        toBeginningOfSentenceCase(snapshot
-                                            .data.data.obj?.mealName
-                                            .toString()),
-                                        style: TextStyle(
-                                            fontSize: 25, color: Colors.red),
-                                      ),)
+                                      Container(
+                                        // width: MediaQuery.of(context).size.width,
+                                        padding: EdgeInsets.only(left: 20.0),
+                                        child: Text(
+                                          toBeginningOfSentenceCase(snapshot.data.data.obj?.mealName.toString()),
+                                          style: TextStyle(fontSize: 25, color: Colors.red),
+                                        ),
+                                      )
                                     ],
                                   )),
                               Padding(
@@ -146,116 +133,79 @@ class _HomeScreenState extends State<ServingMenuWidget> {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Row(
                                             children: [
                                               Padding(
-                                                  padding: const EdgeInsets.only(
-                                                      left: 0),
+                                                  padding: const EdgeInsets.only(left: 0),
                                                   child: Text(
                                                     'Duration: ',
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 20),
+                                                    style: TextStyle(color: Colors.white, fontSize: 20),
                                                   )),
                                               Text(
-                                                toBeginningOfSentenceCase(snapshot
-                                                    .data.data.obj?.duration
-                                                    .toString()),
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 20),
+                                                toBeginningOfSentenceCase(snapshot.data.data.obj?.duration.toString()),
+                                                style: TextStyle(color: Colors.white, fontSize: 20),
                                               )
                                             ],
                                           ),
-                                          Padding(
-                                              padding: EdgeInsets.only(top: 22)),
+                                          Padding(padding: EdgeInsets.only(top: 22)),
                                           Row(
                                             children: [
                                               Padding(
-                                                  padding: const EdgeInsets.only(
-                                                      left: 0),
+                                                  padding: const EdgeInsets.only(left: 0),
                                                   child: Text(
                                                     'Start Date: ',
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 20),
+                                                    style: TextStyle(color: Colors.white, fontSize: 20),
                                                   )),
                                               Text(
-                                                snapshot.data.data.obj?.startDate
-                                                    .toString(),
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 20),
+                                                snapshot.data.data.obj?.startDate.toString(),
+                                                style: TextStyle(color: Colors.white, fontSize: 20),
                                               )
                                             ],
                                           ),
-                                          Padding(
-                                              padding: EdgeInsets.only(top: 22)),
+                                          Padding(padding: EdgeInsets.only(top: 22)),
                                           Row(
                                             children: [
                                               Padding(
-                                                  padding: const EdgeInsets.only(
-                                                      left: 0),
+                                                  padding: const EdgeInsets.only(left: 0),
                                                   child: Text(
                                                     'Amount paid: ',
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 20),
+                                                    style: TextStyle(color: Colors.white, fontSize: 20),
                                                   )),
                                               Text(
-                                                snapshot.data.data.obj?.amountPaid
-                                                    .toString(),
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 20),
+                                                snapshot.data.data.obj?.amountPaid.toString(),
+                                                style: TextStyle(color: Colors.white, fontSize: 20),
                                               )
                                             ],
                                           ),
-                                          Padding(
-                                              padding: EdgeInsets.only(top: 22)),
+                                          Padding(padding: EdgeInsets.only(top: 22)),
                                           Row(
                                             children: [
                                               Padding(
-                                                  padding: const EdgeInsets.only(
-                                                      left: 0),
+                                                  padding: const EdgeInsets.only(left: 0),
                                                   child: Text(
                                                     'Meals Served: ',
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 20),
+                                                    style: TextStyle(color: Colors.white, fontSize: 20),
                                                   )),
                                               Text(
-                                                snapshot.data.data.obj?.mealsServed
-                                                    .toString(),
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 20),
+                                                snapshot.data.data.obj?.mealsServed.toString(),
+                                                style: TextStyle(color: Colors.white, fontSize: 20),
                                               )
                                             ],
                                           ),
-                                          Padding(
-                                              padding: EdgeInsets.only(top: 22)),
+                                          Padding(padding: EdgeInsets.only(top: 22)),
                                           Row(
                                             children: [
                                               Padding(
-                                                  padding: const EdgeInsets.only(
-                                                      left: 0),
+                                                  padding: const EdgeInsets.only(left: 0),
                                                   child: Text(
                                                     'Meals Remaining: ',
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 20),
+                                                    style: TextStyle(color: Colors.white, fontSize: 20),
                                                   )),
                                               Text(
-                                                snapshot
-                                                    .data.data.obj?.mealsRemaining
-                                                    .toString(),
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 20),
+                                                snapshot.data.data.obj?.mealsRemaining.toString(),
+                                                style: TextStyle(color: Colors.white, fontSize: 20),
                                               )
                                             ],
                                           ),
@@ -274,49 +224,34 @@ class _HomeScreenState extends State<ServingMenuWidget> {
                                       width: MediaQuery.of(context).size.width,
                                       child: DottedBorder(
                                           color: Colors.white,
-                                          padding:
-                                              EdgeInsets.fromLTRB(30, 10, 30, 0),
+                                          padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
                                           dashPattern: [5, 2],
                                           child: Container(
                                               child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
+                                                  crossAxisAlignment: CrossAxisAlignment.center,
                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
-                                                Padding(
-                                                    padding:
-                                                        EdgeInsets.only(top: 10)),
+                                                Padding(padding: EdgeInsets.only(top: 10)),
                                                 Align(
                                                   child: Center(
                                                     child: Text(
                                                       "Serving Today",
-                                                      style: TextStyle(
-                                                          color: Colors.red,
-                                                          fontSize: 23),
+                                                      style: TextStyle(color: Colors.red, fontSize: 23),
                                                     ),
                                                   ),
                                                 ),
-                                                Padding(
-                                                    padding:
-                                                        EdgeInsets.only(top: 20)),
+                                                Padding(padding: EdgeInsets.only(top: 20)),
                                                 Align(
-                                                  alignment: Alignment.center,
-                                                  child: Center(
-                                                    child: Text(
-
-                                                      snapshot
-                                                          .data.data.obj?.servingToday
-                                                          .toString(),
-                                                      style: TextStyle(
-                                                        fontSize: 16,
-                                                        color: Colors.white,
-
+                                                    alignment: Alignment.center,
+                                                    child: Center(
+                                                      child: Text(
+                                                        snapshot.data.data.obj?.servingToday.toString(),
+                                                        style: TextStyle(
+                                                          fontSize: 16,
+                                                          color: Colors.white,
+                                                        ),
                                                       ),
-
-                                                    ),
-                                                  )
-
-                                                ),
+                                                    )),
                                               ]))))),
                               SizedBox(
                                 height: 80,
