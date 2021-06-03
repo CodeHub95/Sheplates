@@ -15,19 +15,16 @@ class LocationCheckScreen extends StatefulWidget {
   final Address address;
   final String type;
 
-  const LocationCheckScreen({Key key, this.type, this.address})
-      : super(key: key);
+  const LocationCheckScreen({Key key, this.type, this.address}) : super(key: key);
 
   @override
-  _LocationCheckScreenState createState() =>
-      _LocationCheckScreenState(this.address, this.type);
+  _LocationCheckScreenState createState() => _LocationCheckScreenState(this.address, this.type);
 }
 
 class _LocationCheckScreenState extends State<LocationCheckScreen> {
   final Address address;
   final String type;
-  StreamController<BaseResponse> streamController =
-      StreamController.broadcast();
+  StreamController<BaseResponse> streamController = StreamController.broadcast();
 
   _LocationCheckScreenState(this.address, this.type);
 
@@ -58,9 +55,7 @@ class _LocationCheckScreenState extends State<LocationCheckScreen> {
                     if (snapshot.hasData) {
                       return Container(
                           decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  fit: BoxFit.fill,
-                                  image: AssetImage("assets/login_bg.png"))),
+                              image: DecorationImage(fit: BoxFit.fill, image: AssetImage("assets/login_bg.png"))),
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -68,8 +63,7 @@ class _LocationCheckScreenState extends State<LocationCheckScreen> {
                                 Padding(
                                     padding: EdgeInsets.only(top: 10),
                                     child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Padding(
                                             padding: EdgeInsets.only(top: 100),
@@ -103,15 +97,12 @@ class _LocationCheckScreenState extends State<LocationCheckScreen> {
                                     ),
                                   ),
                                   Container(
-                                      padding:
-                                          EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                      padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
                                       height: 40,
-                                      width: MediaQuery.of(context).size.width /
-                                          1.2,
+                                      width: MediaQuery.of(context).size.width / 1.2,
                                       child: RaisedButton(
                                           shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(5.0),
+                                            borderRadius: BorderRadius.circular(5.0),
                                           ),
                                           color: AppColor.themeButtonColor,
                                           textColor: Colors.white,
@@ -122,58 +113,42 @@ class _LocationCheckScreenState extends State<LocationCheckScreen> {
                                             ),
                                           ),
                                           onPressed: () async {
-                                            RestApiCalls apiCalls =
-                                                RestApiCalls();
+                                            RestApiCalls apiCalls = RestApiCalls();
 
-                                            String token =
-                                                await SharedPrefHelper()
-                                                    .getWithDefault(
-                                                        'token', "");
+                                            String token = await SharedPrefHelper().getWithDefault('token', "");
 
-                                            CommonUtils.fullScreenProgress(
-                                                context);
+                                            CommonUtils.fullScreenProgress(context);
                                             apiCalls
                                                 .userAddUserRequest(
                                                     jsonEncode({
-                                                      'type': snapshot
-                                                          .data.statusCode,
+                                                      'type': snapshot.data.statusCode,
                                                       'category': 'Location',
                                                       'address': widget.address.addressLine
-
-
                                                     }),
                                                     token)
                                                 .then((value) {
-                                              CommonUtils.dismissProgressDialog(
-                                                  context);
+                                              CommonUtils.dismissProgressDialog(context);
                                               if (value.status == 200) {
                                                 if (type == "add") {
                                                   Navigator.pushAndRemoveUntil(
                                                       context,
                                                       MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            DeliveryAddress(),
+                                                        builder: (context) => DeliveryAddress(),
                                                       ),
-                                                      (Route<dynamic> route) =>
-                                                          false);
+                                                      (Route<dynamic> route) => false);
                                                 } else {
                                                   CommonUtils.showToast(
                                                     msg: "Thanks, we will ",
                                                   );
-                                                  Navigator.of(context)
-                                                      .pushReplacementNamed(
-                                                          Routes.homeScreen);
+                                                  Navigator.of(context).pushReplacementNamed(Routes.homeScreen);
                                                 }
                                               } else {
-                                                CommonUtils.errorMessage(
-                                                    msg: value.message);
+                                                CommonUtils.errorMessage(msg: value.message);
                                               }
                                             }).catchError((error) {
-                                              CommonUtils.dismissProgressDialog(
-                                                  context);
+                                              CommonUtils.dismissProgressDialog(context);
                                               CommonUtils.errorMessage(
-                                                  msg:
-                                                      "Something Went wrong  ! Please retry again");
+                                                  msg: "Something Went wrong  ! Please retry again");
                                             });
                                           })),
                                   Padding(
@@ -194,11 +169,7 @@ class _LocationCheckScreenState extends State<LocationCheckScreen> {
     String token = await SharedPrefHelper().getWithDefault("token", "");
     apiCalls
         .confirmDeliveryAddress(
-            jsonEncode({
-              'latitude': address.coordinates.latitude,
-              'longitude': address.coordinates.longitude
-            }),
-            token)
+            jsonEncode({'latitude': address.coordinates.latitude, 'longitude': address.coordinates.longitude}), token)
         .then((value) {
       if (value.status == 200) {
         streamController.sink.add(value);
