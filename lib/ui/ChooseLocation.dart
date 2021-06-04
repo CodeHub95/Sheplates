@@ -22,10 +22,12 @@ class ChooseLocation extends StatefulWidget {
   final String type;
   final int is_delivery;
 
-  const ChooseLocation({Key key, this.type, this.is_delivery}) : super(key: key);
+  const ChooseLocation({Key key, this.type, this.is_delivery})
+      : super(key: key);
 
   @override
-  _ConfirmLocationScreenState createState() => _ConfirmLocationScreenState(this.type, this.is_delivery);
+  _ConfirmLocationScreenState createState() =>
+      _ConfirmLocationScreenState(this.type, this.is_delivery);
 }
 
 class _ConfirmLocationScreenState extends State<ChooseLocation> {
@@ -60,9 +62,11 @@ class _ConfirmLocationScreenState extends State<ChooseLocation> {
     onTap: () {},
   );
 
-  StreamController<Marker> _markerStreamController = StreamController.broadcast();
+  StreamController<Marker> _markerStreamController =
+      StreamController.broadcast();
 
-  StreamController<String> _addressStreamContoller = StreamController.broadcast();
+  StreamController<String> _addressStreamContoller =
+      StreamController.broadcast();
 
   Auth auth;
 
@@ -75,7 +79,8 @@ class _ConfirmLocationScreenState extends State<ChooseLocation> {
     location = Location();
 
     auth = Auth();
-    googleGeocoding = geo.GoogleGeocoding("AIzaSyANTltdkBNuqy1hSj_3yotPXt1o1SNeopg");
+    googleGeocoding =
+        geo.GoogleGeocoding("AIzaSyANTltdkBNuqy1hSj_3yotPXt1o1SNeopg");
   }
 
   @override
@@ -111,44 +116,48 @@ class _ConfirmLocationScreenState extends State<ChooseLocation> {
         ),
         body: Stack(
           children: <Widget>[
-            StreamBuilder<Marker>(
-                stream: _markerStreamController.stream,
-                initialData: marker,
-                builder: (context, snapshot) {
-                  return GoogleMap(
-                    mapType: MapType.normal,
-                    initialCameraPosition: _kGooglePlex,
-                    myLocationEnabled: true,
-                    myLocationButtonEnabled: true,
-                    zoomControlsEnabled: false,
-                    markers: {marker},
-                    onCameraMove: (position) async {
-                      cameraPosition = position;
-                      marker = Marker(
-                        markerId: MarkerId('currentLocation'),
-                        position: LatLng(cameraPosition.target.latitude, cameraPosition.target.longitude),
-                        icon: await BitmapDescriptor.fromAssetImage(
-                            ImageConfiguration(size: Size(50, 50)), "assets/2.0x/current_location.png"),
-                        infoWindow: InfoWindow(title: "Current Location"),
-                        onTap: () {},
-                      );
-                      geo.GeocodingResponse result = await googleGeocoding.geocoding
-                          .getReverse(geo.LatLon(cameraPosition.target.latitude, cameraPosition.target.longitude));
+            // StreamBuilder<Marker>(
+            //     stream: _markerStreamController.stream,
+            //     initialData: marker,
+            //     builder: (context, snapshot) {
+            //       return
+            Container(
+                child: GoogleMap(
+              mapType: MapType.normal,
+              initialCameraPosition: _kGooglePlex,
+              myLocationEnabled: true,
+              myLocationButtonEnabled: true,
+              zoomControlsEnabled: false,
+              markers: {marker},
+              onCameraMove: (position) async {
+                cameraPosition = position;
+                marker = Marker(
+                  markerId: MarkerId('currentLocation'),
+                  position: LatLng(cameraPosition.target.latitude,
+                      cameraPosition.target.longitude),
+                  icon: await BitmapDescriptor.fromAssetImage(
+                      ImageConfiguration(size: Size(50, 50)),
+                      "assets/2.0x/current_location.png"),
+                  infoWindow: InfoWindow(title: "Current Location"),
+                  onTap: () {},
+                );
+                geo.GeocodingResponse result = await googleGeocoding.geocoding
+                    .getReverse(geo.LatLon(cameraPosition.target.latitude,
+                        cameraPosition.target.longitude));
 
-                      print(result.status);
+                print(result.status);
 
-                      if (result.results.length != 0) {
-                        address = result.results[0].formattedAddress;
-                      }
-                      _markerStreamController.sink.add(marker);
-                      _addressStreamContoller.sink.add(address);
-                    },
-                    onMapCreated: (GoogleMapController controller) {
-                      _controller.complete(controller);
-                      getLocation();
-                    },
-                  );
-                }),
+                if (result.results.length != 0) {
+                  address = result.results[0].formattedAddress;
+                }
+                _markerStreamController.sink.add(marker);
+                _addressStreamContoller.sink.add(address);
+              },
+              onMapCreated: (GoogleMapController controller) {
+                _controller.complete(controller);
+                getLocation();
+              },
+            )),
             Positioned(
               top: 50,
               left: 0,
@@ -173,14 +182,16 @@ class _ConfirmLocationScreenState extends State<ChooseLocation> {
                         Image.asset("assets/search_icon.png"),
                         Expanded(
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 8.0, bottom: 2),
+                            padding:
+                                const EdgeInsets.only(left: 8.0, bottom: 2),
                             child: TypeAheadField(
                               textFieldConfiguration: TextFieldConfiguration(
                                   autofocus: false,
                                   controller: _controllerTextAddress,
                                   decoration: InputDecoration.collapsed(
                                       hintText: "Search by area, landmark",
-                                      hintStyle: TextStyle(color: Colors.black, fontSize: 14))),
+                                      hintStyle: TextStyle(
+                                          color: Colors.black, fontSize: 14))),
                               suggestionsCallback: (pattern) async {
                                 if (pattern.trim().length == 1 ||
                                     pattern.trim().length == 3 ||
@@ -188,9 +199,12 @@ class _ConfirmLocationScreenState extends State<ChooseLocation> {
                                     pattern.trim().length == 8 ||
                                     pattern.trim().length == 11 ||
                                     pattern.trim().length >= 14) {
-                                  geo.GeocodingResponse response = await googleGeocoding.geocoding.get(pattern, null);
+                                  geo.GeocodingResponse response =
+                                      await googleGeocoding.geocoding
+                                          .get(pattern, null);
 
-                                  if (response != null && response.results.length != 0) {
+                                  if (response != null &&
+                                      response.results.length != 0) {
                                     geocodingResults = response.results;
                                     print("@Length");
                                     print(geocodingResults.length);
@@ -198,32 +212,45 @@ class _ConfirmLocationScreenState extends State<ChooseLocation> {
                                 }
                                 return geocodingResults;
                               },
-                              itemBuilder: (context, geo.GeocodingResult suggestion) {
+                              itemBuilder:
+                                  (context, geo.GeocodingResult suggestion) {
                                 return ListTile(
                                   title: Text(suggestion.formattedAddress),
                                 );
                               },
-                              onSuggestionSelected: (geo.GeocodingResult suggestion) async {
+                              onSuggestionSelected:
+                                  (geo.GeocodingResult suggestion) async {
                                 marker = Marker(
                                   markerId: MarkerId('currentLocation'),
                                   icon: await BitmapDescriptor.fromAssetImage(
-                                      ImageConfiguration(size: Size(50, 50)), "assets/2.0x/current_location.png"),
-                                  position: LatLng(suggestion.geometry.location.lat, suggestion.geometry.location.lng),
-                                  infoWindow: InfoWindow(title: suggestion.formattedAddress, snippet: '*'),
+                                      ImageConfiguration(size: Size(50, 50)),
+                                      "assets/2.0x/current_location.png"),
+                                  position: LatLng(
+                                      suggestion.geometry.location.lat,
+                                      suggestion.geometry.location.lng),
+                                  infoWindow: InfoWindow(
+                                      title: suggestion.formattedAddress,
+                                      snippet: '*'),
                                   onTap: () {},
                                 );
 
                                 cameraPosition = CameraPosition(
                                     bearing: 192.8334901395799,
-                                    target: LatLng(suggestion.geometry.location.lat, suggestion.geometry.location.lng),
+                                    target: LatLng(
+                                        suggestion.geometry.location.lat,
+                                        suggestion.geometry.location.lng),
                                     tilt: 0,
                                     zoom: 19.151926040649414);
-                                controller.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+                                controller.animateCamera(
+                                    CameraUpdate.newCameraPosition(
+                                        cameraPosition));
 
-                                _controllerTextAddress.text = suggestion.formattedAddress;
+                                _controllerTextAddress.text =
+                                    suggestion.formattedAddress;
 
                                 _markerStreamController.sink.add(marker);
-                                _addressStreamContoller.sink.add(suggestion.formattedAddress);
+                                _addressStreamContoller.sink
+                                    .add(suggestion.formattedAddress);
                               },
                             ),
                           ),
@@ -260,7 +287,8 @@ class _ConfirmLocationScreenState extends State<ChooseLocation> {
                                 child: Text(
                                   address,
                                   maxLines: 3,
-                                  style: TextStyle(color: Colors.black, fontSize: 12),
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 12),
                                 ));
                           }),
                       Padding(
@@ -279,8 +307,11 @@ class _ConfirmLocationScreenState extends State<ChooseLocation> {
                                 style: TextStyle(color: Colors.red),
                               ),
                               onPressed: () async {
-                                Address address = await CommonUtils.getAddressDetailsFromLatLong(
-                                    context, Coordinates(marker.position.latitude, marker.position.longitude));
+                                Address address = await CommonUtils
+                                    .getAddressDetailsFromLatLong(
+                                        context,
+                                        Coordinates(marker.position.latitude,
+                                            marker.position.longitude));
                                 editDialog(address);
                               },
                             )),
@@ -293,17 +324,24 @@ class _ConfirmLocationScreenState extends State<ChooseLocation> {
                   child: ButtonTheme(
                     height: 40,
                     minWidth: MediaQuery.of(context).size.width / 1.5,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5))),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(5))),
                     child: FlatButton(
                         onPressed: () async {
-                          Address address = await CommonUtils.getAddressDetailsFromLatLong(
-                              context, Coordinates(marker.position.latitude, marker.position.longitude));
+                          Address address =
+                              await CommonUtils.getAddressDetailsFromLatLong(
+                                  context,
+                                  Coordinates(marker.position.latitude,
+                                      marker.position.longitude));
                           editDialog(address);
                         },
                         color: Colors.red,
                         child: Text(
                           "Confirm Location",
-                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 15),
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 15),
                         )),
                   ),
                 ),
@@ -342,20 +380,23 @@ class _ConfirmLocationScreenState extends State<ChooseLocation> {
             tilt: 0,
             zoom: 19.151926040649414);
         controller = await _controller.future;
-        controller.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+        controller
+            .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
 
         marker = Marker(
           markerId: MarkerId('currentLocation'),
           position: LatLng(value.latitude, value.longitude),
           icon: await BitmapDescriptor.fromAssetImage(
-              ImageConfiguration(size: Size(50, 50)), "assets/2.0x/current_location.png"),
+              ImageConfiguration(size: Size(50, 50)),
+              "assets/2.0x/current_location.png"),
           infoWindow: InfoWindow(title: "Current Location"),
           draggable: true,
           onTap: () {},
         );
 
         geo.GeocodingResponse result = await googleGeocoding.geocoding
-            .getReverse(geo.LatLon(cameraPosition.target.latitude, cameraPosition.target.longitude));
+            .getReverse(geo.LatLon(cameraPosition.target.latitude,
+                cameraPosition.target.longitude));
 
         print("Length " + result.results.length.toString());
         print(result.status);
@@ -424,8 +465,12 @@ class _ConfirmLocationScreenState extends State<ChooseLocation> {
         apiCalls.addDeliveryAddress(jsonEncode(request), token).then((value) {
           CommonUtils.dismissProgressDialog(context);
           if (value.status == 200) {
-            CommonUtils.showToast(msg: value.message, bgColor: Colors.black, textColor: Colors.white);
-            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (buildContext) {
+            CommonUtils.showToast(
+                msg: value.message,
+                bgColor: Colors.black,
+                textColor: Colors.white);
+            Navigator.of(context)
+                .pushReplacement(MaterialPageRoute(builder: (buildContext) {
               return LocationCheckScreen(address: address, type: widget.type);
             }));
           } else {
@@ -433,7 +478,8 @@ class _ConfirmLocationScreenState extends State<ChooseLocation> {
           }
         }).catchError(() {
           CommonUtils.dismissProgressDialog(context);
-          CommonUtils.errorMessage(msg: "Something went wrong , Please try again");
+          CommonUtils.errorMessage(
+              msg: "Something went wrong , Please try again");
         });
       }
     });
