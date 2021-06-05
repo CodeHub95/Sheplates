@@ -217,18 +217,16 @@ class _ConfirmLocationScreenState extends State<ChooseLocation> {
                                       ImageConfiguration(size: Size(50, 50)), "assets/2.0x/current_location.png"),
                                   position: LatLng(suggestion.geometry.location.lat, suggestion.geometry.location.lng),
                                   infoWindow: InfoWindow(title: suggestion.formattedAddress, snippet: '*'),
-                                  onTap: () {
-                                    onChangeMap = '2';
-                                    Future.delayed(const Duration(seconds: 1), () {
-// Here you can write your code
-                                      onChangeMap = '1';
-                                      setState(() {
-                                        // Here you can write your code for open new view
-                                      });
-                                    });
-                                  },
+                                  onTap: () {},
                                 );
-
+                                onChangeMap = '2';
+                                Future.delayed(const Duration(seconds: 3), () {
+// Here you can write your code
+                                  onChangeMap = '1';
+                                  setState(() {
+                                    // Here you can write your code for open new view
+                                  });
+                                });
                                 cameraPosition = CameraPosition(
                                     bearing: 192.8334901395799,
                                     target: LatLng(suggestion.geometry.location.lat, suggestion.geometry.location.lng),
@@ -237,7 +235,7 @@ class _ConfirmLocationScreenState extends State<ChooseLocation> {
                                 controller.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
 
                                 _controllerTextAddress.text = suggestion.formattedAddress;
-
+                                address = suggestion.formattedAddress;
                                 _markerStreamController.sink.add(marker);
                                 // _addressStreamContoller.sink.add(suggestion.formattedAddress);
                                 setState(() {});
@@ -348,6 +346,11 @@ class _ConfirmLocationScreenState extends State<ChooseLocation> {
 
   void getCurrentLocation() {
     print("Fetching Location");
+    onChangeMap = '2';
+    Future.delayed(const Duration(seconds: 5), () {
+// Here you can write your code
+      onChangeMap = '1';
+    });
     location.getLocation().then((value) async {
       if (value != null) {
         print("Getting Location");
