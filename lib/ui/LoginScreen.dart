@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-
+import 'CategoryScreen.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
@@ -166,26 +166,28 @@ class _MyHomePageState extends State<LoginScreen> {
                       Padding(
                         padding: EdgeInsets.only(top: 15, left: 200),
                         child: GestureDetector(
-                            child: Text(
-                              ("Forgot Password?"),
-                              textAlign: TextAlign.end,
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 15,
-                              ),
+                          child: Text(
+                            ("Forgot Password?"),
+                            textAlign: TextAlign.end,
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 15,
                             ),
-                            onTap: () {
-                              Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => RegisterScreen(
-                                      type: "forget",
-                                    ),
-                                  ),
-                                  (Route<dynamic> route) => false);
-                              // do what you need to do when "Click here" gets clicked
-                              // Navigator.push(context, MaterialPageRoute(builder: (context) => ForgetPassword()));
-                            }),
+                          ),
+                          onTap: () {
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => RegisterScreen(
+                                  type: "forget",
+                                ),
+                              ),
+                              (Route<dynamic> route) => false,
+                            );
+                            // do what you need to do when "Click here" gets clicked
+                            // Navigator.push(context, MaterialPageRoute(builder: (context) => ForgetPassword()));
+                          },
+                        ),
                       ),
                       Padding(
                         padding: EdgeInsets.all(0),
@@ -285,10 +287,16 @@ class _MyHomePageState extends State<LoginScreen> {
           auth.profile = response.data.profile;
           auth.token = response.token;
           auth.authState = AuthState.LoggedIn;
+          // Navigator.pushAndRemoveUntil(
+          //   context,
+          //   MaterialPageRoute(builder: (context) => HomeScreen()),
+          //   (Route<dynamic> route) => false,
+          // );
+
           Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (context) => HomeScreen()),
-            (Route<dynamic> route) => false,
+            MaterialPageRoute(builder: (context) => CategoryScreen()),
+            (route) => false,
           );
         } else {
           CommonUtils.dismissProgressDialog(context);
