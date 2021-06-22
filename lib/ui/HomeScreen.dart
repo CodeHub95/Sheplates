@@ -181,29 +181,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       if (snapshot.data.length != 0) {
                         return Column(
                           children: [
-                            //
-                            SizedBox(height: 20),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  color: Colors.grey,
-                                  height: .5,
-                                  width: MediaQuery.of(context).size.width * .18,
-                                ),
-                                Text(
-                                  ('  Health Niches  '),
-                                  style: TextStyle(
-                                      fontSize: 19, color: Colors.grey, fontWeight: FontWeight.w700, letterSpacing: 2),
-                                ),
-                                Container(
-                                  color: Colors.grey,
-                                  height: .5,
-                                  width: MediaQuery.of(context).size.width * .18,
-                                ),
-                              ],
-                            ),
-                            //
                             ListView.builder(
                               shrinkWrap: true,
                               physics: NeverScrollableScrollPhysics(),
