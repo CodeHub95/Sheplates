@@ -146,29 +146,32 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfileScreen())),
                 },
               ),
-              Padding(
-                padding: const EdgeInsets.only(right: 8.0),
-                child: Stack(
-                  alignment: Alignment.topRight,
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.shopping_cart_outlined, color: Colors.grey),
-                      onPressed: () => {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => CartScreen())),
-                      },
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.red,
+              Stack(
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.shopping_cart_outlined, color: Colors.grey),
+                    onPressed: () => {
+                      // Navigator.push(context, MaterialPageRoute(builder: (context) => CartScreen())),
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => CartScreen())),
+                    },
+                  ),
+                  Expanded(
+                    child: Positioned(
+                      right: 1,
+                      top: 1,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.red,
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 3, horizontal: 3),
+                          child: Text("8"),
+                        ),
                       ),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 3, horizontal: 3),
-                        child: Text("8"),
-                      ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ],
             leading: Builder(
