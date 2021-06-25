@@ -35,13 +35,15 @@ class _HomeScreenState extends State<VegitarianLunch> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Center(
-            child: Padding(
-                padding: EdgeInsets.only(right: 20),
-                child: Text(
-                  widget.rows.mealName,
-                  style: TextStyle(color: Colors.black, fontSize: 17),
-                  textAlign: TextAlign.center,
-                ))),
+          child: Padding(
+            padding: EdgeInsets.only(right: 20),
+            child: Text(
+              widget.rows.mealName,
+              style: TextStyle(color: Colors.black, fontSize: 17),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ),
         leading: Builder(
           builder: (context) => IconButton(
             icon: new Icon(

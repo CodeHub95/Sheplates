@@ -19,6 +19,7 @@ import 'package:flutter_sheplates/modals/response/loginresponse.dart';
 import 'package:flutter_sheplates/ui/DrawerScreen.dart';
 import 'package:flutter_sheplates/ui/EditProfile.dart';
 import 'package:flutter_sheplates/ui/Vegitarian_lunch.dart';
+import 'CartScreen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -144,6 +145,33 @@ class _HomeScreenState extends State<HomeScreen> {
                 onPressed: () => {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfileScreen())),
                 },
+              ),
+              Stack(
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.shopping_cart_outlined, color: Colors.grey),
+                    onPressed: () => {
+                      // Navigator.push(context, MaterialPageRoute(builder: (context) => CartScreen())),
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => CartScreen())),
+                    },
+                  ),
+                  Expanded(
+                    child: Positioned(
+                      right: 1,
+                      top: 1,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.red,
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 3, horizontal: 3),
+                          child: Text("8"),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
             leading: Builder(
