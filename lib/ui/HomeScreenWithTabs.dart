@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'CartScreen.dart';
 import 'CategoryScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ import 'package:flutter_sheplates/modals/response/loginresponse.dart';
 import 'package:flutter_sheplates/ui/DrawerScreen.dart';
 import 'package:flutter_sheplates/ui/EditProfile.dart';
 import 'package:flutter_sheplates/ui/Vegitarian_lunch.dart';
+import 'package:flutter_sheplates/Utils/global.dart';
 
 class HomeScreenWithTabs extends StatefulWidget {
   @override
@@ -147,6 +149,30 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfileScreen())),
                 },
               ),
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: Stack(
+                  alignment: Alignment.topRight,
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.shopping_cart_outlined, color: Colors.grey),
+                      onPressed: () => {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => CartScreen())),
+                      },
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.red,
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(vertical: 3, horizontal: 3),
+                        child: Text("8"),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
             leading: Builder(
               builder: (context) => IconButton(
@@ -177,7 +203,7 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
                         width: MediaQuery.of(context).size.width * .18,
                       ),
                       Text(
-                        ('  Health Niches  '),
+                        categoryCode == 1 ? ('  Health Niches  ') : (' Sheplates Regular '),
                         style:
                             TextStyle(fontSize: 19, color: Colors.grey, fontWeight: FontWeight.w700, letterSpacing: 2),
                       ),
@@ -471,7 +497,7 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
 
   getList() async {
     String token = await SharedPrefHelper().getWithDefault("token", "");
-    var res = await NetworkUtil().get("user/subscription-plans", token: token);
+    var res = await NetworkUtil().get("user/subscription-plans?cuisine_id=1", token: token);
     HomeListResponse homeListResponse = HomeListResponse.fromJson(res);
     if (homeListResponse.status == 200) {
       if (homeListResponse.data.subscriptionPlanData != null) {

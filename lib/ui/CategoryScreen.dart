@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sheplates/Utils/hexColor.dart';
 import 'HomeScreen.dart';
 import 'HomeScreenWithTabs.dart';
+import 'package:flutter_sheplates/Utils/global.dart';
 
 class CategoryScreen extends StatelessWidget {
   @override
@@ -43,6 +44,7 @@ class CategoryScreen extends StatelessWidget {
                     //   MaterialPageRoute(builder: (context) => HomeScreen()),
                     //   (Route<dynamic> route) => false,
                     // );
+                    categoryCode = 1;
 
                     Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreenWithTabs()));
                   },
@@ -65,7 +67,7 @@ class CategoryScreen extends StatelessWidget {
                     //   MaterialPageRoute(builder: (context) => HomeScreen()),
                     //   (Route<dynamic> route) => false,
                     // );
-
+                    categoryCode = 2;
                     Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreenWithTabs()));
                   },
                 ),

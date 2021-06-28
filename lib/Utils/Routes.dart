@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sheplates/ui/ChooseLocation.dart';
 import 'package:flutter_sheplates/ui/DeliveryStaticScreen.dart';
 import 'package:flutter_sheplates/ui/HomeScreen.dart';
-
+import 'package:flutter_sheplates/ui/CategoryScreen.dart';
 import 'package:flutter_sheplates/ui/LoginScreen.dart';
 import 'package:flutter_sheplates/ui/OtpVerificationScreen.dart';
 import 'package:flutter_sheplates/ui/PaymentScreen.dart';
@@ -42,30 +42,25 @@ class Routes {
       //   return MaterialPageRoute(builder: (context) => ChooseLocation(type: map['add'],is_delivery: map['is_delivery_address'],));
       case rangePickerPage:
         return MaterialPageRoute(
-            builder: (context) => RangePickerPage(
-                events: [], selectionType: map['selectionType']));
+            builder: (context) => RangePickerPage(events: [], selectionType: map['selectionType']));
 
       case proceedToPayment:
-        return MaterialPageRoute(
-            builder: (context) => ProceedToPayment(orders: map['order']));
+        return MaterialPageRoute(builder: (context) => ProceedToPayment(orders: map['order']));
 
       case deliveryStaticScreen:
         return MaterialPageRoute(builder: (context) => DeliveryStaticScreen());
 
       case homeScreen:
-        return MaterialPageRoute(builder: (context) => HomeScreen());
+        // return MaterialPageRoute(builder: (context) => HomeScreen());
+        return MaterialPageRoute(builder: (context) => CategoryScreen());
 
       case paymentscreen:
-        return MaterialPageRoute(
-            builder: (context) => PaymentScreen(orders: map['order']));
+        return MaterialPageRoute(builder: (context) => PaymentScreen(orders: map['order']));
 
       case otpVerificationScreen:
         return MaterialPageRoute(
             builder: (context) => OtpVerificationScreen(
-                map['mobileNumber'],
-                map['verificationId'],
-                map['forceResendingToken'],
-                map['type']));
+                map['mobileNumber'], map['verificationId'], map['forceResendingToken'], map['type']));
 
       default:
         return MaterialPageRoute(builder: (context) => SplashScreen());

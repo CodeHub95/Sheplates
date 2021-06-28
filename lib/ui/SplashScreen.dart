@@ -1,12 +1,11 @@
 import 'dart:convert';
-
+import 'package:flutter_sheplates/ui/CategoryScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sheplates/Utils/app_constants.dart';
 import 'package:flutter_sheplates/Utils/app_defaults.dart';
 import 'package:flutter_sheplates/auth/Auth.dart';
 import 'package:flutter_sheplates/modals/response/loginresponse.dart';
 import 'package:flutter_sheplates/ui/HomeScreen.dart';
-
 
 import 'package:flutter_sheplates/ui/LoginRegisterScreen.dart';
 
@@ -24,7 +23,6 @@ class _SplashScreenState extends State<SplashScreen> {
     if (mounted) {
       call();
     }
-
   }
 
   @override
@@ -41,8 +39,7 @@ class _SplashScreenState extends State<SplashScreen> {
     bool b = await SharedPrefHelper().getWithDefault("isLogin", false);
     Auth auth = Auth();
     if (b) {
-      String userData = await SharedPrefHelper()
-          .getWithDefault(SharedPrefConstants.userData, jsonEncode({}));
+      String userData = await SharedPrefHelper().getWithDefault(SharedPrefConstants.userData, jsonEncode({}));
       String token = await SharedPrefHelper().getWithDefault("token", "");
 
       Profile profile = Profile.fromJson(jsonDecode(userData));
@@ -54,14 +51,16 @@ class _SplashScreenState extends State<SplashScreen> {
       auth.authState = AuthState.LoggedOut;
     }
 
-    Future.delayed((Duration(seconds: 5))).then((value) {
-      Navigator.pushReplacement(
+    Future.delayed((Duration(seconds: 5))).then(
+      (value) {
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-              builder: (buildContext) =>
-                  b ? HomeScreen() : LoginRegisterScreen()));
-    });
+            // builder: (buildContext) => b ? HomeScreen() : LoginRegisterScreen(),
+            builder: (buildContext) => b ? CategoryScreen() : LoginRegisterScreen(),
+          ),
+        );
+      },
+    );
   }
-
-
 }

@@ -134,7 +134,8 @@ class _CartScreenState extends State<CartScreen> {
                   ),
                 ),
                 Container(
-                  color: Colors.white,
+                  // color: Colors.white,
+                  color: Colors.grey[50],
                   child: Padding(
                     padding: EdgeInsets.only(left: 25, right: 25),
                     child: Text("ORDER SUMMARY", style: TextStyle(fontSize: 25, color: Colors.black)),

@@ -16,7 +16,10 @@ class NetworkUtil {
   Dio dio;
 
   NetworkUtil.internal() {
-    dio = Dio()..options.baseUrl = "http://ec2-13-235-86-192.ap-south-1.compute.amazonaws.com:5000/api/v1/";
+    //for live app
+    // dio = Dio()..options.baseUrl = "http://ec2-13-235-86-192.ap-south-1.compute.amazonaws.com:5000/api/v1/";
+    //for testing
+    dio = Dio()..options.baseUrl = "http://13.235.23.140:5000/api/v1/";
     dio.interceptors.add(LogInterceptor(requestBody: true, responseBody: true));
   }
 

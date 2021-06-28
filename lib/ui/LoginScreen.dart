@@ -287,17 +287,17 @@ class _MyHomePageState extends State<LoginScreen> {
           auth.profile = response.data.profile;
           auth.token = response.token;
           auth.authState = AuthState.LoggedIn;
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => HomeScreen()),
-            (Route<dynamic> route) => false,
-          );
-
           // Navigator.pushAndRemoveUntil(
           //   context,
-          //   MaterialPageRoute(builder: (context) => CategoryScreen()),
-          //   (route) => false,
+          //   MaterialPageRoute(builder: (context) => HomeScreen()),
+          //   (Route<dynamic> route) => false,
           // );
+
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => CategoryScreen()),
+            (route) => false,
+          );
         } else {
           CommonUtils.dismissProgressDialog(context);
           CommonUtils.errorMessage(msg: response.message);
