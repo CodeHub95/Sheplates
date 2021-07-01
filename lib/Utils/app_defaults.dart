@@ -29,15 +29,14 @@ class SharedPrefHelper {
   Future<dynamic> get(String key) async {
     SharedPreferences sharedPreferences;
     sharedPreferences = await SharedPreferences.getInstance();
-    return await sharedPreferences.get(key) as Future<dynamic>;
+    // return await sharedPreferences.get(key) as Future<dynamic>;
+    return await sharedPreferences.get(key);
   }
 
   Future<dynamic> getWithDefault(String key, dynamic defValue) async {
     SharedPreferences sharedPreferences;
     sharedPreferences = await SharedPreferences.getInstance();
-    return sharedPreferences.get(key) == null
-        ? defValue
-        : await sharedPreferences.get(key);
+    return sharedPreferences.get(key) == null ? defValue : await sharedPreferences.get(key);
   }
 
   Future<bool> clear() async {

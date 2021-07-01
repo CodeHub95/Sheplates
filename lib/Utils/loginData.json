@@ -1,0 +1,36 @@
+{
+    "status": 200,
+    "message": "Login successfully!",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjA3LCJwaG9uZSI6Iis5MTk2NzcyNDgyNjAiLCJkZXZpY2VJZCI6IjBkNjI0MDBjMzBmYjJkNzUiLCJyb2xlIjoyLCJpYXQiOjE2MjUxMzM1ODV9.ff8l5ZVFOdQ638WnG6u4Qo6rlPKWy5dHJ8O7QlwV66s",
+    "data": {
+        "profile": {
+            "id": 207,
+            "role_id": 2,
+            "first_name": "Sheplates",
+            "last_name": "Test",
+            "gender": null,
+            "dob": null,
+            "email": "mr.sieg@gmail.com",
+            "phone": "+919677248260",
+            "profile_image": null,
+            "status": "Active",
+            "last_seen": "2021-07-01 15:29:45",
+            "user_addresses": [
+                {
+                    "id": 69,
+                    "user_id": 207,
+                    "full_address": "1/4, Vijayalakshmi Nagar, 7TH STREET, Kattupakkam, Chennai, Tamil Nadu 600056, India",
+                    "city": null,
+                    "area": "1/4, Vijayalakshmi Nagar, 7TH STREET, Kattupakkam,",
+                    "pincode": 600056,
+                    "landmark": "Kattupakkam",
+                    "latitude": "13.0359342",
+                    "longitude": "80.1277423",
+                    "place_type": "Home",
+                    "place_name": "Vetri",
+                    "is_delivery_address": 1
+                }
+            ]
+        }
+    }
+}

@@ -5,12 +5,7 @@ class LoginRequest {
   String deviceToken;
   String deviceType;
 
-  LoginRequest(
-      {this.phone,
-        this.password,
-        this.deviceId,
-        this.deviceToken,
-        this.deviceType});
+  LoginRequest({this.phone, this.password, this.deviceId, this.deviceToken, this.deviceType});
 
   LoginRequest.fromJson(Map<String, dynamic> json) {
     phone = json['phone'];

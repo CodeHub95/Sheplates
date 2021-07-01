@@ -312,96 +312,97 @@ class _HomeScreenState extends State<HomeScreen> {
                             },
                           ),
                           Padding(
-                              padding: EdgeInsets.only(left: 10, right: 10, top: 15, bottom: 10),
-                              child: Container(
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                        color: Colors.grey[300],
-                                      ),
-                                      borderRadius: BorderRadius.all(Radius.circular(5))),
-                                  child: Column(
-                                    children: [
-                                      Center(
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                              border: Border.all(
-                                                color: Colors.grey[300],
-                                              ),
-                                              borderRadius: BorderRadius.all(Radius.circular(5))),
-                                          height: 2,
-                                          width: MediaQuery.of(context).size.width,
-                                        ),
-                                      ),
-                                      Container(
-                                        height: 90,
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Column(
-                                              children: [
-                                                Padding(
-                                                    padding: EdgeInsets.only(
-                                                        // left: 10,
-                                                        top: 10,
-                                                        right: 30,
-                                                        bottom: 10),
-                                                    child: Align(
-                                                        alignment: Alignment.centerLeft,
-                                                        child: Text(
-                                                          "Customisation",
-                                                          style: TextStyle(color: Colors.black, fontSize: 20),
-                                                        ))),
-                                                Padding(
-                                                    padding: EdgeInsets.only(
-                                                      left: 20,
-                                                      // top: 10,
-                                                      // bottom: 10,
-                                                    ),
-                                                    child: new SizedBox(
-                                                        height: 30,
-                                                        width: 160,
-                                                        child: RaisedButton(
-                                                          shape: RoundedRectangleBorder(
-                                                            side: BorderSide(color: Colors.red, width: 1),
-                                                            borderRadius: BorderRadius.circular(5.0),
-                                                          ),
-                                                          color: Colors.red,
-                                                          child: Text(
-                                                            "Request Call Back",
-                                                            style: TextStyle(color: Colors.white),
-                                                          ),
-                                                          onPressed: () => {
-                                                            if (suscriber == true)
-                                                              {
-                                                                CommonUtils.showToast(
-                                                                    msg:
-                                                                        "You have already one subscription plan running!",
-                                                                    bgColor: Colors.black,
-                                                                    textColor: Colors.white)
-                                                              }
-                                                            else
-                                                              {_addRequest()}
-                                                          },
-                                                        )))
-                                              ],
+                            padding: EdgeInsets.only(left: 10, right: 10, top: 15, bottom: 10),
+                            child: Container(
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: Colors.grey[300],
+                                    ),
+                                    borderRadius: BorderRadius.all(Radius.circular(5))),
+                                child: Column(
+                                  children: [
+                                    Center(
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                              color: Colors.grey[300],
                                             ),
-                                            Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              crossAxisAlignment: CrossAxisAlignment.center,
-                                              children: [
-                                                Container(
-                                                  child: Image.asset('${images[7]}'),
-                                                )
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  )
+                                            borderRadius: BorderRadius.all(Radius.circular(5))),
+                                        height: 2,
+                                        width: MediaQuery.of(context).size.width,
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 90,
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Column(
+                                            children: [
+                                              Padding(
+                                                  padding: EdgeInsets.only(
+                                                      // left: 10,
+                                                      top: 10,
+                                                      right: 30,
+                                                      bottom: 10),
+                                                  child: Align(
+                                                      alignment: Alignment.centerLeft,
+                                                      child: Text(
+                                                        "Customisation",
+                                                        style: TextStyle(color: Colors.black, fontSize: 20),
+                                                      ))),
+                                              Padding(
+                                                  padding: EdgeInsets.only(
+                                                    left: 20,
+                                                    // top: 10,
+                                                    // bottom: 10,
+                                                  ),
+                                                  child: new SizedBox(
+                                                      height: 30,
+                                                      width: 160,
+                                                      child: RaisedButton(
+                                                        shape: RoundedRectangleBorder(
+                                                          side: BorderSide(color: Colors.red, width: 1),
+                                                          borderRadius: BorderRadius.circular(5.0),
+                                                        ),
+                                                        color: Colors.red,
+                                                        child: Text(
+                                                          "Request Call Back",
+                                                          style: TextStyle(color: Colors.white),
+                                                        ),
+                                                        onPressed: () => {
+                                                          if (suscriber == true)
+                                                            {
+                                                              CommonUtils.showToast(
+                                                                  msg:
+                                                                      "You have already one subscription plan running!",
+                                                                  bgColor: Colors.black,
+                                                                  textColor: Colors.white)
+                                                            }
+                                                          else
+                                                            {_addRequest()}
+                                                        },
+                                                      )))
+                                            ],
+                                          ),
+                                          Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            children: [
+                                              Container(
+                                                child: Image.asset('${images[7]}'),
+                                              )
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                )
 
-                                  // ),
-                                  )),
+                                // ),
+                                ),
+                          ),
                         ],
                       );
                     } else {
@@ -436,8 +437,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   getList() async {
     String token = await SharedPrefHelper().getWithDefault("token", "");
-    var res = await NetworkUtil().get("user/subscription-plans?cuisine_id=1", token: token);
-    // var res = await NetworkUtil().get("user/mainCategories/cuisine_id", token: token);
+    // var res = await NetworkUtil().get("user/subscription-plans?cuisine_id=1", token: token);
+    var res = await NetworkUtil().get("user/mainCategories/cuisine_id", token: token);
 
     HomeListResponse homeListResponse = HomeListResponse.fromJson(res);
     if (homeListResponse.status == 200) {

@@ -1,0 +1,18 @@
+{
+    "status": 200,
+    "message": "success",
+    "data": [
+        {
+            "id": 1,
+            "type": "Sheplates Special",
+            "createdAt": "2021-06-28 15: 34: 41",
+            "updatedAt": "2021-06-28 15: 34: 41"
+        },
+        {
+            "id": 2,
+            "type": "Healthy",
+            " createdAt": "2021-06-28 15: 52: 55",
+            " updatedAt": "2021-06-28 15: 52: 55"
+        }
+    ]
+}

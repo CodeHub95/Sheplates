@@ -223,11 +223,7 @@ class _MyHomePageState extends State<LoginScreen> {
                           activeColor: Colors.green,
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                          top: 25,
-                        ),
-                      ),
+                      Padding(padding: EdgeInsets.only(top: 25)),
                       Container(
                         padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
                         height: 50,
@@ -236,10 +232,7 @@ class _MyHomePageState extends State<LoginScreen> {
                           color: AppColor.themeButtonColor,
                           textColor: Colors.white,
                           // color: HexColor("#10acff"),
-                          child: Text(
-                            ('LOGIN'),
-                            style: TextStyle(fontSize: 19, fontWeight: FontWeight.w700),
-                          ),
+                          child: Text(('LOGIN'), style: TextStyle(fontSize: 19, fontWeight: FontWeight.w700)),
 
                           onPressed: () => submit(),
                         ),

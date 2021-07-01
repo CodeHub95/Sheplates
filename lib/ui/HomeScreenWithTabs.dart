@@ -197,21 +197,25 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        color: Colors.grey,
-                        height: .5,
-                        width: MediaQuery.of(context).size.width * .18,
+                      SizedBox(width: MediaQuery.of(context).size.width * .1),
+                      Expanded(
+                        child: Container(
+                          color: Colors.grey,
+                          height: .5,
+                        ),
                       ),
                       Text(
-                        categoryCode == 1 ? ('  Health Niches  ') : (' Sheplates Regular '),
+                        categoryCode == 1 ? (" Sheplates Special ") : (" Healthy "),
                         style:
                             TextStyle(fontSize: 19, color: Colors.grey, fontWeight: FontWeight.w700, letterSpacing: 2),
                       ),
-                      Container(
-                        color: Colors.grey,
-                        height: .5,
-                        width: MediaQuery.of(context).size.width * .18,
+                      Expanded(
+                        child: Container(
+                          color: Colors.grey,
+                          height: .5,
+                        ),
                       ),
+                      SizedBox(width: MediaQuery.of(context).size.width * .1),
                     ],
                   ),
                   SizedBox(height: 20),
