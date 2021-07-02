@@ -54,72 +54,68 @@ class _CategoryScreenState extends State<CategoryScreen> {
           ),
         ),
         body: categoryData == null
-            ? Center(
-                child: CircularProgressIndicator(),
-              )
+            ? Center(child: CircularProgressIndicator())
             : Center(
-                child: Container(
-                  width: MediaQuery.of(context).size.width * .66,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      RaisedButton(
-                        elevation: 10,
-                        color: AppColor.themeButtonColor,
-                        textColor: Colors.white,
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: 15),
-                          child: Text(
-                            // "button 1",
-                            category1,
-                            // "${categoryData["data"][0]["type"]}",
-                            // categoryData.data[0].type.toString(),
-                            style: TextStyle(fontSize: 19, fontWeight: FontWeight.w700),
-                          ),
-                        ),
-                        onPressed: () {
-                          // Navigator.pushAndRemoveUntil(
-                          //   context,
-                          //   MaterialPageRoute(builder: (context) => HomeScreen()),
-                          //   (Route<dynamic> route) => false,
-                          // );
-                          categoryCode = 1;
-                          // Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreenWithTabs()));
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreenWithTabs()));
-                        },
-                      ),
-                      SizedBox(height: 50),
-                      RaisedButton(
-                        elevation: 10,
-                        color: AppColor.themeButtonColor,
-                        textColor: Colors.white,
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: 15),
-                          child: Text(
-                            // "button 2",
-                            category2,
-                            // "${categoryData["status"][1]["type"]}",
-                            // categoryData.data[1].type.toString(),
-                            style: TextStyle(fontSize: 19, fontWeight: FontWeight.w700),
-                          ),
-                        ),
-                        onPressed: () {
-                          // Navigator.pushAndRemoveUntil(
-                          //   context,
-                          //   MaterialPageRoute(builder: (context) => HomeScreen()),
-                          //   (Route<dynamic> route) => false,
-                          // );
-                          categoryCode = 2;
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreenWithTabs()));
-                          // Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
-                        },
-                      ),
-                    ],
-                  ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ChooseCategoryMessage(),
+                    SizedBox(height: MediaQuery.of(context).size.width * .5),
+                    BuildButton(category1: category1),
+                    SizedBox(height: MediaQuery.of(context).size.width * .1),
+                    BuildButton(category1: category2),
+                  ],
                 ),
               ),
       ),
+    );
+  }
+}
+
+class BuildButton extends StatelessWidget {
+  const BuildButton({
+    Key key,
+    @required this.category1,
+  }) : super(key: key);
+
+  final String category1;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width * .66,
+      child: RaisedButton(
+        elevation: 10,
+        color: AppColor.themeButtonColor,
+        textColor: Colors.white,
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 15),
+          child: Text(category1, style: TextStyle(fontSize: 19, fontWeight: FontWeight.w700)),
+        ),
+        onPressed: () {
+          categoryCode = 1;
+          Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreenWithTabs()));
+        },
+      ),
+    );
+  }
+}
+
+class ChooseCategoryMessage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(width: MediaQuery.of(context).size.width * .1),
+        Expanded(child: Container(color: Colors.grey, height: .5)),
+        Text(
+          " Choose a category ",
+          style: TextStyle(fontSize: 19, color: Colors.grey, fontWeight: FontWeight.w700, letterSpacing: 2),
+        ),
+        Expanded(child: Container(color: Colors.grey, height: .5)),
+        SizedBox(width: MediaQuery.of(context).size.width * .1),
+      ],
     );
   }
 }

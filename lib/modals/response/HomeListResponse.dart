@@ -32,12 +32,10 @@ class Data {
   Data({this.subscriptionPlanData, this.suscriber, this.deliveryAddressExist});
 
   Data.fromJson(Map<String, dynamic> json) {
-    subscriptionPlanData = json['subscriptionPlanData'] != null
-        ? new SubscriptionPlanData.fromJson(json['subscriptionPlanData'])
-        : null;
+    subscriptionPlanData =
+        json['subscriptionPlanData'] != null ? new SubscriptionPlanData.fromJson(json['subscriptionPlanData']) : null;
     suscriber = json['suscriber'] != null ? json['suscriber'] : false;
-    deliveryAddressExist =
-        json['deliveryAddressExist'] != null ? json['deliveryAddressExist'] : 0;
+    deliveryAddressExist = json['deliveryAddressExist'] != null ? json['deliveryAddressExist'] : 0;
   }
 
   Map<String, dynamic> toJson() {
@@ -85,13 +83,7 @@ class Rows {
   int price;
   Menu menu;
 
-  Rows(
-      {this.id,
-      this.category,
-      this.mealName,
-      this.price,
-      this.menu,
-      this.mealCategory});
+  Rows({this.id, this.category, this.mealName, this.price, this.menu, this.mealCategory});
 
   Rows.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -99,9 +91,7 @@ class Rows {
     mealName = json['meal_name'];
     price = json['price'];
     menu = json['menu'] != null ? new Menu.fromJson(json['menu']) : null;
-    mealCategory = json['meal_category'] != null
-        ? new MealCategory.fromJson(json['meal_category'])
-        : null;
+    mealCategory = json['meal_category'] != null ? new MealCategory.fromJson(json['meal_category']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -129,16 +119,31 @@ class Menu {
   String friday;
   String saturday;
   String sunday;
+  String monday2;
+  String tuesday2;
+  String wednesday2;
+  String thrusday2;
+  String friday2;
+  String saturday2;
+  String sunday2;
 
-  Menu(
-      {this.id,
-      this.monday,
-      this.tuesday,
-      this.wednesday,
-      this.thrusday,
-      this.friday,
-      this.saturday,
-      this.sunday});
+  Menu({
+    this.id,
+    this.monday,
+    this.tuesday,
+    this.wednesday,
+    this.thrusday,
+    this.friday,
+    this.saturday,
+    this.sunday,
+    this.monday2,
+    this.tuesday2,
+    this.wednesday2,
+    this.thrusday2,
+    this.friday2,
+    this.saturday2,
+    this.sunday2,
+  });
 
   Menu.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -149,6 +154,13 @@ class Menu {
     friday = json['friday'];
     saturday = json['saturday'];
     sunday = json['sunday'];
+    monday2 = json['monday2'];
+    tuesday2 = json['tuesday2'];
+    wednesday2 = json['wednesday2'];
+    thrusday2 = json['thrusday2'];
+    friday2 = json['friday2'];
+    saturday2 = json['saturday2'];
+    sunday2 = json['sunday2'];
   }
 
   Map<String, dynamic> toJson() {
@@ -161,6 +173,14 @@ class Menu {
     data['friday'] = this.friday;
     data['saturday'] = this.saturday;
     data['sunday'] = this.sunday;
+    data['monday2'] = this.monday2;
+    data['tuesday'] = this.tuesday2;
+    data['wednesday2'] = this.wednesday2;
+    data['thrusday2'] = this.thrusday2;
+    data['friday2'] = this.friday2;
+    data['saturday'] = this.saturday2;
+    data['sunday2'] = this.sunday2;
+
     return data;
   }
 }

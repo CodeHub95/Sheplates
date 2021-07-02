@@ -1,0 +1,41 @@
+{
+    "status": 200,
+    "message": "success",
+    "data": {
+        "subscriptionPlanData": {
+            "count": 1,
+            "rows": [
+                {
+                    "id": 27,
+                    "meal_name": "Light Dinner @Rs.40",
+                    "price": 40,
+                    "meal_order": 1,
+                    "meal_category": {
+                        "id": 5,
+                        "category": "Dinner"
+                    },
+                    "menu": {
+                        "id": 27,
+                        "catalog_id": 27,
+                        "monday": "Kal Dosa (2) with Vadacurry/Chutney",
+                        "tuesday": "Chapathi (3) with Tomato Thokku",
+                        "wednesday": "Aappam (3)/Idiyappam (4) with Kurma /Thenga Paal",
+                        "thrusday": "Idli (4) with Chutney & Sambar",
+                        "friday": "Kuzhi Paniyaram (10) with Kaara Chutney",
+                        "saturday": "Pesarattu (2) / Uthappam (2) (Onion/Tomato/Veg) with Chutney",
+                        "sunday": "Chapathi (3) with Dal/Veg Gravy",
+                        "monday2": "Kal Dosa (2) with Vadacurry/Chutney",
+                        "tuesday2": "Kal Dosa (2) with Vadacurry/Chutney",
+                        "wednesday2": "Kal Dosa (2) with Vadacurry/Chutney",
+                        "thrusday2": "Kal Dosa (2) with Vadacurry/Chutney",
+                        "friday2": "Kal Dosa (2) with Vadacurry/Chutney",
+                        "saturday2": "Kal Dosa (2) with Vadacurry/Chutney",
+                        "sunday2": "Kal Dosa (2) with Vadacurry/Chutney",
+                        "createdAt": "2021-04-22 02:10:52",
+                        "updatedAt": "2021-04-22 02:10:52"
+                    }
+                }
+            ]
+        }
+    }
+}
