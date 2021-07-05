@@ -51,17 +51,13 @@ class _HomeScreenState extends State<ConfirmSubscription> {
   List<DateTime> holidaysList = List();
 
   Future<Null> _selectDate(BuildContext context) async {
-    Navigator.of(context).pushNamed(Routes.rangePickerPage,
-        arguments: {'selectionType': selectionType}).then((value) {
-
+    Navigator.of(context).pushNamed(Routes.rangePickerPage, arguments: {'selectionType': selectionType}).then((value) {
       if (value != null) {
-
         Map<String, dynamic> map = value as Map;
         datePeriod = map['period'] as DatePeriod;
 
-        dateController.text = CommonUtils.getSimpleDate(datePeriod.start) +
-            " - " +
-            CommonUtils.getSimpleDate(datePeriod.end);
+        dateController.text =
+            CommonUtils.getSimpleDate(datePeriod.start) + " - " + CommonUtils.getSimpleDate(datePeriod.end);
         holidaysList = map['holidays'] as List;
         print(map['holidays'] as List);
       }
@@ -120,9 +116,7 @@ class _HomeScreenState extends State<ConfirmSubscription> {
         body: SingleChildScrollView(
             child: FormBuilder(
           key: _fbKey,
-          autovalidateMode: _autoValidate
-              ? AutovalidateMode.always
-              : AutovalidateMode.disabled,
+          autovalidateMode: _autoValidate ? AutovalidateMode.always : AutovalidateMode.disabled,
           child: Padding(
             padding: const EdgeInsets.all(15.0),
             child: Column(
@@ -163,8 +157,6 @@ class _HomeScreenState extends State<ConfirmSubscription> {
                         "8",
                         "9",
                         "10",
-
-
                       ]),
                   inputWidgetDropDown(
                       attribute: "duration",
@@ -203,8 +195,7 @@ class _HomeScreenState extends State<ConfirmSubscription> {
                   ),
                   Container(
                       padding: EdgeInsets.only(),
-                      margin: EdgeInsets.only(
-                          top: 40, bottom: 40, right: 0, left: 0),
+                      margin: EdgeInsets.only(top: 40, bottom: 40, right: 0, left: 0),
                       height: 40,
                       alignment: Alignment.center,
                       child: RaisedButton(
@@ -254,8 +245,7 @@ class _HomeScreenState extends State<ConfirmSubscription> {
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.only(left: 10),
             decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey, width: 1),
-                borderRadius: BorderRadius.all(Radius.circular(8))),
+                border: Border.all(color: Colors.grey, width: 1), borderRadius: BorderRadius.all(Radius.circular(8))),
             child: FormBuilderTextField(
               attribute: attribute,
               validators: validators,
@@ -300,8 +290,7 @@ class _HomeScreenState extends State<ConfirmSubscription> {
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.only(left: 10),
             decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey, width: 1),
-                borderRadius: BorderRadius.all(Radius.circular(8))),
+                border: Border.all(color: Colors.grey, width: 1), borderRadius: BorderRadius.all(Radius.circular(8))),
             child: FormBuilderDropdown<String>(
               attribute: attribute,
               validators: validators,
@@ -351,20 +340,12 @@ class _HomeScreenState extends State<ConfirmSubscription> {
     request.preferred_delivery_time = prefferedTime.toString();
 
     CommonUtils.fullScreenProgress(context);
-    NetworkUtil()
-        .post(
-            url: ApiConfig.userCheckStockAvailable,
-            token: token,
-            body: jsonEncode(request))
-        .then((res) {
+    NetworkUtil().post(url: ApiConfig.userCheckStockAvailable, token: token, body: jsonEncode(request)).then((res) {
       CommonUtils.dismissProgressDialog(context);
       CheckOutResponse response = CheckOutResponse.fromJson(res);
 
       if (response.status == 200) {
-        CommonUtils.showToast(
-            msg: "Confirmed Subscription",
-            bgColor: Colors.black,
-            textColor: Colors.white);
+        CommonUtils.showToast(msg: "Confirmed Subscription", bgColor: Colors.black, textColor: Colors.white);
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -375,16 +356,12 @@ class _HomeScreenState extends State<ConfirmSubscription> {
         );
       } else {
         CommonUtils.showToast(
-            msg: "We are fully booked. Kindly choose another date.",
-            bgColor: Colors.black,
-            textColor: Colors.white);
+            msg: "We are fully booked. Kindly choose another date.", bgColor: Colors.black, textColor: Colors.white);
       }
     }).catchError((error) {
       CommonUtils.dismissProgressDialog(context);
       CommonUtils.showToast(
-          msg: "Something went wrong , Please try again",
-          bgColor: Colors.red,
-          textColor: Colors.white);
+          msg: "Something went wrong , Please try again", bgColor: Colors.red, textColor: Colors.white);
     });
   }
 

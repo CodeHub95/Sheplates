@@ -170,7 +170,9 @@ class _CartScreenState extends State<CartScreen> {
                       ),
                       color: Colors.white,
                       child: Text("Back to plans", style: TextStyle(color: Colors.redAccent)),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                     ),
                   ),
                 ],

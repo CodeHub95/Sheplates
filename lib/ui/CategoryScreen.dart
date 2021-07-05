@@ -60,10 +60,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ChooseCategoryMessage(),
-                    SizedBox(height: MediaQuery.of(context).size.width * .5),
-                    BuildButton(category1: category1),
+                    SizedBox(height: MediaQuery.of(context).size.width * .3),
+                    BuildButton(categoryName: category1),
                     SizedBox(height: MediaQuery.of(context).size.width * .1),
-                    BuildButton(category1: category2),
+                    BuildButton(categoryName: category2),
+                    SizedBox(height: MediaQuery.of(context).size.width * .4),
                   ],
                 ),
               ),
@@ -75,26 +76,39 @@ class _CategoryScreenState extends State<CategoryScreen> {
 class BuildButton extends StatelessWidget {
   const BuildButton({
     Key key,
-    @required this.category1,
+    @required this.categoryName,
   }) : super(key: key);
 
-  final String category1;
+  final String categoryName;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width * .66,
       child: RaisedButton(
+        shape: RoundedRectangleBorder(
+          // side: BorderSide(color: Colors.red, width: 1),
+          borderRadius: BorderRadius.circular(7),
+        ),
         elevation: 10,
         color: AppColor.themeButtonColor,
         textColor: Colors.white,
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 15),
-          child: Text(category1, style: TextStyle(fontSize: 19, fontWeight: FontWeight.w700)),
+          padding: EdgeInsets.symmetric(vertical: 10),
+          child: Text(
+            categoryName,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 25,
+              fontWeight: FontWeight.normal,
+              fontFamily: 'CallingHeart',
+            ),
+          ),
         ),
         onPressed: () {
           categoryCode = 1;
-          Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreenWithTabs()));
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => HomeScreenWithTabs(categoryName: categoryName)));
         },
       ),
     );
@@ -111,7 +125,12 @@ class ChooseCategoryMessage extends StatelessWidget {
         Expanded(child: Container(color: Colors.grey, height: .5)),
         Text(
           " Choose a category ",
-          style: TextStyle(fontSize: 19, color: Colors.grey, fontWeight: FontWeight.w700, letterSpacing: 2),
+          style: TextStyle(
+            fontSize: 17,
+            color: Colors.grey,
+            fontWeight: FontWeight.w700,
+            letterSpacing: 1,
+          ),
         ),
         Expanded(child: Container(color: Colors.grey, height: .5)),
         SizedBox(width: MediaQuery.of(context).size.width * .1),

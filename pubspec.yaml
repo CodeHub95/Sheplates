@@ -87,6 +87,9 @@ flutter:
           weight: 700
         - asset: fonts/Ubuntu-Regular.ttf
           weight: 800
+    - family: CallingHeart
+      fonts:
+        - asset: fonts/CallingHeart.ttf
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -108,10 +111,8 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
 
-  #    fonts:
-  #      - family: Ubuntu
-  #        fonts:
-  #          - asset: fonts/Ubuntu-Bold.ttf
+  
+    
   #            weight: 100
   #          - asset: fonts/Ubuntu-BoldItalic.ttf
   #            weight: 200

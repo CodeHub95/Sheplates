@@ -121,7 +121,7 @@ class _HomeScreenState extends State<VegitarianLunch> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  WeekSeparator(weekName: "Week 1"),
+                                  widget.rows.menu.monday2 != null ? WeekSeparator(weekName: "Week 1") : Container(),
                                   Day(dayName: "Monday:"),
                                   Meal(mealName: widget.rows.menu.monday),
                                   Day(dayName: "Tuesday:"),
@@ -211,7 +211,10 @@ class WeekTwoButton extends StatelessWidget {
           textColor: Colors.white,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [Text("Week 2 meals", style: TextStyle(fontSize: 15)), Icon(Icons.arrow_forward, size: 20)],
+            children: [
+              Text("Week 2 meals", style: TextStyle(fontSize: 15)),
+              Icon(Icons.arrow_forward, size: 20),
+            ],
           ),
           onPressed: () {
             Navigator.push(context, MaterialPageRoute(builder: (context) => WeekTwoScreen(snapshotData: widget)));

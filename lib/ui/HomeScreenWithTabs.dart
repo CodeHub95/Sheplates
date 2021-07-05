@@ -20,16 +20,22 @@ import 'package:flutter_sheplates/modals/response/loginresponse.dart';
 import 'package:flutter_sheplates/ui/DrawerScreen.dart';
 import 'package:flutter_sheplates/ui/EditProfile.dart';
 import 'package:flutter_sheplates/ui/Vegitarian_lunch.dart';
-
+import 'package:flutter_sheplates/modals/response/tabNamesFiltersResponse.dart';
 import 'package:flutter_sheplates/Utils/global.dart';
 
 class HomeScreenWithTabs extends StatefulWidget {
+  String categoryName;
+  HomeScreenWithTabs({this.categoryName});
   @override
-  _HomeScreenWithTabsState createState() => _HomeScreenWithTabsState();
+  _HomeScreenWithTabsState createState() => _HomeScreenWithTabsState(categoryName);
 }
 
 class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
+  String categoryName;
+  TabNamesFilters tabNamesFilters;
   bool suscriber = false;
+
+  _HomeScreenWithTabsState(this.categoryName);
 
   @override
   initState() {
@@ -38,6 +44,7 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
     if (mounted) {
       _appDownload();
     }
+    getTabs();
     getList();
   }
 
@@ -112,7 +119,6 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
 
     _streamController?.close();
@@ -120,30 +126,19 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return SafeArea(
       top: true,
       child: DefaultTabController(
+        // length: tabNamesFilters.data.mealCategory.rows.length,
         length: 5,
         child: Scaffold(
-          // floatingActionButton: FloatingActionButton(
-          //   child: Icon(Icons.home),
-          //   backgroundColor: Colors.redAccent,
-          // ),
-          // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
           drawer: CustomDrawer(),
           appBar: AppBar(
             backgroundColor: Colors.white,
-
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Icon(Icons.arrow_back, color: Colors.black),
-                Image.asset("assets/logo_home.png", fit: BoxFit.fill),
-                Icon(Icons.arrow_back, color: Colors.white),
-              ],
-            ),
+            centerTitle: true,
+            title: Image.asset("assets/logo_home.png", fit: BoxFit.fill),
             actions: [
+              // We don't need profile button here as it can be accessed from drawer.
               // IconButton(
               //   icon: Image.asset(
               //     "assets/profile.png",
@@ -218,19 +213,22 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox(width: MediaQuery.of(context).size.width * .1),
-                      Expanded(
+                      Flexible(
                         child: Container(
+                          width: 50,
                           color: Colors.grey,
                           height: .5,
                         ),
                       ),
                       Text(
-                        categoryCode == 1 ? (" Sheplates Special ") : (" Healthy "),
+                        // categoryCode == 1 ? (" Sheplates Special ") : (" Healthy "),
+                        "  $categoryName  ",
                         style:
                             TextStyle(fontSize: 19, color: Colors.grey, fontWeight: FontWeight.w700, letterSpacing: 2),
                       ),
-                      Expanded(
+                      Flexible(
                         child: Container(
+                          width: 50,
                           color: Colors.grey,
                           height: .5,
                         ),
@@ -239,22 +237,34 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
                     ],
                   ),
                   SizedBox(height: 20),
-                  TabBar(
-                    unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal),
-                    isScrollable: true,
-                    labelPadding: EdgeInsets.all(10),
-                    indicator: UnderlineTabIndicator(
-                      insets: EdgeInsets.all(6),
-                      borderSide: BorderSide(color: AppColor.themeButtonColor, width: 2),
-                    ),
-                    tabs: [
-                      buildTab("Breakfast"),
-                      buildTab("Lunch"),
-                      buildTab("Snacks"),
-                      buildTab("Dinner"),
-                      buildTab("All Day"),
-                    ],
-                  ),
+                  tabNamesFilters == null
+                      ? Column(
+                          children: [
+                            SizedBox(height: 40),
+                            LinearProgressIndicator(),
+                          ],
+                        )
+                      : TabBar(
+                          unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal),
+                          isScrollable: true,
+                          labelPadding: EdgeInsets.all(10),
+                          indicator: UnderlineTabIndicator(
+                            insets: EdgeInsets.all(6),
+                            borderSide: BorderSide(color: AppColor.themeButtonColor, width: 2),
+                          ),
+                          tabs: [
+                            buildTab(tabNamesFilters.data.mealCategory.rows[2].category),
+                            buildTab(tabNamesFilters.data.mealCategory.rows[3].category),
+                            buildTab(tabNamesFilters.data.mealCategory.rows[0].category),
+                            buildTab(tabNamesFilters.data.mealCategory.rows[1].category),
+
+                            // buildTab("Breakfast"),
+                            // buildTab("Lunch"),
+                            // buildTab("Snacks"),
+                            // buildTab("Dinner"),
+                            buildTab("All Day"),
+                          ],
+                        ),
                 ],
               ),
             ),
@@ -277,20 +287,6 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          Padding(
-            padding: EdgeInsets.only(top: 15),
-            child: RaisedButton(
-              shape: RoundedRectangleBorder(
-                side: BorderSide(color: Colors.red, width: 1),
-                borderRadius: BorderRadius.circular(5.0),
-              ),
-              color: Colors.red,
-              child: Text("Go Back To Categories", style: TextStyle(color: Colors.white)),
-              onPressed: () => {
-                Navigator.pop(context),
-              },
-            ),
-          ),
           StreamBuilder<List<Rows>>(
             stream: _streamController.stream,
             builder: (context, snapshot) {
@@ -314,10 +310,11 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
                           padding: EdgeInsets.only(left: 5, right: 5, top: 15),
                           child: Container(
                             decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.grey[300],
-                                ),
-                                borderRadius: BorderRadius.all(Radius.circular(5))),
+                              border: Border.all(
+                                color: Colors.grey[300],
+                              ),
+                              borderRadius: BorderRadius.all(Radius.circular(5)),
+                            ),
                             child: Column(
                               children: [
                                 Center(
@@ -326,7 +323,9 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
                                         border: Border.all(
                                           color: Colors.grey[300],
                                         ),
-                                        borderRadius: BorderRadius.all(Radius.circular(5))),
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(5),
+                                        )),
                                     height: 2,
                                     width: MediaQuery.of(context).size.width,
                                   ),
@@ -347,7 +346,7 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
                                             child: Container(
                                               width: 220,
                                               padding: EdgeInsets.all(2.0),
-                                              child: (Column(
+                                              child: Column(
                                                 mainAxisAlignment: MainAxisAlignment.start,
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
@@ -357,7 +356,7 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
                                                     // overflow: TextOverflow.ellipsis,
                                                   )
                                                 ],
-                                              )),
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -394,13 +393,9 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
                                         ),
                                       ],
                                     ),
-                                    Column(
-                                      children: [
-                                        Container(
-                                          child: Image.asset('${images[index]}'),
-                                        )
-                                      ],
-                                    )
+                                    Container(
+                                      child: Image.asset('${images[index]}'),
+                                    ),
                                   ],
                                 ),
                               ],
@@ -465,15 +460,13 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
                                             child: Text("Request Call Back", style: TextStyle(color: Colors.white)),
                                             onPressed: () => {
                                               if (suscriber == true)
-                                                {
-                                                  CommonUtils.showToast(
-                                                    msg: "You have already one subscription plan running!",
-                                                    bgColor: Colors.black,
-                                                    textColor: Colors.white,
-                                                  )
-                                                }
+                                                CommonUtils.showToast(
+                                                  msg: "You have already one subscription plan running!",
+                                                  bgColor: Colors.black,
+                                                  textColor: Colors.white,
+                                                )
                                               else
-                                                {_addRequest()}
+                                                _addRequest()
                                             },
                                           ),
                                         ),
@@ -520,13 +513,27 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
                 );
               }
             },
-          )
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 15),
+            child: RaisedButton(
+              shape: RoundedRectangleBorder(
+                side: BorderSide(color: Colors.red, width: 1),
+                borderRadius: BorderRadius.circular(5.0),
+              ),
+              color: Colors.white,
+              child: Text("Go Back To Categories", style: TextStyle(color: Colors.redAccent)),
+              onPressed: () => Navigator.pop(context),
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Text buildTab(String tabTitle) => Text(tabTitle, style: TextStyle(fontSize: 17, color: Colors.black));
+  Text buildTab(String tabTitle) {
+    return Text(tabTitle, style: TextStyle(fontSize: 17, color: Colors.black));
+  }
 
   getList() async {
     String token = await SharedPrefHelper().getWithDefault("token", "");
@@ -544,6 +551,14 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
         Navigator.pushNamedAndRemoveUntil(context, Routes.deliveryStaticScreen, (route) => false);
       }
     }
+  }
+
+  getTabs() async {
+    String token = await SharedPrefHelper().getWithDefault("token", "");
+    var res = await NetworkUtil().get("user/meal-category", token: token);
+    tabNamesFilters = TabNamesFilters.fromJson(res);
+    setState(() {});
+    if (tabNamesFilters.status == 200) {}
   }
 
   Future<void> _addRequest() async {

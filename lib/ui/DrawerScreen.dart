@@ -21,7 +21,7 @@ import 'package:flutter_sheplates/ui/DeliveryAddress.dart';
 import 'package:flutter_sheplates/ui/EditProfile.dart';
 import 'package:flutter_sheplates/ui/FaqScreen.dart';
 import 'package:flutter_sheplates/ui/Feedback.dart';
-import 'package:flutter_sheplates/ui/HomeScreen.dart';
+import 'package:flutter_sheplates/ui/HomeScreenWithTabs.dart';
 import 'package:flutter_sheplates/ui/LoginRegisterScreen.dart';
 import 'package:flutter_sheplates/ui/Menu.dart';
 import 'package:flutter_sheplates/ui/MySubscription.dart';
@@ -99,7 +99,7 @@ class _CommonDrawerState extends State<CustomDrawer> {
                   color: Colors.grey[600],
                 )),
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreenWithTabs()));
             },
           ),
           Divider(),

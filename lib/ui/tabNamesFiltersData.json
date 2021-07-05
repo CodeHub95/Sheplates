@@ -1,0 +1,65 @@
+{
+    "status": 200,
+    "message": "",
+    "data": {
+        "mealCategory": {
+            "count": 6,
+            "rows": [
+                {
+                    "id": 3,
+                    "category": "Snacks",
+                    "cut_of_time": "17:00",
+                    "createdAt": "2020-10-27 12:36:51",
+                    "updatedAt": "2021-06-28 16:24:41",
+                    "category_time_slots": [
+                        {
+                            "time_slot": "16:00-17:00"
+                        }
+                    ]
+                },
+                {
+                    "id": 5,
+                    "category": "Dinner",
+                    "cut_of_time": "21:00",
+                    "createdAt": "2020-10-27 12:38:45",
+                    "updatedAt": "2021-06-28 16:23:59",
+                    "category_time_slots": [
+                        {
+                            "time_slot": "20:00-21:00"
+                        },
+                        {
+                            "time_slot": "19:00-20:00"
+                        }
+                    ]
+                },
+                {
+                    "id": 14,
+                    "category": "Breakfast",
+                    "cut_of_time": "21:00",
+                    "createdAt": "2021-06-28 16:23:19",
+                    "updatedAt": "2021-06-28 16:23:19",
+                    "category_time_slots": [
+                        {
+                            "time_slot": "08:00-09:00"
+                        },
+                        {
+                            "time_slot": "07:00-08:00"
+                        }
+                    ]
+                },
+                {
+                    "id": 15,
+                    "category": "Lunch",
+                    "cut_of_time": "14:00",
+                    "createdAt": "2021-07-05 13:35:56",
+                    "updatedAt": "2021-07-05 13:35:56",
+                    "category_time_slots": [
+                        {
+                            "time_slot": "13:00-14:00"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

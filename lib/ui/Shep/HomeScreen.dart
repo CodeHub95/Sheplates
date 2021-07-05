@@ -88,8 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         // null
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => EditProfileScreen()),
+                          MaterialPageRoute(builder: (context) => EditProfileScreen()),
                         )
                       }),
             ],
@@ -132,15 +131,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                 itemCount: snapshot.data.length,
                                 itemBuilder: (BuildContext context, int index) {
                                   return Padding(
-                                    padding: EdgeInsets.only(
-                                        left: 5, right: 5, top: 15),
+                                    padding: EdgeInsets.only(left: 5, right: 5, top: 15),
                                     child: Container(
                                         decoration: BoxDecoration(
                                             border: Border.all(
                                               color: Colors.grey[300],
                                             ),
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(5))),
+                                            borderRadius: BorderRadius.all(Radius.circular(5))),
                                         child: Column(
                                           children: [
                                             Center(
@@ -149,97 +146,60 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     border: Border.all(
                                                       color: Colors.grey[300],
                                                     ),
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(
-                                                                5))),
+                                                    borderRadius: BorderRadius.all(Radius.circular(5))),
                                                 height: 2,
-                                                width: MediaQuery.of(context)
-                                                    .size
-                                                    .width,
+                                                width: MediaQuery.of(context).size.width,
                                               ),
                                             ),
                                             Row(
                                               // textDirection: TextDirection.rtl,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
                                                 Column(
                                                   // textDirection: TextDirection.rtl,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  mainAxisAlignment: MainAxisAlignment.start,
                                                   children: [
                                                     Padding(
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                                left: 10,
-                                                                top: 10),
+                                                        padding: EdgeInsets.only(left: 10, top: 10),
                                                         child: Align(
-                                                          alignment: Alignment
-                                                              .centerLeft,
-
-                                                              child: Container(
-                                                                  width: 220,
-
-                                                                  padding: EdgeInsets.all(2.0),
-                                                                  child: (Column(
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .start,
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .start,
-                                                                      children: [
-                                                                        Text(
-                                                                          snapshot
-                                                                              .data[index]
-                                                                              .mealName,
-                                                                          style: TextStyle(
-                                                                              color: Colors.black,
-                                                                              fontSize: 20),
-                                                                          // overflow: TextOverflow.ellipsis,
-                                                                        )
-                                                                      ]))),
+                                                          alignment: Alignment.centerLeft,
+                                                          child: Container(
+                                                              width: 220,
+                                                              padding: EdgeInsets.all(2.0),
+                                                              child: (Column(
+                                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                                  children: [
+                                                                    Text(
+                                                                      snapshot.data[index].mealName,
+                                                                      style:
+                                                                          TextStyle(color: Colors.black, fontSize: 20),
+                                                                      // overflow: TextOverflow.ellipsis,
+                                                                    )
+                                                                  ]))),
                                                         )),
                                                     Padding(
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                                left: 20,
-                                                                top: 10,
-                                                                bottom: 10),
+                                                        padding: EdgeInsets.only(left: 20, top: 10, bottom: 10),
                                                         child: new SizedBox(
                                                             height: 20,
                                                             width: 90,
                                                             child: RaisedButton(
-                                                              shape:
-                                                                  RoundedRectangleBorder(
-                                                                side: BorderSide(
-                                                                    color: Colors
-                                                                        .red,
-                                                                    width: 1),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            5.0),
+                                                              shape: RoundedRectangleBorder(
+                                                                side: BorderSide(color: Colors.red, width: 1),
+                                                                borderRadius: BorderRadius.circular(5.0),
                                                               ),
-                                                              color:
-                                                                  Colors.white,
+                                                              color: Colors.white,
                                                               child: Text(
                                                                 "Explore",
-                                                                style: TextStyle(
-                                                                    color: Colors
-                                                                        .red),
+                                                                style: TextStyle(color: Colors.red),
                                                               ),
                                                               onPressed: () => {
                                                                 // null
                                                                 Navigator.push(
                                                                     context,
                                                                     MaterialPageRoute(
-                                                                        builder: (context) =>
-                                                                            VegitarianLunch(
+                                                                        builder: (context) => VegitarianLunch(
                                                                               rows: snapshot.data[index],
                                                                               suscriber: suscriber,
                                                                             )))
@@ -250,8 +210,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 Column(
                                                   children: [
                                                     Container(
-                                                      child: Image.asset(
-                                                          '${images[index]}'),
+                                                      child: Image.asset('${images[index]}'),
                                                     )
                                                   ],
                                                 )
@@ -262,15 +221,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                   );
                                 }),
                             Padding(
-                                padding: EdgeInsets.only(
-                                    left: 10, right: 10, top: 15, bottom: 10),
+                                padding: EdgeInsets.only(left: 10, right: 10, top: 15, bottom: 10),
                                 child: Container(
                                     decoration: BoxDecoration(
                                         border: Border.all(
                                           color: Colors.grey[300],
                                         ),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(5))),
+                                        borderRadius: BorderRadius.all(Radius.circular(5))),
                                     child: Column(
                                       children: [
                                         Center(
@@ -279,19 +236,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 border: Border.all(
                                                   color: Colors.grey[300],
                                                 ),
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(5))),
+                                                borderRadius: BorderRadius.all(Radius.circular(5))),
                                             height: 2,
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
+                                            width: MediaQuery.of(context).size.width,
                                           ),
                                         ),
                                         Container(
                                           height: 90,
                                           child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
                                               Column(
                                                 children: [
@@ -302,14 +255,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           right: 30,
                                                           bottom: 10),
                                                       child: Align(
-                                                          alignment: Alignment
-                                                              .centerLeft,
+                                                          alignment: Alignment.centerLeft,
                                                           child: Text(
                                                             "Customisation",
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .black,
-                                                                fontSize: 20),
+                                                            style: TextStyle(color: Colors.black, fontSize: 20),
                                                           ))),
                                                   Padding(
                                                       padding: EdgeInsets.only(
@@ -321,37 +270,23 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           height: 30,
                                                           width: 160,
                                                           child: RaisedButton(
-                                                            shape:
-                                                                RoundedRectangleBorder(
-                                                              side: BorderSide(
-                                                                  color: Colors
-                                                                      .red,
-                                                                  width: 1),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          5.0),
+                                                            shape: RoundedRectangleBorder(
+                                                              side: BorderSide(color: Colors.red, width: 1),
+                                                              borderRadius: BorderRadius.circular(5.0),
                                                             ),
                                                             color: Colors.red,
                                                             child: Text(
                                                               "Request Call Back",
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .white),
+                                                              style: TextStyle(color: Colors.white),
                                                             ),
                                                             onPressed: () => {
-                                                              if (suscriber !=
-                                                                  null)
+                                                              if (suscriber != null)
                                                                 {
                                                                   CommonUtils.showToast(
                                                                       msg:
                                                                           "You have already one subscription plan running!",
-                                                                      bgColor:
-                                                                          Colors
-                                                                              .black,
-                                                                      textColor:
-                                                                          Colors
-                                                                              .white)
+                                                                      bgColor: Colors.black,
+                                                                      textColor: Colors.white)
                                                                 }
                                                               else
                                                                 {_addRequest()}
@@ -360,14 +295,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 ],
                                               ),
                                               Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                crossAxisAlignment: CrossAxisAlignment.center,
                                                 children: [
                                                   Container(
-                                                    child: Image.asset(
-                                                        '${images[7]}'),
+                                                    child: Image.asset('${images[7]}'),
                                                   )
                                                 ],
                                               )
@@ -412,17 +344,13 @@ class _HomeScreenState extends State<HomeScreen> {
     var res = await NetworkUtil().get("user/subscription-plans", token: token);
     HomeListResponse homeListResponse = HomeListResponse.fromJson(res);
     if (homeListResponse.status == 200) {
-      _streamController.sink
-          .add(homeListResponse.data.subscriptionPlanData.rows);
+      _streamController.sink.add(homeListResponse.data.subscriptionPlanData.rows);
       suscriber = homeListResponse.data.suscriber;
 
       if (homeListResponse.data.deliveryAddressExist == 0) {
         CommonUtils.showToast(
-            msg: "You have't added your delivery Location Please add",
-            bgColor: Colors.black,
-            textColor: Colors.white);
-        Navigator.pushNamedAndRemoveUntil(
-            context, Routes.deliveryStaticScreen, (route) => false);
+            msg: "You have't added your delivery Location Please add", bgColor: Colors.black, textColor: Colors.white);
+        Navigator.pushNamedAndRemoveUntil(context, Routes.deliveryStaticScreen, (route) => false);
       }
     }
   }
@@ -431,24 +359,17 @@ class _HomeScreenState extends State<HomeScreen> {
     CommonUtils.fullScreenProgress(context);
     String url = "user/add-user-request";
     String token = await SharedPrefHelper().getWithDefault("token", "");
-    String userData = await SharedPrefHelper()
-        .getWithDefault(SharedPrefConstants.userData, jsonEncode({}));
+    String userData = await SharedPrefHelper().getWithDefault(SharedPrefConstants.userData, jsonEncode({}));
     Profile profile = Profile.fromJson(jsonDecode(userData));
     String location = profile.userAddresses[0].fullAddress;
 
-    AddUserRequest request = AddUserRequest(
-        type: "Meal plan customization",
-        address: location.toString(),
-        category: "Meal");
-    var res = await NetworkUtil()
-        .post(url: url, body: jsonEncode(request), token: token);
+    AddUserRequest request =
+        AddUserRequest(type: "Meal plan customization", address: location.toString(), category: "Meal");
+    var res = await NetworkUtil().post(url: url, body: jsonEncode(request), token: token);
     BaseResponse response = BaseResponse.fromJson(res);
     if (response.status == 200) {
       CommonUtils.dismissProgressDialog(context);
-      CommonUtils.showToast(
-          msg: response.message,
-          bgColor: AppColor.darkThemeBlueColor,
-          textColor: Colors.white);
+      CommonUtils.showToast(msg: response.message, bgColor: AppColor.darkThemeBlueColor, textColor: Colors.white);
     } else {
       CommonUtils.errorMessage(msg: response.message);
       CommonUtils.dismissProgressDialog(context);
@@ -460,8 +381,7 @@ class _HomeScreenState extends State<HomeScreen> {
     String deviceId = await CommonUtils.getDeviceId();
     String token = await SharedPrefHelper().getWithDefault("token", "");
     AppDownloadRequest request = AppDownloadRequest(deviceId: deviceId);
-    var res = await NetworkUtil()
-        .post(url: url, body: jsonEncode(request), token: token);
+    var res = await NetworkUtil().post(url: url, body: jsonEncode(request), token: token);
     BaseResponse response = BaseResponse.fromJson(res);
   }
 }
