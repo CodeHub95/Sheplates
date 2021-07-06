@@ -12,19 +12,22 @@ class CategoryScreen extends StatefulWidget {
   _CategoryScreenState createState() => _CategoryScreenState();
 }
 
+var mainCategoryData;
+
 class _CategoryScreenState extends State<CategoryScreen> {
-  var categoryData;
   String category1, category2;
+  int categoryOneID, categoryTwoID;
   getCategoryData() async {
     String url = "user/mainCategories";
-
     var deviceToken = await SharedPrefHelper().get("token");
     var res = await NetworkUtil().get(url, token: deviceToken, context: context);
     MainCategoryResponse response = MainCategoryResponse.fromJson(res);
     if (response.status == 200) {
       category1 = response.data[0].type;
       category2 = response.data[1].type;
-      categoryData = res;
+      categoryOneID = response.data[0].id;
+      categoryTwoID = response.data[1].id;
+      mainCategoryData = res;
       setState(() {});
     } else {
       CommonUtils.errorMessage(msg: res.message);
@@ -53,7 +56,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
             ),
           ),
         ),
-        body: categoryData == null
+        body: mainCategoryData == null
             ? Center(child: CircularProgressIndicator())
             : Center(
                 child: Column(
@@ -61,9 +64,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   children: [
                     ChooseCategoryMessage(),
                     SizedBox(height: MediaQuery.of(context).size.width * .3),
-                    BuildButton(categoryName: category1),
+                    BuildButton(categoryName: category1, categoryID: categoryOneID),
                     SizedBox(height: MediaQuery.of(context).size.width * .1),
-                    BuildButton(categoryName: category2),
+                    BuildButton(categoryName: category2, categoryID: categoryTwoID),
                     SizedBox(height: MediaQuery.of(context).size.width * .4),
                   ],
                 ),
@@ -74,12 +77,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
 }
 
 class BuildButton extends StatelessWidget {
-  const BuildButton({
-    Key key,
-    @required this.categoryName,
-  }) : super(key: key);
+  const BuildButton({Key key, @required this.categoryName, this.categoryID}) : super(key: key);
 
   final String categoryName;
+  final int categoryID;
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +88,6 @@ class BuildButton extends StatelessWidget {
       width: MediaQuery.of(context).size.width * .66,
       child: RaisedButton(
         shape: RoundedRectangleBorder(
-          // side: BorderSide(color: Colors.red, width: 1),
           borderRadius: BorderRadius.circular(7),
         ),
         elevation: 10,
@@ -108,7 +108,9 @@ class BuildButton extends StatelessWidget {
         onPressed: () {
           categoryCode = 1;
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => HomeScreenWithTabs(categoryName: categoryName)));
+              context,
+              MaterialPageRoute(
+                  builder: (context) => HomeScreenWithTabs(categoryName: categoryName, categoryID: categoryID)));
         },
       ),
     );

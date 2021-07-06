@@ -25,21 +25,22 @@ import 'package:flutter_sheplates/Utils/global.dart';
 
 class HomeScreenWithTabs extends StatefulWidget {
   String categoryName;
-  HomeScreenWithTabs({this.categoryName});
+  int categoryID;
+  HomeScreenWithTabs({this.categoryName, this.categoryID});
   @override
-  _HomeScreenWithTabsState createState() => _HomeScreenWithTabsState(categoryName);
+  _HomeScreenWithTabsState createState() => _HomeScreenWithTabsState(categoryName, categoryID);
 }
 
 class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
   String categoryName;
+  int categoryID;
   TabNamesFilters tabNamesFilters;
   bool suscriber = false;
 
-  _HomeScreenWithTabsState(this.categoryName);
+  _HomeScreenWithTabsState(this.categoryName, this.categoryID);
 
   @override
   initState() {
-    // TODO: implement initState
     super.initState();
     if (mounted) {
       _appDownload();
@@ -120,7 +121,6 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
   @override
   void dispose() {
     super.dispose();
-
     _streamController?.close();
   }
 
@@ -253,15 +253,10 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
                             borderSide: BorderSide(color: AppColor.themeButtonColor, width: 2),
                           ),
                           tabs: [
-                            buildTab(tabNamesFilters.data.mealCategory.rows[2].category),
-                            buildTab(tabNamesFilters.data.mealCategory.rows[3].category),
                             buildTab(tabNamesFilters.data.mealCategory.rows[0].category),
                             buildTab(tabNamesFilters.data.mealCategory.rows[1].category),
-
-                            // buildTab("Breakfast"),
-                            // buildTab("Lunch"),
-                            // buildTab("Snacks"),
-                            // buildTab("Dinner"),
+                            buildTab(tabNamesFilters.data.mealCategory.rows[2].category),
+                            buildTab(tabNamesFilters.data.mealCategory.rows[3].category),
                             buildTab("All Day"),
                           ],
                         ),
@@ -531,13 +526,12 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
     );
   }
 
-  Text buildTab(String tabTitle) {
-    return Text(tabTitle, style: TextStyle(fontSize: 17, color: Colors.black));
-  }
+  Text buildTab(String tabTitle) => Text(tabTitle, style: TextStyle(fontSize: 17, color: Colors.black));
 
   getList() async {
     String token = await SharedPrefHelper().getWithDefault("token", "");
-    var res = await NetworkUtil().get("user/subscription-plans?cuisine_id=1", token: token);
+    var res = await NetworkUtil().get("user/subscription-plans?cuisine_id=$categoryID", token: token);
+
     HomeListResponse homeListResponse = HomeListResponse.fromJson(res);
     if (homeListResponse.status == 200) {
       if (homeListResponse.data.subscriptionPlanData != null) {
