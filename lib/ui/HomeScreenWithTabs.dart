@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter_sheplates/ui/TabData.dart';
 import 'dart:convert';
 import 'CartScreen.dart';
 import 'CategoryScreen.dart';
@@ -35,7 +36,7 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
   String categoryName;
   int categoryID;
   TabNamesFilters tabNamesFilters;
-  bool suscriber = false;
+  bool subscriber = false;
 
   _HomeScreenWithTabsState(this.categoryName, this.categoryID);
 
@@ -264,15 +265,22 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
               ),
             ),
           ),
-          body: TabBarView(
-            children: [
-              buildTabData(),
-              buildTabData(),
-              buildTabData(),
-              buildTabData(),
-              buildTabData(),
-            ],
-          ),
+          body: tabNamesFilters == null
+              ? Center(child: CircularProgressIndicator())
+              : TabBarView(
+                  physics: NeverScrollableScrollPhysics(), //stops data reloading
+                  children: [
+                    TabData(_streamController, subscriber, images, categoryID,
+                        tabNamesFilters.data.mealCategory.rows[0].id),
+                    TabData(_streamController, subscriber, images, categoryID,
+                        tabNamesFilters.data.mealCategory.rows[1].id),
+                    TabData(_streamController, subscriber, images, categoryID,
+                        tabNamesFilters.data.mealCategory.rows[2].id),
+                    TabData(_streamController, subscriber, images, categoryID,
+                        tabNamesFilters.data.mealCategory.rows[3].id),
+                    TabData(_streamController, subscriber, images, categoryID, 58765),
+                  ],
+                ),
         ),
       ),
     );
@@ -378,7 +386,7 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
                                                     // builder: (context) => VegitarianLunchCopy(
                                                     builder: (context) => VegitarianLunch(
                                                       rows: snapshot.data[index],
-                                                      suscriber: suscriber,
+                                                      suscriber: subscriber,
                                                     ),
                                                   ),
                                                 ),
@@ -454,7 +462,7 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
                                             color: Colors.red,
                                             child: Text("Request Call Back", style: TextStyle(color: Colors.white)),
                                             onPressed: () => {
-                                              if (suscriber == true)
+                                              if (subscriber == true)
                                                 CommonUtils.showToast(
                                                   msg: "You have already one subscription plan running!",
                                                   bgColor: Colors.black,
@@ -537,7 +545,7 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
       if (homeListResponse.data.subscriptionPlanData != null) {
         _streamController.sink.add(homeListResponse.data.subscriptionPlanData.rows);
       }
-      suscriber = homeListResponse.data.suscriber;
+      subscriber = homeListResponse.data.suscriber;
 
       if (homeListResponse.data.deliveryAddressExist == 0) {
         CommonUtils.showToast(
