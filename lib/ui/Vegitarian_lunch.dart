@@ -168,9 +168,10 @@ class _HomeScreenState extends State<VegitarianLunch> {
                 onCLick: () {
                   if (widget.suscriber) {
                     CommonUtils.showToast(
-                        msg: "You have already one subscription plan running!",
-                        bgColor: Colors.black,
-                        textColor: Colors.white);
+                      msg: "You have already one subscription plan running!",
+                      bgColor: Colors.black,
+                      textColor: Colors.white,
+                    );
                   } else {
                     mealName = widget.rows.mealName;
                     Navigator.push(

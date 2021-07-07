@@ -66,15 +66,16 @@ class _HomeScreenState extends State<ConfirmSubscription> {
 
   @override
   initState() {
-    // TODO: implement initState
     super.initState();
 
-    if (widget.rows.mealCategory.category == "Breakfast") {
-      time = ['7:30-8:30', '8:30-9:30'];
+    if (widget.rows.mealCategory.category == "BreakFast") {
+      time = ['7:00-7:30', '7:30-8:00', '8:00-8:30', '8:30-9:00', '9:00-9:30', '9:30-10:00'];
     } else if (widget.rows.mealCategory.category == "Lunch") {
-      time = ['12:30-13:30', "13:30-14:30"];
-    } else {
-      time = ["19:00-20:00", "20:00-21:00"];
+      time = ['11:30-12:00', '12:00-12:30', '12:30-13:00', '13:00-13:30', '13:30-14:00', '14:30-15:00'];
+    } else if (widget.rows.mealCategory.category == "Dinner") {
+      time = ['18:00-18:30', ' 18:30-19:00', '19:00-19:30', '19:30-20:00', '20:00-20:30', '20:30-21:00'];
+    } else if (widget.rows.mealCategory.category == "Snacks") {
+      time = ['15:00-15:30', '15:30-16:00', '16:00-16:30', '16:30-17:00', '17:00-17:30'];
     }
 
     getMealName();
@@ -82,7 +83,6 @@ class _HomeScreenState extends State<ConfirmSubscription> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     final color = Theme.of(context).accentColor;
     return Scaffold(
         appBar: AppBar(
@@ -124,21 +124,23 @@ class _HomeScreenState extends State<ConfirmSubscription> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   inputWidget(
-                      attribute: "meal_plan",
-                      validators: [FormBuilderValidators.required()],
-                      textEditingController: mealPlanController,
-                      textInputType: TextInputType.text,
-                      readOnly: true,
-                      isDisbaled: true,
-                      hint: "Meal Plan"),
+                    attribute: "meal_plan",
+                    validators: [FormBuilderValidators.required()],
+                    textEditingController: mealPlanController,
+                    textInputType: TextInputType.text,
+                    readOnly: true,
+                    isDisbaled: true,
+                    hint: "Meal Plan",
+                  ),
                   inputWidgetDropDown(
-                      attribute: "delivery_time",
-                      validators: [FormBuilderValidators.required()],
-                      hint: "Preferred Delivery Time",
-                      onChanged: (String value) {
-                        prefferedTime = value;
-                      },
-                      items: time),
+                    attribute: "delivery_time",
+                    validators: [FormBuilderValidators.required()],
+                    hint: "Preferred Delivery Time",
+                    onChanged: (String value) {
+                      prefferedTime = value;
+                    },
+                    items: time,
+                  ),
                   inputWidgetDropDown(
                       attribute: "qua",
                       validators: [FormBuilderValidators.required()],

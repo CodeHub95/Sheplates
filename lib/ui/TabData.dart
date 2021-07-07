@@ -38,7 +38,7 @@ class _TabDataState extends State<TabData> {
 
   @override
   void initState() {
-    getList();
+    getList(tabID);
     super.initState();
   }
 
@@ -312,12 +312,18 @@ class _TabDataState extends State<TabData> {
     }
   }
 
-  getList() async {
+  getList(int id) async {
     String token = await SharedPrefHelper().getWithDefault("token", "");
-    String apiURL = "user/subscription-plans?cuisine_id=$categoryID";
-    if (tabID != 58765) {
-      apiURL = "user/subscription-plans?category_id=$tabID&cuisine_id=$categoryID";
-    }
+
+    String apiURL = id == 58765
+        ? "user/subscription-plans?cuisine_id=$categoryID"
+        : "user/subscription-plans?category_id=$id&cuisine_id=$categoryID";
+
+    // String apiURL = "user/subscription-plans?cuisine_id=$categoryID";
+    // if (tabID != 58765) {
+    //   apiURL = "user/subscription-plans?category_id=$tabID&cuisine_id=$categoryID";
+    // }
+
     var res = await NetworkUtil().get(apiURL, token: token);
 
     HomeListResponse homeListResponse = HomeListResponse.fromJson(res);
