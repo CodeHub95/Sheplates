@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
-
+import 'package:flutter_sheplates/ui/CategoryScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sheplates/Utils/NetworkUtils.dart';
 import 'package:flutter_sheplates/Utils/app_constants.dart';
@@ -99,7 +99,8 @@ class _CommonDrawerState extends State<CustomDrawer> {
                   color: Colors.grey[600],
                 )),
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreenWithTabs()));
+              Navigator.pop(context);
+              Navigator.push(context, MaterialPageRoute(builder: (context) => CategoryScreen()));
             },
           ),
           Divider(),

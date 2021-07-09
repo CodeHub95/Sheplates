@@ -8,16 +8,16 @@ import 'package:flutter_sheplates/ui/DrawerScreen.dart';
 import 'package:flutter_sheplates/Utils/hexColor.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-class WeekTwoScreen extends StatefulWidget {
+class NextWeekScreen extends StatefulWidget {
   var snapshotData;
 
-  WeekTwoScreen({this.snapshotData});
+  NextWeekScreen({this.snapshotData});
 
   @override
   _HomeScreenState createState() => _HomeScreenState(snapshotData);
 }
 
-class _HomeScreenState extends State<WeekTwoScreen> {
+class _HomeScreenState extends State<NextWeekScreen> {
   var snapshotData;
   _HomeScreenState(this.snapshotData);
 
@@ -158,7 +158,7 @@ class _HomeScreenState extends State<WeekTwoScreen> {
                                             margin: EdgeInsets.symmetric(
                                                 vertical: MediaQuery.of(context).size.height * .14),
                                             height: 35,
-                                            width: MediaQuery.of(context).size.width / 3.5,
+                                            width: MediaQuery.of(context).size.width / 3.2,
                                             child: RaisedButton(
                                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
                                               color: AppColor.themeButtonColor,

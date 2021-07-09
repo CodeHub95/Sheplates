@@ -96,7 +96,7 @@ class BuildButton extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 10),
           child: Text(
-            categoryName,
+            categoryName == null ? "" : categoryName,
             style: TextStyle(
               color: Colors.white,
               fontSize: 25,

@@ -6,7 +6,7 @@ import 'package:flutter_sheplates/modals/response/HomeListResponse.dart';
 import 'package:flutter_sheplates/ui/ConfirmSubscription.dart';
 import 'package:flutter_sheplates/ui/DrawerScreen.dart';
 import 'package:flutter_sheplates/Utils/hexColor.dart';
-import 'package:flutter_sheplates/ui/weekTwoScreen.dart';
+import 'package:flutter_sheplates/ui/NextWeekScreen.dart';
 
 class VegitarianLunch extends StatefulWidget {
   final Rows rows;
@@ -121,7 +121,9 @@ class _HomeScreenState extends State<VegitarianLunch> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  widget.rows.menu.monday2 != null ? WeekSeparator(weekName: "Week 1") : Container(),
+                                  widget.rows.menu.monday2 != null
+                                      ? WeekSeparator(weekName: "Current Week")
+                                      : Container(),
                                   Day(dayName: "Monday:"),
                                   Meal(mealName: widget.rows.menu.monday),
                                   Day(dayName: "Tuesday:"),
@@ -202,25 +204,28 @@ class WeekTwoButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Container(
-        margin: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * .14),
-        height: 35,
-        width: MediaQuery.of(context).size.width / 2.45,
-        child: RaisedButton(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-          color: AppColor.themeButtonColor,
-          textColor: Colors.white,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text("Week 2 meals", style: TextStyle(fontSize: 15)),
-              Icon(Icons.arrow_forward, size: 20),
-            ],
+      child: Column(
+        children: [
+          SizedBox(height: MediaQuery.of(context).size.height * .15),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * .44,
+            child: RaisedButton(
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+              color: AppColor.themeButtonColor,
+              textColor: Colors.white,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Week 2 meals", style: TextStyle(fontSize: 15)),
+                  Icon(Icons.arrow_forward, size: 20),
+                ],
+              ),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => NextWeekScreen(snapshotData: widget)));
+              },
+            ),
           ),
-          onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => WeekTwoScreen(snapshotData: widget)));
-          },
-        ),
+        ],
       ),
     );
   }
@@ -238,9 +243,9 @@ class WeekSeparator extends StatelessWidget {
           child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(height: 1, width: MediaQuery.of(context).size.width * .15, color: Colors.grey),
+          Container(height: 1, width: MediaQuery.of(context).size.width * .10, color: Colors.grey),
           Text("  $weekName  ", style: TextStyle(fontSize: 20, color: Colors.grey)),
-          Container(height: 1, width: MediaQuery.of(context).size.width * .15, color: Colors.grey),
+          Container(height: 1, width: MediaQuery.of(context).size.width * .10, color: Colors.grey),
         ],
       )),
     );
