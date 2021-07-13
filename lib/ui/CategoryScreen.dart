@@ -15,8 +15,8 @@ class CategoryScreen extends StatefulWidget {
 var mainCategoryData;
 
 class _CategoryScreenState extends State<CategoryScreen> {
-  String category1, category2;
-  int categoryOneID, categoryTwoID;
+  String category1, category2, category3;
+  int categoryOneID, categoryTwoID, categoryThreeID;
   getCategoryData() async {
     String url = "user/mainCategories";
     var deviceToken = await SharedPrefHelper().get("token");
@@ -25,8 +25,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
     if (response.status == 200) {
       category1 = response.data[0].type;
       category2 = response.data[1].type;
+      category3 = response.data[2].type;
       categoryOneID = response.data[0].id;
       categoryTwoID = response.data[1].id;
+      categoryThreeID = response.data[2].id;
       mainCategoryData = res;
       setState(() {});
     } else {
@@ -67,6 +69,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     BuildButton(categoryName: category1, categoryID: categoryOneID),
                     SizedBox(height: MediaQuery.of(context).size.width * .1),
                     BuildButton(categoryName: category2, categoryID: categoryTwoID),
+                    SizedBox(height: MediaQuery.of(context).size.width * .1),
+                    BuildButton(categoryName: category3, categoryID: categoryThreeID),
                     SizedBox(height: MediaQuery.of(context).size.width * .4),
                   ],
                 ),

@@ -216,7 +216,7 @@ class WeekTwoButton extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Week 2 meals", style: TextStyle(fontSize: 15)),
+                  Text("Next Week", style: TextStyle(fontSize: 15)),
                   Icon(Icons.arrow_forward, size: 20),
                 ],
               ),

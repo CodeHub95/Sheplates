@@ -60,6 +60,7 @@ class _RangePickerPageState extends State<RangePickerPage> {
     print("tttttt" + DateTime.now().hour.toString());
     var time = DateTime.now().hour.toString();
     if(DateTime.now().hour >= 16 ){
+
       _firstDate = DateTime.now().add(Duration(days: 2));
       // _firstDate = DateTime.now();
       print("bjhbb");
