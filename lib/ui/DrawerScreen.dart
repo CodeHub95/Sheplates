@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:flutter_sheplates/ui/SubscriptionForFeedback.dart';
 import 'package:flutter_sheplates/ui/CategoryScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sheplates/Utils/NetworkUtils.dart';
@@ -164,23 +165,21 @@ class _CommonDrawerState extends State<CustomDrawer> {
               width: 25,
               // color: Colors.black,
             ),
-            title: Text("Feedback",
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.grey[600],
-                )),
+            title: Text(
+              "Feedback",
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.grey[600],
+              ),
+            ),
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => FeedBack()));
+              // Navigator.push(context, MaterialPageRoute(builder: (context) => FeedBack()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => SubscriptionListForFeedback()));
             },
           ),
           Divider(),
           ListTile(
-            leading: Image.asset(
-              "assets/support.png",
-              height: 25,
-              width: 25,
-              color: Colors.black,
-            ),
+            leading: Image.asset("assets/support.png", height: 25, width: 25, color: Colors.black),
             title: Text("Support",
                 style: TextStyle(
                   fontSize: 16,

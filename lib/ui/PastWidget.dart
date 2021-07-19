@@ -16,8 +16,7 @@ class PastWidget extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<PastWidget> {
-  StreamController<List<PastSubscription>> _streamController =
-      StreamController.broadcast();
+  StreamController<List<PastSubscription>> _streamController = StreamController.broadcast();
 
   @override
   void dispose() {
@@ -47,290 +46,197 @@ class _HomeScreenState extends State<PastWidget> {
                   if (snapshot.hasData) {
                     return Container(
                         child: SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              ListView.builder(
-                                  shrinkWrap: true,
-                                  physics: NeverScrollableScrollPhysics(),
-                                  itemCount: snapshot.data.length,
-                                  itemBuilder: (BuildContext context, int index) {
-                                    return Container(
-                                        child: Column(children: [
-                                          Padding(
-                                              padding: EdgeInsets.only(
-                                                  left: 30, right: 30, top: 30),
-                                              child: Container(
-                                                // height: 250,
-                                                width:
-                                                MediaQuery.of(context).size.width,
-                                                child: DottedBorder(
-                                                  padding:
-                                                  EdgeInsets.fromLTRB(5, 10, 5, 10),
-                                                  dashPattern: [5, 2],
-                                                  child: Container(
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                      children: [
-                                                        Padding(
-                                                            padding: EdgeInsets.only(
-                                                                top: 10)),
-                                                        Text(
-                                                          snapshot.data[index]
-                                                              .kitchen !=
-                                                              null
-                                                              ? snapshot.data[index]
-                                                              .kitchen.kitchenName
-                                                              .toString()
-                                                              : '',
-                                                          style: TextStyle(
-                                                              color: Colors.red,
-                                                              fontSize: 20),
-                                                        ),
-                                                        Padding(
-                                                            padding: EdgeInsets.only(
-                                                              top: 10,
-                                                            ),
-                                                            child: Column(
-                                                                crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .center,
-                                                                children: [
-                                                                  Text(snapshot
-                                                                      .data[
-                                                                  index]
-                                                                      .kitchen !=
-                                                                      null
-                                                                      ? snapshot
-                                                                      .data[
-                                                                  index]
-                                                                      .kitchen
-                                                                      .zone
-                                                                      .zoneName
-                                                                      .toString() +
-                                                                      ", " +
-                                                                      snapshot
-                                                                          .data[
-                                                                      index]
-                                                                          .kitchen
-                                                                          .zone
-                                                                          .city
-                                                                          .toString()
-                                                                      : ''),
-                                                                ])),
-                                                        Padding(
-                                                            padding: EdgeInsets.only(
-                                                              top: 10,
-                                                            ),
-                                                            child: Column(
-                                                                crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .center,
-                                                                children: [
-                                                                  Text(
-                                                                    snapshot.data[index]
-                                                                        .kitchen !=
-                                                                        null
-                                                                        ? snapshot
-                                                                        .data[index]
-                                                                        .kitchen
-                                                                        .fssaiNumber
-                                                                        .toString()
-                                                                        : '',
-                                                                    style: TextStyle(
-                                                                        fontWeight:
-                                                                        FontWeight
-                                                                            .bold),
-                                                                  ),
-                                                                ])),
-                                                        Padding(
-                                                            padding: EdgeInsets.only(
-                                                              top: 10,
-                                                            ),
-                                                            child: Column(
-                                                                crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .center,
-                                                                children: [
-                                                                  Text(
-                                                                    snapshot.data[index]
-                                                                        .kitchen !=
-                                                                        null
-                                                                        ?
-                                                                    // snapshot
-                                                                    //     .data[index]
-                                                                    //     .kitchen
-                                                                    //     .address
-                                                                    //     .toString()
-                                                                    snapshot
-                                                                        .data[index]
-                                                                        .transaction
-                                                                        .razorpayOrderId
-                                                                        .toString()
-                                                                        : '',
-                                                                    style: TextStyle(
-                                                                        fontWeight:
-                                                                        FontWeight
-                                                                            .bold),
-                                                                  ),
-                                                                ])),
-                                                        Padding(
-                                                            padding: EdgeInsets.only(
-                                                                top: 10)),
-                                                        Text(
-                                                          snapshot.data[index].catalog
-                                                              .mealName
-                                                              .toString(),
-                                                          style:
-                                                          TextStyle(fontSize: 25),
-                                                        ),
-                                                        Padding(
-                                                            padding: EdgeInsets.only(
-                                                                top: 10)),
-                                                        Row(
-                                                          mainAxisAlignment:
-                                                          MainAxisAlignment.center,
-                                                          children: [
-                                                            Text(
-                                                              "Expire on ",
-                                                              style: TextStyle(
-                                                                  fontSize: 15),
-                                                            ),
-                                                            Text(snapshot
-                                                                .data[index].endDate)
-                                                          ],
-                                                        )
-                                                      ],
-                                                    ),
-                                                    width: double.maxFinite,
-                                                    decoration: BoxDecoration(),
-                                                  ),
-                                                ),
-                                              )),
-                                          Padding(padding: EdgeInsets.only(top: 30)),
-                                          Container(
-                                              height: 80,
-                                              color: Colors.transparent,
-                                              child: Row(children: [
-                                                Padding(
-                                                    padding:
-                                                    const EdgeInsets.only(left: 20),
-                                                    child: Text(
-                                                      'Duration: ',
-                                                      style: TextStyle(
-                                                          color: Colors.grey,
-                                                          fontSize: 16),
-                                                    )),
+                      child: Column(
+                        children: [
+                          ListView.builder(
+                              shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                              itemCount: snapshot.data.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Container(
+                                    child: Column(children: [
+                                  Padding(
+                                      padding: EdgeInsets.only(left: 30, right: 30, top: 30),
+                                      child: Container(
+                                        // height: 250,
+                                        width: MediaQuery.of(context).size.width,
+                                        child: DottedBorder(
+                                          padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
+                                          dashPattern: [5, 2],
+                                          child: Container(
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              children: [
+                                                Padding(padding: EdgeInsets.only(top: 10)),
                                                 Text(
-                                                  snapshot.data[index].duration,
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16),
+                                                  snapshot.data[index].kitchen != null
+                                                      ? snapshot.data[index].kitchen.kitchenName.toString()
+                                                      : '',
+                                                  style: TextStyle(color: Colors.red, fontSize: 20),
                                                 ),
-                                              ])),
-                                          Container(
-                                              height: 50,
-                                              color: Colors.grey[200],
-                                              child: Row(
-                                                children: [
-                                                  Padding(
-                                                      padding: const EdgeInsets.only(
-                                                          left: 20),
-                                                      child: Text(
-                                                        'Start Date: ',
-                                                        style: TextStyle(
-                                                            color: Colors.grey,
-                                                            fontSize: 16),
-                                                      )),
-                                                  Text(
-                                                    snapshot.data[index].startDate,
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 16),
-                                                  )
-                                                ],
+                                                Padding(
+                                                    padding: EdgeInsets.only(
+                                                      top: 10,
+                                                    ),
+                                                    child: Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                                        children: [
+                                                          Text(snapshot.data[index].kitchen != null
+                                                              ? snapshot.data[index].kitchen.zone.zoneName.toString() +
+                                                                  ", " +
+                                                                  snapshot.data[index].kitchen.zone.city.toString()
+                                                              : ''),
+                                                        ])),
+                                                Padding(
+                                                    padding: EdgeInsets.only(
+                                                      top: 10,
+                                                    ),
+                                                    child: Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                                        children: [
+                                                          Text(
+                                                            snapshot.data[index].kitchen != null
+                                                                ? snapshot.data[index].kitchen.fssaiNumber.toString()
+                                                                : '',
+                                                            style: TextStyle(fontWeight: FontWeight.bold),
+                                                          ),
+                                                        ])),
+                                                Padding(
+                                                    padding: EdgeInsets.only(
+                                                      top: 10,
+                                                    ),
+                                                    child: Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                                        children: [
+                                                          Text(
+                                                            snapshot.data[index].kitchen != null
+                                                                ?
+                                                                // snapshot
+                                                                //     .data[index]
+                                                                //     .kitchen
+                                                                //     .address
+                                                                //     .toString()
+                                                                snapshot.data[index].transaction.razorpayOrderId
+                                                                    .toString()
+                                                                : '',
+                                                            style: TextStyle(fontWeight: FontWeight.bold),
+                                                          ),
+                                                        ])),
+                                                Padding(padding: EdgeInsets.only(top: 10)),
+                                                Text(
+                                                  snapshot.data[index].catalog.mealName.toString(),
+                                                  style: TextStyle(fontSize: 25),
+                                                ),
+                                                Padding(padding: EdgeInsets.only(top: 10)),
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      "Expire on ",
+                                                      style: TextStyle(fontSize: 15),
+                                                    ),
+                                                    Text(snapshot.data[index].endDate)
+                                                  ],
+                                                )
+                                              ],
+                                            ),
+                                            width: double.maxFinite,
+                                            decoration: BoxDecoration(),
+                                          ),
+                                        ),
+                                      )),
+                                  Padding(padding: EdgeInsets.only(top: 30)),
+                                  Container(
+                                      height: 80,
+                                      color: Colors.transparent,
+                                      child: Row(children: [
+                                        Padding(
+                                            padding: const EdgeInsets.only(left: 20),
+                                            child: Text(
+                                              'Duration: ',
+                                              style: TextStyle(color: Colors.grey, fontSize: 16),
+                                            )),
+                                        Text(
+                                          snapshot.data[index].duration,
+                                          style: TextStyle(color: Colors.black, fontSize: 16),
+                                        ),
+                                      ])),
+                                  Container(
+                                      height: 50,
+                                      color: Colors.grey[200],
+                                      child: Row(
+                                        children: [
+                                          Padding(
+                                              padding: const EdgeInsets.only(left: 20),
+                                              child: Text(
+                                                'Start Date: ',
+                                                style: TextStyle(color: Colors.grey, fontSize: 16),
                                               )),
-                                          Container(
-                                              height: 80,
-                                              color: Colors.transparent,
-                                              child: Row(
-                                                children: [
-                                                  Padding(
-                                                      padding: const EdgeInsets.only(
-                                                          left: 20),
-                                                      child: Text(
-                                                        'Amount Paid: ',
-                                                        style: TextStyle(
-                                                            color: Colors.grey,
-                                                            fontSize: 16),
-                                                      )),
-                                                  Text(
-                                                    snapshot.data[index].totalAmount
-                                                        .toString(),
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 16),
-                                                  )
-                                                ],
+                                          Text(
+                                            snapshot.data[index].startDate,
+                                            style: TextStyle(color: Colors.black, fontSize: 16),
+                                          )
+                                        ],
+                                      )),
+                                  Container(
+                                      height: 80,
+                                      color: Colors.transparent,
+                                      child: Row(
+                                        children: [
+                                          Padding(
+                                              padding: const EdgeInsets.only(left: 20),
+                                              child: Text(
+                                                'Amount Paid: ',
+                                                style: TextStyle(color: Colors.grey, fontSize: 16),
                                               )),
-                                          Container(
-                                              height: 50,
-                                              color: Colors.grey[200],
-                                              child: Row(
-                                                children: [
-                                                  Padding(
-                                                      padding: const EdgeInsets.only(
-                                                          left: 20),
-                                                      child: Text(
-                                                        'Meals served: ',
-                                                        style: TextStyle(
-                                                            color: Colors.grey,
-                                                            fontSize: 16),
-                                                      )),
-                                                  Text(
-                                                    snapshot.data[index].mealsServed
-                                                        .toString(),
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 16),
-                                                  )
-                                                ],
+                                          Text(
+                                            snapshot.data[index].totalAmount.toString(),
+                                            style: TextStyle(color: Colors.black, fontSize: 16),
+                                          )
+                                        ],
+                                      )),
+                                  Container(
+                                      height: 50,
+                                      color: Colors.grey[200],
+                                      child: Row(
+                                        children: [
+                                          Padding(
+                                              padding: const EdgeInsets.only(left: 20),
+                                              child: Text(
+                                                'Meals served: ',
+                                                style: TextStyle(color: Colors.grey, fontSize: 16),
                                               )),
-                                          Container(
-                                              height: 80,
-                                              color: Colors.transparent,
-                                              child: Row(
-                                                children: [
-                                                  Padding(
-                                                      padding: const EdgeInsets.only(
-                                                          left: 20),
-                                                      child: Text(
-                                                        'Meals Remaining: ',
-                                                        style: TextStyle(
-                                                            color: Colors.grey,
-                                                            fontSize: 16),
-                                                      )),
-                                                  Text(
-                                                    (snapshot.data[index]
-                                                        .totalMealCount -
-                                                        snapshot.data[index]
-                                                            .mealsServed)
-                                                        .toString(),
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 16),
-                                                  )
-                                                ],
-                                              ))
-                                        ]));
-                                    // }
-                                  })
-                            ],
-                          ),
-                        ));
-
-                  }
-                  else if (snapshot.hasError) {
+                                          Text(
+                                            snapshot.data[index].mealsServed.toString(),
+                                            style: TextStyle(color: Colors.black, fontSize: 16),
+                                          )
+                                        ],
+                                      )),
+                                  Container(
+                                      height: 80,
+                                      color: Colors.transparent,
+                                      child: Row(
+                                        children: [
+                                          Padding(
+                                              padding: const EdgeInsets.only(left: 20),
+                                              child: Text(
+                                                'Meals Remaining: ',
+                                                style: TextStyle(color: Colors.grey, fontSize: 16),
+                                              )),
+                                          Text(
+                                            (snapshot.data[index].totalMealCount - snapshot.data[index].mealsServed)
+                                                .toString(),
+                                            style: TextStyle(color: Colors.black, fontSize: 16),
+                                          )
+                                        ],
+                                      ))
+                                ]));
+                                // }
+                              })
+                        ],
+                      ),
+                    ));
+                  } else if (snapshot.hasError) {
                     return Container(
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height,
@@ -347,9 +253,7 @@ class _HomeScreenState extends State<PastWidget> {
                         ],
                       ),
                     );
-                  }
-
-                  else {
+                  } else {
                     return Container(
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height,
@@ -367,15 +271,12 @@ class _HomeScreenState extends State<PastWidget> {
     SubscriptionResponse response = SubscriptionResponse.fromJson(res);
 
     if (response.status == 200) {
-
       if (response.data.pastSubscription.isEmpty == true) {
         CommonUtils.showToast(
             msg: "Do not have any Past Subscription Plan",
             bgColor: AppColor.darkThemeBlueColor,
             textColor: Colors.white);
-        _streamController.sink
-            .addError("Do not have any active subscription plan");
-
+        _streamController.sink.addError("Do not have any active subscription plan");
       } else {
         _streamController.sink.add(response.data.pastSubscription);
       }

@@ -15,11 +15,15 @@ import 'package:flutter_sheplates/ui/DrawerScreen.dart';
 import 'package:flutter_sheplates/ui/HomeScreen.dart';
 
 class FeedBack extends StatefulWidget {
+  final int subscriptionID;
+  FeedBack({this.subscriptionID});
   @override
-  _FeedBackState createState() => _FeedBackState();
+  _FeedBackState createState() => _FeedBackState(subscriptionID: this.subscriptionID);
 }
 
 class _FeedBackState extends State<FeedBack> {
+  final int subscriptionID;
+  _FeedBackState({this.subscriptionID});
   final _formKey = GlobalKey<FormState>();
   TextEditingController startDateController = new TextEditingController();
   TextEditingController endDateController = new TextEditingController();
@@ -45,10 +49,7 @@ class _FeedBackState extends State<FeedBack> {
 
   Future<Null> _selectStartDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
-        context: context,
-        initialDate: selectStartDate,
-        firstDate: DateTime(1901, 1),
-        lastDate: DateTime(2100));
+        context: context, initialDate: selectStartDate, firstDate: DateTime(1901, 1), lastDate: DateTime(2100));
     if (picked != null && picked != selectStartDate)
       setState(() {
         selectStartDate = picked;
@@ -58,10 +59,7 @@ class _FeedBackState extends State<FeedBack> {
 
   Future<Null> _selectEndDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
-        context: context,
-        initialDate: selectEndDate,
-        firstDate: DateTime(1901, 1),
-        lastDate: DateTime(2100));
+        context: context, initialDate: selectEndDate, firstDate: DateTime(1901, 1), lastDate: DateTime(2100));
     if (picked != null && picked != selectEndDate)
       setState(() {
         selectEndDate = picked;
@@ -127,8 +125,7 @@ class _FeedBackState extends State<FeedBack> {
                   children: [
                     Text(
                       "Please let us know you thoughts on your\nsubscription",
-                      style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                     )
                   ],
                 ),
@@ -144,8 +141,7 @@ class _FeedBackState extends State<FeedBack> {
                           children: <Widget>[
                             Text(
                               "Subscription Start Date",
-                              style:
-                                  TextStyle(color: Colors.grey, fontSize: 15),
+                              style: TextStyle(color: Colors.grey, fontSize: 15),
                             ),
                           ],
                         )),
@@ -174,8 +170,7 @@ class _FeedBackState extends State<FeedBack> {
                               )),
                             ),
                             validator: (val) {
-                              if (val.length < 10)
-                                return ('Please enter a valid Start Date');
+                              if (val.length < 10) return ('Please enter a valid Start Date');
 
                               return null;
                             },
@@ -190,8 +185,7 @@ class _FeedBackState extends State<FeedBack> {
                           children: <Widget>[
                             Text(
                               "Subscription End Date",
-                              style:
-                                  TextStyle(color: Colors.grey, fontSize: 15),
+                              style: TextStyle(color: Colors.grey, fontSize: 15),
                             ),
                           ],
                         )),
@@ -219,8 +213,7 @@ class _FeedBackState extends State<FeedBack> {
                               )),
                             ),
                             validator: (val) {
-                              if (val.length < 10)
-                                return ('Please enter a valid End Date');
+                              if (val.length < 10) return ('Please enter a valid End Date');
 
                               return null;
                             },
@@ -247,8 +240,7 @@ class _FeedBackState extends State<FeedBack> {
                                 padding: EdgeInsets.only(top: 30),
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       "Quality",
@@ -261,8 +253,7 @@ class _FeedBackState extends State<FeedBack> {
                                 padding: EdgeInsets.only(top: 30),
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       "Packaging",
@@ -275,8 +266,7 @@ class _FeedBackState extends State<FeedBack> {
                                 padding: EdgeInsets.only(top: 30),
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       "Value For Money",
@@ -289,8 +279,7 @@ class _FeedBackState extends State<FeedBack> {
                                 padding: EdgeInsets.only(top: 30),
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       "Delivery Experience",
@@ -323,7 +312,6 @@ class _FeedBackState extends State<FeedBack> {
                     ),
                     onPressed: () {
                       checkMealServed();
-
                     },
                   )),
             ])));
@@ -336,7 +324,6 @@ class _FeedBackState extends State<FeedBack> {
 
     String url = "user/add-feedback";
     UserFeedbackRequest request = UserFeedbackRequest(
-
       orderId: id.toInt(),
       taste: _tasterating.toInt(),
       quantity: _qualityrating.toInt(),
@@ -344,8 +331,7 @@ class _FeedBackState extends State<FeedBack> {
       valueOfMoney: _moneyrating.toInt(),
       deliveryExperience: _experiencerating.toInt(),
     );
-    var res = await NetworkUtil()
-        .post(url: url, body: jsonEncode(request), token: token);
+    var res = await NetworkUtil().post(url: url, body: jsonEncode(request), token: token);
     BaseResponse response = BaseResponse.fromJson(res);
     if (response.status == 200) {
       CommonUtils.dismissProgressDialog(context);
@@ -384,8 +370,7 @@ class _FeedBackState extends State<FeedBack> {
                     ),
                     Text(
                       'Thank you for\n Feedback',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                       textAlign: TextAlign.center,
                     ),
                   ],
@@ -520,38 +505,24 @@ class _FeedBackState extends State<FeedBack> {
   getFeedBackDetails() async {
     String token = await SharedPrefHelper().getWithDefault("token", "");
     var getFeedback = await NetworkUtil().get("user/feedback", token: token);
-    GetFeedbackResponse feedbackResponse =
-        GetFeedbackResponse.fromJson(getFeedback);
+    GetFeedbackResponse feedbackResponse = GetFeedbackResponse.fromJson(getFeedback);
     _controller.sink.add(feedbackResponse);
 
     if (feedbackResponse.status == 200) {
       if (feedbackResponse.data.lastPlanFeedback != null) {
         if (feedbackResponse.data.lastPlanFeedback.startDate != null) {
           id = feedbackResponse.data.lastPlanFeedback.id.toInt();
-          startDateController.text =
-              feedbackResponse.data.lastPlanFeedback.startDate.toString();
-          endDateController.text =
-              feedbackResponse.data.lastPlanFeedback.endDate.toString();
+          startDateController.text = feedbackResponse.data.lastPlanFeedback.startDate.toString();
+          endDateController.text = feedbackResponse.data.lastPlanFeedback.endDate.toString();
           if (feedbackResponse.data.lastPlanFeedback.feedback != null) {
             id = feedbackResponse.data.lastPlanFeedback.id.toInt();
-            _tasterating = feedbackResponse.data.lastPlanFeedback.feedback.taste
-                .toDouble();
-            _experiencerating = feedbackResponse
-                .data.lastPlanFeedback.feedback.deliveryExperience
-                .toDouble();
-            _moneyrating = feedbackResponse
-                .data.lastPlanFeedback.feedback.valueOfMoney
-                .toDouble();
-            _packagingrating = feedbackResponse
-                .data.lastPlanFeedback.feedback.packaging
-                .toDouble();
-            _qualityrating = feedbackResponse
-                .data.lastPlanFeedback.feedback.quantity
-                .toDouble();
-            startDateController.text =
-                feedbackResponse.data.lastPlanFeedback.startDate.toString();
-            endDateController.text =
-                feedbackResponse.data.lastPlanFeedback.endDate.toString();
+            _tasterating = feedbackResponse.data.lastPlanFeedback.feedback.taste.toDouble();
+            _experiencerating = feedbackResponse.data.lastPlanFeedback.feedback.deliveryExperience.toDouble();
+            _moneyrating = feedbackResponse.data.lastPlanFeedback.feedback.valueOfMoney.toDouble();
+            _packagingrating = feedbackResponse.data.lastPlanFeedback.feedback.packaging.toDouble();
+            _qualityrating = feedbackResponse.data.lastPlanFeedback.feedback.quantity.toDouble();
+            startDateController.text = feedbackResponse.data.lastPlanFeedback.startDate.toString();
+            endDateController.text = feedbackResponse.data.lastPlanFeedback.endDate.toString();
             print("ex: $_experiencerating");
             print("money: $_moneyrating");
             print("pack: $_packagingrating");
@@ -559,25 +530,13 @@ class _FeedBackState extends State<FeedBack> {
             print("taste: $_tasterating");
 
             setState(() {
-              _tasterating = feedbackResponse
-                  .data.lastPlanFeedback.feedback.taste
-                  .toDouble();
-              _experiencerating = feedbackResponse
-                  .data.lastPlanFeedback.feedback.deliveryExperience
-                  .toDouble();
-              _moneyrating = feedbackResponse
-                  .data.lastPlanFeedback.feedback.valueOfMoney
-                  .toDouble();
-              _packagingrating = feedbackResponse
-                  .data.lastPlanFeedback.feedback.packaging
-                  .toDouble();
-              _qualityrating = feedbackResponse
-                  .data.lastPlanFeedback.feedback.quantity
-                  .toDouble();
-              startDateController.text =
-                  feedbackResponse.data.lastPlanFeedback.startDate.toString();
-              endDateController.text =
-                  feedbackResponse.data.lastPlanFeedback.endDate.toString();
+              _tasterating = feedbackResponse.data.lastPlanFeedback.feedback.taste.toDouble();
+              _experiencerating = feedbackResponse.data.lastPlanFeedback.feedback.deliveryExperience.toDouble();
+              _moneyrating = feedbackResponse.data.lastPlanFeedback.feedback.valueOfMoney.toDouble();
+              _packagingrating = feedbackResponse.data.lastPlanFeedback.feedback.packaging.toDouble();
+              _qualityrating = feedbackResponse.data.lastPlanFeedback.feedback.quantity.toDouble();
+              startDateController.text = feedbackResponse.data.lastPlanFeedback.startDate.toString();
+              endDateController.text = feedbackResponse.data.lastPlanFeedback.endDate.toString();
             });
           }
         } else {
@@ -608,55 +567,52 @@ class _FeedBackState extends State<FeedBack> {
     }
   }
 
-  void checkMealServed() async{
+  void checkMealServed() async {
     String token = await SharedPrefHelper().getWithDefault("token", "");
     var getFeedback = await NetworkUtil().get("user/feedback", token: token);
-    GetFeedbackResponse feedbackResponse =
-    GetFeedbackResponse.fromJson(getFeedback);
+    GetFeedbackResponse feedbackResponse = GetFeedbackResponse.fromJson(getFeedback);
     _controller.sink.add(feedbackResponse);
 
     if (feedbackResponse.status == 200) {
       if (feedbackResponse.data.lastPlanFeedback.meals_served != 0) {
-    submit();
-      }else {
-       return
-         showDialog(
-           context: context, barrierDismissible: false, // user must tap button!
+        submit();
+      } else {
+        return showDialog(
+          context: context, barrierDismissible: false, // user must tap button!
 
-           builder: (BuildContext context) {
-             return new AlertDialog(
-               contentPadding: EdgeInsets.all(0.0),
-               content: new SingleChildScrollView(
-                 child: Container(
-                     height: 130,
-                     child: new Column(
-                       children: [
-                         Row(
-                           mainAxisAlignment: MainAxisAlignment.end,
-                           crossAxisAlignment: CrossAxisAlignment.start,
-                           children: [
-                             IconButton(
-                                 icon: Icon(
-                                   Icons.close,
-                                   size: 20.0,
-                                   color: Colors.black,
-                                 ),
-                                 onPressed: () => Navigator.pop(context)),
-                           ],
-                         ),
-                         Text(
-                           'Meal has not been sent yet',
-                           style:
-                           TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                           textAlign: TextAlign.center,
-                         ),
-                       ],
-                     )),
-               ),
-             );
-           },
-         );
-       }
+          builder: (BuildContext context) {
+            return new AlertDialog(
+              contentPadding: EdgeInsets.all(0.0),
+              content: new SingleChildScrollView(
+                child: Container(
+                    height: 130,
+                    child: new Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            IconButton(
+                                icon: Icon(
+                                  Icons.close,
+                                  size: 20.0,
+                                  color: Colors.black,
+                                ),
+                                onPressed: () => Navigator.pop(context)),
+                          ],
+                        ),
+                        Text(
+                          'Meal has not been sent yet',
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    )),
+              ),
+            );
+          },
+        );
+      }
     }
   }
 }
