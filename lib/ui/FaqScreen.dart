@@ -36,26 +36,16 @@ FaqResponse faqResponse =FaqResponse();
     _controller?.close();
   }
 
-  // bool _pressAttention = true;
-  // bool _pressMapping = true;
-  // bool _presssMapping = true;
-  // bool viewVisible = false;
-  // bool viewMapping = false;
-  // bool viewwMapping = false;
   bool _pressAttention = true;
-  // bool _pressMapping ;
-  // bool _presssMapping ;
+
   bool viewVisible = true;
-  // bool viewMapping = true;
-  // bool viewwMapping =false;
+
   @override
   Future<void> initState() {
     // TODO: implement initState
     super.initState();
     getList();
-    // faqResponse.data.faq.rows.forEach((element) {
-    //   element.selected = false;
-    // });
+
   }
 
   @override
@@ -163,23 +153,7 @@ print("selectedddd" + snapshot.data[index].selected1.toString() );
                                         // plan = data.offersPlan[index];
                                       });
                                     }
-                                    // _pressAttention
-                                    //     ? () {
-                                    //         setState(() {
-                                    //           if (_pressAttention) {
-                                    //             _pressAttention= !_pressAttention;
-                                    //
-                                    //           }
-                                    //           // else {
-                                    //           //   _pressAttention = true;
-                                    //           // }
-                                    //         });
-                                    //
-                                    //         showWidget(index);
-                                    //       }
-                                    //     : () {
-                                    //         hideWidget(index);
-                                    //       }
+
                                           )
                               ],
                             ),
@@ -215,139 +189,7 @@ print("selectedddd" + snapshot.data[index].selected1.toString() );
                                   )
                                   ))),
                           Padding(padding: EdgeInsets.only(top: 10)),
-                          // Container(
-                          //   height: 60,
-                          //   width: MediaQuery.of(context).size.width,
-                          //   color: Colors.grey[200],
-                          //   child: Row(
-                          //     crossAxisAlignment: CrossAxisAlignment.center,
-                          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          //     children: [
-                          //       Padding(
-                          //           padding: const EdgeInsets.only(
-                          //               left: 10, right: 10),
-                          //           child: Text(
-                          //             // 'Mapping between the direction of \nthe icon and the',
-                          //             snapshot.data[1].question,
-                          //             style: TextStyle(
-                          //                 color: Colors.black, fontSize: 15),
-                          //           )),
-                          //       Column(
-                          //         crossAxisAlignment: CrossAxisAlignment.center,
-                          //         children: [
-                          //           Padding(
-                          //               padding: const EdgeInsets.only(
-                          //                   left: 10, right: 10),
-                          //               child: IconButton(
-                          //                   icon: (_pressMapping
-                          //                       ? Icon(Icons.add,
-                          //                           color: Colors.grey)
-                          //                       : Icon(Icons.minimize,
-                          //                           color: Colors.grey)),
-                          //                   onPressed: _pressMapping
-                          //                       ? () {
-                          //                           setState(() {
-                          //                             if (_pressMapping) {
-                          //                               _pressMapping = false;
-                          //                             } else {
-                          //                               _pressMapping = true;
-                          //                             }
-                          //                           });
-                          //
-                          //                           showMapping();
-                          //                         }
-                          //                       : () {
-                          //                           hideMapping();
-                          //                         }))
-                          //         ],
-                          //       )
-                          //     ],
-                          //   ),
-                          // ),
-                          // Visibility(
-                          //     visible: viewMapping,
-                          //     child: Container(
-                          //         height: 50,
-                          //         width: MediaQuery.of(context).size.width,
-                          //         // color: Colors.green,
-                          //         margin: EdgeInsets.only(
-                          //             top: 10, bottom: 10, left: 10, right: 10),
-                          //         child: Align(
-                          //             alignment: Alignment.topLeft,
-                          //             child: Text(
-                          //                 // 'Show Hide Text View Widget in Flutter',
-                          //                 snapshot.data[1].answer,
-                          //                 textAlign: TextAlign.center,
-                          //                 style: TextStyle(
-                          //                     color: Colors.grey,
-                          //                     fontSize: 15))))),
-                          // Padding(padding: EdgeInsets.only(top: 10)),
-                          // Container(
-                          //   height: 60,
-                          //   width: MediaQuery.of(context).size.width,
-                          //   color: Colors.grey[200],
-                          //   child: Row(
-                          //     crossAxisAlignment: CrossAxisAlignment.center,
-                          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          //     children: [
-                          //       Padding(
-                          //           padding: const EdgeInsets.only(
-                          //               left: 10, right: 10),
-                          //           child: Text(
-                          //             // 'Mapping between the direction of \nthe icon and the',
-                          //             snapshot.data[2].question,
-                          //             style: TextStyle(
-                          //                 color: Colors.black, fontSize: 15),
-                          //           )),
-                          //       Column(
-                          //         crossAxisAlignment: CrossAxisAlignment.center,
-                          //         children: [
-                          //           Padding(
-                          //               padding: const EdgeInsets.only(
-                          //                   left: 10, right: 10),
-                          //               child: IconButton(
-                          //                   icon: (_presssMapping
-                          //                       ? Icon(Icons.add,
-                          //                       color: Colors.grey)
-                          //                       : Icon(Icons.minimize,
-                          //                       color: Colors.grey)),
-                          //                   onPressed: _presssMapping
-                          //                       ? () {
-                          //                     setState(() {
-                          //                       if (_presssMapping) {
-                          //                         _presssMapping = false;
-                          //                       } else {
-                          //                         _presssMapping = true;
-                          //                       }
-                          //                     });
-                          //
-                          //                     shMapping();
-                          //                   }
-                          //                       : () {
-                          //                     hiMapping();
-                          //                   }))
-                          //         ],
-                          //       )
-                          //     ],
-                          //   ),
-                          // ),
-                          // Visibility(
-                          //     visible: viewwMapping,
-                          //     child: Container(
-                          //         height: 50,
-                          //         width: MediaQuery.of(context).size.width,
-                          //         // color: Colors.green,
-                          //         margin: EdgeInsets.only(
-                          //             top: 10, bottom: 10, left: 10, right: 10),
-                          //         child: Align(
-                          //             alignment: Alignment.topLeft,
-                          //             child: Text(
-                          //               // 'Show Hide Text View Widget in Flutter',
-                          //                 snapshot.data[2].answer,
-                          //                 textAlign: TextAlign.center,
-                          //                 style: TextStyle(
-                          //                     color: Colors.grey,
-                          //                     fontSize: 15))))),
+
                         ],
                       );});
                     } else {
@@ -370,47 +212,7 @@ print("selectedddd" + snapshot.data[index].selected1.toString() );
         ])));
   }
 
-  // void showWidget(index) {
-  //   setState(() {
-  //     viewVisible = true;
-  //     _pressAttention = false;
-  //   });
-  // }
-  //
-  // void hideWidget(index) {
-  //   setState(() {
-  //     viewVisible = false;
-  //     _pressAttention = true;
-  //   });
-  // }
 
-  // void showMapping() {
-  //   setState(() {
-  //     viewMapping = true;
-  //     _pressMapping = false;
-  //   });
-  // }
-  //
-  // void hideMapping() {
-  //   setState(() {
-  //     viewMapping = false;
-  //     _pressMapping = true;
-  //   });
-  // }
-  //
-  // void shMapping() {
-  //   setState(() {
-  //     viewwMapping = true;
-  //     _presssMapping = false;
-  //   });
-  // }
-  //
-  // void hiMapping() {
-  //   setState(() {
-  //     viewwMapping = false;
-  //     _presssMapping = true;
-  //   });
-  // }
 
   getList() async {
     String token = await SharedPrefHelper().getWithDefault("token", "");

@@ -59,7 +59,7 @@ class ChooseCategoryMessage extends StatelessWidget {
           SizedBox(width: MediaQuery.of(context).size.width * .1),
           Expanded(child: Container(color: Colors.grey, height: .5)),
           Text(
-            " Choose a meal ",
+            " Choose a meal for feedback",
             style: TextStyle(
               fontSize: 17,
               color: Colors.grey,

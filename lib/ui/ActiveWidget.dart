@@ -104,11 +104,6 @@ class _HomeScreenState extends State<ActiveWidget> {
                                                                       .kitchen !=
                                                                   null
                                                               ?
-                                                              // snapshot
-                                                              //     .data[index]
-                                                              //     .kitchen
-                                                              //     .address
-                                                              //     .toString()
                                                               snapshot
                                                                       .data[
                                                                           index]
@@ -140,11 +135,6 @@ class _HomeScreenState extends State<ActiveWidget> {
                                                                         .kitchen !=
                                                                     null
                                                                 ?
-                                                                // snapshot
-                                                                //     .data[index]
-                                                                //     .kitchen
-                                                                //     .address
-                                                                //     .toString()
                                                                 snapshot
                                                                     .data[index]
                                                                     .kitchen
@@ -171,11 +161,7 @@ class _HomeScreenState extends State<ActiveWidget> {
                                                                         .kitchen !=
                                                                     null
                                                                 ?
-                                                                // snapshot
-                                                                //     .data[index]
-                                                                //     .kitchen
-                                                                //     .address
-                                                                //     .toString()
+
                                                                 snapshot
                                                                     .data[index]
                                                                     .transaction

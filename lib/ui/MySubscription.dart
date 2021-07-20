@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sheplates/ui/ActiveWidget.dart';
 import 'package:flutter_sheplates/ui/DrawerScreen.dart';
 import 'package:flutter_sheplates/ui/PastWidget.dart';
+import 'package:flutter_sheplates/ui/PastWidgetWithTab.dart';
 
 class MySubscription extends StatefulWidget {
   @override
@@ -67,7 +68,7 @@ class _HomeScreenState extends State<MySubscription>
             ),
           ),
           body: TabBarView(
-            children: [ActiveWidget(), PastWidget()],
+            children: [ActiveWidget(), PastWidgetWithTabs()],
           ),
         ),
       ),
