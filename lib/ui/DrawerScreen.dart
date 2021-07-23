@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter_sheplates/ui/SubscriptionForPauseAndReactive.dart';
 import 'dart:convert';
 import 'package:flutter_sheplates/ui/SubscriptionForFeedback.dart';
 import 'package:flutter_sheplates/ui/CategoryScreen.dart';
@@ -118,7 +119,8 @@ class _CommonDrawerState extends State<CustomDrawer> {
                   color: Colors.grey[600],
                 )),
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => PauseSubscription()));
+              // Navigator.push(context, MaterialPageRoute(builder: (context) => PauseSubscription()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => SubscriptionForPauseAndReactive()));
             },
           ),
           Divider(),

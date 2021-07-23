@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'Feedback.dart';
+import 'package:flutter_sheplates/ui/PauseMySubsciption.dart';
 
-class SubscriptionListForFeedback extends StatelessWidget {
-  const SubscriptionListForFeedback({Key key}) : super(key: key);
+class SubscriptionForPauseAndReactive extends StatelessWidget {
+  const SubscriptionForPauseAndReactive({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class SubscriptionListForFeedback extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.only(right: 30),
             child: Text(
-              "Delivered meals",
+              "Your subscriptions",
               style: TextStyle(color: Colors.black, fontSize: 18),
               textAlign: TextAlign.center,
             ),
@@ -31,7 +31,7 @@ class SubscriptionListForFeedback extends StatelessWidget {
                 SizedBox(width: MediaQuery.of(context).size.width * .1),
                 Expanded(child: Container(color: Colors.grey, height: .5)),
                 Text(
-                  " Choose a meal for feedback",
+                  " Choose a subscription",
                   style: TextStyle(
                     fontSize: 17,
                     color: Colors.grey,
@@ -53,11 +53,10 @@ class SubscriptionListForFeedback extends StatelessWidget {
                 return Card(
                   child: ListTile(
                     onTap: () {
-                      Navigator.push(
-                          context, MaterialPageRoute(builder: (context) => FeedBack(subscriptionID: index + 1)));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => PauseSubscription()));
                     },
-                    leading: Icon(Icons.food_bank),
-                    title: Text("Meal ${index + 1}"),
+                    leading: Icon(Icons.subscriptions),
+                    title: Text("Subscription ${index + 1}"),
                   ),
                 );
               },
