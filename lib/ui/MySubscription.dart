@@ -10,8 +10,7 @@ class MySubscription extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<MySubscription>
-    with SingleTickerProviderStateMixin {
+class _HomeScreenState extends State<MySubscription> with SingleTickerProviderStateMixin {
   TabController _controller;
 
   @override
@@ -68,6 +67,7 @@ class _HomeScreenState extends State<MySubscription>
             ),
           ),
           body: TabBarView(
+            physics: NeverScrollableScrollPhysics(), //stops data reloading and scrolling
             children: [ActiveWidget(), PastWidgetWithTabs()],
           ),
         ),

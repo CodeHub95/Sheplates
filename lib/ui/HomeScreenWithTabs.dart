@@ -43,11 +43,46 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
   @override
   initState() {
     super.initState();
-    if (mounted) {
-      _appDownload();
-    }
+    if (mounted) _appDownload();
     getTabs();
     // getList();
+  }
+
+  getTabs() async {
+    String token = await SharedPrefHelper().getWithDefault("token", "");
+    var res = await NetworkUtil().get("user/meal-category", token: token);
+    tabNamesFilters = TabNamesFilters.fromJson(res);
+    setState(() {});
+    if (tabNamesFilters.status == 200) {}
+  }
+
+  Future<void> _addRequest() async {
+    CommonUtils.fullScreenProgress(context);
+    String url = "user/add-user-request";
+    String token = await SharedPrefHelper().getWithDefault("token", "");
+    String userData = await SharedPrefHelper().getWithDefault(SharedPrefConstants.userData, jsonEncode({}));
+    Profile profile = Profile.fromJson(jsonDecode(userData));
+    String location = profile.userAddresses[0].fullAddress;
+    AddUserRequest request =
+        AddUserRequest(type: "Meal plan customization", address: location.toString(), category: "Meal");
+    var res = await NetworkUtil().post(url: url, body: jsonEncode(request), token: token);
+    BaseResponse response = BaseResponse.fromJson(res);
+    if (response.status == 200) {
+      CommonUtils.dismissProgressDialog(context);
+      CommonUtils.showToast(msg: response.message, bgColor: AppColor.darkThemeBlueColor, textColor: Colors.white);
+    } else {
+      CommonUtils.errorMessage(msg: response.message);
+      CommonUtils.dismissProgressDialog(context);
+    }
+  }
+
+  Future<void> _appDownload() async {
+    String url = "user/download-app";
+    String deviceId = await CommonUtils.getDeviceId();
+    String token = await SharedPrefHelper().getWithDefault("token", "");
+    AppDownloadRequest request = AppDownloadRequest(deviceId: deviceId);
+    var res = await NetworkUtil().post(url: url, body: jsonEncode(request), token: token);
+    BaseResponse response = BaseResponse.fromJson(res);
   }
 
   final List<String> images = <String>[
@@ -245,42 +280,5 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
         Navigator.pushNamedAndRemoveUntil(context, Routes.deliveryStaticScreen, (route) => false);
       }
     }
-  }
-
-  getTabs() async {
-    String token = await SharedPrefHelper().getWithDefault("token", "");
-    var res = await NetworkUtil().get("user/meal-category", token: token);
-    tabNamesFilters = TabNamesFilters.fromJson(res);
-    setState(() {});
-    if (tabNamesFilters.status == 200) {}
-  }
-
-  Future<void> _addRequest() async {
-    CommonUtils.fullScreenProgress(context);
-    String url = "user/add-user-request";
-    String token = await SharedPrefHelper().getWithDefault("token", "");
-    String userData = await SharedPrefHelper().getWithDefault(SharedPrefConstants.userData, jsonEncode({}));
-    Profile profile = Profile.fromJson(jsonDecode(userData));
-    String location = profile.userAddresses[0].fullAddress;
-    AddUserRequest request =
-        AddUserRequest(type: "Meal plan customization", address: location.toString(), category: "Meal");
-    var res = await NetworkUtil().post(url: url, body: jsonEncode(request), token: token);
-    BaseResponse response = BaseResponse.fromJson(res);
-    if (response.status == 200) {
-      CommonUtils.dismissProgressDialog(context);
-      CommonUtils.showToast(msg: response.message, bgColor: AppColor.darkThemeBlueColor, textColor: Colors.white);
-    } else {
-      CommonUtils.errorMessage(msg: response.message);
-      CommonUtils.dismissProgressDialog(context);
-    }
-  }
-
-  Future<void> _appDownload() async {
-    String url = "user/download-app";
-    String deviceId = await CommonUtils.getDeviceId();
-    String token = await SharedPrefHelper().getWithDefault("token", "");
-    AppDownloadRequest request = AppDownloadRequest(deviceId: deviceId);
-    var res = await NetworkUtil().post(url: url, body: jsonEncode(request), token: token);
-    BaseResponse response = BaseResponse.fromJson(res);
   }
 }

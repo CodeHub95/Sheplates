@@ -26,29 +26,12 @@ import 'package:flutter_sheplates/modals/response/tabNamesFiltersResponse.dart';
 import 'package:flutter_sheplates/Utils/global.dart';
 
 class PastWidgetWithTabs extends StatefulWidget {
-
   @override
   _PastWidgetWithTabsState createState() => _PastWidgetWithTabsState();
 }
 
 class _PastWidgetWithTabsState extends State<PastWidgetWithTabs> {
-
   TabNamesFilters tabNamesFilters;
-
-
-  @override
-  initState() {
-    super.initState();
-    // getList();
-  }
-
-  StreamController<List<Rows>> _streamController = StreamController.broadcast();
-
-  @override
-  void dispose() {
-    super.dispose();
-    _streamController?.close();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,9 +48,8 @@ class _PastWidgetWithTabsState extends State<PastWidgetWithTabs> {
               preferredSize: Size.fromHeight(10),
               child: Column(
                 children: [
-
                   SizedBox(height: 20),
-               TabBar(
+                  TabBar(
                     unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal),
                     isScrollable: true,
                     labelPadding: EdgeInsets.all(10),
@@ -87,9 +69,8 @@ class _PastWidgetWithTabsState extends State<PastWidgetWithTabs> {
               ),
             ),
           ),
-          body:
-          TabBarView(
-            physics: NeverScrollableScrollPhysics(), //stops data reloading
+          body: TabBarView(
+            physics: NeverScrollableScrollPhysics(),
             children: [
               PastWidgetTabData(),
               PastWidgetTabData(),
@@ -104,7 +85,4 @@ class _PastWidgetWithTabsState extends State<PastWidgetWithTabs> {
   }
 
   Text buildTab(String tabTitle) => Text(tabTitle, style: TextStyle(fontSize: 17, color: Colors.black));
-
-
-
 }

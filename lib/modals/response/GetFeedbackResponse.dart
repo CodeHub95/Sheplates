@@ -28,9 +28,8 @@ class Data {
   Data({this.lastPlanFeedback});
 
   Data.fromJson(Map<String, dynamic> json) {
-    lastPlanFeedback = json['lastPlanFeedback'] != null
-        ? new LastPlanFeedback.fromJson(json['lastPlanFeedback'])
-        : null;
+    lastPlanFeedback =
+        json['lastPlanFeedback'] != null ? new LastPlanFeedback.fromJson(json['lastPlanFeedback']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -49,16 +48,14 @@ class LastPlanFeedback {
   int meals_served;
   Feedback feedback;
 
-  LastPlanFeedback({this.id, this.startDate, this.endDate, this.feedback,this.meals_served});
+  LastPlanFeedback({this.id, this.startDate, this.endDate, this.feedback, this.meals_served});
 
   LastPlanFeedback.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     startDate = json['start_date'];
     endDate = json['end_date'];
     meals_served = json['meals_served'];
-    feedback = json['feedback'] != null
-        ? new Feedback.fromJson(json['feedback'])
-        : null;
+    feedback = json['feedback'] != null ? new Feedback.fromJson(json['feedback']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -81,12 +78,7 @@ class Feedback {
   int valueOfMoney;
   int deliveryExperience;
 
-  Feedback(
-      {this.taste,
-        this.quantity,
-        this.packaging,
-        this.valueOfMoney,
-        this.deliveryExperience});
+  Feedback({this.taste, this.quantity, this.packaging, this.valueOfMoney, this.deliveryExperience});
 
   Feedback.fromJson(Map<String, dynamic> json) {
     taste = json['taste'];
