@@ -59,15 +59,16 @@ class _PastWidgetTabDataState extends State<PastWidgetTabData> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Padding(
-                                      padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
-                                      child: Container(
-                                        width: MediaQuery.of(context).size.width / 1.5,
-                                        child: Text(
-                                          subscriptionData.data.pastSubscription[index].orders[0].catalog.mealCategory
-                                              .toString(),
-                                          style: TextStyle(color: Colors.black, fontSize: 15),
-                                        ),
-                                      )),
+                                    padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
+                                    child: Container(
+                                      width: MediaQuery.of(context).size.width / 1.5,
+                                      child: Text(
+                                        subscriptionData.data.pastSubscription[index].orders[0].catalog.mealCategory
+                                            .toString(),
+                                        style: TextStyle(color: Colors.black, fontSize: 15),
+                                      ),
+                                    ),
+                                  ),
                                   Spacer(),
                                   IconButton(
                                     icon: (isExpanded
