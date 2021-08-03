@@ -52,10 +52,10 @@ class NetworkUtil {
       }
       return response.data;
     }).catchError((errorResponse) {
-      if (errorResponse.subscriptionData.statusCode == 404) {
+      if (errorResponse.activeSubscriptionList.statusCode == 404) {
         // logout(context);
       }
-      return errorResponse.subscriptionData.data;
+      return errorResponse.activeSubscriptionList.data;
     });
   }
 
@@ -79,7 +79,7 @@ class NetworkUtil {
       }
       return response.data;
     }).catchError((errorResponse) {
-      return errorResponse.subscriptionData.data;
+      return errorResponse.activeSubscriptionList.data;
     });
   }
 
@@ -109,10 +109,10 @@ class NetworkUtil {
       }
       return response.data;
     }).catchError((errorResponse) {
-      if (errorResponse.subscriptionData.statusCode == 401) {
+      if (errorResponse.activeSubscriptionList.statusCode == 401) {
         // logout(context);
       }
-      return errorResponse.subscriptionData.data;
+      return errorResponse.activeSubscriptionList.data;
     });
   }
 
@@ -139,7 +139,7 @@ class NetworkUtil {
       }
       return response.data;
     }).catchError((error) {
-      return error.subscriptionData.data;
+      return error.activeSubscriptionList.data;
     });
   }
 
@@ -172,7 +172,7 @@ class NetworkUtil {
       }
       return response.data;
     }).catchError((errorResponse) {
-      return errorResponse.subscriptionData.data;
+      return errorResponse.activeSubscriptionList.data;
     });
   }
 

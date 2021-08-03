@@ -2,21 +2,19 @@ import 'dart:async';
 import 'package:flutter_sheplates/ui/PastWidgetTabData.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_sheplates/Utils/NetworkUtils.dart';
-import 'package:flutter_sheplates/Utils/app_defaults.dart';
 import 'package:flutter_sheplates/Utils/hexColor.dart';
 import 'package:flutter_sheplates/modals/response/MySubscriptions.dart';
 
 class PastWidgetWithTabs extends StatefulWidget {
-  List<PastSubscription> subscriptionData;
-  PastWidgetWithTabs(this.subscriptionData);
+  List<PastSubscription> pastSubscriptionList;
+  PastWidgetWithTabs(this.pastSubscriptionList);
   @override
-  _PastWidgetWithTabsState createState() => _PastWidgetWithTabsState(subscriptionData);
+  _PastWidgetWithTabsState createState() => _PastWidgetWithTabsState(pastSubscriptionList);
 }
 
 class _PastWidgetWithTabsState extends State<PastWidgetWithTabs> {
-  List<PastSubscription> subscriptionData;
-  _PastWidgetWithTabsState(this.subscriptionData);
+  List<PastSubscription> pastSubscriptionList;
+  _PastWidgetWithTabsState(this.pastSubscriptionList);
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +22,9 @@ class _PastWidgetWithTabsState extends State<PastWidgetWithTabs> {
       top: true,
       child: DefaultTabController(
         length: 5,
-        child: subscriptionData == null
+        child: pastSubscriptionList == null
             ? Center(child: CircularProgressIndicator())
-            : subscriptionData.isEmpty
+            : pastSubscriptionList.isEmpty
                 ? Center(child: Text("You don't have any past subscription"))
                 : Scaffold(
                     appBar: AppBar(
@@ -61,11 +59,19 @@ class _PastWidgetWithTabsState extends State<PastWidgetWithTabs> {
                     body: TabBarView(
                       physics: NeverScrollableScrollPhysics(),
                       children: [
-                        PastWidgetTabData(subscriptionData),
-                        PastWidgetTabData(subscriptionData),
-                        PastWidgetTabData(subscriptionData),
-                        PastWidgetTabData(subscriptionData),
-                        PastWidgetTabData(subscriptionData),
+                        PastWidgetTabData(pastSubscriptionList
+                            .where((element) => element.orders[0].catalog.mealCategory.category == "Breakfast")
+                            .toList()),
+                        PastWidgetTabData(pastSubscriptionList
+                            .where((element) => element.orders[0].catalog.mealCategory.category == "Lunch")
+                            .toList()),
+                        PastWidgetTabData(pastSubscriptionList
+                            .where((element) => element.orders[0].catalog.mealCategory.category == "Snacks")
+                            .toList()),
+                        PastWidgetTabData(pastSubscriptionList
+                            .where((element) => element.orders[0].catalog.mealCategory.category == "Dinner")
+                            .toList()),
+                        PastWidgetTabData(pastSubscriptionList),
                       ],
                     ),
                   ),

@@ -28,9 +28,7 @@ class Data {
   Data({this.userExist});
 
   Data.fromJson(Map<String, dynamic> json) {
-    userExist = json['userExist'] != null
-        ? new UserExist.fromJson(json['userExist'])
-        : null;
+    userExist = json['userExist'] != null ? new UserExist.fromJson(json['userExist']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -58,17 +56,17 @@ class UserExist {
 
   UserExist(
       {this.id,
-        this.roleId,
-        this.firstName,
-        this.lastName,
-        this.gender,
-        this.dob,
-        this.email,
-        this.phone,
-        this.profileImage,
-        this.status,
-        this.lastSeen,
-        this.userAddresses});
+      this.roleId,
+      this.firstName,
+      this.lastName,
+      this.gender,
+      this.dob,
+      this.email,
+      this.phone,
+      this.profileImage,
+      this.status,
+      this.lastSeen,
+      this.userAddresses});
 
   UserExist.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -104,8 +102,7 @@ class UserExist {
     data['status'] = this.status;
     data['last_seen'] = this.lastSeen;
     if (this.userAddresses != null) {
-      data['user_addresses'] =
-          this.userAddresses.map((v) => v.toJson()).toList();
+      data['user_addresses'] = this.userAddresses.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -115,7 +112,7 @@ class UserAddresses {
   int id;
   int userId;
   String fullAddress;
-  Null city;
+  String city;
   String area;
   int pincode;
   String landmark;
@@ -127,17 +124,17 @@ class UserAddresses {
 
   UserAddresses(
       {this.id,
-        this.userId,
-        this.fullAddress,
-        this.city,
-        this.area,
-        this.pincode,
-        this.landmark,
-        this.latitude,
-        this.longitude,
-        this.placeType,
-        this.placeName,
-        this.isDeliveryAddress});
+      this.userId,
+      this.fullAddress,
+      this.city,
+      this.area,
+      this.pincode,
+      this.landmark,
+      this.latitude,
+      this.longitude,
+      this.placeType,
+      this.placeName,
+      this.isDeliveryAddress});
 
   UserAddresses.fromJson(Map<String, dynamic> json) {
     id = json['id'];

@@ -116,13 +116,13 @@ class ActiveSubscriptionOrder {
   int basicSubscriptionPrice;
   int days;
   int totalMealCount;
-  int delieveryCharges;
-  int packagingCharges;
+  num delieveryCharges;
+  num packagingCharges;
   double distance;
   int mealsServed;
-  int gstPercentage;
-  int gstAmount;
-  int totalAmount;
+  num gstPercentage;
+  num gstAmount;
+  num totalAmount;
   DateTime startDate;
   DateTime endDate;
   DateTime pauseSubscriptionDate;
@@ -148,7 +148,7 @@ class ActiveSubscriptionOrder {
         totalMealCount: json["total_meal_count"],
         delieveryCharges: json["delievery_charges"],
         packagingCharges: json["packaging_charges"],
-        distance: json["distance"].toDouble(),
+        distance: json["distance"],
         mealsServed: json["meals_served"],
         gstPercentage: json["gst_percentage"],
         gstAmount: json["gst_amount"],
@@ -387,12 +387,12 @@ class PastSubscriptionOrder {
   int basicSubscriptionPrice;
   int days;
   int totalMealCount;
-  int delieveryCharges;
-  int packagingCharges;
+  num delieveryCharges;
+  num packagingCharges;
   int mealsServed;
-  int gstPercentage;
-  double gstAmount;
-  int totalAmount;
+  num gstPercentage;
+  num gstAmount;
+  num totalAmount;
   DateTime startDate;
   DateTime endDate;
   DateTime pauseSubscriptionDate;
