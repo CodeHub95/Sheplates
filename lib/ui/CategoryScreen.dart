@@ -114,7 +114,7 @@ class BuildButton extends StatelessWidget {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => HomeScreenWithTabs(categoryName: categoryName, categoryID: categoryID)));
+                  builder: (context) => HomeScreenWithTabs(categoryName: categoryName, mainCategoryID: categoryID)));
         },
       ),
     );

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sheplates/ui/ActiveWidgetWithTab.dart';
 import 'package:flutter_sheplates/ui/DrawerScreen.dart';
 import 'package:flutter_sheplates/ui/PastWidgetWithTab.dart';
-import 'package:flutter_sheplates/modals/response/MySubscriptions.dart';
+import 'package:flutter_sheplates/modals/response/MySubscriptionsResponse.dart';
 import 'package:flutter_sheplates/Utils/app_defaults.dart';
 import 'package:flutter_sheplates/Utils/NetworkUtils.dart';
 

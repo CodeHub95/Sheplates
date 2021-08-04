@@ -6,7 +6,7 @@ import 'package:flutter_sheplates/modals/response/loginresponse.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sheplates/modals/response/HomeListResponse.dart';
 import 'dart:async';
-import 'package:flutter_sheplates/ui/Vegitarian_lunch.dart';
+import 'package:flutter_sheplates/ui/MealDetailScreen.dart';
 import 'package:flutter_sheplates/Utils/app_utils.dart';
 import 'package:flutter_sheplates/Utils/ScreenUtils.dart';
 import 'package:flutter_sheplates/Utils/app_defaults.dart';
@@ -141,9 +141,9 @@ class _TabDataState extends State<TabData> {
                                                   context,
                                                   MaterialPageRoute(
                                                     // builder: (context) => VegitarianLunchCopy(
-                                                    builder: (context) => VegitarianLunch(
-                                                      rows: snapshot.data[index],
-                                                      suscriber: subscriber,
+                                                    builder: (context) => MealDetailScreen(
+                                                      mealDetails: snapshot.data[index],
+                                                      isSuscribed: subscriber,
                                                     ),
                                                   ),
                                                 ),

@@ -20,25 +20,25 @@ import 'package:flutter_sheplates/modals/response/HomeListResponse.dart';
 import 'package:flutter_sheplates/modals/response/loginresponse.dart';
 import 'package:flutter_sheplates/ui/DrawerScreen.dart';
 import 'package:flutter_sheplates/ui/EditProfile.dart';
-import 'package:flutter_sheplates/ui/Vegitarian_lunch.dart';
+import 'package:flutter_sheplates/ui/MealDetailScreen.dart';
 import 'package:flutter_sheplates/modals/response/tabNamesFiltersResponse.dart';
 import 'package:flutter_sheplates/Utils/global.dart';
 
 class HomeScreenWithTabs extends StatefulWidget {
   String categoryName;
-  int categoryID;
-  HomeScreenWithTabs({this.categoryName, this.categoryID});
+  int mainCategoryID;
+  HomeScreenWithTabs({this.categoryName, this.mainCategoryID});
   @override
-  _HomeScreenWithTabsState createState() => _HomeScreenWithTabsState(categoryName, categoryID);
+  _HomeScreenWithTabsState createState() => _HomeScreenWithTabsState(categoryName, mainCategoryID);
 }
 
 class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
   String categoryName;
-  int categoryID;
+  int mainCategoryID;
   TabNamesFilters tabNamesFilters;
-  bool subscriber = false;
+  bool isSubscribed = false;
 
-  _HomeScreenWithTabsState(this.categoryName, this.categoryID);
+  _HomeScreenWithTabsState(this.categoryName, this.mainCategoryID);
 
   @override
   initState() {
@@ -247,15 +247,15 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
               : TabBarView(
                   physics: NeverScrollableScrollPhysics(), //stops data reloading
                   children: [
-                    TabData(_streamController, subscriber, images, categoryID,
+                    TabData(_streamController, isSubscribed, images, mainCategoryID,
                         tabNamesFilters.data.mealCategory.rows[0].id),
-                    TabData(_streamController, subscriber, images, categoryID,
+                    TabData(_streamController, isSubscribed, images, mainCategoryID,
                         tabNamesFilters.data.mealCategory.rows[1].id),
-                    TabData(_streamController, subscriber, images, categoryID,
+                    TabData(_streamController, isSubscribed, images, mainCategoryID,
                         tabNamesFilters.data.mealCategory.rows[2].id),
-                    TabData(_streamController, subscriber, images, categoryID,
+                    TabData(_streamController, isSubscribed, images, mainCategoryID,
                         tabNamesFilters.data.mealCategory.rows[3].id),
-                    TabData(_streamController, subscriber, images, categoryID, 58765),
+                    TabData(_streamController, isSubscribed, images, mainCategoryID, 58765),
                   ],
                 ),
         ),
@@ -267,13 +267,13 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
 
   getList() async {
     String token = await SharedPrefHelper().getWithDefault("token", "");
-    var res = await NetworkUtil().get("user/subscription-plans?cuisine_id=$categoryID", token: token);
+    var res = await NetworkUtil().get("user/subscription-plans?cuisine_id=$mainCategoryID", token: token);
     HomeListResponse homeListResponse = HomeListResponse.fromJson(res);
     if (homeListResponse.status == 200) {
       if (homeListResponse.data.subscriptionPlanData != null) {
         _streamController.sink.add(homeListResponse.data.subscriptionPlanData.rows);
       }
-      subscriber = homeListResponse.data.suscriber;
+      isSubscribed = homeListResponse.data.suscriber;
       if (homeListResponse.data.deliveryAddressExist == 0) {
         CommonUtils.showToast(
             msg: "You have't added your delivery Location Please add", bgColor: Colors.black, textColor: Colors.white);

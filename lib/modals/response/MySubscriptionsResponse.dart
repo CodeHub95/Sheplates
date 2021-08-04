@@ -60,6 +60,7 @@ class ActiveSubscription {
     this.orders,
   });
 
+  bool isExpanded = false;
   String sheplatesOrderId;
   List<ActiveSubscriptionOrder> orders;
 
@@ -332,6 +333,7 @@ class PastSubscription {
     this.orders,
   });
 
+  bool isExpanded = false;
   String sheplatesOrderId;
   List<PastSubscriptionOrder> orders;
 

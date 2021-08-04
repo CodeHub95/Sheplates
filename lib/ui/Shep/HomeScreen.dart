@@ -18,7 +18,7 @@ import 'package:flutter_sheplates/modals/response/HomeListResponse.dart';
 import 'package:flutter_sheplates/modals/response/loginresponse.dart';
 import 'package:flutter_sheplates/ui/DrawerScreen.dart';
 import 'package:flutter_sheplates/ui/EditProfile.dart';
-import 'package:flutter_sheplates/ui/Vegitarian_lunch.dart';
+import 'package:flutter_sheplates/ui/MealDetailScreen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -199,9 +199,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                 Navigator.push(
                                                                     context,
                                                                     MaterialPageRoute(
-                                                                        builder: (context) => VegitarianLunch(
-                                                                              rows: snapshot.data[index],
-                                                                              suscriber: suscriber,
+                                                                        builder: (context) => MealDetailScreen(
+                                                                              mealDetails: snapshot.data[index],
+                                                                              isSuscribed: suscriber,
                                                                             )))
                                                               },
                                                             )))

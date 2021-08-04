@@ -3,7 +3,8 @@ import 'package:flutter_sheplates/ui/PastWidgetTabData.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sheplates/Utils/hexColor.dart';
-import 'package:flutter_sheplates/modals/response/MySubscriptions.dart';
+import 'package:flutter_sheplates/modals/response/MySubscriptionsResponse.dart';
+import 'package:flutter_sheplates/ui/PastWidgetTabDataCopy.dart';
 
 class PastWidgetWithTabs extends StatefulWidget {
   List<PastSubscription> pastSubscriptionList;
@@ -59,19 +60,19 @@ class _PastWidgetWithTabsState extends State<PastWidgetWithTabs> {
                     body: TabBarView(
                       physics: NeverScrollableScrollPhysics(),
                       children: [
-                        PastWidgetTabData(pastSubscriptionList
+                        PastWidgetTabDataCopy(pastSubscriptionList
                             .where((element) => element.orders[0].catalog.mealCategory.category == "Breakfast")
                             .toList()),
-                        PastWidgetTabData(pastSubscriptionList
+                        PastWidgetTabDataCopy(pastSubscriptionList
                             .where((element) => element.orders[0].catalog.mealCategory.category == "Lunch")
                             .toList()),
-                        PastWidgetTabData(pastSubscriptionList
+                        PastWidgetTabDataCopy(pastSubscriptionList
                             .where((element) => element.orders[0].catalog.mealCategory.category == "Snacks")
                             .toList()),
-                        PastWidgetTabData(pastSubscriptionList
+                        PastWidgetTabDataCopy(pastSubscriptionList
                             .where((element) => element.orders[0].catalog.mealCategory.category == "Dinner")
                             .toList()),
-                        PastWidgetTabData(pastSubscriptionList),
+                        PastWidgetTabDataCopy(pastSubscriptionList),
                       ],
                     ),
                   ),

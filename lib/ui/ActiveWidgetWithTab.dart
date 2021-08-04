@@ -2,8 +2,8 @@ import 'package:flutter_sheplates/ui/ActiveWidgetTabData.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sheplates/Utils/hexColor.dart';
-import 'package:flutter_sheplates/ui/PastWidgetTabData.dart';
-import 'package:flutter_sheplates/modals/response/MySubscriptions.dart';
+import 'package:flutter_sheplates/modals/response/MySubscriptionsResponse.dart';
+import 'package:flutter_sheplates/ui/ActiveWidgetTabDataCopy.dart';
 
 class ActiveWidgetWithTab extends StatefulWidget {
   List<ActiveSubscription> activeSubscriptionList;
@@ -56,19 +56,19 @@ class ActiveWidgetWithTabState extends State<ActiveWidgetWithTab> {
                 body: TabBarView(
                   physics: NeverScrollableScrollPhysics(),
                   children: [
-                    ActiveWidgetTabData(activeSubscriptionList
+                    ActiveWidgetTabDataCopy(activeSubscriptionList
                         .where((element) => element.orders[0].catalog.mealCategory.category == "Breakfast")
                         .toList()),
-                    ActiveWidgetTabData(activeSubscriptionList
+                    ActiveWidgetTabDataCopy(activeSubscriptionList
                         .where((element) => element.orders[0].catalog.mealCategory.category == "Lunch")
                         .toList()),
-                    ActiveWidgetTabData(activeSubscriptionList
+                    ActiveWidgetTabDataCopy(activeSubscriptionList
                         .where((element) => element.orders[0].catalog.mealCategory.category == "Snacks")
                         .toList()),
-                    ActiveWidgetTabData(activeSubscriptionList
+                    ActiveWidgetTabDataCopy(activeSubscriptionList
                         .where((element) => element.orders[0].catalog.mealCategory.category == "Dinner")
                         .toList()),
-                    ActiveWidgetTabData(activeSubscriptionList),
+                    ActiveWidgetTabDataCopy(activeSubscriptionList),
                   ],
                 ),
               ),

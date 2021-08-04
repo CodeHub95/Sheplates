@@ -6,7 +6,7 @@ import 'package:flutter_sheplates/modals/response/loginresponse.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sheplates/modals/response/HomeListResponse.dart';
 import 'dart:async';
-import 'package:flutter_sheplates/ui/Vegitarian_lunch.dart';
+import 'package:flutter_sheplates/ui/MealDetailScreen.dart';
 import 'package:flutter_sheplates/Utils/app_utils.dart';
 import 'package:flutter_sheplates/Utils/ScreenUtils.dart';
 import 'package:flutter_sheplates/Utils/app_defaults.dart';
@@ -16,25 +16,25 @@ import 'package:flutter_sheplates/Utils/Routes.dart';
 
 class TabData extends StatefulWidget {
   StreamController<List<Rows>> _streamController;
-  bool subscriber;
+  bool isSubscribed;
   List<String> images;
-  int categoryID;
+  int mainCategoryID;
   int tabID;
-  TabData(this._streamController, this.subscriber, this.images, this.categoryID, this.tabID, {Key key})
+  TabData(this._streamController, this.isSubscribed, this.images, this.mainCategoryID, this.tabID, {Key key})
       : super(key: key);
 
   @override
-  _TabDataState createState() => _TabDataState(_streamController, subscriber, images, categoryID, tabID);
+  _TabDataState createState() => _TabDataState(_streamController, isSubscribed, images, mainCategoryID, tabID);
 }
 
 class _TabDataState extends State<TabData> {
   StreamController<List<Rows>> _streamController;
-  bool subscriber;
+  bool isSubscribed;
   List<String> images;
-  int categoryID;
+  int mainCategoryID;
   int tabID;
 
-  _TabDataState(this._streamController, this.subscriber, this.images, this.categoryID, this.tabID);
+  _TabDataState(this._streamController, this.isSubscribed, this.images, this.mainCategoryID, this.tabID);
 
   @override
   void initState() {
@@ -136,14 +136,13 @@ class _TabDataState extends State<TabData> {
                                                 style: TextStyle(color: Colors.red),
                                               ),
                                               onPressed: () => {
-                                                // null
                                                 Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
                                                     // builder: (context) => VegitarianLunchCopy(
-                                                    builder: (context) => VegitarianLunch(
-                                                      rows: snapshot.data[index],
-                                                      suscriber: subscriber,
+                                                    builder: (context) => MealDetailScreen(
+                                                      mealDetails: snapshot.data[index],
+                                                      isSuscribed: isSubscribed,
                                                     ),
                                                   ),
                                                 ),
@@ -219,7 +218,7 @@ class _TabDataState extends State<TabData> {
                                             color: Colors.red,
                                             child: Text("Request Call Back", style: TextStyle(color: Colors.white)),
                                             onPressed: () => {
-                                              if (subscriber == true)
+                                              if (isSubscribed == true)
                                                 CommonUtils.showToast(
                                                   msg: "You have already one subscription plan running!",
                                                   bgColor: Colors.black,
@@ -312,17 +311,11 @@ class _TabDataState extends State<TabData> {
     }
   }
 
-  getList(int id) async {
+  getList(int tabID) async {
     String token = await SharedPrefHelper().getWithDefault("token", "");
-
-    String apiURL = id == 58765
-        ? "user/subscription-plans?cuisine_id=$categoryID"
-        : "user/subscription-plans?category_id=$id&cuisine_id=$categoryID";
-
-    // String apiURL = "user/subscription-plans?cuisine_id=$categoryID";
-    // if (tabID != 58765) {
-    //   apiURL = "user/subscription-plans?category_id=$tabID&cuisine_id=$categoryID";
-    // }
+    String apiURL = tabID == 58765
+        ? "user/subscription-plans?cuisine_id=$mainCategoryID"
+        : "user/subscription-plans?category_id=$tabID&cuisine_id=$mainCategoryID";
 
     var res = await NetworkUtil().get(apiURL, token: token);
 
@@ -331,7 +324,7 @@ class _TabDataState extends State<TabData> {
       if (homeListResponse.data.subscriptionPlanData != null) {
         _streamController.sink.add(homeListResponse.data.subscriptionPlanData.rows);
       }
-      subscriber = homeListResponse.data.suscriber;
+      isSubscribed = homeListResponse.data.suscriber;
 
       if (homeListResponse.data.deliveryAddressExist == 0) {
         CommonUtils.showToast(

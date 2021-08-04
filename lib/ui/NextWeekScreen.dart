@@ -34,7 +34,7 @@ class _HomeScreenState extends State<NextWeekScreen> {
           child: Padding(
             padding: EdgeInsets.only(right: 20),
             child: Text(
-              snapshotData.rows.mealName,
+              snapshotData.mealDetails.mealName,
               style: TextStyle(color: Colors.black, fontSize: 17),
               textAlign: TextAlign.center,
             ),
@@ -122,22 +122,22 @@ class _HomeScreenState extends State<NextWeekScreen> {
                                       children: [
                                         WeekSeparator(weekName: "Week 2"),
                                         Day(dayName: "Monday:"),
-                                        Meal(mealName: snapshotData.rows.menu.monday2),
+                                        Meal(mealName: snapshotData.mealDetails.menu.monday2),
                                         Day(dayName: "Tuesday:"),
-                                        Meal(mealName: snapshotData.rows.menu.tuesday2),
+                                        Meal(mealName: snapshotData.mealDetails.menu.tuesday2),
                                         Day(dayName: "Wednesday:"),
-                                        Meal(mealName: snapshotData.rows.menu.wednesday2),
+                                        Meal(mealName: snapshotData.mealDetails.menu.wednesday2),
                                         Day(dayName: "Thursday:"),
-                                        Meal(mealName: snapshotData.rows.menu.thrusday2),
+                                        Meal(mealName: snapshotData.mealDetails.menu.thrusday2),
                                         Day(dayName: "Friday:"),
-                                        Meal(mealName: snapshotData.rows.menu.friday2),
+                                        Meal(mealName: snapshotData.mealDetails.menu.friday2),
                                         Day(dayName: "Saturday:"),
-                                        Meal(mealName: snapshotData.rows.menu.saturday2),
+                                        Meal(mealName: snapshotData.mealDetails.menu.saturday2),
                                         Padding(
                                           padding: EdgeInsets.only(top: 10),
                                           child: Text(
-                                            snapshotData.rows.menu.sunday2 != null &&
-                                                    snapshotData.rows.menu.sunday2 != ""
+                                            snapshotData.mealDetails.menu.sunday2 != null &&
+                                                    snapshotData.mealDetails.menu.sunday2 != ""
                                                 ? "Sunday:"
                                                 : "",
                                             style: TextStyle(fontSize: 20, color: Colors.red),
@@ -146,9 +146,9 @@ class _HomeScreenState extends State<NextWeekScreen> {
                                         Container(
                                           width: MediaQuery.of(context).size.width / 1.1,
                                           child: Text(
-                                              snapshotData.rows.menu.sunday2 != null &&
-                                                      snapshotData.rows.menu.sunday2 != ""
-                                                  ? snapshotData.rows.menu.sunday2
+                                              snapshotData.mealDetails.menu.sunday2 != null &&
+                                                      snapshotData.mealDetails.menu.sunday2 != ""
+                                                  ? snapshotData.mealDetails.menu.sunday2
                                                   : "",
                                               maxLines: 3,
                                               style: TextStyle(fontSize: 14, color: Colors.white)),
