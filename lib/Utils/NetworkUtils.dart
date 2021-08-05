@@ -116,6 +116,39 @@ class NetworkUtil {
     });
   }
 
+  Future<dynamic> del(String url, {String token, queryMap, BuildContext context}) {
+    Map<String, String> map = new Map();
+    Map<String, dynamic> queryParams = new Map();
+    map["Content-Type"] = "application/json";
+    if (token != null) {
+      map["Authorization"] = "Bearer " + token;
+    }
+
+    if (queryMap != null) {
+      queryParams = queryMap;
+    }
+
+    Options options = new Options(headers: map);
+
+    return dio.get(Uri.encodeFull(url), options: options, queryParameters: queryParams).then((response) {
+      final int statusCode = response.statusCode;
+
+      if (statusCode < 200 || statusCode > 400 || json == null) {
+        if (statusCode == 401) {
+          throw new Exception("401");
+        } else {
+          throw new Exception("Error while fetching data");
+        }
+      }
+      return response.data;
+    }).catchError((errorResponse) {
+      if (errorResponse.activeSubscriptionList.statusCode == 401) {
+        // logout(context);
+      }
+      return errorResponse.activeSubscriptionList.data;
+    });
+  }
+
   Future<dynamic> putApi({body, String url, String token, bool isFormData: false}) {
     Map<String, String> map = new Map();
 

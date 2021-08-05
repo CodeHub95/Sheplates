@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sheplates/ui/ChooseLocation.dart';
 import 'package:flutter_sheplates/ui/DeliveryStaticScreen.dart';
-import 'package:flutter_sheplates/ui/HomeScreen.dart';
-import 'file:///C:/Users/Lenovo/Desktop/NewSheplates_13-07/flutter_sheplates/lib/ui/NewFlow/CategoryScreen.dart';
 import 'package:flutter_sheplates/ui/LoginScreen.dart';
 import 'package:flutter_sheplates/ui/OtpVerificationScreen.dart';
 import 'package:flutter_sheplates/ui/PaymentScreen.dart';
@@ -10,6 +7,8 @@ import 'package:flutter_sheplates/ui/ProceedToPayment.dart';
 import 'package:flutter_sheplates/ui/RegisterScreen.dart';
 import 'package:flutter_sheplates/ui/SplashScreen.dart';
 import 'package:flutter_sheplates/ui/custom/date_range_picker.dart';
+
+import '../ui/NewFlow/CategoryScreen.dart';
 
 class Routes {
   static const String initialRoute = "/";

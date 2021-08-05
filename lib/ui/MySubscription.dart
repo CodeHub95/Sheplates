@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'file:///C:/Users/Lenovo/Desktop/NewSheplates_13-07/flutter_sheplates/lib/ui/NewFlow/ActiveWidgetWithTab.dart';
 import 'package:flutter_sheplates/ui/DrawerScreen.dart';
-import 'file:///C:/Users/Lenovo/Desktop/NewSheplates_13-07/flutter_sheplates/lib/ui/NewFlow/PastWidgetWithTab.dart';
 import 'package:flutter_sheplates/modals/response/MySubscriptionsResponse.dart';
 import 'package:flutter_sheplates/Utils/app_defaults.dart';
 import 'package:flutter_sheplates/Utils/NetworkUtils.dart';
+
+import 'NewFlow/ActiveWidgetWithTab.dart';
+import 'NewFlow/PastWidgetWithTab.dart';
 
 class MySubscription extends StatefulWidget {
   @override

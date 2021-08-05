@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'package:flutter_sheplates/modals/request/ConfirmOrderRequest.dart';
-import 'file:///C:/Users/Lenovo/Desktop/NewSheplates_13-07/flutter_sheplates/lib/ui/NewFlow/CartScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_date_pickers/flutter_date_pickers.dart';
@@ -15,7 +13,6 @@ import 'package:flutter_sheplates/auth/api_config.dart';
 import 'package:flutter_sheplates/modals/request/StockCheckRequest.dart';
 import 'package:flutter_sheplates/modals/response/CheckOutResponse.dart';
 import 'package:flutter_sheplates/modals/response/HomeListResponse.dart';
-import 'package:flutter_sheplates/modals/response/StockCheckOutResponse.dart';
 import 'package:flutter_sheplates/ui/Checkout.dart';
 import 'package:flutter_sheplates/ui/custom/date_range_picker.dart';
 
@@ -114,126 +111,126 @@ class _HomeScreenState extends State<ConfirmSubscription> {
         ),
         body: SingleChildScrollView(
             child: FormBuilder(
-              key: _fbKey,
-              autovalidateMode: _autoValidate ? AutovalidateMode.always : AutovalidateMode.disabled,
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      inputWidget(
-                        attribute: "meal_plan",
+          key: _fbKey,
+          autovalidateMode: _autoValidate ? AutovalidateMode.always : AutovalidateMode.disabled,
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  inputWidget(
+                    attribute: "meal_plan",
+                    validators: [FormBuilderValidators.required()],
+                    textEditingController: mealPlanController,
+                    textInputType: TextInputType.text,
+                    readOnly: true,
+                    isDisbaled: true,
+                    hint: "Meal Plan",
+                  ),
+                  inputWidgetDropDown(
+                    attribute: "delivery_time",
+                    validators: [FormBuilderValidators.required()],
+                    hint: "Preferred Delivery Time",
+                    onChanged: (String value) {
+                      prefferedTime = value;
+                    },
+                    items: time,
+                  ),
+                  inputWidgetDropDown(
+                      attribute: "qua",
+                      validators: [FormBuilderValidators.required()],
+                      hint: "Quantity",
+                      onChanged: (String value) {
+                        quantityValue = value;
+                      },
+                      items: [
+                        "1",
+                        "2",
+                        "3",
+                        "4",
+                        "5",
+                        "6",
+                        "7",
+                        "8",
+                        "9",
+                        "10",
+                      ]),
+                  inputWidgetDropDown(
+                      attribute: "duration",
+                      validators: [FormBuilderValidators.required()],
+                      hint: "Duration",
+                      onChanged: (String value) {
+                        dateController.text = "";
+                        if (value == "Weekly") {
+                          selectionType = RangeSelectionType.Weekly;
+                        } else if (value == "Monthly") {
+                          selectionType = RangeSelectionType.Monthly;
+                        } else {
+                          selectionType = RangeSelectionType.Custom;
+                        }
+                      },
+                      items: duration),
+                  InkWell(
+                    onTap: () {
+                      if (selectionType != null) {
+                        _selectDate(context);
+                      } else {
+                        CommonUtils.showToast(
+                            msg: "Please choose duration before choosing dates",
+                            bgColor: Colors.black,
+                            textColor: Colors.white);
+                      }
+                    },
+                    child: inputWidget(
+                        attribute: "choose_your_date",
                         validators: [FormBuilderValidators.required()],
-                        textEditingController: mealPlanController,
+                        textEditingController: dateController,
                         textInputType: TextInputType.text,
                         readOnly: true,
-                        isDisbaled: true,
-                        hint: "Meal Plan",
-                      ),
-                      inputWidgetDropDown(
-                        attribute: "delivery_time",
-                        validators: [FormBuilderValidators.required()],
-                        hint: "Preferred Delivery Time",
-                        onChanged: (String value) {
-                          prefferedTime = value;
-                        },
-                        items: time,
-                      ),
-                      inputWidgetDropDown(
-                          attribute: "qua",
-                          validators: [FormBuilderValidators.required()],
-                          hint: "Quantity",
-                          onChanged: (String value) {
-                            quantityValue = value;
-                          },
-                          items: [
-                            "1",
-                            "2",
-                            "3",
-                            "4",
-                            "5",
-                            "6",
-                            "7",
-                            "8",
-                            "9",
-                            "10",
-                          ]),
-                      inputWidgetDropDown(
-                          attribute: "duration",
-                          validators: [FormBuilderValidators.required()],
-                          hint: "Duration",
-                          onChanged: (String value) {
-                            dateController.text = "";
-                            if (value == "Weekly") {
-                              selectionType = RangeSelectionType.Weekly;
-                            } else if (value == "Monthly") {
-                              selectionType = RangeSelectionType.Monthly;
-                            } else {
-                              selectionType = RangeSelectionType.Custom;
+                        image: "assets/calendar_icon.png",
+                        hint: "Choose Your Date"),
+                  ),
+                  Container(
+                      padding: EdgeInsets.only(),
+                      margin: EdgeInsets.only(top: 40, bottom: 40, right: 0, left: 0),
+                      height: 40,
+                      alignment: Alignment.center,
+                      child: RaisedButton(
+                          padding: EdgeInsets.only(left: 15, right: 15),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                          color: AppColor.themeButtonColor,
+                          textColor: Colors.white,
+                          child: Text(
+                            ('Confirm & Proceed to checkout'),
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 14,
+                            ),
+                          ),
+                          onPressed: () {
+                            if (_validateInput()) {
+                              submit();
                             }
-                          },
-                          items: duration),
-                      InkWell(
-                        onTap: () {
-                          if (selectionType != null) {
-                            _selectDate(context);
-                          } else {
-                            CommonUtils.showToast(
-                                msg: "Please choose duration before choosing dates",
-                                bgColor: Colors.black,
-                                textColor: Colors.white);
-                          }
-                        },
-                        child: inputWidget(
-                            attribute: "choose_your_date",
-                            validators: [FormBuilderValidators.required()],
-                            textEditingController: dateController,
-                            textInputType: TextInputType.text,
-                            readOnly: true,
-                            image: "assets/calendar_icon.png",
-                            hint: "Choose Your Date"),
-                      ),
-                      Container(
-                          padding: EdgeInsets.only(),
-                          margin: EdgeInsets.only(top: 40, bottom: 40, right: 0, left: 0),
-                          height: 40,
-                          alignment: Alignment.center,
-                          child: RaisedButton(
-                              padding: EdgeInsets.only(left: 15, right: 15),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5.0),
-                              ),
-                              color: AppColor.themeButtonColor,
-                              textColor: Colors.white,
-                              child: Text(
-                                ('Confirm & Proceed to checkout'),
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 14,
-                                ),
-                              ),
-                              onPressed: () {
-                                if (_validateInput()) {
-                                  submit();
-                                }
-                              })),
-                    ]),
-              ),
-            )));
+                          })),
+                ]),
+          ),
+        )));
   }
 
   Widget inputWidget(
       {@required String attribute,
-        @required var validators,
-        @required var textInputType,
-        @required TextEditingController textEditingController,
-        @required String hint,
-        int maxLine: 1,
-        String image,
-        bool isObscureText: false,
-        bool readOnly: false,
-        bool isDisbaled: false}) {
+      @required var validators,
+      @required var textInputType,
+      @required TextEditingController textEditingController,
+      @required String hint,
+      int maxLine: 1,
+      String image,
+      bool isObscureText: false,
+      bool readOnly: false,
+      bool isDisbaled: false}) {
     return Padding(
       padding: const EdgeInsets.only(top: 20),
       child: Column(
@@ -271,14 +268,14 @@ class _HomeScreenState extends State<ConfirmSubscription> {
 
   inputWidgetDropDown(
       {@required String attribute,
-        @required var validators,
-        @required String hint,
-        @required List<String> items,
-        @required Function(String) onChanged,
-        int maxLine: 1,
-        bool isObscureText: false,
-        bool readOnly: false,
-        String image}) {
+      @required var validators,
+      @required String hint,
+      @required List<String> items,
+      @required Function(String) onChanged,
+      int maxLine: 1,
+      bool isObscureText: false,
+      bool readOnly: false,
+      String image}) {
     return Padding(
       padding: const EdgeInsets.only(top: 20),
       child: Column(
@@ -298,9 +295,9 @@ class _HomeScreenState extends State<ConfirmSubscription> {
               onChanged: (value) => onChanged(value.toString()),
               items: items
                   .map((e) => DropdownMenuItem(
-                child: ScreenUtils.customText(data: e),
-                value: e,
-              ))
+                        child: ScreenUtils.customText(data: e),
+                        value: e,
+                      ))
                   .toList(),
               decoration: InputDecoration(
                 hintText: hint,
@@ -312,8 +309,6 @@ class _HomeScreenState extends State<ConfirmSubscription> {
       ),
     );
   }
-
-
 
   submit() async {
     String token = await SharedPrefHelper().getWithDefault("token", "");

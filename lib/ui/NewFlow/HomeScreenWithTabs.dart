@@ -1,28 +1,23 @@
 import 'dart:async';
-import 'file:///C:/Users/Lenovo/Desktop/NewSheplates_13-07/flutter_sheplates/lib/ui/NewFlow/TabData.dart';
+import 'package:flutter_sheplates/ui/NewFlow/TabData.dart';
 import 'dart:convert';
 import 'CartScreen.dart';
-import 'CategoryScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sheplates/Utils/NetworkUtils.dart';
 import 'package:flutter_sheplates/Utils/Routes.dart';
-import 'package:flutter_sheplates/Utils/ScreenUtils.dart';
 import 'package:flutter_sheplates/Utils/app_constants.dart';
 import 'package:flutter_sheplates/Utils/app_defaults.dart';
 import 'package:flutter_sheplates/Utils/app_utils.dart';
 import 'package:flutter_sheplates/Utils/hexColor.dart';
 import 'package:flutter_sheplates/modals/request/AddUserRequest.dart';
 import 'package:flutter_sheplates/modals/request/AppDownloadRequest.dart';
-import 'package:flutter_sheplates/modals/request/PauseSubscriptionRequest.dart';
 import 'package:flutter_sheplates/modals/response/BaseResponse.dart';
 import 'package:flutter_sheplates/modals/response/HomeListResponse.dart';
 import 'package:flutter_sheplates/modals/response/loginresponse.dart';
 import 'package:flutter_sheplates/ui/DrawerScreen.dart';
-import 'package:flutter_sheplates/ui/EditProfile.dart';
-import 'file:///C:/Users/Lenovo/Desktop/NewSheplates_13-07/flutter_sheplates/lib/ui/NewFlow/MealDetailScreen.dart';
 import 'package:flutter_sheplates/modals/response/tabNamesFiltersResponse.dart';
-import 'package:flutter_sheplates/Utils/global.dart';
+import 'package:flutter_sheplates/modals/response/CardResponse.dart';
 
 class HomeScreenWithTabs extends StatefulWidget {
   String categoryName;
@@ -45,7 +40,19 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
     super.initState();
     if (mounted) _appDownload();
     getTabs();
+    getCartItems();
     // getList();
+  }
+
+  int numberOfCartItems;
+
+  getCartItems() async {
+    String token = await SharedPrefHelper().getWithDefault("token", "");
+    var res = await NetworkUtil().get("user/cartItems", token: token);
+    CardResponse cardResponse = CardResponse.fromJson(res);
+    cardResponse.status == 200
+        ? setState(() => numberOfCartItems = cardResponse.data.cartItems.length)
+        : print("************** Error while fetching numbers of cart items ***************** ");
   }
 
   getTabs() async {
@@ -184,10 +191,14 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
                         Navigator.push(context, MaterialPageRoute(builder: (context) => CartScreen())),
                       },
                     ),
-                    Container(
-                      decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.red),
-                      child: Padding(padding: EdgeInsets.symmetric(vertical: 3, horizontal: 3), child: Text("8")),
-                    ),
+                    numberOfCartItems == null
+                        ? Container()
+                        : Container(
+                            decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.red),
+                            child: Padding(
+                                padding: EdgeInsets.symmetric(vertical: 3, horizontal: 3),
+                                child: Text(numberOfCartItems.toString())),
+                          ),
                   ],
                 ),
               ),

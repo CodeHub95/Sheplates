@@ -1,14 +1,11 @@
 import 'dart:async';
-import 'package:flutter_sheplates/ui/NewFlow/HomeScreenWithTabs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sheplates/Utils/NetworkUtils.dart';
 import 'package:flutter_sheplates/Utils/ScreenUtils.dart';
 import 'package:flutter_sheplates/Utils/app_defaults.dart';
-import 'package:flutter_sheplates/Utils/app_utils.dart';
 import 'package:flutter_sheplates/modals/request/ConfirmOrderRequest.dart';
-import 'package:flutter_sheplates/modals/response/BaseResponse.dart';
-import 'package:flutter_sheplates/modals/response/CardResponse.dart';
 import 'package:flutter_sheplates/modals/response/CheckOutResponse.dart';
+import 'package:flutter_sheplates/modals/response/CardResponse.dart';
 
 class CartScreen extends StatefulWidget {
   final CheckOutResponse stockCheckOutResponse;
@@ -23,7 +20,7 @@ class _CartScreenState extends State<CartScreen> {
   final CheckOutResponse stockCheckOutResponse;
   final ConfirmOrderRequestModel confirmOrderRequestModel;
   StreamController<CardResponse> _streamController = StreamController.broadcast();
-  StreamController<BaseResponse> _deleteController = StreamController.broadcast();
+
   _CartScreenState(this.stockCheckOutResponse, this.confirmOrderRequestModel);
 
   @override
@@ -96,16 +93,16 @@ class _CartScreenState extends State<CartScreen> {
                                       itemCount: snapshot.data.data.cartItems.length,
                                       itemBuilder: (BuildContext context, int index) {
                                         return buildCartItem(
-                                            mealTitle: snapshot.data.data.cartItems[index].catalog.mealName,
-                                            mealDesc: "Qty:" +
-                                                snapshot.data.data.cartItems[index].quantity.toString() +
-                                                "," "Days:" +
-                                                snapshot.data.data.cartItems[index].days.toString() +
-                                                "," +
-                                                "Time:" +
-                                                snapshot.data.data.cartItems[index].preferredDeliveryTime,
-                                            mealAmount: snapshot.data.data.cartItems[index].catalog.price.toString(),
-                                            itemId: snapshot.data.data.cartItems[index].id);
+                                          mealTitle: snapshot.data.data.cartItems[index].catalog.mealName,
+                                          mealDesc: "Qty:" +
+                                              snapshot.data.data.cartItems[index].quantity.toString() +
+                                              "," "Days:" +
+                                              snapshot.data.data.cartItems[index].days.toString() +
+                                              "," +
+                                              "Time:" +
+                                              snapshot.data.data.cartItems[index].preferredDeliveryTime,
+                                          mealAmount: snapshot.data.data.cartItems[index].catalog.price.toString(),
+                                        );
                                       }),
                                   Column(
                                     children: [
@@ -193,8 +190,6 @@ class _CartScreenState extends State<CartScreen> {
                       child: Text("Back to plans", style: TextStyle(color: Colors.redAccent)),
                       onPressed: () {
                         Navigator.pop(context);
-                        // Navigator.pushAndRemoveUntil(
-                        //     context, MaterialPageRoute(builder: (context) => HomeScreenWithTabs()), (route) => false);
                       },
                     ),
                   ),
@@ -208,7 +203,7 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 
-  buildCartItem({String mealTitle, String mealDesc, String mealAmount, int itemId}) {
+  buildCartItem({String mealTitle, String mealDesc, String mealAmount}) {
     return Column(
       children: [
         SizedBox(height: 5),
@@ -227,17 +222,15 @@ class _CartScreenState extends State<CartScreen> {
               ],
             ),
             Container(
-              width: MediaQuery.of(context).size.width / 4.5,
+              width: MediaQuery.of(context).size.width / 5,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  IconButton(
-                    icon: Icon(Icons.delete_outline, size: 30, color: Colors.grey),
-                    onPressed: () {
-                      deleteItem(itemId: itemId);
-                    },
+                  InkWell(
+                    onTap: () {},
+                    child: Icon(Icons.delete_outline, size: 30, color: Colors.grey),
                   ),
-                  Center(child: Text(mealAmount, style: TextStyle(fontSize: 17)))
+                  Text(mealAmount, style: TextStyle(fontSize: 17))
                 ],
               ),
             ),
@@ -296,25 +289,6 @@ class _CartScreenState extends State<CartScreen> {
       _streamController.sink.add(cardResponse);
     } else {
       _streamController.sink.add(cardResponse);
-    }
-  }
-
-  deleteItem({int itemId}) async {
-    String token = await SharedPrefHelper().getWithDefault("token", "");
-
-    var res = await NetworkUtil().deleteApi(
-      "user/cartItems/" + itemId.toString(),
-      token: token,
-    );
-    BaseResponse baseResponse = BaseResponse.fromJson(res);
-    if (baseResponse.status == 200) {
-      _deleteController.sink.add(baseResponse);
-      CommonUtils.showToast(msg: "Meal Successfully Deleted!", bgColor: null, textColor: null);
-      setState(() {
-        getCartItem();
-      });
-    } else {
-      _deleteController.sink.add(baseResponse);
     }
   }
 }
