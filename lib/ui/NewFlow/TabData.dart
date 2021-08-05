@@ -6,7 +6,7 @@ import 'package:flutter_sheplates/modals/response/loginresponse.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sheplates/modals/response/HomeListResponse.dart';
 import 'dart:async';
-import 'package:flutter_sheplates/ui/MealDetailScreen.dart';
+import 'file:///C:/Users/Lenovo/Desktop/NewSheplates_13-07/flutter_sheplates/lib/ui/NewFlow/MealDetailScreen.dart';
 import 'package:flutter_sheplates/Utils/app_utils.dart';
 import 'package:flutter_sheplates/Utils/ScreenUtils.dart';
 import 'package:flutter_sheplates/Utils/app_defaults.dart';
@@ -193,7 +193,7 @@ class _TabDataState extends State<TabData> {
                                     children: [
                                       Padding(
                                         padding: EdgeInsets.only(
-                                            // left: 10,
+                                          // left: 10,
                                             top: 10,
                                             right: 30,
                                             bottom: 10),
@@ -299,7 +299,7 @@ class _TabDataState extends State<TabData> {
     String location = profile.userAddresses[0].fullAddress;
 
     AddUserRequest request =
-        AddUserRequest(type: "Meal plan customization", address: location.toString(), category: "Meal");
+    AddUserRequest(type: "Meal plan customization", address: location.toString(), category: "Meal");
     var res = await NetworkUtil().post(url: url, body: jsonEncode(request), token: token);
     BaseResponse response = BaseResponse.fromJson(res);
     if (response.status == 200) {
@@ -324,7 +324,8 @@ class _TabDataState extends State<TabData> {
       if (homeListResponse.data.subscriptionPlanData != null) {
         _streamController.sink.add(homeListResponse.data.subscriptionPlanData.rows);
       }
-      isSubscribed = homeListResponse.data.suscriber;
+      // isSubscribed = homeListResponse.data.suscriber;
+      // isSubscribed = false;
 
       if (homeListResponse.data.deliveryAddressExist == 0) {
         CommonUtils.showToast(

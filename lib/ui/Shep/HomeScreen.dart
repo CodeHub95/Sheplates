@@ -18,7 +18,7 @@ import 'package:flutter_sheplates/modals/response/HomeListResponse.dart';
 import 'package:flutter_sheplates/modals/response/loginresponse.dart';
 import 'package:flutter_sheplates/ui/DrawerScreen.dart';
 import 'package:flutter_sheplates/ui/EditProfile.dart';
-import 'package:flutter_sheplates/ui/MealDetailScreen.dart';
+import 'file:///C:/Users/Lenovo/Desktop/NewSheplates_13-07/flutter_sheplates/lib/ui/NewFlow/MealDetailScreen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override

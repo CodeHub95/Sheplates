@@ -1,4 +1,4 @@
-import 'package:flutter_sheplates/ui/ActiveWidgetTabData.dart';
+import 'file:///C:/Users/Lenovo/Desktop/NewSheplates_13-07/flutter_sheplates/lib/ui/NewFlow/ActiveWidgetTabData.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sheplates/Utils/hexColor.dart';

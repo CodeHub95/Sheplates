@@ -6,7 +6,7 @@ import 'package:flutter_sheplates/modals/response/loginresponse.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sheplates/modals/response/HomeListResponse.dart';
 import 'dart:async';
-import 'package:flutter_sheplates/ui/MealDetailScreen.dart';
+import 'file:///C:/Users/Lenovo/Desktop/NewSheplates_13-07/flutter_sheplates/lib/ui/NewFlow/MealDetailScreen.dart';
 import 'package:flutter_sheplates/Utils/app_utils.dart';
 import 'package:flutter_sheplates/Utils/ScreenUtils.dart';
 import 'package:flutter_sheplates/Utils/app_defaults.dart';

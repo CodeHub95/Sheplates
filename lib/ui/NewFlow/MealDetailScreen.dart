@@ -6,7 +6,8 @@ import 'package:flutter_sheplates/modals/response/HomeListResponse.dart';
 import 'package:flutter_sheplates/ui/ConfirmSubscription.dart';
 import 'package:flutter_sheplates/ui/DrawerScreen.dart';
 import 'package:flutter_sheplates/Utils/hexColor.dart';
-import 'package:flutter_sheplates/ui/NextWeekScreen.dart';
+import 'package:flutter_sheplates/ui/NewFlow/NewConfirmSubscription.dart';
+import 'file:///C:/Users/Lenovo/Desktop/NewSheplates_13-07/flutter_sheplates/lib/ui/NewFlow/NextWeekScreen.dart';
 
 class MealDetailScreen extends StatefulWidget {
   final Rows mealDetails;
@@ -170,21 +171,15 @@ class _HomeScreenState extends State<MealDetailScreen> {
                 context,
                 title: "Subscribe",
                 onCLick: () {
-                  if (widget.isSuscribed) {
-                    CommonUtils.showToast(
-                      msg: "You have already one subscription plan running!",
-                      bgColor: Colors.black,
-                      textColor: Colors.white,
-                    );
-                  } else {
+
                     mealName = widget.mealDetails.mealName;
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ConfirmSubscription(widget.mealDetails),
+                        builder: (context) => NewConfirmSubscription(widget.mealDetails),
                       ),
                     );
-                  }
+
                 },
               ),
             ],

@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
-import 'CategoryScreen.dart';
+import 'NewFlow/CategoryScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sheplates/Utils/NetworkUtils.dart';
@@ -18,8 +18,8 @@ import 'package:flutter_sheplates/modals/response/HomeListResponse.dart';
 import 'package:flutter_sheplates/modals/response/loginresponse.dart';
 import 'package:flutter_sheplates/ui/DrawerScreen.dart';
 import 'package:flutter_sheplates/ui/EditProfile.dart';
-import 'package:flutter_sheplates/ui/MealDetailScreen.dart';
-import 'CartScreen.dart';
+import 'file:///C:/Users/Lenovo/Desktop/NewSheplates_13-07/flutter_sheplates/lib/ui/NewFlow/MealDetailScreen.dart';
+import 'NewFlow/CartScreen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
