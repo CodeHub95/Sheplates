@@ -59,6 +59,8 @@ dependencies:
   razorpay_flutter: ^1.2.2
   url_launcher: ^5.7.10
   flutter_html: 1.0.2
+  intl: 
+  get: 
 
 dev_dependencies:
   flutter_test:

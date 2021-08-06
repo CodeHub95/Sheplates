@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter_sheplates/ui/NewFlow/HomeScreenWithTabs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sheplates/Utils/NetworkUtils.dart';
 import 'package:flutter_sheplates/Utils/ScreenUtils.dart';

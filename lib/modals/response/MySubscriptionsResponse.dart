@@ -403,7 +403,7 @@ class PastSubscriptionOrder {
   String status;
   DateTime createdAt;
   DateTime updatedAt;
-  dynamic kitchen;
+  Kitchen kitchen;
   Catalog catalog;
   Transaction transaction;
 

@@ -35,14 +35,14 @@ class Data {
 
   Data(
       {this.dcAccToCategory,
-        this.itemTotalForApp,
-        this.itemSubTotalForMail,
-        this.taxes,
-        this.taxObj,
-        this.deliveryCharges,
-        this.packingCharges,
-        this.grandTotal,
-        this.cartItems});
+      this.itemTotalForApp,
+      this.itemSubTotalForMail,
+      this.taxes,
+      this.taxObj,
+      this.deliveryCharges,
+      this.packingCharges,
+      this.grandTotal,
+      this.cartItems});
 
   Data.fromJson(Map<String, dynamic> json) {
     if (json['dcAccToCategory'] != null) {
@@ -54,8 +54,7 @@ class Data {
     itemTotalForApp = json['itemTotalForApp'];
     itemSubTotalForMail = json['itemSubTotalForMail'];
     taxes = json['taxes'];
-    taxObj =
-    json['taxObj'] != null ? new TaxObj.fromJson(json['taxObj']) : null;
+    taxObj = json['taxObj'] != null ? new TaxObj.fromJson(json['taxObj']) : null;
     deliveryCharges = json['deliveryCharges'];
     packingCharges = json['packingCharges'];
     grandTotal = json['grandTotal'];
@@ -70,8 +69,7 @@ class Data {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this.dcAccToCategory != null) {
-      data['dcAccToCategory'] =
-          this.dcAccToCategory.map((v) => v.toJson()).toList();
+      data['dcAccToCategory'] = this.dcAccToCategory.map((v) => v.toJson()).toList();
     }
     data['itemTotalForApp'] = this.itemTotalForApp;
     data['itemSubTotalForMail'] = this.itemSubTotalForMail;
@@ -109,8 +107,8 @@ class DcAccToCategory {
 }
 
 class TaxObj {
-  double cGST25;
-  double sGST25;
+  num cGST25;
+  num sGST25;
 
   TaxObj({this.cGST25, this.sGST25});
 
@@ -146,20 +144,20 @@ class CartItems {
 
   CartItems(
       {this.kitchenId,
-        this.quantity,
-        this.preferredDeliveryTime,
-        this.id,
-        this.delieveryCharges,
-        this.packagingCharges,
-        this.startDate,
-        this.endDate,
-        this.gstAmount,
-        this.basicSubscriptionPrice,
-        this.duration,
-        this.holidays,
-        this.catalog,
-        this.days,
-        this.stockAvailable});
+      this.quantity,
+      this.preferredDeliveryTime,
+      this.id,
+      this.delieveryCharges,
+      this.packagingCharges,
+      this.startDate,
+      this.endDate,
+      this.gstAmount,
+      this.basicSubscriptionPrice,
+      this.duration,
+      this.holidays,
+      this.catalog,
+      this.days,
+      this.stockAvailable});
 
   CartItems.fromJson(Map<String, dynamic> json) {
     kitchenId = json['kitchen_id'];
@@ -174,8 +172,7 @@ class CartItems {
     basicSubscriptionPrice = json['basic_subscription_price'];
     duration = json['duration'];
     holidays = json['holidays'];
-    catalog =
-    json['catalog'] != null ? new Catalog.fromJson(json['catalog']) : null;
+    catalog = json['catalog'] != null ? new Catalog.fromJson(json['catalog']) : null;
     days = json['days'];
     stockAvailable = json['stockAvailable'];
   }
@@ -211,13 +208,7 @@ class Catalog {
   int deliveryCharges;
   MealCategory mealCategory;
 
-  Catalog(
-      {this.price,
-        this.mealName,
-        this.id,
-        this.packagingCharges,
-        this.deliveryCharges,
-        this.mealCategory});
+  Catalog({this.price, this.mealName, this.id, this.packagingCharges, this.deliveryCharges, this.mealCategory});
 
   Catalog.fromJson(Map<String, dynamic> json) {
     price = json['price'];
@@ -225,9 +216,7 @@ class Catalog {
     id = json['id'];
     packagingCharges = json['packaging_charges'];
     deliveryCharges = json['delivery_charges'];
-    mealCategory = json['meal_category'] != null
-        ? new MealCategory.fromJson(json['meal_category'])
-        : null;
+    mealCategory = json['meal_category'] != null ? new MealCategory.fromJson(json['meal_category']) : null;
   }
 
   Map<String, dynamic> toJson() {

@@ -40,7 +40,8 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
     super.initState();
     if (mounted) _appDownload();
     getTabs();
-    getCartItems();
+    // if (mounted) getCartItems();
+    // getCartItems();
     // getList();
   }
 
