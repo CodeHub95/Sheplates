@@ -10,20 +10,31 @@ import 'package:flutter_sheplates/Utils/app_utils.dart';
 import 'package:flutter_sheplates/Utils/hexColor.dart';
 import 'package:flutter_sheplates/modals/request/UserAddFeedbackRequest.dart';
 import 'package:flutter_sheplates/modals/response/BaseResponse.dart';
+import 'package:flutter_sheplates/modals/response/DeliveredMealResponse.dart';
 import 'package:flutter_sheplates/modals/response/GetFeedbackResponse.dart';
 import 'package:flutter_sheplates/ui/DrawerScreen.dart';
 import 'package:flutter_sheplates/ui/HomeScreen.dart';
 
 class FeedBack extends StatefulWidget {
-  final int subscriptionID;
-  FeedBack({this.subscriptionID});
+  // DeliveredData data;
+   int idd;
+   String startDate;
+   String endDate;
+  // final int subscriptionID;
+  FeedBack({this.idd,this.startDate, this.endDate}
+      // {this.subscriptionID, }
+      );
   @override
-  _FeedBackState createState() => _FeedBackState(subscriptionID: this.subscriptionID);
+  _FeedBackState createState() => _FeedBackState(
+    this.idd, this.startDate, this.endDate,
+      // subscriptionID: this.subscriptionID
+  );
 }
 
 class _FeedBackState extends State<FeedBack> {
+  int idd; String startDate; String endDate;
   final int subscriptionID;
-  _FeedBackState({this.subscriptionID});
+  _FeedBackState(  this.idd, this.startDate, this.endDate,{this.subscriptionID});
   final _formKey = GlobalKey<FormState>();
   TextEditingController startDateController = new TextEditingController();
   TextEditingController endDateController = new TextEditingController();
@@ -311,7 +322,7 @@ class _FeedBackState extends State<FeedBack> {
                       ),
                     ),
                     onPressed: () {
-                      checkMealServed();
+                     submit();
                     },
                   )),
             ])));
@@ -511,7 +522,9 @@ class _FeedBackState extends State<FeedBack> {
     if (feedbackResponse.status == 200) {
       if (feedbackResponse.data.lastPlanFeedback != null) {
         if (feedbackResponse.data.lastPlanFeedback.startDate != null) {
-          id = feedbackResponse.data.lastPlanFeedback.id.toInt();
+          if (feedbackResponse.data.lastPlanFeedback.id == widget.idd) {
+          id = widget.idd;
+              // feedbackResponse.data.lastPlanFeedback.id.toInt();
           startDateController.text = feedbackResponse.data.lastPlanFeedback.startDate.toString();
           endDateController.text = feedbackResponse.data.lastPlanFeedback.endDate.toString();
           if (feedbackResponse.data.lastPlanFeedback.feedback != null) {
@@ -539,7 +552,7 @@ class _FeedBackState extends State<FeedBack> {
               endDateController.text = feedbackResponse.data.lastPlanFeedback.endDate.toString();
             });
           }
-        } else {
+        } }else {
           CommonUtils.showToast(
               msg: "Do not have any active subscription Plan",
               bgColor: AppColor.darkThemeBlueColor,
@@ -567,52 +580,52 @@ class _FeedBackState extends State<FeedBack> {
     }
   }
 
-  void checkMealServed() async {
-    String token = await SharedPrefHelper().getWithDefault("token", "");
-    var getFeedback = await NetworkUtil().get("user/feedback", token: token);
-    GetFeedbackResponse feedbackResponse = GetFeedbackResponse.fromJson(getFeedback);
-    _controller.sink.add(feedbackResponse);
-
-    if (feedbackResponse.status == 200) {
-      if (feedbackResponse.data.lastPlanFeedback.meals_served != 0) {
-        submit();
-      } else {
-        return showDialog(
-          context: context, barrierDismissible: false, // user must tap button!
-
-          builder: (BuildContext context) {
-            return new AlertDialog(
-              contentPadding: EdgeInsets.all(0.0),
-              content: new SingleChildScrollView(
-                child: Container(
-                    height: 130,
-                    child: new Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            IconButton(
-                                icon: Icon(
-                                  Icons.close,
-                                  size: 20.0,
-                                  color: Colors.black,
-                                ),
-                                onPressed: () => Navigator.pop(context)),
-                          ],
-                        ),
-                        Text(
-                          'Meal has not been sent yet',
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    )),
-              ),
-            );
-          },
-        );
-      }
-    }
-  }
+  // void checkMealServed() async {
+  //   String token = await SharedPrefHelper().getWithDefault("token", "");
+  //   var getFeedback = await NetworkUtil().get("user/feedback", token: token);
+  //   GetFeedbackResponse feedbackResponse = GetFeedbackResponse.fromJson(getFeedback);
+  //   _controller.sink.add(feedbackResponse);
+  //
+  //   if (feedbackResponse.status == 200) {
+  //     if (feedbackResponse.data.lastPlanFeedback.meals_served != 0) {
+  //       submit();
+  //     } else {
+  //       return showDialog(
+  //         context: context, barrierDismissible: false, // user must tap button!
+  //
+  //         builder: (BuildContext context) {
+  //           return new AlertDialog(
+  //             contentPadding: EdgeInsets.all(0.0),
+  //             content: new SingleChildScrollView(
+  //               child: Container(
+  //                   height: 130,
+  //                   child: new Column(
+  //                     children: [
+  //                       Row(
+  //                         mainAxisAlignment: MainAxisAlignment.end,
+  //                         crossAxisAlignment: CrossAxisAlignment.start,
+  //                         children: [
+  //                           IconButton(
+  //                               icon: Icon(
+  //                                 Icons.close,
+  //                                 size: 20.0,
+  //                                 color: Colors.black,
+  //                               ),
+  //                               onPressed: () => Navigator.pop(context)),
+  //                         ],
+  //                       ),
+  //                       Text(
+  //                         'Meal has not been sent yet',
+  //                         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+  //                         textAlign: TextAlign.center,
+  //                       ),
+  //                     ],
+  //                   )),
+  //             ),
+  //           );
+  //         },
+  //       );
+  //     }
+  //   }
+  // }
 }

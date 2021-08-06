@@ -1,14 +1,19 @@
 class DeliveredMealListResponse {
   int status;
   String message;
-  Data data;
+  List<DeliveredData> data;
 
   DeliveredMealListResponse({this.status, this.message, this.data});
 
   DeliveredMealListResponse.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    if (json['data'] != null) {
+      data = new List<DeliveredData>();
+      json['data'].forEach((v) {
+        data.add(new DeliveredData.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -16,52 +21,38 @@ class DeliveredMealListResponse {
     data['status'] = this.status;
     data['message'] = this.message;
     if (this.data != null) {
-      data['data'] = this.data.toJson();
+      data['data'] = this.data.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
-class Data {
-  List<LastPlanFeedback> lastPlanFeedback;
-
-  Data({this.lastPlanFeedback});
-
-  Data.fromJson(Map<String, dynamic> json) {
-    if (json['lastPlanFeedback'] != null) {
-      lastPlanFeedback = new List<LastPlanFeedback>();
-      json['lastPlanFeedback'].forEach((v) {
-        lastPlanFeedback.add(new LastPlanFeedback.fromJson(v));
-      });
-    }
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.lastPlanFeedback != null) {
-      data['lastPlanFeedback'] =
-          this.lastPlanFeedback.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
-}
-
-class LastPlanFeedback {
+class DeliveredData {
   int id;
   String startDate;
   String endDate;
   int mealsServed;
+  Catalog catalog;
   Feedback feedback;
 
-  LastPlanFeedback(
-      {this.id, this.startDate, this.endDate, this.mealsServed, this.feedback});
+  DeliveredData(
+      {this.id,
+        this.startDate,
+        this.endDate,
+        this.mealsServed,
+        this.catalog,
+        this.feedback});
 
-  LastPlanFeedback.fromJson(Map<String, dynamic> json) {
+  DeliveredData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     startDate = json['start_date'];
     endDate = json['end_date'];
     mealsServed = json['meals_served'];
-    feedback = json['feedback'];
+    catalog =
+    json['catalog'] != null ? new Catalog.fromJson(json['catalog']) : null;
+    feedback = json['feedback'] != null
+        ? new Feedback.fromJson(json['feedback'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -70,7 +61,28 @@ class LastPlanFeedback {
     data['start_date'] = this.startDate;
     data['end_date'] = this.endDate;
     data['meals_served'] = this.mealsServed;
-    data['feedback'] = this.feedback;
+    if (this.catalog != null) {
+      data['catalog'] = this.catalog.toJson();
+    }
+    if (this.feedback != null) {
+      data['feedback'] = this.feedback.toJson();
+    }
+    return data;
+  }
+}
+
+class Catalog {
+  String mealName;
+
+  Catalog({this.mealName});
+
+  Catalog.fromJson(Map<String, dynamic> json) {
+    mealName = json['meal_name'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['meal_name'] = this.mealName;
     return data;
   }
 }
@@ -82,7 +94,12 @@ class Feedback {
   int valueOfMoney;
   int deliveryExperience;
 
-  Feedback({this.taste, this.quantity, this.packaging, this.valueOfMoney, this.deliveryExperience});
+  Feedback(
+      {this.taste,
+        this.quantity,
+        this.packaging,
+        this.valueOfMoney,
+        this.deliveryExperience});
 
   Feedback.fromJson(Map<String, dynamic> json) {
     taste = json['taste'];

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sheplates/Utils/ScreenUtils.dart';
 import 'package:flutter_sheplates/Utils/app_utils.dart';
 import 'package:flutter_sheplates/modals/response/CheckOutResponse.dart';
+import 'package:flutter_sheplates/modals/response/CreateOrderOnRazorResponse.dart';
 import 'package:flutter_sheplates/ui/EditProfile.dart';
 import 'package:flutter_sheplates/ui/FaqScreen.dart';
 import 'package:flutter_sheplates/ui/Feedback.dart';
@@ -262,9 +263,10 @@ class _HomeScreenState extends State<ProceedToPayment> {
                   Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => FeedBack(),
+                        builder: (context) => FeedBack(idd: widget.orders.id, startDate: widget.orders.startDate, endDate: widget.orders.endDate),
                       ),
-                          (Route<dynamic> route) => false);
+                          (Route<dynamic> route) => false
+                  );
                 })
 
               ],

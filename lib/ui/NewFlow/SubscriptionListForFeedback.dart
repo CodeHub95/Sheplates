@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sheplates/Utils/NetworkUtils.dart';
 import 'package:flutter_sheplates/Utils/ScreenUtils.dart';
 import 'package:flutter_sheplates/Utils/app_defaults.dart';
+import 'package:flutter_sheplates/Utils/app_utils.dart';
 import 'package:flutter_sheplates/modals/response/DeliveredMealResponse.dart';
 import '../Feedback.dart';
 
@@ -15,6 +16,7 @@ class SubscriptionListForFeedback extends StatefulWidget {
 }
 
 class _SubscriptionListForFeedbackState extends State<SubscriptionListForFeedback> {
+
   StreamController<DeliveredMealListResponse> _streamController = StreamController.broadcast();
   @override
   void initState() {
@@ -23,6 +25,7 @@ class _SubscriptionListForFeedbackState extends State<SubscriptionListForFeedbac
     getDeliveredMeal();
   }
 
+
   @override
   void dispose() {
     // TODO: implement dispose
@@ -30,6 +33,7 @@ class _SubscriptionListForFeedbackState extends State<SubscriptionListForFeedbac
 
     _streamController?.close();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -70,64 +74,75 @@ class _SubscriptionListForFeedbackState extends State<SubscriptionListForFeedbac
             child: StreamBuilder<DeliveredMealListResponse>(
               stream: _streamController.stream,
               builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.none && snapshot.hasData == null) {
+                if(!snapshot.hasData){
+                  CircularProgressIndicator();
+                }
+                if (snapshot.data.data.isEmpty) {
                   print('project snapshot data is: ${snapshot.data}');
                   return Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Image.asset("assets/not_delivering.png"),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 30.0),
-                          child: ScreenUtils.customText(data: "No Data Found", textAlign: TextAlign.center),
+
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height,
+                        child:
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Image.asset("assets/not_delivering.png"),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 30.0),
+                              child: ScreenUtils.customText(
+                                  data: "You Don't have any Delivered Meal",
+                                  textAlign: TextAlign.center),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+
                   );
                 }
                 return ListView.builder(
-                  itemCount: snapshot.data.data.lastPlanFeedback.length,
+                  itemCount: snapshot.data.data.length,
                   itemBuilder: (context, index) {
                     // ProjectModel project = projectSnap.data[index];
-                    return snapshot.data == null
-                        ? CircularProgressIndicator()
-                        : Column(
-                            children: <Widget>[
-                              GestureDetector(
-                                child: Card(
-                                  child: Container(
-                                    height: 60,
-                                    width: MediaQuery.of(context).size.width,
-                                    child: Row(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
-                                          child: Container(
-                                            width: MediaQuery.of(context).size.width / 1.5,
-                                            child: Text(
-                                              snapshot.data.data.lastPlanFeedback[index].id.toString(),
-                                              style: TextStyle(color: Colors.black, fontSize: 15),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                // Text("Meal Id:" + snapshot.data.data.lastPlanFeedback[index].id.toString())
+                    return Column(
+                      children: <Widget>[
+                       GestureDetector(
+                         child:
+                             Card(
+                               child: Container(
+                                 height: 60,
+                                 width: MediaQuery.of(context).size.width,
+                                 child: Row(
+                                   crossAxisAlignment: CrossAxisAlignment.center,
+                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                   children: [
+                                     Padding(
+                                       padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
+                                       child: Container(
+                                         width: MediaQuery.of(context).size.width / 1.5,
+                                         child: Text(
+                                           snapshot.data.data[index].catalog.mealName.toString(),
+                                           style: TextStyle(color: Colors.black, fontSize: 15),
+                                         ),
+                                       ),
+                                     ),
+                                   ],
+                                 ),
+                               ),
+                             ),
+                             // Text("Meal Id:" + snapshot.data.data.lastPlanFeedback[index].id.toString())
 
-                                onTap: () {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => FeedBack()));
-                                },
-                              )
-                            ],
-                          );
+                         onTap: (){
+                                     Navigator.push(
+                                         context, MaterialPageRoute(builder: (context) => FeedBack(
+                                         idd: snapshot.data.data[index].id , startDate: snapshot.data.data[index].startDate.toString(),
+                                       endDate: snapshot.data.data[index].endDate.toString()
+                                     )));
+                         },
+                       )
+                      ],
+                    );
                   },
                 );
               },
@@ -153,14 +168,17 @@ class _SubscriptionListForFeedbackState extends State<SubscriptionListForFeedbac
     );
   }
 
-  getDeliveredMeal() async {
-    String token = await SharedPrefHelper().getWithDefault("token", "");
-    var res = await NetworkUtil().get("user/feedback", token: token);
-    DeliveredMealListResponse deliveredMealListResponse = DeliveredMealListResponse.fromJson(res);
-    if (deliveredMealListResponse.status == 200) {
-      _streamController.sink.add(deliveredMealListResponse);
-    } else {
-      _streamController.sink.add(deliveredMealListResponse);
-    }
+   getDeliveredMeal() async{
+
+       String token = await SharedPrefHelper().getWithDefault("token", "");
+       var res = await NetworkUtil().get("user/deliveredMeals", token: token);
+       DeliveredMealListResponse deliveredMealListResponse = DeliveredMealListResponse.fromJson(res);
+       if (deliveredMealListResponse.status == 200) {
+
+           _streamController.sink.add(deliveredMealListResponse);
+     }else{
+         _streamController.sink.add(deliveredMealListResponse);
+
+       }
   }
 }
