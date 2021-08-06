@@ -51,10 +51,7 @@ class _HomeScreenState extends State<EditProfileScreen> {
 
   Future<Null> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
-        context: context,
-        initialDate: selectedDate,
-        firstDate: DateTime(1901, 1),
-        lastDate: DateTime(2100));
+        context: context, initialDate: selectedDate, firstDate: DateTime(1901, 1), lastDate: DateTime(2100));
     if (picked != null && picked != selectedDate)
       setState(() {
         selectedDate = picked;
@@ -85,13 +82,15 @@ class _HomeScreenState extends State<EditProfileScreen> {
         appBar: AppBar(
           backgroundColor: Colors.white,
           title: Center(
-              child: Padding(
-                  padding: EdgeInsets.only(right: 30),
-                  child: Text(
-                    "Edit Profile",
-                    style: TextStyle(color: Colors.black, fontSize: 18),
-                    textAlign: TextAlign.center,
-                  ),),),
+            child: Padding(
+              padding: EdgeInsets.only(right: 30),
+              child: Text(
+                "Edit Profile",
+                style: TextStyle(color: Colors.black, fontSize: 18),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
           leading: Builder(
             builder: (context) => IconButton(
               icon: Image.asset(
@@ -141,9 +140,7 @@ class _HomeScreenState extends State<EditProfileScreen> {
                                   shape: BoxShape.circle,
                                 ),
                                 child: CircleAvatar(
-                                  child: snapshot.data.data.userExist
-                                              .profileImage !=
-                                          null
+                                  child: snapshot.data.data.userExist.profileImage != null
                                       ? Container(
                                           width: 120,
                                           height: 120,
@@ -151,11 +148,7 @@ class _HomeScreenState extends State<EditProfileScreen> {
                                             shape: BoxShape.circle,
                                             color: Colors.white,
                                             image: new DecorationImage(
-                                              image: new NetworkImage(snapshot
-                                                  .data
-                                                  .data
-                                                  .userExist
-                                                  .profileImage),
+                                              image: new NetworkImage(snapshot.data.data.userExist.profileImage),
                                               fit: BoxFit.cover,
                                             ),
                                           ))
@@ -170,10 +163,8 @@ class _HomeScreenState extends State<EditProfileScreen> {
                                                   decoration: new BoxDecoration(
                                                       shape: BoxShape.circle,
                                                       color: Colors.white,
-                                                      image:
-                                                          new DecorationImage(
-                                                        image: new FileImage(
-                                                            _image),
+                                                      image: new DecorationImage(
+                                                        image: new FileImage(_image),
                                                         fit: BoxFit.cover,
                                                       ))),
                                             )
@@ -198,8 +189,7 @@ class _HomeScreenState extends State<EditProfileScreen> {
                                       height: 40,
                                       decoration: BoxDecoration(
                                         shape: BoxShape.circle,
-                                        color: Colors
-                                            .red, //remove this when you add image.
+                                        color: Colors.red, //remove this when you add image.
                                       ),
                                       child: InkWell(
                                         child: IconButton(
@@ -234,10 +224,8 @@ class _HomeScreenState extends State<EditProfileScreen> {
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                                builder: (context) =>
-                                                    ChangePasswordScreen(
-                                                      phoneNumber:
-                                                          numberController.text,
+                                                builder: (context) => ChangePasswordScreen(
+                                                      phoneNumber: numberController.text,
                                                     )))
                                       })),
                           Padding(
@@ -250,9 +238,7 @@ class _HomeScreenState extends State<EditProfileScreen> {
 
                                     child: TextFormField(
                                       controller: nameController,
-                                      decoration: InputDecoration(
-                                          border: OutlineInputBorder(),
-                                          hintText: "John"),
+                                      decoration: InputDecoration(border: OutlineInputBorder(), hintText: "John"),
                                       validator: (val) {
                                         if (val.isEmpty) {
                                           return ("Please Enter Name");
@@ -262,10 +248,7 @@ class _HomeScreenState extends State<EditProfileScreen> {
                                       },
                                       onSaved: (val) => {
                                         nameController.text = val,
-                                        print("on saved name " +
-                                            val +
-                                            " >> " +
-                                            nameController.text),
+                                        print("on saved name " + val + " >> " + nameController.text),
                                         // name= val
                                       },
                                       // onFieldSubmitted: (val)=> FocusScope.of(context).requestFocus(f1),
@@ -280,9 +263,7 @@ class _HomeScreenState extends State<EditProfileScreen> {
 
                                     child: TextFormField(
                                       controller: lastnameController,
-                                      decoration: InputDecoration(
-                                          border: OutlineInputBorder(),
-                                          hintText: "Deo"),
+                                      decoration: InputDecoration(border: OutlineInputBorder(), hintText: "Deo"),
                                       validator: (val) {
                                         if (val.isEmpty) {
                                           return ("Please Enter Last Name");
@@ -292,10 +273,7 @@ class _HomeScreenState extends State<EditProfileScreen> {
                                       },
                                       onSaved: (val) => {
                                         lastnameController.text = val,
-                                        print("on saved name " +
-                                            val +
-                                            " >> " +
-                                            lastnameController.text),
+                                        print("on saved name " + val + " >> " + lastnameController.text),
                                         // name= val
                                       },
                                       // onFieldSubmitted: (val)=> FocusScope.of(context).requestFocus(f1),
@@ -320,22 +298,15 @@ class _HomeScreenState extends State<EditProfileScreen> {
                                             genderController.text = value;
                                           },
                                           itemBuilder: (BuildContext context) {
-                                            return items
-                                                .map<PopupMenuItem<String>>(
-                                                    (String value) {
-                                              return new PopupMenuItem(
-                                                  child: new Text(value),
-                                                  value: value);
+                                            return items.map<PopupMenuItem<String>>((String value) {
+                                              return new PopupMenuItem(child: new Text(value), value: value);
                                             }).toList();
                                           },
                                         ),
                                       ),
                                       onSaved: (val) => {
                                         genderController.text = val,
-                                        print("on saved name " +
-                                            val +
-                                            " >> " +
-                                            genderController.text),
+                                        print("on saved name " + val + " >> " + genderController.text),
                                         // gender =   genderController.text
                                       },
                                       validator: (val) {
@@ -367,39 +338,28 @@ class _HomeScreenState extends State<EditProfileScreen> {
                                         )),
                                       ),
                                       validator: (val) {
-                                        if (val.length < 10)
-                                          return ('Please enter a valid DOB');
+                                        if (val.length < 10) return ('Please enter a valid DOB');
 
                                         return null;
                                       },
                                       onSaved: (val) => {
                                         dobController.text = val,
-                                        print("on saved name " +
-                                            val +
-                                            " >> " +
-                                            dobController.text),
+                                        print("on saved name " + val + " >> " + dobController.text),
                                       },
                                     ),
                                     // )
                                   ),
                                   Padding(
-                                      padding:
-                                          EdgeInsets.fromLTRB(20, 30, 20, 0),
+                                      padding: EdgeInsets.fromLTRB(20, 30, 20, 0),
                                       child: TextFormField(
                                         readOnly: true,
-                                        decoration: InputDecoration(
-                                            border: OutlineInputBorder(),
-                                            hintText: "john@gmail.con"),
+                                        decoration:
+                                            InputDecoration(border: OutlineInputBorder(), hintText: "john@gmail.con"),
                                         controller: emailController,
-                                        validator: (val) => !val.contains('@')
-                                            ? "Enter a valid Email"
-                                            : null,
+                                        validator: (val) => !val.contains('@') ? "Enter a valid Email" : null,
                                         onSaved: (val) => {
                                           emailController.text = val,
-                                          print("on saved name " +
-                                              val +
-                                              " >> " +
-                                              emailController.text),
+                                          print("on saved name " + val + " >> " + emailController.text),
                                           // email = emailController.text
                                         },
                                       )
@@ -416,13 +376,11 @@ class _HomeScreenState extends State<EditProfileScreen> {
                                             child: !Verify
                                                 ? Text(
                                                     'Verify',
-                                                    style: TextStyle(
-                                                        color: Colors.red),
+                                                    style: TextStyle(color: Colors.red),
                                                   )
                                                 : Text(
                                                     'Verified',
-                                                    style: TextStyle(
-                                                        color: Colors.black),
+                                                    style: TextStyle(color: Colors.black),
                                                   ),
                                           ))),
                                   Padding(
@@ -445,32 +403,25 @@ class _HomeScreenState extends State<EditProfileScreen> {
                                             // this line is not working
                                             child: Text(
                                               "Verified",
-                                              style: TextStyle(
-                                                  color: Colors.black),
+                                              style: TextStyle(color: Colors.black),
                                             ))),
                                   ),
                                   Padding(
-                                      padding:
-                                          EdgeInsets.fromLTRB(20, 20, 20, 0),
+                                      padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
                                       child: TextFormField(
                                         maxLines: 3,
                                         readOnly: true,
                                         keyboardType: TextInputType.multiline,
                                         controller: locationController,
                                         decoration: InputDecoration(
-                                            border: OutlineInputBorder(),
-                                            hintText:
-                                                "A20, Lucknow, Uttar Pradesh"),
+                                            border: OutlineInputBorder(), hintText: "A20, Lucknow, Uttar Pradesh"),
                                         validator: (val) {
                                           if (val.isEmpty) return ('Empty');
                                           return null;
                                         },
                                         onSaved: (val) => {
                                           locationController.text = val,
-                                          print("on saved name " +
-                                              val +
-                                              " >> " +
-                                              locationController.text),
+                                          print("on saved name " + val + " >> " + locationController.text),
                                         },
                                       )
                                       // ),
@@ -479,8 +430,7 @@ class _HomeScreenState extends State<EditProfileScreen> {
                                     padding: EdgeInsets.only(top: 30),
                                   ),
                                   Container(
-                                      padding:
-                                          EdgeInsets.fromLTRB(20, 10, 20, 10),
+                                      padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                                       height: 70,
                                       width: 500,
                                       child: RaisedButton(
@@ -527,32 +477,22 @@ class _HomeScreenState extends State<EditProfileScreen> {
     GetProfileResponse getProfileResponse = GetProfileResponse.fromJson(res);
 
     if (getProfileResponse.status == 200) {
-      numberController.text = getProfileResponse.data.userExist.phone != null
-          ? getProfileResponse.data.userExist.phone.toString()
-          : "";
-      nameController.text = getProfileResponse.data.userExist.firstName != null
-          ? getProfileResponse.data.userExist.firstName
-          : "";
+      numberController.text =
+          getProfileResponse.data.userExist.phone != null ? getProfileResponse.data.userExist.phone.toString() : "";
+      nameController.text =
+          getProfileResponse.data.userExist.firstName != null ? getProfileResponse.data.userExist.firstName : "";
       lastnameController.text =
-          getProfileResponse.data.userExist.lastName != null
-              ? getProfileResponse.data.userExist.lastName
-              : "";
-      dobController.text = getProfileResponse.data.userExist.dob != null
-          ? getProfileResponse.data.userExist.dob
+          getProfileResponse.data.userExist.lastName != null ? getProfileResponse.data.userExist.lastName : "";
+      dobController.text = getProfileResponse.data.userExist.dob != null ? getProfileResponse.data.userExist.dob : "";
+      genderController.text =
+          getProfileResponse.data.userExist.gender != null ? getProfileResponse.data.userExist.gender.toString() : "";
+      locationController.text = getProfileResponse.data.userExist.userAddresses[0].fullAddress != null
+          ? getProfileResponse.data.userExist.userAddresses[0].fullAddress
           : "";
-      genderController.text = getProfileResponse.data.userExist.gender != null
-          ? getProfileResponse.data.userExist.gender.toString()
-          : "";
-      locationController.text =
-          getProfileResponse.data.userExist.userAddresses[0].fullAddress != null
-              ? getProfileResponse.data.userExist.userAddresses[0].fullAddress
-              : "";
 
-      emailController.text = getProfileResponse.data.userExist.email != null
-          ? getProfileResponse.data.userExist.email.toString()
-          : "";
-      select =
-          getProfileResponse.data.userExist.profileImage != null ? true : false;
+      emailController.text =
+          getProfileResponse.data.userExist.email != null ? getProfileResponse.data.userExist.email.toString() : "";
+      select = getProfileResponse.data.userExist.profileImage != null ? true : false;
       _controller.sink.add(getProfileResponse);
     }
   }
@@ -579,8 +519,7 @@ class _HomeScreenState extends State<EditProfileScreen> {
       CommonUtils.dismissProgressDialog(context);
       CommonUtils.showToast(msg: baseResponse.message);
       setState(() => Verify = !Verify);
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => EditProfileScreen()));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfileScreen()));
     } else {
       CommonUtils.dismissProgressDialog(context);
       CommonUtils.showToast(msg: baseResponse.message);
@@ -601,8 +540,7 @@ class _HomeScreenState extends State<EditProfileScreen> {
     if (_image != null) {
       listImages.add(MapEntry(
         "image",
-        await MultipartFile.fromFile(_image.path,
-            filename: path.basename(_image.path)),
+        await MultipartFile.fromFile(_image.path, filename: path.basename(_image.path)),
       ));
     }
 
@@ -610,16 +548,14 @@ class _HomeScreenState extends State<EditProfileScreen> {
     CommonUtils.fullScreenProgress(context);
     String token = await SharedPrefHelper().getWithDefault("token", null);
     String url = "user/edit-profile";
-    var res = await NetworkUtil()
-        .putApi(url: url, body: formData, isFormData: true, token: token);
+    var res = await NetworkUtil().putApi(url: url, body: formData, isFormData: true, token: token);
 
     EditProfileResponse response = EditProfileResponse.fromJson(res);
 
     if (response.status == 200) {
       CommonUtils.dismissProgressDialog(context);
       CommonUtils.showToast(msg: response.message);
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => HomeScreen()));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
     } else {
       CommonUtils.dismissProgressDialog(context);
       CommonUtils.showToast(msg: response.message);

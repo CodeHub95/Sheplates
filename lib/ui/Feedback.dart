@@ -17,24 +17,27 @@ import 'package:flutter_sheplates/ui/HomeScreen.dart';
 
 class FeedBack extends StatefulWidget {
   // DeliveredData data;
-   int idd;
-   String startDate;
-   String endDate;
+  int idd;
+  String startDate;
+  String endDate;
+  var feedbackAsMap;
   // final int subscriptionID;
-  FeedBack({this.idd,this.startDate, this.endDate}
+  FeedBack({this.idd, this.startDate, this.endDate, this.feedbackAsMap}
       // {this.subscriptionID, }
       );
   @override
-  _FeedBackState createState() => _FeedBackState(
-    this.idd, this.startDate, this.endDate,
+  _FeedBackState createState() => _FeedBackState(this.idd, this.startDate, this.endDate, this.feedbackAsMap
       // subscriptionID: this.subscriptionID
-  );
+      );
 }
 
 class _FeedBackState extends State<FeedBack> {
-  int idd; String startDate; String endDate;
+  int idd;
+  String startDate;
+  String endDate;
+  var feedbackAsMap;
   final int subscriptionID;
-  _FeedBackState(  this.idd, this.startDate, this.endDate,{this.subscriptionID});
+  _FeedBackState(this.idd, this.startDate, this.endDate, this.feedbackAsMap, {this.subscriptionID});
   final _formKey = GlobalKey<FormState>();
   TextEditingController startDateController = new TextEditingController();
   TextEditingController endDateController = new TextEditingController();
@@ -84,11 +87,22 @@ class _FeedBackState extends State<FeedBack> {
   @override
   initState() {
     // TODO: implement initState
-    _tasterating = 0;
-    _experiencerating = 0;
-    _moneyrating = 0;
-    _packagingrating = 0;
-    _qualityrating = 0;
+    //
+
+    if (feedbackAsMap == null) {
+      _tasterating = 0;
+      _experiencerating = 0;
+      _moneyrating = 0;
+      _packagingrating = 0;
+      _qualityrating = 0;
+    } else {
+      _tasterating = feedbackAsMap["taste"];
+      _experiencerating = feedbackAsMap["delivery_experience"];
+      _moneyrating = feedbackAsMap["value_of_money"];
+      _packagingrating = feedbackAsMap["packaging"];
+      _qualityrating = feedbackAsMap["quantity"];
+    }
+
     super.initState();
     getFeedBackDetails();
   }
@@ -207,8 +221,8 @@ class _FeedBackState extends State<FeedBack> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           TextFormField(
-                            readOnly: true,
                             enabled: false,
+                            readOnly: true,
                             enableInteractiveSelection: true,
                             controller: endDateController,
                             decoration: InputDecoration(
@@ -322,7 +336,7 @@ class _FeedBackState extends State<FeedBack> {
                       ),
                     ),
                     onPressed: () {
-                     submit();
+                      submit();
                     },
                   )),
             ])));
@@ -351,13 +365,11 @@ class _FeedBackState extends State<FeedBack> {
       CommonUtils.errorMessage(msg: response.message);
       CommonUtils.dismissProgressDialog(context);
     }
-    // }
   }
 
   void _showcontent() {
     showDialog(
       context: context, barrierDismissible: false, // user must tap button!
-
       builder: (BuildContext context) {
         return new AlertDialog(
           contentPadding: EdgeInsets.all(0.0),
@@ -523,26 +535,12 @@ class _FeedBackState extends State<FeedBack> {
       if (feedbackResponse.data.lastPlanFeedback != null) {
         if (feedbackResponse.data.lastPlanFeedback.startDate != null) {
           if (feedbackResponse.data.lastPlanFeedback.id == widget.idd) {
-          id = widget.idd;
-              // feedbackResponse.data.lastPlanFeedback.id.toInt();
-          startDateController.text = feedbackResponse.data.lastPlanFeedback.startDate.toString();
-          endDateController.text = feedbackResponse.data.lastPlanFeedback.endDate.toString();
-          if (feedbackResponse.data.lastPlanFeedback.feedback != null) {
-            id = feedbackResponse.data.lastPlanFeedback.id.toInt();
-            _tasterating = feedbackResponse.data.lastPlanFeedback.feedback.taste.toDouble();
-            _experiencerating = feedbackResponse.data.lastPlanFeedback.feedback.deliveryExperience.toDouble();
-            _moneyrating = feedbackResponse.data.lastPlanFeedback.feedback.valueOfMoney.toDouble();
-            _packagingrating = feedbackResponse.data.lastPlanFeedback.feedback.packaging.toDouble();
-            _qualityrating = feedbackResponse.data.lastPlanFeedback.feedback.quantity.toDouble();
+            id = widget.idd;
+            // feedbackResponse.data.lastPlanFeedback.id.toInt();
             startDateController.text = feedbackResponse.data.lastPlanFeedback.startDate.toString();
             endDateController.text = feedbackResponse.data.lastPlanFeedback.endDate.toString();
-            print("ex: $_experiencerating");
-            print("money: $_moneyrating");
-            print("pack: $_packagingrating");
-            print("quality: $_qualityrating");
-            print("taste: $_tasterating");
-
-            setState(() {
+            if (feedbackResponse.data.lastPlanFeedback.feedback != null) {
+              id = feedbackResponse.data.lastPlanFeedback.id.toInt();
               _tasterating = feedbackResponse.data.lastPlanFeedback.feedback.taste.toDouble();
               _experiencerating = feedbackResponse.data.lastPlanFeedback.feedback.deliveryExperience.toDouble();
               _moneyrating = feedbackResponse.data.lastPlanFeedback.feedback.valueOfMoney.toDouble();
@@ -550,9 +548,24 @@ class _FeedBackState extends State<FeedBack> {
               _qualityrating = feedbackResponse.data.lastPlanFeedback.feedback.quantity.toDouble();
               startDateController.text = feedbackResponse.data.lastPlanFeedback.startDate.toString();
               endDateController.text = feedbackResponse.data.lastPlanFeedback.endDate.toString();
-            });
+              print("ex: $_experiencerating");
+              print("money: $_moneyrating");
+              print("pack: $_packagingrating");
+              print("quality: $_qualityrating");
+              print("taste: $_tasterating");
+
+              setState(() {
+                _tasterating = feedbackResponse.data.lastPlanFeedback.feedback.taste.toDouble();
+                _experiencerating = feedbackResponse.data.lastPlanFeedback.feedback.deliveryExperience.toDouble();
+                _moneyrating = feedbackResponse.data.lastPlanFeedback.feedback.valueOfMoney.toDouble();
+                _packagingrating = feedbackResponse.data.lastPlanFeedback.feedback.packaging.toDouble();
+                _qualityrating = feedbackResponse.data.lastPlanFeedback.feedback.quantity.toDouble();
+                startDateController.text = feedbackResponse.data.lastPlanFeedback.startDate.toString();
+                endDateController.text = feedbackResponse.data.lastPlanFeedback.endDate.toString();
+              });
+            }
           }
-        } }else {
+        } else {
           CommonUtils.showToast(
               msg: "Do not have any active subscription Plan",
               bgColor: AppColor.darkThemeBlueColor,

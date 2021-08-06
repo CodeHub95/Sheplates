@@ -40,20 +40,31 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
     super.initState();
     if (mounted) _appDownload();
     getTabs();
-    // if (mounted) getCartItems();
-    // getCartItems();
+    // if (mounted) updateCartIconNumber();
+    updateCartIconNumber();
     // getList();
   }
 
   int numberOfCartItems;
 
-  getCartItems() async {
+  updateCartIconNumber() async {
+    print("*************** updating cart icon *****************");
     String token = await SharedPrefHelper().getWithDefault("token", "");
     var res = await NetworkUtil().get("user/cartItems", token: token);
     CardResponse cardResponse = CardResponse.fromJson(res);
-    cardResponse.status == 200
-        ? setState(() => numberOfCartItems = cardResponse.data.cartItems.length)
-        : print("************** Error while fetching numbers of cart items ***************** ");
+    if (cardResponse.status == 200) {
+      if (cardResponse.data == null) {
+        return;
+      } else {
+        setState(() => numberOfCartItems = cardResponse.data.cartItems.length);
+      }
+    } else {
+      print("************** Error while fetching numbers of cart items ***************** ");
+    }
+
+    // cardResponse.status == 200
+    //     ? setState(() => numberOfCartItems = cardResponse.data.cartItems.length)
+    //     : print("************** Error while fetching numbers of cart items ***************** ");
   }
 
   getTabs() async {
@@ -188,9 +199,7 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
                   children: [
                     IconButton(
                       icon: Icon(Icons.shopping_cart_outlined, color: Colors.grey),
-                      onPressed: () => {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => CartScreen())),
-                      },
+                      onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => CartScreen())),
                     ),
                     numberOfCartItems == null
                         ? Container()
@@ -260,14 +269,14 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
                   physics: NeverScrollableScrollPhysics(), //stops data reloading
                   children: [
                     TabData(_streamController, isSubscribed, images, mainCategoryID,
-                        tabNamesFilters.data.mealCategory.rows[0].id),
+                        tabNamesFilters.data.mealCategory.rows[0].id, updateCartIconNumber),
                     TabData(_streamController, isSubscribed, images, mainCategoryID,
-                        tabNamesFilters.data.mealCategory.rows[1].id),
+                        tabNamesFilters.data.mealCategory.rows[1].id, updateCartIconNumber),
                     TabData(_streamController, isSubscribed, images, mainCategoryID,
-                        tabNamesFilters.data.mealCategory.rows[2].id),
+                        tabNamesFilters.data.mealCategory.rows[2].id, updateCartIconNumber),
                     TabData(_streamController, isSubscribed, images, mainCategoryID,
-                        tabNamesFilters.data.mealCategory.rows[3].id),
-                    TabData(_streamController, isSubscribed, images, mainCategoryID, 58765),
+                        tabNamesFilters.data.mealCategory.rows[3].id, updateCartIconNumber),
+                    TabData(_streamController, isSubscribed, images, mainCategoryID, 58765, updateCartIconNumber),
                   ],
                 ),
         ),
