@@ -97,14 +97,17 @@ class _FeedBackState extends State<FeedBack> {
       _qualityrating = 0;
     } else {
       _tasterating = feedbackAsMap["taste"];
-      _experiencerating = feedbackAsMap["delivery_experience"];
-      _moneyrating = feedbackAsMap["value_of_money"];
-      _packagingrating = feedbackAsMap["packaging"];
+
       _qualityrating = feedbackAsMap["quantity"];
+
+      _packagingrating = feedbackAsMap["packaging"];
+      _moneyrating = feedbackAsMap["value_of_money"];
+      _experiencerating = feedbackAsMap["delivery_experience"];
+
     }
 
     super.initState();
-    getFeedBackDetails();
+    // getFeedBackDetails();
   }
 
   @override

@@ -51,7 +51,7 @@ class _SubscriptionListForFeedbackState extends State<SubscriptionListForFeedbac
             if (!snapshot.hasData) {
               CircularProgressIndicator();
             }
-            if (snapshot.data.data.isEmpty) {
+            if (snapshot.data ==null) {
               print('project snapshot data is: ${snapshot.data}');
               return Container(
                 width: MediaQuery.of(context).size.width,
@@ -82,77 +82,108 @@ class _SubscriptionListForFeedbackState extends State<SubscriptionListForFeedbac
                   ],
                 ),
               );
-            }
-            return Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 50),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(width: MediaQuery.of(context).size.width * .1),
-                      Expanded(child: Container(color: Colors.grey, height: .5)),
-                      Text(
-                        " Choose a meal for feedback",
-                        style: TextStyle(
-                          fontSize: 17,
-                          color: Colors.grey,
-                          fontWeight: FontWeight.w700,
-                          letterSpacing: 1,
-                        ),
-                      ),
-                      Expanded(child: Container(color: Colors.grey, height: .5)),
-                      SizedBox(width: MediaQuery.of(context).size.width * .1),
-                    ],
-                  ),
-                ),
-                ListView.builder(
-                  itemCount: snapshot.data.data.length,
-                  itemBuilder: (context, index) {
-                    return Column(
-                      children: <Widget>[
-                        GestureDetector(
-                          child: Card(
-                            child: Container(
-                              height: 60,
-                              width: MediaQuery.of(context).size.width,
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width / 1.5,
-                                      child: Text(
-                                        snapshot.data.data[index].catalog.mealName.toString(),
-                                        style: TextStyle(color: Colors.black, fontSize: 15),
+            } else
+            return Container(
+              height:MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              child:
+              // Column(
+              //   children: [
+                  // Padding(
+                  //   padding: EdgeInsets.symmetric(vertical: 50),
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.center,
+                  //     children: [
+                  //       SizedBox(width: MediaQuery.of(context).size.width * .1),
+                  //       Expanded(child: Container(color: Colors.grey, height: .5)),
+                  //       Text(
+                  //         " Choose a meal for feedback",
+                  //         style: TextStyle(
+                  //           fontSize: 17,
+                  //           color: Colors.grey,
+                  //           fontWeight: FontWeight.w700,
+                  //           letterSpacing: 1,
+                  //         ),
+                  //       ),
+                  //       Expanded(child: Container(color: Colors.grey, height: .5)),
+                  //       SizedBox(width: MediaQuery.of(context).size.width * .1),
+                  //     ],
+                  //   ),
+                  // ),
+                  ListView.builder(
+                    itemCount: snapshot.data.data.length,
+                    itemBuilder: (context, index) {
+                      return
+
+                        Container(
+                          child: Column(
+
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.symmetric(vertical: 50),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(width: MediaQuery.of(context).size.width * .1),
+                                    Expanded(child: Container(color: Colors.grey, height: .5)),
+                                    Text(
+                                      " Choose a meal for feedback",
+                                      style: TextStyle(
+                                        fontSize: 17,
+                                        color: Colors.grey,
+                                        fontWeight: FontWeight.w700,
+                                        letterSpacing: 1,
                                       ),
                                     ),
-                                  ),
-                                ],
+                                    Expanded(child: Container(color: Colors.grey, height: .5)),
+                                    SizedBox(width: MediaQuery.of(context).size.width * .1),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ),
-                          // Text("Meal Id:" + snapshot.data.data.lastPlanFeedback[index].id.toString())
+                              GestureDetector(
+                              child: Card(
+                                child: Container(
+                                  height: 60,
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
+                                        // child: Container(
+                                        //   width: MediaQuery.of(context).size.width / 1.5,
+                                          child: Text(
+                                            snapshot.data.data[index].catalog.mealName.toString(),
+                                            style: TextStyle(color: Colors.black, fontSize: 15),
+                                          ),
+                                        // ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              // Text("Meal Id:" + snapshot.data.data.lastPlanFeedback[index].id.toString())
 
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => FeedBack(
-                                          idd: snapshot.data.data[index].id,
-                                          startDate: snapshot.data.data[index].startDate.toString(),
-                                          endDate: snapshot.data.data[index].endDate.toString(),
-                                          feedbackAsMap: snapshot.data.data[index].feedback,
-                                        )));
-                          },
-                        )
-                      ],
-                    );
-                  },
-                ),
-              ],
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => FeedBack(
+                                              idd: snapshot.data.data[index].id,
+                                              startDate: snapshot.data.data[index].startDate.toString(),
+                                              endDate: snapshot.data.data[index].endDate.toString(),
+                                              feedbackAsMap: snapshot.data.data[index].feedback,
+                                            )));
+                              },
+                      ),
+                            ],
+                          ),
+                        );
+                    },
+                  ),
+              //   ],
+              // ),
             );
           },
         ),
