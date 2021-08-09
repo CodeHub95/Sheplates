@@ -92,26 +92,38 @@ class _CartScreenState extends State<CartScreen> {
                               return Column(
                                 children: [
                                   ListView.builder(
-                                      shrinkWrap: true,
-                                      physics: NeverScrollableScrollPhysics(),
-                                      padding: const EdgeInsets.all(8),
-                                      itemCount: snapshot.data.data.cartItems.length,
-                                      itemBuilder: (BuildContext context, int index) {
-                                        return buildCartItem(
-                                            mealTitle: snapshot.data.data.cartItems[index].catalog.mealName,
-                                            mealDesc: "Qty:" +
-                                                snapshot.data.data.cartItems[index].quantity.toString() +
-                                                "," "Days:" +
-                                                snapshot.data.data.cartItems[index].days.toString() +
-                                                "," +
-                                                "Time:" +
-                                                snapshot.data.data.cartItems[index].preferredDeliveryTime,
-                                            mealAmount: snapshot.data.data.cartItems[index].catalog.price.toString(),
-                                            itemId: snapshot.data.data.cartItems[index].id);
-                                      }),
+                                    shrinkWrap: true,
+                                    physics: NeverScrollableScrollPhysics(),
+                                    padding: const EdgeInsets.all(8),
+                                    itemCount: snapshot.data.data.cartItems.length,
+                                    itemBuilder: (BuildContext context, int index) {
+                                      return buildCartItem(
+                                          mealTitle: snapshot.data.data.cartItems[index].catalog.mealName,
+                                          mealDesc: "Qty:" +
+                                              snapshot.data.data.cartItems[index].quantity.toString() +
+                                              "," "Days:" +
+                                              snapshot.data.data.cartItems[index].days.toString() +
+                                              "," +
+                                              "Time:" +
+                                              snapshot.data.data.cartItems[index].preferredDeliveryTime,
+                                          mealAmount: snapshot.data.data.cartItems[index].catalog.price.toString(),
+                                          itemId: snapshot.data.data.cartItems[index].id);
+                                    },
+                                  ),
                                   Column(
                                     children: [
                                       SizedBox(height: 5),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text("Packaging", style: TextStyle(fontSize: 17)),
+                                          Text(snapshot.data.data.packingCharges.toString(),
+                                              style: TextStyle(fontSize: 17)),
+                                        ],
+                                      ),
+                                      SizedBox(height: 7),
+                                      Container(color: Colors.grey, height: .5),
+                                      SizedBox(height: 7),
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
@@ -122,7 +134,7 @@ class _CartScreenState extends State<CartScreen> {
                                       ),
                                       SizedBox(height: 7),
                                       Container(color: Colors.grey, height: .5),
-                                      SizedBox(height: 5),
+                                      // SizedBox(height: 5),
                                     ],
                                   ),
                                   buildOtherDetails("Delivery", snapshot.data.data.deliveryCharges.toString()),

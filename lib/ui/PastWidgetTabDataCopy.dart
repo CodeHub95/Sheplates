@@ -36,7 +36,7 @@ class _PastWidgetTabDataCopyState extends State<PastWidgetTabDataCopy> {
                                   Padding(
                                     padding: EdgeInsets.only(left: 20),
                                     child: Text(
-                                      pastSubscriptionList[index].orders[0].catalog.mealCategory.toString(),
+                                      pastSubscriptionList[index].orders[0].catalog.mealName.toString(),
                                       style: TextStyle(color: Colors.black, fontSize: 15),
                                     ),
                                   ),

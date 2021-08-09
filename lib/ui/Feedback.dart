@@ -10,7 +10,7 @@ import 'package:flutter_sheplates/Utils/app_utils.dart';
 import 'package:flutter_sheplates/Utils/hexColor.dart';
 import 'package:flutter_sheplates/modals/request/UserAddFeedbackRequest.dart';
 import 'package:flutter_sheplates/modals/response/BaseResponse.dart';
-import 'package:flutter_sheplates/modals/response/DeliveredMealResponse.dart';
+import 'package:flutter_sheplates/modals/response/DeliveredMealResponse.dart' as feedbackObject;
 import 'package:flutter_sheplates/modals/response/GetFeedbackResponse.dart';
 import 'package:flutter_sheplates/ui/DrawerScreen.dart';
 import 'package:flutter_sheplates/ui/HomeScreen.dart';
@@ -20,11 +20,9 @@ class FeedBack extends StatefulWidget {
   int idd;
   String startDate;
   String endDate;
-  var feedbackAsMap;
+  feedbackObject.Feedback feedbackAsMap;
   // final int subscriptionID;
-  FeedBack({this.idd, this.startDate, this.endDate, this.feedbackAsMap}
-      // {this.subscriptionID, }
-      );
+  FeedBack({this.idd, this.startDate, this.endDate, this.feedbackAsMap});
   @override
   _FeedBackState createState() => _FeedBackState(this.idd, this.startDate, this.endDate, this.feedbackAsMap
       // subscriptionID: this.subscriptionID
@@ -35,9 +33,11 @@ class _FeedBackState extends State<FeedBack> {
   int idd;
   String startDate;
   String endDate;
-  var feedbackAsMap;
+  feedbackObject.Feedback feedbackObj;
   final int subscriptionID;
-  _FeedBackState(this.idd, this.startDate, this.endDate, this.feedbackAsMap, {this.subscriptionID});
+
+  _FeedBackState(this.idd, this.startDate, this.endDate, this.feedbackObj, {this.subscriptionID});
+
   final _formKey = GlobalKey<FormState>();
   TextEditingController startDateController = new TextEditingController();
   TextEditingController endDateController = new TextEditingController();
@@ -55,9 +55,7 @@ class _FeedBackState extends State<FeedBack> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
-
     _controller?.close();
   }
 
@@ -86,24 +84,20 @@ class _FeedBackState extends State<FeedBack> {
 
   @override
   initState() {
-    // TODO: implement initState
-    //
-
-    if (feedbackAsMap == null) {
+    if (feedbackObj == null) {
       _tasterating = 0;
       _experiencerating = 0;
       _moneyrating = 0;
       _packagingrating = 0;
       _qualityrating = 0;
     } else {
-      _tasterating = feedbackAsMap["taste"];
+      _tasterating = feedbackObj.taste.toDouble();
 
-      _qualityrating = feedbackAsMap["quantity"];
+      _qualityrating = feedbackObj.quantity.toDouble();
 
-      _packagingrating = feedbackAsMap["packaging"];
-      _moneyrating = feedbackAsMap["value_of_money"];
-      _experiencerating = feedbackAsMap["delivery_experience"];
-
+      _packagingrating = feedbackObj.packaging.toDouble();
+      _moneyrating = feedbackObj.valueOfMoney.toDouble();
+      _experiencerating = feedbackObj.deliveryExperience.toDouble();
     }
 
     super.initState();
@@ -112,237 +106,214 @@ class _FeedBackState extends State<FeedBack> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     final color = Theme.of(context).accentColor;
     return Scaffold(
-        drawer: CustomDrawer(),
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          title: Center(
-              child: Padding(
-                  padding: EdgeInsets.only(right: 30),
-                  child: Text(
-                    "Feedback",
-                    style: TextStyle(color: Colors.black, fontSize: 16),
-                    textAlign: TextAlign.center,
-                  ))),
-          leading: Builder(
-            builder: (context) => IconButton(
-              icon: Image.asset(
-                "assets/left_menu.png",
-                fit: BoxFit.fill,
-              ),
-              onPressed: () => Scaffold.of(context).openDrawer(),
-            ),
+      drawer: CustomDrawer(),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: Center(
+          child: Padding(
+            padding: EdgeInsets.only(right: 30),
+            child: Text("Feedback", style: TextStyle(color: Colors.black, fontSize: 16), textAlign: TextAlign.center),
           ),
-          bottom: PreferredSize(
-              child: Container(
-                color: Colors.grey,
-                height: 1.0,
-              ),
-              preferredSize: Size.fromHeight(1.0)),
         ),
-        body: SingleChildScrollView(
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: Image.asset("assets/left_menu.png", fit: BoxFit.fill),
+            onPressed: () => Scaffold.of(context).openDrawer(),
+          ),
+        ),
+        bottom: PreferredSize(child: Container(color: Colors.grey, height: 1.0), preferredSize: Size.fromHeight(1.0)),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(top: 30, left: 20),
+              child: Row(
                 children: [
-              Padding(
-                padding: EdgeInsets.only(top: 30, left: 20),
-                child: Row(
-                  children: [
-                    Text(
-                      "Please let us know you thoughts on your\nsubscription",
-                      style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                    )
-                  ],
-                ),
+                  Text(
+                    "Please let us know you thoughts on your\nsubscription",
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                  )
+                ],
               ),
-              Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    Padding(
-                        padding: EdgeInsets.only(left: 20, top: 20),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              "Subscription Start Date",
-                              style: TextStyle(color: Colors.grey, fontSize: 15),
-                            ),
-                          ],
-                        )),
-                    Container(
-                      padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          TextFormField(
-                            enabled: false,
-                            readOnly: true,
-                            enableInteractiveSelection: true,
-                            controller: startDateController,
-                            // keyboardType: TextInputType.datetime,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              hintText: "29/09/1997",
-                              suffixIcon: (IconButton(
-                                onPressed: () {
-                                  _selectStartDate(context);
-                                },
-                                icon: Icon(
-                                  Icons.date_range,
-                                ),
-                              )),
-                            ),
-                            validator: (val) {
-                              if (val.length < 10) return ('Please enter a valid Start Date');
-
-                              return null;
-                            },
-                          ),
-                        ],
-                      ),
+            ),
+            Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(left: 20, top: 20),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text("Subscription Start Date", style: TextStyle(color: Colors.grey, fontSize: 15)),
+                      ],
                     ),
-                    Padding(
-                        padding: EdgeInsets.only(left: 20, top: 20),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              "Subscription End Date",
-                              style: TextStyle(color: Colors.grey, fontSize: 15),
-                            ),
-                          ],
-                        )),
-                    Container(
-                      padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          TextFormField(
-                            enabled: false,
-                            readOnly: true,
-                            enableInteractiveSelection: true,
-                            controller: endDateController,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              hintText: "29/09/1997",
-                              suffixIcon: (IconButton(
-                                onPressed: () {
-                                  _selectEndDate(context);
-                                },
-                                icon: Icon(
-                                  Icons.date_range,
-                                ),
-                              )),
-                            ),
-                            validator: (val) {
-                              if (val.length < 10) return ('Please enter a valid End Date');
+                  ),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        TextFormField(
+                          // enabled: true,
+                          // readOnly: false,
 
-                              return null;
-                            },
+                          enabled: false,
+                          readOnly: true,
+                          enableInteractiveSelection: true,
+                          controller: startDateController,
+                          // keyboardType: TextInputType.datetime,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            hintText: feedbackObj == null ? "Select start date" : startDate,
+                            suffixIcon: (IconButton(
+                              onPressed: () => _selectStartDate(context),
+                              icon: Icon(Icons.date_range),
+                            )),
                           ),
-                        ],
-                      ),
+                          validator: (val) {
+                            if (val.length < 10) return ('Please enter a valid Start Date');
+                            return null;
+                          },
+                        ),
+                      ],
                     ),
-                    Padding(
-                        padding: EdgeInsets.only(left: 20, right: 20, top: 20),
-                        child: Column(
-                          children: [
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Taste",
-                                  style: TextStyle(fontSize: 17),
-                                ),
-                                _tasteRatingBar()
-                              ],
-                            ),
-                            Padding(
-                                padding: EdgeInsets.only(top: 30),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "Quality",
-                                      style: TextStyle(fontSize: 17),
-                                    ),
-                                    _qualityRatingBar()
-                                  ],
-                                )),
-                            Padding(
-                                padding: EdgeInsets.only(top: 30),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "Packaging",
-                                      style: TextStyle(fontSize: 17),
-                                    ),
-                                    _packagingRatingBar()
-                                  ],
-                                )),
-                            Padding(
-                                padding: EdgeInsets.only(top: 30),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "Value For Money",
-                                      style: TextStyle(fontSize: 17),
-                                    ),
-                                    _moneyRatingBar()
-                                  ],
-                                )),
-                            Padding(
-                                padding: EdgeInsets.only(top: 30),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "Delivery Experience",
-                                      style: TextStyle(fontSize: 17),
-                                    ),
-                                    _experienceRatingBar()
-                                  ],
-                                )),
-                          ],
-                        ))
-                  ],
-                ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 20, top: 20),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          "Subscription End Date",
+                          style: TextStyle(color: Colors.grey, fontSize: 15),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        TextFormField(
+                          // enabled: true,
+                          // readOnly: false,
+                          enabled: false,
+                          readOnly: true,
+                          enableInteractiveSelection: true,
+                          controller: endDateController,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            hintText: feedbackObj == null ? "29/09/1997" : endDate,
+                            suffixIcon: (IconButton(
+                              onPressed: () => _selectEndDate(context),
+                              icon: Icon(Icons.date_range),
+                            )),
+                          ),
+                          validator: (val) {
+                            if (val.length < 10) return ('Please enter a valid End Date');
+                            return null;
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                      padding: EdgeInsets.only(left: 20, right: 20, top: 20),
+                      child: Column(
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Taste",
+                                style: TextStyle(fontSize: 17),
+                              ),
+                              _tasteRatingBar()
+                            ],
+                          ),
+                          Padding(
+                              padding: EdgeInsets.only(top: 30),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Quality",
+                                    style: TextStyle(fontSize: 17),
+                                  ),
+                                  _qualityRatingBar()
+                                ],
+                              )),
+                          Padding(
+                              padding: EdgeInsets.only(top: 30),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Packaging",
+                                    style: TextStyle(fontSize: 17),
+                                  ),
+                                  _packagingRatingBar()
+                                ],
+                              )),
+                          Padding(
+                              padding: EdgeInsets.only(top: 30),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Value For Money",
+                                    style: TextStyle(fontSize: 17),
+                                  ),
+                                  _moneyRatingBar()
+                                ],
+                              )),
+                          Padding(
+                              padding: EdgeInsets.only(top: 30),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Delivery Experience",
+                                    style: TextStyle(fontSize: 17),
+                                  ),
+                                  _experienceRatingBar()
+                                ],
+                              )),
+                        ],
+                      ))
+                ],
               ),
-              Padding(
-                  padding: EdgeInsets.only(
-                top: 30,
-              )),
-              Container(
-                  padding: EdgeInsets.fromLTRB(50, 10, 50, 10),
-                  height: 60,
-                  width: 400,
-                  child: RaisedButton(
-                    color: HexColor("#FF5657"),
-                    textColor: Colors.white,
-                    child: Text(
-                      'Submit',
-                      style: TextStyle(
-                        fontSize: 20,
-                      ),
-                    ),
-                    onPressed: () {
-                      submit();
-                    },
-                  )),
-            ])));
+            ),
+            Padding(padding: EdgeInsets.only(top: 30)),
+            Container(
+              padding: EdgeInsets.fromLTRB(50, 10, 50, 10),
+              height: 60,
+              width: 400,
+              child: RaisedButton(
+                color: HexColor("#FF5657"),
+                textColor: Colors.white,
+                child: Text('Submit', style: TextStyle(fontSize: 20)),
+                onPressed: () => submit(),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   Future<void> submit() async {
@@ -352,7 +323,7 @@ class _FeedBackState extends State<FeedBack> {
 
     String url = "user/add-feedback";
     UserFeedbackRequest request = UserFeedbackRequest(
-      orderId: id.toInt(),
+      orderId: idd.toInt(),
       taste: _tasterating.toInt(),
       quantity: _qualityrating.toInt(),
       packaging: _packagingrating.toInt(),
@@ -386,11 +357,7 @@ class _FeedBackState extends State<FeedBack> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         IconButton(
-                            icon: Icon(
-                              Icons.close,
-                              size: 20.0,
-                              color: Colors.black,
-                            ),
+                            icon: Icon(Icons.close, size: 20.0, color: Colors.black),
                             onPressed: () => Navigator.pop(context)),
                       ],
                     ),
@@ -528,73 +495,73 @@ class _FeedBackState extends State<FeedBack> {
     );
   }
 
-  getFeedBackDetails() async {
-    String token = await SharedPrefHelper().getWithDefault("token", "");
-    var getFeedback = await NetworkUtil().get("user/feedback", token: token);
-    GetFeedbackResponse feedbackResponse = GetFeedbackResponse.fromJson(getFeedback);
-    _controller.sink.add(feedbackResponse);
+  // getFeedBackDetails() async {
+  //   String token = await SharedPrefHelper().getWithDefault("token", "");
+  //   var getFeedback = await NetworkUtil().get("user/feedback", token: token);
+  //   GetFeedbackResponse feedbackResponse = GetFeedbackResponse.fromJson(getFeedback);
+  //   _controller.sink.add(feedbackResponse);
 
-    if (feedbackResponse.status == 200) {
-      if (feedbackResponse.data.lastPlanFeedback != null) {
-        if (feedbackResponse.data.lastPlanFeedback.startDate != null) {
-          if (feedbackResponse.data.lastPlanFeedback.id == widget.idd) {
-            id = widget.idd;
-            // feedbackResponse.data.lastPlanFeedback.id.toInt();
-            startDateController.text = feedbackResponse.data.lastPlanFeedback.startDate.toString();
-            endDateController.text = feedbackResponse.data.lastPlanFeedback.endDate.toString();
-            if (feedbackResponse.data.lastPlanFeedback.feedback != null) {
-              id = feedbackResponse.data.lastPlanFeedback.id.toInt();
-              _tasterating = feedbackResponse.data.lastPlanFeedback.feedback.taste.toDouble();
-              _experiencerating = feedbackResponse.data.lastPlanFeedback.feedback.deliveryExperience.toDouble();
-              _moneyrating = feedbackResponse.data.lastPlanFeedback.feedback.valueOfMoney.toDouble();
-              _packagingrating = feedbackResponse.data.lastPlanFeedback.feedback.packaging.toDouble();
-              _qualityrating = feedbackResponse.data.lastPlanFeedback.feedback.quantity.toDouble();
-              startDateController.text = feedbackResponse.data.lastPlanFeedback.startDate.toString();
-              endDateController.text = feedbackResponse.data.lastPlanFeedback.endDate.toString();
-              print("ex: $_experiencerating");
-              print("money: $_moneyrating");
-              print("pack: $_packagingrating");
-              print("quality: $_qualityrating");
-              print("taste: $_tasterating");
+  //   if (feedbackResponse.status == 200) {
+  //     if (feedbackResponse.data.lastPlanFeedback != null) {
+  //       if (feedbackResponse.data.lastPlanFeedback.startDate != null) {
+  //         if (feedbackResponse.data.lastPlanFeedback.id == widget.idd) {
+  //           id = widget.idd;
+  //           // feedbackResponse.data.lastPlanFeedback.id.toInt();
+  //           startDateController.text = feedbackResponse.data.lastPlanFeedback.startDate.toString();
+  //           endDateController.text = feedbackResponse.data.lastPlanFeedback.endDate.toString();
+  //           if (feedbackResponse.data.lastPlanFeedback.feedback != null) {
+  //             id = feedbackResponse.data.lastPlanFeedback.id.toInt();
+  //             _tasterating = feedbackResponse.data.lastPlanFeedback.feedback.taste.toDouble();
+  //             _experiencerating = feedbackResponse.data.lastPlanFeedback.feedback.deliveryExperience.toDouble();
+  //             _moneyrating = feedbackResponse.data.lastPlanFeedback.feedback.valueOfMoney.toDouble();
+  //             _packagingrating = feedbackResponse.data.lastPlanFeedback.feedback.packaging.toDouble();
+  //             _qualityrating = feedbackResponse.data.lastPlanFeedback.feedback.quantity.toDouble();
+  //             startDateController.text = feedbackResponse.data.lastPlanFeedback.startDate.toString();
+  //             endDateController.text = feedbackResponse.data.lastPlanFeedback.endDate.toString();
+  //             print("ex: $_experiencerating");
+  //             print("money: $_moneyrating");
+  //             print("pack: $_packagingrating");
+  //             print("quality: $_qualityrating");
+  //             print("taste: $_tasterating");
 
-              setState(() {
-                _tasterating = feedbackResponse.data.lastPlanFeedback.feedback.taste.toDouble();
-                _experiencerating = feedbackResponse.data.lastPlanFeedback.feedback.deliveryExperience.toDouble();
-                _moneyrating = feedbackResponse.data.lastPlanFeedback.feedback.valueOfMoney.toDouble();
-                _packagingrating = feedbackResponse.data.lastPlanFeedback.feedback.packaging.toDouble();
-                _qualityrating = feedbackResponse.data.lastPlanFeedback.feedback.quantity.toDouble();
-                startDateController.text = feedbackResponse.data.lastPlanFeedback.startDate.toString();
-                endDateController.text = feedbackResponse.data.lastPlanFeedback.endDate.toString();
-              });
-            }
-          }
-        } else {
-          CommonUtils.showToast(
-              msg: "Do not have any active subscription Plan",
-              bgColor: AppColor.darkThemeBlueColor,
-              textColor: Colors.white);
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => HomeScreen()),
-          );
-        }
-      } else {
-        CommonUtils.showToast(
-            msg: "Do not have any active subscription Plan",
-            bgColor: AppColor.darkThemeBlueColor,
-            textColor: Colors.white);
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => HomeScreen()),
-        );
-      }
-    } else {
-      CommonUtils.errorMessage(
-        msg: feedbackResponse.message,
-      );
-      CommonUtils.dismissProgressDialog(context);
-    }
-  }
+  //             setState(() {
+  //               _tasterating = feedbackResponse.data.lastPlanFeedback.feedback.taste.toDouble();
+  //               _experiencerating = feedbackResponse.data.lastPlanFeedback.feedback.deliveryExperience.toDouble();
+  //               _moneyrating = feedbackResponse.data.lastPlanFeedback.feedback.valueOfMoney.toDouble();
+  //               _packagingrating = feedbackResponse.data.lastPlanFeedback.feedback.packaging.toDouble();
+  //               _qualityrating = feedbackResponse.data.lastPlanFeedback.feedback.quantity.toDouble();
+  //               startDateController.text = feedbackResponse.data.lastPlanFeedback.startDate.toString();
+  //               endDateController.text = feedbackResponse.data.lastPlanFeedback.endDate.toString();
+  //             });
+  //           }
+  //         }
+  //       } else {
+  //         CommonUtils.showToast(
+  //             msg: "Do not have any active subscription Plan",
+  //             bgColor: AppColor.darkThemeBlueColor,
+  //             textColor: Colors.white);
+  //         Navigator.push(
+  //           context,
+  //           MaterialPageRoute(builder: (context) => HomeScreen()),
+  //         );
+  //       }
+  //     } else {
+  //       CommonUtils.showToast(
+  //           msg: "Do not have any active subscription Plan",
+  //           bgColor: AppColor.darkThemeBlueColor,
+  //           textColor: Colors.white);
+  //       Navigator.push(
+  //         context,
+  //         MaterialPageRoute(builder: (context) => HomeScreen()),
+  //       );
+  //     }
+  //   } else {
+  //     CommonUtils.errorMessage(
+  //       msg: feedbackResponse.message,
+  //     );
+  //     CommonUtils.dismissProgressDialog(context);
+  //   }
+  // }
 
   // void checkMealServed() async {
   //   String token = await SharedPrefHelper().getWithDefault("token", "");

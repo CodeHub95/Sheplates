@@ -199,7 +199,8 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
                   children: [
                     IconButton(
                       icon: Icon(Icons.shopping_cart_outlined, color: Colors.grey),
-                      onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => CartScreen())),
+                      onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => CartScreen()))
+                          .then((value) => updateCartIconNumber()),
                     ),
                     numberOfCartItems == null
                         ? Container()

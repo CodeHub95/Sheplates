@@ -5,14 +5,14 @@ import 'package:flutter_sheplates/modals/response/MySubscriptionsResponse.dart';
 import 'package:flutter_sheplates/ui/ActiveWidgetTabDataCopy.dart';
 
 class ActiveWidgetWithTab extends StatefulWidget {
-  List<ActiveSubscription> activeSubscriptionList;
+  List<Subscription> activeSubscriptionList;
   ActiveWidgetWithTab(this.activeSubscriptionList);
   @override
   ActiveWidgetWithTabState createState() => ActiveWidgetWithTabState(activeSubscriptionList);
 }
 
 class ActiveWidgetWithTabState extends State<ActiveWidgetWithTab> {
-  List<ActiveSubscription> activeSubscriptionList;
+  List<Subscription> activeSubscriptionList;
   ActiveWidgetWithTabState(this.activeSubscriptionList);
   @override
   Widget build(BuildContext context) {
@@ -56,7 +56,7 @@ class ActiveWidgetWithTabState extends State<ActiveWidgetWithTab> {
                   physics: NeverScrollableScrollPhysics(),
                   children: [
                     ActiveWidgetTabDataCopy(activeSubscriptionList
-                        .where((element) => element.orders[0].catalog.mealCategory.category == "Breakfast")
+                        .where((element) => element.orders[0].catalog.mealCategory.category == "BreakFast")
                         .toList()),
                     ActiveWidgetTabDataCopy(activeSubscriptionList
                         .where((element) => element.orders[0].catalog.mealCategory.category == "Lunch")

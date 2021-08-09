@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final mySubscriptionResponse = mySubscriptionResponseFromJson(jsonString);
-
 import 'dart:convert';
 
 MySubscriptionResponse mySubscriptionResponseFromJson(String str) => MySubscriptionResponse.fromJson(json.decode(str));
@@ -38,14 +34,12 @@ class Data {
     this.pastSubscription,
   });
 
-  List<ActiveSubscription> activeSubscription;
-  List<PastSubscription> pastSubscription;
+  List<Subscription> activeSubscription;
+  List<Subscription> pastSubscription;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        activeSubscription:
-            List<ActiveSubscription>.from(json["activeSubscription"].map((x) => ActiveSubscription.fromJson(x))),
-        pastSubscription:
-            List<PastSubscription>.from(json["pastSubscription"].map((x) => PastSubscription.fromJson(x))),
+        activeSubscription: List<Subscription>.from(json["activeSubscription"].map((x) => Subscription.fromJson(x))),
+        pastSubscription: List<Subscription>.from(json["pastSubscription"].map((x) => Subscription.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -54,19 +48,19 @@ class Data {
       };
 }
 
-class ActiveSubscription {
-  ActiveSubscription({
+class Subscription {
+  Subscription({
     this.sheplatesOrderId,
     this.orders,
   });
 
   bool isExpanded = false;
   String sheplatesOrderId;
-  List<ActiveSubscriptionOrder> orders;
+  List<Order> orders;
 
-  factory ActiveSubscription.fromJson(Map<String, dynamic> json) => ActiveSubscription(
+  factory Subscription.fromJson(Map<String, dynamic> json) => Subscription(
         sheplatesOrderId: json["sheplates_order_id"],
-        orders: List<ActiveSubscriptionOrder>.from(json["orders"].map((x) => ActiveSubscriptionOrder.fromJson(x))),
+        orders: List<Order>.from(json["orders"].map((x) => Order.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -75,8 +69,8 @@ class ActiveSubscription {
       };
 }
 
-class ActiveSubscriptionOrder {
-  ActiveSubscriptionOrder({
+class Order {
+  Order({
     this.id,
     this.userId,
     this.mealPlanId,
@@ -117,13 +111,13 @@ class ActiveSubscriptionOrder {
   int basicSubscriptionPrice;
   int days;
   int totalMealCount;
-  num delieveryCharges;
-  num packagingCharges;
+  int delieveryCharges;
+  int packagingCharges;
   double distance;
   int mealsServed;
-  num gstPercentage;
-  num gstAmount;
-  num totalAmount;
+  int gstPercentage;
+  int gstAmount;
+  int totalAmount;
   DateTime startDate;
   DateTime endDate;
   DateTime pauseSubscriptionDate;
@@ -136,7 +130,7 @@ class ActiveSubscriptionOrder {
   Catalog catalog;
   Transaction transaction;
 
-  factory ActiveSubscriptionOrder.fromJson(Map<String, dynamic> json) => ActiveSubscriptionOrder(
+  factory Order.fromJson(Map<String, dynamic> json) => Order(
         id: json["id"],
         userId: json["user_id"],
         mealPlanId: json["meal_plan_id"],
@@ -149,7 +143,7 @@ class ActiveSubscriptionOrder {
         totalMealCount: json["total_meal_count"],
         delieveryCharges: json["delievery_charges"],
         packagingCharges: json["packaging_charges"],
-        distance: json["distance"],
+        distance: json["distance"].toDouble(),
         mealsServed: json["meals_served"],
         gstPercentage: json["gst_percentage"],
         gstAmount: json["gst_amount"],
@@ -217,13 +211,13 @@ class Catalog {
   factory Catalog.fromJson(Map<String, dynamic> json) => Catalog(
         id: json["id"],
         mealName: json["meal_name"],
-        mealCategory: json["meal_category"] == null ? null : MealCategory.fromJson(json["meal_category"]),
+        mealCategory: MealCategory.fromJson(json["meal_category"]),
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "meal_name": mealName,
-        "meal_category": mealCategory == null ? null : mealCategory.toJson(),
+        "meal_category": mealCategory.toJson(),
       };
 }
 
@@ -324,150 +318,5 @@ class Transaction {
         "razorpay_order_id": razorpayOrderId,
         "sheplates_order_id": sheplatesOrderId,
         "transaction_id": transactionId,
-      };
-}
-
-class PastSubscription {
-  PastSubscription({
-    this.sheplatesOrderId,
-    this.orders,
-  });
-
-  bool isExpanded = false;
-  String sheplatesOrderId;
-  List<PastSubscriptionOrder> orders;
-
-  factory PastSubscription.fromJson(Map<String, dynamic> json) => PastSubscription(
-        sheplatesOrderId: json["sheplates_order_id"],
-        orders: List<PastSubscriptionOrder>.from(json["orders"].map((x) => PastSubscriptionOrder.fromJson(x))),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "sheplates_order_id": sheplatesOrderId,
-        "orders": List<dynamic>.from(orders.map((x) => x.toJson())),
-      };
-}
-
-class PastSubscriptionOrder {
-  PastSubscriptionOrder({
-    this.id,
-    this.userId,
-    this.mealPlanId,
-    this.kitchenId,
-    this.preferredDeliveryTime,
-    this.quantity,
-    this.duration,
-    this.basicSubscriptionPrice,
-    this.days,
-    this.totalMealCount,
-    this.delieveryCharges,
-    this.packagingCharges,
-    this.mealsServed,
-    this.gstPercentage,
-    this.gstAmount,
-    this.totalAmount,
-    this.startDate,
-    this.endDate,
-    this.pauseSubscriptionDate,
-    this.resumeSubscriptionDate,
-    this.holidays,
-    this.status,
-    this.createdAt,
-    this.updatedAt,
-    this.kitchen,
-    this.catalog,
-    this.transaction,
-  });
-
-  int id;
-  int userId;
-  int mealPlanId;
-  int kitchenId;
-  String preferredDeliveryTime;
-  int quantity;
-  String duration;
-  int basicSubscriptionPrice;
-  int days;
-  int totalMealCount;
-  num delieveryCharges;
-  num packagingCharges;
-  int mealsServed;
-  num gstPercentage;
-  num gstAmount;
-  num totalAmount;
-  DateTime startDate;
-  DateTime endDate;
-  DateTime pauseSubscriptionDate;
-  DateTime resumeSubscriptionDate;
-  String holidays;
-  String status;
-  DateTime createdAt;
-  DateTime updatedAt;
-  Kitchen kitchen;
-  Catalog catalog;
-  Transaction transaction;
-
-  factory PastSubscriptionOrder.fromJson(Map<String, dynamic> json) => PastSubscriptionOrder(
-        id: json["id"],
-        userId: json["user_id"],
-        mealPlanId: json["meal_plan_id"],
-        kitchenId: json["kitchen_id"],
-        preferredDeliveryTime: json["preferred_delivery_time"],
-        quantity: json["quantity"],
-        duration: json["duration"],
-        basicSubscriptionPrice: json["basic_subscription_price"],
-        days: json["days"],
-        totalMealCount: json["total_meal_count"],
-        delieveryCharges: json["delievery_charges"],
-        packagingCharges: json["packaging_charges"],
-        mealsServed: json["meals_served"],
-        gstPercentage: json["gst_percentage"],
-        gstAmount: json["gst_amount"].toDouble(),
-        totalAmount: json["total_amount"],
-        startDate: DateTime.parse(json["start_date"]),
-        endDate: DateTime.parse(json["end_date"]),
-        pauseSubscriptionDate: DateTime.parse(json["pause_subscription_date"]),
-        resumeSubscriptionDate: DateTime.parse(json["resume_subscription_date"]),
-        holidays: json["holidays"],
-        status: json["status"],
-        createdAt: DateTime.parse(json["createdAt"]),
-        updatedAt: DateTime.parse(json["updatedAt"]),
-        kitchen: json["kitchen"],
-        catalog: Catalog.fromJson(json["catalog"]),
-        transaction: Transaction.fromJson(json["transaction"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "user_id": userId,
-        "meal_plan_id": mealPlanId,
-        "kitchen_id": kitchenId,
-        "preferred_delivery_time": preferredDeliveryTime,
-        "quantity": quantity,
-        "duration": duration,
-        "basic_subscription_price": basicSubscriptionPrice,
-        "days": days,
-        "total_meal_count": totalMealCount,
-        "delievery_charges": delieveryCharges,
-        "packaging_charges": packagingCharges,
-        "meals_served": mealsServed,
-        "gst_percentage": gstPercentage,
-        "gst_amount": gstAmount,
-        "total_amount": totalAmount,
-        "start_date":
-            "${startDate.year.toString().padLeft(4, '0')}-${startDate.month.toString().padLeft(2, '0')}-${startDate.day.toString().padLeft(2, '0')}",
-        "end_date":
-            "${endDate.year.toString().padLeft(4, '0')}-${endDate.month.toString().padLeft(2, '0')}-${endDate.day.toString().padLeft(2, '0')}",
-        "pause_subscription_date":
-            "${pauseSubscriptionDate.year.toString().padLeft(4, '0')}-${pauseSubscriptionDate.month.toString().padLeft(2, '0')}-${pauseSubscriptionDate.day.toString().padLeft(2, '0')}",
-        "resume_subscription_date":
-            "${resumeSubscriptionDate.year.toString().padLeft(4, '0')}-${resumeSubscriptionDate.month.toString().padLeft(2, '0')}-${resumeSubscriptionDate.day.toString().padLeft(2, '0')}",
-        "holidays": holidays,
-        "status": status,
-        "createdAt": createdAt.toIso8601String(),
-        "updatedAt": updatedAt.toIso8601String(),
-        "kitchen": kitchen,
-        "catalog": catalog.toJson(),
-        "transaction": transaction.toJson(),
       };
 }
