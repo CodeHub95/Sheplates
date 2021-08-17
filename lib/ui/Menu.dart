@@ -1,6 +1,16 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sheplates/Utils/NetworkUtils.dart';
+import 'package:flutter_sheplates/Utils/app_defaults.dart';
+import 'package:flutter_sheplates/Utils/app_utils.dart';
+import 'package:flutter_sheplates/Utils/hexColor.dart';
+import 'package:flutter_sheplates/modals/response/MenuResponse.dart';
 import 'package:flutter_sheplates/ui/DrawerScreen.dart';
+import 'package:flutter_sheplates/ui/NewFlow/Menu/NewServingToday.dart';
+import 'package:flutter_sheplates/ui/NewFlow/Menu/NewUpcommingMenu.dart';
 import 'package:flutter_sheplates/ui/ServingMenuWidget.dart';
 import 'package:flutter_sheplates/ui/UpcomingMenuWidget.dart';
 
@@ -12,11 +22,14 @@ class MenuScreen extends StatefulWidget {
 class _HomeScreenState extends State<MenuScreen>
     with SingleTickerProviderStateMixin {
   TabController _controller;
+  List<Obj> menuData;
+  List<Obj> menuList;
 
   @override
   Future<void> initState() {
     // TODO: implement initState
     super.initState();
+    // fetchMenuItem();
   }
 
   @override
@@ -70,10 +83,16 @@ class _HomeScreenState extends State<MenuScreen>
             ),
           ),
           body: TabBarView(
-            children: [ServingMenuWidget(), UpcomingMenuWidget()],
+            children: [
+              // ServingMenuWidget(), UpcomingMenuWidget()
+              NewServingTodayMenu(), NewUpcommingMenu()
+            ],
           ),
         ),
       ),
     );
   }
+
+
+
 }
