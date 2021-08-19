@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_sheplates/Utils/hexColor.dart';
 import 'HomeScreenWithTabs.dart';
@@ -15,22 +17,33 @@ class CategoryScreen extends StatefulWidget {
 var mainCategoryData;
 
 class _CategoryScreenState extends State<CategoryScreen> {
-  String category1, category2, category3;
-  int categoryOneID, categoryTwoID, categoryThreeID;
+
+  StreamController<MainCategoryResponse> _streamController = StreamController.broadcast();
+  String category1, category2, category3, category4;
+  int categoryOneID, categoryTwoID, categoryThreeID, categoryFourID;
   getCategoryData() async {
     String url = "user/mainCategories";
     var deviceToken = await SharedPrefHelper().get("token");
     var res = await NetworkUtil().get(url, token: deviceToken, context: context);
     MainCategoryResponse response = MainCategoryResponse.fromJson(res);
     if (response.status == 200) {
-      category1 = response.data[0].type;
-      category2 = response.data[1].type;
-      category3 = response.data[2].type;
-      categoryOneID = response.data[0].id;
-      categoryTwoID = response.data[1].id;
-      categoryThreeID = response.data[2].id;
-      mainCategoryData = res;
-      setState(() {});
+      _streamController.sink.add(response);
+      // for (int i = 0; i < response.data[0].type.length; i++)
+      //   if (response.data[0].type.isNotEmpty) {
+      //     linee0.add(response.data[0].marketData[i].line);
+      //     baselinee0.add(response.data[0].marketData[i].baseLine);
+      //   }
+      // category1 = response.data[0].type;
+      // category2 = response.data[1].type;
+      // category3 = response.data[2].type;
+      // category4 = response.data[3].type;
+      // categoryOneID = response.data[0].id;
+      // categoryTwoID = response.data[1].id;
+      // categoryThreeID = response.data[2].id;
+      // categoryFourID = response.data[3].id;
+
+      mainCategoryData = response;
+      // setState(() {});
     } else {
       CommonUtils.errorMessage(msg: res.message);
     }
@@ -58,22 +71,42 @@ class _CategoryScreenState extends State<CategoryScreen> {
             ),
           ),
         ),
-        body: mainCategoryData == null
-            ? Center(child: CircularProgressIndicator())
-            : Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ChooseCategoryMessage(),
-                    SizedBox(height: MediaQuery.of(context).size.width * .3),
-                    BuildButton(categoryName: category1, categoryID: categoryOneID),
-                    SizedBox(height: MediaQuery.of(context).size.width * .1),
-                    BuildButton(categoryName: category2, categoryID: categoryTwoID),
-                    SizedBox(height: MediaQuery.of(context).size.width * .1),
-                    BuildButton(categoryName: category3, categoryID: categoryThreeID),
-                    SizedBox(height: MediaQuery.of(context).size.width * .4),
-                  ],
-                ),
+        body:
+        // mainCategoryData == null
+        //     ? Center(child: CircularProgressIndicator())
+        //     :
+      Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ChooseCategoryMessage(),
+    StreamBuilder<MainCategoryResponse>(
+    stream: _streamController.stream,
+    builder: (context, snapshot) {
+      if(!snapshot.hasData){
+          return CircularProgressIndicator();
+      }
+    if (snapshot.hasData) {
+return ListView.builder(
+    shrinkWrap: true,
+    physics: NeverScrollableScrollPhysics(),
+    itemCount: snapshot.data.data.length,
+    itemBuilder: (BuildContext context, int index) {
+      return Column(children: [
+          SizedBox(height: 10),
+          BuildButton(categoryName: snapshot.data.data[index].type, categoryID: snapshot.data.data[index].id),
+
+      ],) ;
+    });} else return Container();})
+                  // SizedBox(height: MediaQuery.of(context).size.width * .3),
+                  // BuildButton(categoryName: category1, categoryID: categoryOneID),
+                  // SizedBox(height: MediaQuery.of(context).size.width * .1),
+                  // BuildButton(categoryName: category2, categoryID: categoryTwoID),
+                  // SizedBox(height: MediaQuery.of(context).size.width * .1),
+                  // BuildButton(categoryName: category3, categoryID: categoryThreeID),
+                  // SizedBox(height: MediaQuery.of(context).size.width * .1),
+                  // BuildButton(categoryName: category4, categoryID: categoryFourID),
+                  // SizedBox(height: MediaQuery.of(context).size.width * .4),
+                ],
               ),
       ),
     );
