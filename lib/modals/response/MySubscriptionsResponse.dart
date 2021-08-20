@@ -60,6 +60,7 @@ class Subscription {
 
   String sheplatesOrderId;
   List<Order> orders;
+  bool isExpanded =false;
 
   factory Subscription.fromJson(Map<String, dynamic> json) => Subscription(
     sheplatesOrderId: json["sheplates_order_id"],

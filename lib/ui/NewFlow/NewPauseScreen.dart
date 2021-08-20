@@ -31,8 +31,7 @@ class NewPauseScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<NewPauseScreen> {
-  bool pause =false;
-
+  bool pause;
   int oID;
   String status;
   String startDate;
@@ -46,11 +45,19 @@ class _HomeScreenState extends State<NewPauseScreen> {
 
   _HomeScreenState(this.activeSubscription);
   Subscription activeSubscription;
+
   @override
   Future<void> initState() {
     // TODO: implement initState
     super.initState();
     // getPauseList();
+    if(mounted) {
+      activeStatus = activeSubscription.orders[0].status.toString();
+
+      setState(() {
+        pause = activeStatus == "Active" ? true : false;
+      });
+    }
   }
 
   @override
@@ -201,9 +208,10 @@ class _HomeScreenState extends State<NewPauseScreen> {
                                   textColor: Colors.white,
                                   color: HexColor("#FF5657"),
                                   child: Text(
-                                    pause
+                                 activeSubscription.orders[0].status.toString()=="Active"?
+                                    // pause==true
                                     // activeStatus =="Active"
-                                  ?
+                                  // ?
                                  'Pause' : 'Reactivate',
                                     // pause ? 'Pause' : 'Reactivate',
                                     style: TextStyle(
@@ -211,7 +219,7 @@ class _HomeScreenState extends State<NewPauseScreen> {
                                     ),
                                   ),
 
-                                  onPressed: pause
+                                  onPressed: activeSubscription.orders[0].status.toString()=="Active"?pause==true: pause==false
                                       ? () async {
                                     selectedDate = await _selectDate(context,
                                         lastDate: DateTime.parse(endDate));
@@ -488,6 +496,7 @@ class _HomeScreenState extends State<NewPauseScreen> {
         orderId: idd,
         resumeSubscriptionDate:
         CommonUtils.getPauseDate(selectedDate.toIso8601String()));
+    print("dateeeee" + selectedDate.toIso8601String());
     var res = await NetworkUtil()
         .post(url: url, body: jsonEncode(request), token: token);
     BaseResponse response = BaseResponse.fromJson(res);

@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sheplates/Utils/NetworkUtils.dart';
@@ -8,14 +7,11 @@ import 'package:flutter_sheplates/Utils/ScreenUtils.dart';
 import 'package:flutter_sheplates/Utils/app_constants.dart';
 import 'package:flutter_sheplates/Utils/app_defaults.dart';
 import 'package:flutter_sheplates/Utils/app_utils.dart';
-import 'package:flutter_sheplates/auth/api_config.dart';
-import 'package:flutter_sheplates/modals/request/CheckOutRequest.dart';
 import 'package:flutter_sheplates/modals/request/CreateOrderOnRazorRequest.dart';
 import 'package:flutter_sheplates/modals/request/PaymentSubmitRequest.dart';
 import 'package:flutter_sheplates/modals/request/StockCheckRequest.dart';
 import 'package:flutter_sheplates/modals/response/CheckOutResponse.dart';
 import 'package:flutter_sheplates/modals/response/CreateOrderOnRazorResponse.dart';
-import 'package:flutter_sheplates/modals/response/StockCheckOutResponse.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 

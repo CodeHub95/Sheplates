@@ -85,15 +85,16 @@ class _CommonDrawerState extends State<CustomDrawer> {
             leading: Image.asset("assets/pause_subsciription.png", height: 25, width: 25, color: Colors.black),
             title: Text("Pause My Subscription", style: TextStyle(fontSize: 16, color: Colors.grey[600])),
             onTap: () =>
-                Navigator.push(context, MaterialPageRoute(builder: (context) => SubscriptionForPauseAndReactive())),
+                null
+                // Navigator.push(context, MaterialPageRoute(builder: (context) => SubscriptionForPauseAndReactive())),
           ),
           Divider(),
           ListTile(
             leading: Image.asset("assets/menu_icon.png", height: 25, width: 25, color: Colors.black),
             title: Text("Menu", style: TextStyle(fontSize: 16, color: Colors.grey[600])),
             onTap: () => {
-              // null
-              Navigator.push(context, MaterialPageRoute(builder: (context) => MenuScreen()))
+              null
+              // Navigator.push(context, MaterialPageRoute(builder: (context) => MenuScreen()))
             },
           ),
           Divider(),

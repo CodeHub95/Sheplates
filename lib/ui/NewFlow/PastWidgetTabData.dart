@@ -89,7 +89,7 @@ class _PastWidgetTabDataState extends State<PastWidgetTabData> {
                                                 children: [
                                                   Padding(padding: EdgeInsets.only(top: 10)),
                                                   Text(
-                                                    pastSubscriptionList[index].orders[0].kitchen.toString(),
+                                                    pastSubscriptionList[index].orders[index].kitchen .toString(),
                                                     style: TextStyle(color: Colors.red, fontSize: 20),
                                                   ),
                                                   Padding(

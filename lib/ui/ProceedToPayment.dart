@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sheplates/Utils/ScreenUtils.dart';
 import 'package:flutter_sheplates/Utils/app_utils.dart';
+import 'package:flutter_sheplates/modals/response/CardResponse.dart';
 import 'package:flutter_sheplates/modals/response/CheckOutResponse.dart';
 import 'package:flutter_sheplates/modals/response/CreateOrderOnRazorResponse.dart';
 import 'package:flutter_sheplates/ui/EditProfile.dart';
@@ -12,7 +13,7 @@ import 'package:flutter_sheplates/ui/HomeScreen.dart';
 import 'package:flutter_sheplates/ui/Support.dart';
 
 class ProceedToPayment extends StatefulWidget {
-  final Orders orders;
+  final CardResponse orders;
 
   const ProceedToPayment({Key key, this.orders}) : super(key: key);
 
@@ -90,7 +91,7 @@ class _HomeScreenState extends State<ProceedToPayment> {
                 padding: EdgeInsets.only(top: 5),
                 child: Text(
                   CommonUtils.getSimpleDate(
-                      DateTime.parse(widget.orders.startDate)),
+                      DateTime.parse(widget.orders.data.cartItems[0].startDate)),
                   style: TextStyle(
                       fontSize: 25,
                       color: Colors.red,
@@ -263,7 +264,7 @@ class _HomeScreenState extends State<ProceedToPayment> {
                   Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => FeedBack(idd: widget.orders.id, startDate: widget.orders.startDate, endDate: widget.orders.endDate),
+                        builder: (context) => FeedBack(idd: widget.orders.data.cartItems[0].id, startDate: widget.orders.data.cartItems[0].startDate, endDate: widget.orders.data.cartItems[0].endDate),
                       ),
                           (Route<dynamic> route) => false
                   );
