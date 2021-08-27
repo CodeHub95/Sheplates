@@ -90,14 +90,14 @@ class _CartScreenState extends State<CartScreen> {
       CommonUtils.dismissProgressDialog(context);
       CommonUtils.showToast(
           msg: response.message, bgColor: Colors.red, textColor: Colors.white);
-      // Navigator.of(context).pushNamedAndRemoveUntil(
-      //     Routes.proceedToPayment, (route) => false,
-      //     arguments: {'order': stockCheckOutResponse.data.orders});
-      Navigator
-          .of(context)
-          .pushReplacement(new MaterialPageRoute(builder: (BuildContext context) {
-        return new ProceedToPayment();
-      }));
+      Navigator.of(context).pushNamedAndRemoveUntil(
+          Routes.proceedToPayment, (route) => false,
+          arguments: {'order': stockCheckOutResponse.data.orders});
+      // Navigator
+      //     .of(context)
+      //     .pushReplacement(new MaterialPageRoute(builder: (BuildContext context) {
+      //   return ProceedToPayment( CardResponse);
+      // }));
     } else {
       CommonUtils.dismissProgressDialog(context);
     }
@@ -578,7 +578,7 @@ class _CartScreenState extends State<CartScreen> {
           orderResponse.data.order.amount.toString());
       openCheckout(
         name!=null ? name.toString():" ",
-        totalAmount,
+       totalAmount,
         // stockCheckOutResponse.data.orders.totalAmount.toInt(),
         orderId.toString(),
         // email, phone

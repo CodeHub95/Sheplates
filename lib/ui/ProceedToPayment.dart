@@ -6,15 +6,17 @@ import 'package:flutter_sheplates/Utils/app_utils.dart';
 import 'package:flutter_sheplates/modals/response/CardResponse.dart';
 import 'package:flutter_sheplates/modals/response/CheckOutResponse.dart';
 import 'package:flutter_sheplates/modals/response/CreateOrderOnRazorResponse.dart';
+import 'package:flutter_sheplates/modals/response/StockCheckOutResponse.dart';
 import 'package:flutter_sheplates/ui/EditProfile.dart';
 import 'package:flutter_sheplates/ui/FaqScreen.dart';
 import 'package:flutter_sheplates/ui/Feedback.dart';
 import 'package:flutter_sheplates/ui/HomeScreen.dart';
+import 'package:flutter_sheplates/ui/NewFlow/CategoryScreen.dart';
 import 'package:flutter_sheplates/ui/Support.dart';
 
 class ProceedToPayment extends StatefulWidget {
-  final CardResponse orders;
-
+  // final CardResponse orders;
+final Orders orders;
   const ProceedToPayment({Key key, this.orders}) : super(key: key);
 
   @override
@@ -91,7 +93,7 @@ class _HomeScreenState extends State<ProceedToPayment> {
                 padding: EdgeInsets.only(top: 5),
                 child: Text(
                   CommonUtils.getSimpleDate(
-                      DateTime.parse(widget.orders.data.cartItems[0].startDate)),
+                      DateTime.parse(widget.orders.startDate)),
                   style: TextStyle(
                       fontSize: 25,
                       color: Colors.red,
@@ -107,7 +109,7 @@ class _HomeScreenState extends State<ProceedToPayment> {
               Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => HomeScreen(),
+                    builder: (context) => CategoryScreen(),
                   ),
                   (Route<dynamic> route) => false);
             }),
@@ -264,7 +266,7 @@ class _HomeScreenState extends State<ProceedToPayment> {
                   Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => FeedBack(idd: widget.orders.data.cartItems[0].id, startDate: widget.orders.data.cartItems[0].startDate, endDate: widget.orders.data.cartItems[0].endDate),
+                        builder: (context) => FeedBack(idd: widget.orders.id, startDate: widget.orders.startDate, endDate: widget.orders.endDate),
                       ),
                           (Route<dynamic> route) => false
                   );

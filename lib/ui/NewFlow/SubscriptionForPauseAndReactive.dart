@@ -96,7 +96,7 @@ class _SubscriptionForPauseAndReactiveState extends State<SubscriptionForPauseAn
                         )));
                       },
                       leading: Icon(Icons.subscriptions),
-                      title: Text(snapshot.data.data.activeSubscription[index].orders[index].catalog.mealName),
+                      title: Text("Subscription ID: " +snapshot.data.data.activeSubscription[index].sheplatesOrderId),
                     ),
                   );
                 },

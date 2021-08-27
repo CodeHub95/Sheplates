@@ -201,11 +201,11 @@ class CartItems {
 }
 
 class Catalog {
-  int price;
+  num price;
   String mealName;
   int id;
-  int packagingCharges;
-  int deliveryCharges;
+  num packagingCharges;
+  num deliveryCharges;
   MealCategory mealCategory;
 
   Catalog({this.price, this.mealName, this.id, this.packagingCharges, this.deliveryCharges, this.mealCategory});

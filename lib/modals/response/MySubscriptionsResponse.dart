@@ -118,13 +118,13 @@ class Order {
   int basicSubscriptionPrice;
   int days;
   int totalMealCount;
-  int delieveryCharges;
-  int packagingCharges;
+  num delieveryCharges;
+  num packagingCharges;
   double distance;
   int mealsServed;
-  int gstPercentage;
-  int gstAmount;
-  int totalAmount;
+  num gstPercentage;
+  num gstAmount;
+  num totalAmount;
   DateTime startDate;
   DateTime endDate;
   DateTime pauseSubscriptionDate;
