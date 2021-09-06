@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:flutter_sheplates/ui/NewFlow/ApplyPromoCode.dart';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter_sheplates/modals/request/ConfirmOrderRequest.dart';
 import 'package:flutter_sheplates/ui/NewFlow/CartScreen.dart';
 import 'package:flutter/cupertino.dart';
@@ -194,6 +196,28 @@ class _HomeScreenState extends State<NewConfirmSubscription> {
                         image: "assets/calendar_icon.png",
                         hint: "Choose Your Date"),
                   ),
+                  SizedBox(height: 30),
+                  promoCodeFieldAndButton(),
+                  SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => ApplyPromoCodeScreen()));
+                        },
+                        child: Text(
+                          "Select Promo Code",
+                          style: TextStyle(
+                            color: Colors.grey[700],
+                            fontSize: 17,
+                            fontStyle: FontStyle.italic,
+                            decoration: TextDecoration.underline,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                   Container(
                       padding: EdgeInsets.only(),
                       margin: EdgeInsets.only(top: 40, bottom: 40, right: 0, left: 0),
@@ -221,6 +245,67 @@ class _HomeScreenState extends State<NewConfirmSubscription> {
                 ]),
           ),
         )));
+  }
+
+  Widget promoCodeFieldAndButton() {
+    return SizedBox(
+      width: double.infinity,
+      child: Stack(
+        alignment: Alignment.centerRight,
+        children: [
+          Container(
+            margin: EdgeInsets.only(right: 2),
+            child: DottedBorder(
+              borderType: BorderType.RRect,
+              radius: Radius.circular(8),
+              padding: EdgeInsets.zero,
+              dashPattern: [7],
+              color: HexColor("#FF5657"),
+              strokeWidth: 2,
+              child: Row(
+                children: [
+                  Container(
+                    width: 270,
+                    height: 58,
+                    decoration: BoxDecoration(
+                      color: Colors.transparent,
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(8), bottomLeft: Radius.circular(8)),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 10),
+                      child: TextField(
+                        style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: "Enter Promo Code",
+                          hintStyle: TextStyle(color: Colors.grey[400], fontWeight: FontWeight.normal, fontSize: 16),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(child: Container(height: 58)),
+                ],
+              ),
+            ),
+          ),
+          Row(
+            children: [
+              SizedBox(width: 270),
+              Expanded(
+                child: Container(
+                  height: 60,
+                  decoration: BoxDecoration(
+                    color: HexColor("#FF5657"),
+                    borderRadius: BorderRadius.only(topRight: Radius.circular(8), bottomRight: Radius.circular(8)),
+                  ),
+                  child: Center(child: Text("APPLY", style: TextStyle(color: Colors.white, fontSize: 18))),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 
   Widget inputWidget(

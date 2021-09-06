@@ -19,12 +19,10 @@ class Checkout extends StatefulWidget {
   final CheckOutResponse stockCheckOutResponse;
   final StockCheckRequest stockCheckRequest;
 
-  const Checkout({Key key, this.stockCheckOutResponse, this.stockCheckRequest})
-      : super(key: key);
+  const Checkout({Key key, this.stockCheckOutResponse, this.stockCheckRequest}) : super(key: key);
 
   @override
-  _HomeScreenState createState() =>
-      _HomeScreenState(this.stockCheckOutResponse, this.stockCheckRequest);
+  _HomeScreenState createState() => _HomeScreenState(this.stockCheckOutResponse, this.stockCheckRequest);
 }
 
 class _HomeScreenState extends State<Checkout> {
@@ -39,10 +37,9 @@ class _HomeScreenState extends State<Checkout> {
   String currency;
   String receipt;
   String payment_capture;
-String email;
-String phone;
-  Future<void> completePayment(
-      PaymentSuccessResponse paymentSuccessResponse) async {
+  String email;
+  String phone;
+  Future<void> completePayment(PaymentSuccessResponse paymentSuccessResponse) async {
     CommonUtils.fullScreenProgress(context);
     String url = "user/payment";
 
@@ -57,19 +54,15 @@ String phone;
       amount: stockCheckOutResponse.data.orders.totalAmount,
     );
     String token = await SharedPrefHelper().getWithDefault("token", "");
-    var res = await NetworkUtil()
-        .post(url: url, body: jsonEncode(request), token: token);
-    CreateOrderOnRazorResponse response =
-    CreateOrderOnRazorResponse.fromJson(res);
+    var res = await NetworkUtil().post(url: url, body: jsonEncode(request), token: token);
+    CreateOrderOnRazorResponse response = CreateOrderOnRazorResponse.fromJson(res);
 
     print(response);
 
     if (response.status == 200) {
       CommonUtils.dismissProgressDialog(context);
-      CommonUtils.showToast(
-          msg: response.message, bgColor: Colors.red, textColor: Colors.white);
-      Navigator.of(context).pushNamedAndRemoveUntil(
-          Routes.proceedToPayment, (route) => false,
+      CommonUtils.showToast(msg: response.message, bgColor: Colors.red, textColor: Colors.white);
+      Navigator.of(context).pushNamedAndRemoveUntil(Routes.proceedToPayment, (route) => false,
           arguments: {'order': stockCheckOutResponse.data.orders});
     } else {
       // CommonUtils.errorMessage(msg: response.message);
@@ -78,10 +71,10 @@ String phone;
   }
 
   void openCheckout(
-      String name,
-      int amount,
-      String order_id,
-      ) async {
+    String name,
+    int amount,
+    String order_id,
+  ) async {
     String email = await SharedPrefHelper().getWithDefault("email", "");
     String phone = await SharedPrefHelper().getWithDefault("phone", "");
     print("Order Id " + order_id);
@@ -127,8 +120,7 @@ String phone;
   }
 
   void _handleExternalWallet(ExternalWalletResponse response) {
-    Fluttertoast.showToast(
-        msg: "EXTERNAL_WALLET: " + response.walletName, timeInSecForIos: 4);
+    Fluttertoast.showToast(msg: "EXTERNAL_WALLET: " + response.walletName, timeInSecForIos: 4);
   }
 
   @override
@@ -158,10 +150,10 @@ String phone;
               padding: EdgeInsets.only(right: 30),
               child: Center(
                   child: Text(
-                    "Checkout",
-                    style: TextStyle(color: Colors.black),
-                    textAlign: TextAlign.center,
-                  ))),
+                "Checkout",
+                style: TextStyle(color: Colors.black),
+                textAlign: TextAlign.center,
+              ))),
           leading: Builder(
             builder: (context) => IconButton(
               icon: new Icon(
@@ -183,204 +175,141 @@ String phone;
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Padding(
-                      padding: EdgeInsets.only(left: 10, right: 10),
-                      child: Stack(
-                        children: [
-                          Container(
-                              margin: const EdgeInsets.only(top: 40.0),
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      fit: BoxFit.fill,
-                                      image: AssetImage(
-                                          "assets/order_summary_icon.png"))),
-                              child: Column(
-                                children: [
-                                  Padding(
-                                      padding: EdgeInsets.only(
-                                          top: 40, left: 20, right: 20)),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                          padding:
-                                          EdgeInsets.only(left: 20, right: 20),
-                                          child: Row(
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                  (getDays().toString() +
-                                                      " Meal Plan"),
-                                                  style: TextStyle(
-                                                    fontSize: 16,
-                                                  )),
-                                              Text(calculatePrice(),
-                                                  style: TextStyle(
-                                                    fontSize: 16,
-                                                  ))
-                                            ],
-                                          )),
-                                      Divider(),
-                                      Padding(
-                                          padding: EdgeInsets.only(
-                                              left: 20,
-                                              right: 20,
-                                              top: 5,
-                                              bottom: 5),
-                                          child: Row(
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text("Delivery Charges",
-                                                  style: TextStyle(
-                                                    fontSize: 16,
-                                                  )),
-                                              Text(
-                                                  stockCheckOutResponse
-                                                      .data.orders.delieveryCharges
-                                                      .toString(),
-                                                  style: TextStyle(
-                                                    fontSize: 16,
-                                                  ))
-                                            ],
-                                          )),
-                                      Divider(),
-                                      Padding(
-                                          padding: EdgeInsets.only(
-                                              left: 20,
-                                              right: 20,
-                                              top: 5,
-                                              bottom: 5),
-                                          child: Row(
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text("Packaging Charges",
-                                                  style: TextStyle(
-                                                    fontSize: 16,
-                                                  )),
-                                              Text(
-                                                  stockCheckOutResponse
-                                                      .data.orders.packagingCharges
-                                                      .toString(),
-                                                  style: TextStyle(
-                                                    fontSize: 16,
-                                                  ))
-                                            ],
-                                          )),
-                                      Divider(),
-                                      Padding(
-                                          padding: EdgeInsets.only(
-                                              left: 20,
-                                              right: 20,
-                                              top: 5,
-                                              bottom: 5),
-                                          child: Row(
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text("SGST@2.5%",
-                                                  style: TextStyle(
-                                                    fontSize: 16,
-                                                  )),
-                                              Text(
-                                                  stockCheckOutResponse
-                                                      .data.gst.sgst
-                                                      .toStringAsFixed(2),
-                                                  style: TextStyle(
-                                                    fontSize: 16,
-                                                  ))
-                                            ],
-                                          )),
-                                      Divider(),
-                                      Padding(
-                                          padding: EdgeInsets.only(
-                                              left: 20,
-                                              right: 20,
-                                              top: 5,
-                                              bottom: 5),
-                                          child: Row(
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text("CGST@2.5%",
-                                                  style: TextStyle(
-                                                    fontSize: 16,
-                                                  )),
-                                              Text(
-                                                  stockCheckOutResponse
-                                                      .data.gst.cgst
-                                                      .toStringAsFixed(2),
-                                                  style: TextStyle(
-                                                    fontSize: 16,
-                                                  ))
-                                            ],
-                                          )),
-                                      Divider(),
-                                      Padding(
-                                          padding: EdgeInsets.only(
-                                              left: 20,
-                                              right: 20,
-                                              top: 5,
-                                              bottom: 20),
-                                          child: Row(
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text("Total",
-                                                  style: TextStyle(
-                                                      fontSize: 16,
-                                                      fontWeight: FontWeight.bold)),
-                                              Text(
-                                                  stockCheckOutResponse
-                                                      .data.orders.totalAmount
-                                                      .toStringAsFixed(2),
-                                                  style: TextStyle(
-                                                      fontSize: 16,
-                                                      fontWeight: FontWeight.bold))
-                                            ],
-                                          )),
-                                    ],
-                                  ),
-                                ],
-                              )),
-                          Padding(
-                              padding: EdgeInsets.only(top: 25),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+              Padding(
+                  padding: EdgeInsets.only(left: 10, right: 10),
+                  child: Stack(
+                    children: [
+                      Container(
+                          margin: const EdgeInsets.only(top: 40.0),
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  fit: BoxFit.fill, image: AssetImage("assets/order_summary_icon.png"))),
+                          child: Column(
+                            children: [
+                              Padding(padding: EdgeInsets.only(top: 40, left: 20, right: 20)),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text(
-                                    "ORDER SUMMARY",
-                                    style: TextStyle(
-                                        fontSize: 22,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold),
-                                  ),
+                                  Padding(
+                                      padding: EdgeInsets.only(left: 20, right: 20),
+                                      child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text((getDays().toString() + " Meal Plan"),
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                              )),
+                                          Text(calculatePrice(),
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                              ))
+                                        ],
+                                      )),
+                                  Divider(),
+                                  Padding(
+                                      padding: EdgeInsets.only(left: 20, right: 20, top: 5, bottom: 5),
+                                      child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text("Delivery Charges",
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                              )),
+                                          Text(stockCheckOutResponse.data.orders.delieveryCharges.toString(),
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                              ))
+                                        ],
+                                      )),
+                                  Divider(),
+                                  Padding(
+                                      padding: EdgeInsets.only(left: 20, right: 20, top: 5, bottom: 5),
+                                      child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text("Packaging Charges",
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                              )),
+                                          Text(stockCheckOutResponse.data.orders.packagingCharges.toString(),
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                              ))
+                                        ],
+                                      )),
+                                  Divider(),
+                                  Padding(
+                                      padding: EdgeInsets.only(left: 20, right: 20, top: 5, bottom: 5),
+                                      child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text("SGST@2.5%",
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                              )),
+                                          Text(stockCheckOutResponse.data.gst.sgst.toStringAsFixed(2),
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                              ))
+                                        ],
+                                      )),
+                                  Divider(),
+                                  Padding(
+                                      padding: EdgeInsets.only(left: 20, right: 20, top: 5, bottom: 5),
+                                      child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text("CGST@2.5%",
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                              )),
+                                          Text(stockCheckOutResponse.data.gst.cgst.toStringAsFixed(2),
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                              ))
+                                        ],
+                                      )),
+                                  Divider(),
+                                  Padding(
+                                      padding: EdgeInsets.only(left: 20, right: 20, top: 5, bottom: 20),
+                                      child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text("Total", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                                          Text(stockCheckOutResponse.data.orders.totalAmount.toStringAsFixed(2),
+                                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))
+                                        ],
+                                      )),
                                 ],
-                              )),
-                        ],
-                      )),
-                  ScreenUtils.customButton(context, title: "Proceed to Payment",
-                      onCLick: () {
-                        submit1();
-                        // submit();
-                      })
-                ])));
+                              ),
+                            ],
+                          )),
+                      Padding(
+                          padding: EdgeInsets.only(top: 25),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "ORDER SUMMARY",
+                                style: TextStyle(fontSize: 22, color: Colors.black, fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          )),
+                    ],
+                  )),
+              ScreenUtils.customButton(context, title: "Proceed to Payment", onCLick: () {
+                submit1();
+                // submit();
+              })
+            ])));
   }
 
   Future<void> submit1() async {
@@ -391,14 +320,12 @@ String phone;
       currency: "INR",
       payment_capture: "",
       receipt: stockCheckOutResponse.data.orders.id.toString(),
-      amount: (stockCheckOutResponse.data.orders.totalAmount*100).toInt(),
+      amount: (stockCheckOutResponse.data.orders.totalAmount * 100).toInt(),
     );
     print("create order razorpay request" + stockCheckOutResponse.data.orders.totalAmount.toString());
     String token = await SharedPrefHelper().getWithDefault("token", "");
-    var res = await NetworkUtil()
-        .post(url: url, body: jsonEncode(request), token: token);
-    CreateOrderOnRazorResponse orderResponse =
-    CreateOrderOnRazorResponse.fromJson(res);
+    var res = await NetworkUtil().post(url: url, body: jsonEncode(request), token: token);
+    CreateOrderOnRazorResponse orderResponse = CreateOrderOnRazorResponse.fromJson(res);
     if (orderResponse.status == 200) {
       CommonUtils.dismissProgressDialog(context);
       num amount = orderResponse.data.order.amount;
@@ -420,10 +347,10 @@ String phone;
 
   String calculatePrice() {
     return (stockCheckOutResponse.data.orders.totalAmount -
-        (stockCheckOutResponse.data.gst.sgst +
-            stockCheckOutResponse.data.gst.cgst +
-            stockCheckOutResponse.data.orders.packagingCharges +
-            stockCheckOutResponse.data.orders.delieveryCharges))
+            (stockCheckOutResponse.data.gst.sgst +
+                stockCheckOutResponse.data.gst.cgst +
+                stockCheckOutResponse.data.orders.packagingCharges +
+                stockCheckOutResponse.data.orders.delieveryCharges))
         .toStringAsFixed(2);
   }
 
