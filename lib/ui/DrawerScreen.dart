@@ -19,6 +19,7 @@ import 'package:flutter_sheplates/ui/FaqScreen.dart';
 import 'package:flutter_sheplates/ui/LoginRegisterScreen.dart';
 import 'package:flutter_sheplates/ui/Menu.dart';
 import 'package:flutter_sheplates/ui/MySubscription.dart';
+import 'package:flutter_sheplates/ui/NewFlow/ReferralCodeScreen.dart';
 import 'package:flutter_sheplates/ui/NewFlow/SubscriptionForPauseAndReactive.dart';
 import 'package:flutter_sheplates/ui/Support.dart';
 
@@ -125,6 +126,12 @@ class _CommonDrawerState extends State<CustomDrawer> {
             leading: Image.asset("assets/faq.png", height: 25, width: 25, color: Colors.black),
             title: Text("FAQs", style: TextStyle(fontSize: 16, color: Colors.grey[600])),
             onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => FaqScreen())),
+          ),
+          Divider(),
+          ListTile(
+            leading: Image.asset("assets/refferal_icon_menu.png", height: 25, width: 25, color: Colors.black),
+            title: Text("Referral Code", style: TextStyle(fontSize: 16, color: Colors.grey[600])),
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ReferralCodeScreen())),
           ),
           Divider(),
           ListTile(

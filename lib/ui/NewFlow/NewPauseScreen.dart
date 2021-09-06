@@ -1,24 +1,18 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sheplates/Utils/NetworkUtils.dart';
 import 'package:flutter_sheplates/Utils/Routes.dart';
-import 'package:flutter_sheplates/Utils/ScreenUtils.dart';
 import 'package:flutter_sheplates/Utils/app_defaults.dart';
 import 'package:flutter_sheplates/Utils/app_utils.dart';
 import 'package:flutter_sheplates/Utils/hexColor.dart';
 import 'package:flutter_sheplates/modals/request/NewPauseRequest.dart';
 import 'package:flutter_sheplates/modals/request/NewReactiveRequest.dart';
-import 'package:flutter_sheplates/modals/request/PauseSubscriptionRequest.dart';
-import 'package:flutter_sheplates/modals/request/ReactiveSubscriptionRequest.dart';
 import 'package:flutter_sheplates/modals/response/BaseResponse.dart';
 import 'package:flutter_sheplates/modals/response/MySubscriptionsResponse.dart';
-import 'package:flutter_sheplates/modals/response/PauseScreenDataResponse.dart';
 import 'package:flutter_sheplates/ui/DrawerScreen.dart';
-import 'package:flutter_sheplates/ui/HomeScreen.dart';
 import 'package:flutter_sheplates/ui/NewFlow/SubscriptionForPauseAndReactive.dart';
 import 'package:intl/intl.dart';
 
@@ -41,8 +35,6 @@ class _HomeScreenState extends State<NewPauseScreen> {
   String pause_subscription_date;
   List<int> idd = [];
 
-  // StreamController<PauseScreenDataResponse> _streamController =
-  //     StreamController.broadcast();
   DateTime selectedDate = DateTime.now();
 
   _HomeScreenState(this.activeSubscription);
