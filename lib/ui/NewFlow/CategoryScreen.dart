@@ -64,17 +64,18 @@ class _CategoryScreenState extends State<CategoryScreen> {
         appBar: AppBar(
           backgroundColor: Colors.white,
           title: Center(
+
             child: Image.asset(
               "assets/logo_home.png",
               fit: BoxFit.fill,
+              alignment: Alignment.center,
               // color: Colors.transparent,
             ),
           ),
+
+          automaticallyImplyLeading: false,
         ),
         body:
-        // mainCategoryData == null
-        //     ? Center(child: CircularProgressIndicator())
-        //     :
       Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

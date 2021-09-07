@@ -77,8 +77,13 @@ class _CommonDrawerState extends State<CustomDrawer> {
             leading: Icon(Icons.home, color: Colors.black, size: 30.0),
             title: Text("Home", style: TextStyle(fontSize: 16, color: Colors.grey[600])),
             onTap: () {
-              Navigator.pop(context);
-              Navigator.push(context, MaterialPageRoute(builder: (context) => CategoryScreen()));
+              // Navigator.pop(context);
+              // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => CategoryScreen()));
+              Navigator
+                  .of(context)
+                  .pushReplacement( MaterialPageRoute(builder: (BuildContext context) {
+                return CategoryScreen();
+              }));
             },
           ),
           Divider(),

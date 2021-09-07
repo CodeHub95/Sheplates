@@ -259,26 +259,36 @@ class _MyHomePageState extends State<RegisterDetailScreen> {
           deviceToken: deviceToken,
           deviceType: Platform.isAndroid ? "Android" : "Ios");
       print("nnnnumber" + widget.phoneNumber);
-      var res = await NetworkUtil().post(url: url, body: jsonEncode(request));
-      LoginResponse response = LoginResponse.fromJson(res);
-      if (response.status == 200) {
-        CommonUtils.dismissProgressDialog(context);
-        SharedPrefHelper().save("token", response.token);
-        SharedPrefHelper().save("isLogin", true);
-        await SharedPrefHelper().save(
-            SharedPrefConstants.userData, jsonEncode(response.data.profile));
-        SharedPrefHelper().save("email", response.data.profile.email);
-        SharedPrefHelper().save("phone", response.data.profile.phone);
-        Auth auth = Auth();
-        auth.profile = response.data.profile;
-        auth.token = response.token;
-        auth.authState = AuthState.LoggedIn;
-        Navigator.pushNamedAndRemoveUntil(
-            context, Routes.deliveryStaticScreen, (route) => false);
-      } else {
-        CommonUtils.errorMessage(msg: response.message);
-        CommonUtils.dismissProgressDialog(context);
-      }
+       await NetworkUtil().post(url: url, body: jsonEncode(request)).then((value) async {
+         LoginResponse response = LoginResponse.fromJson(value);
+         if (response.status == 200) {
+           CommonUtils.dismissProgressDialog(context);
+           SharedPrefHelper().save("token", response.token);
+           SharedPrefHelper().save("isLogin", true);
+           await SharedPrefHelper().save(
+               SharedPrefConstants.userData, jsonEncode(response.data.profile));
+           SharedPrefHelper().save("email", response.data.profile.email);
+           SharedPrefHelper().save("phone", response.data.profile.phone);
+           Auth auth = Auth();
+           auth.profile = response.data.profile;
+           auth.token = response.token;
+           auth.authState = AuthState.LoggedIn;
+           CommonUtils.showToast(
+               msg: "Registered Successfully!", bgColor: AppColor.darkThemeBlueColor, textColor: Colors.white);
+           Navigator.pushNamedAndRemoveUntil(
+               context, Routes.deliveryStaticScreen, (route) => false);
+         } else {
+           CommonUtils.errorMessage(msg: response.message);
+           CommonUtils.dismissProgressDialog(context);
+         }
+      }).catchError((errorResponse) {
+
+          CommonUtils.errorMessage(msg: "User already exist!");
+          CommonUtils.dismissProgressDialog(context);
+
+        return null;
+      });;
+
     }
   }
 

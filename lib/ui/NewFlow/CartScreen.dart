@@ -344,9 +344,7 @@ class _CartScreenState extends State<CartScreen> {
                       color: Colors.white,
                       child: Text("Back to plans", style: TextStyle(color: Colors.redAccent)),
                       onPressed: () {
-                        // Navigator.pop(context);
-                        Navigator.pushAndRemoveUntil(
-                            context, MaterialPageRoute(builder: (context) => HomeScreenWithTabs()), (route) => false);
+                        Navigator.pop(context);
                       },
                     ),
                   ),
@@ -487,6 +485,7 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   Future<void> submit() async {
+    if(oId !=null){
     CommonUtils.fullScreenProgress(context);
     String url = "user/create-order";
     CreateOrderOnRazorRequest request = CreateOrderOnRazorRequest(
@@ -494,7 +493,6 @@ class _CartScreenState extends State<CartScreen> {
       payment_capture: "",
       receipt:
           // stockCheckOutResponse!=null? stockCheckOutResponse.data.orders.id.toString():
-
           oId.toString(),
       amount:
           // stockCheckOutResponse!=null?
@@ -522,10 +520,12 @@ class _CartScreenState extends State<CartScreen> {
         // email, phone
       );
     } else {
-      // CommonUtils.errorMessage(msg: orderResponse.message);
+      CommonUtils.errorMessage(msg: "Something Went Wrong!");
       CommonUtils.dismissProgressDialog(context);
     }
-  }
+  }else{
+      CommonUtils.errorMessage(msg: "No item is Available!");
+    }}
 
   Widget _buildPopupDialog(BuildContext context, String name, String amount, List<CartItems> cartItems, TaxObj taxObj) {
     return Dialog(

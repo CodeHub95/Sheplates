@@ -26,13 +26,14 @@ class _LoginScreenState extends State<LoginRegisterScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Expanded(
-              child: SingleChildScrollView(
+              child:
+              SingleChildScrollView(
                 child: Column(
-                    mainAxisSize: MainAxisSize.max,
+                    // mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Padding(
-                          padding: EdgeInsets.only(top: 50, bottom: 10),
+                          padding: EdgeInsets.only(top: MediaQuery.of(context).size.height/15, bottom: 10),
                           child: Container(
                             alignment: Alignment.center,
                             child: Image.asset(
@@ -87,7 +88,7 @@ class _LoginScreenState extends State<LoginRegisterScreen> {
               children: [
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  height: 50,
+                  height: MediaQuery.of(context).size.height/14,
                   color: AppColor.themeButtonColor,
                   child: Row(children: <Widget>[
                     Expanded(

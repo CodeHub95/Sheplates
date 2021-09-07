@@ -5,8 +5,6 @@ import 'package:flutter_sheplates/Utils/app_constants.dart';
 import 'package:flutter_sheplates/Utils/app_defaults.dart';
 import 'package:flutter_sheplates/auth/Auth.dart';
 import 'package:flutter_sheplates/modals/response/loginresponse.dart';
-import 'package:flutter_sheplates/ui/HomeScreen.dart';
-
 import 'package:flutter_sheplates/ui/LoginRegisterScreen.dart';
 
 class SplashScreen extends StatefulWidget {
