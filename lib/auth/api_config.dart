@@ -8,4 +8,6 @@ class ApiConfig {
   static const String userCheckout = "user/complete-payment";
   static const String getHolidayList = "user/get-holidays-list";
   static const String checkoutpayment = "user/create-order";
+  static const String applyPromoCode = "user/applyPromoCode";
+  static const String promocode = "user/promocode";
 }

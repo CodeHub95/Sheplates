@@ -1,3 +1,12 @@
+import 'dart:async';
+
+import 'package:flutter_share/flutter_share.dart';
+import 'package:flutter_sheplates/Utils/NetworkUtils.dart';
+import 'package:flutter_sheplates/Utils/ScreenUtils.dart';
+import 'package:flutter_sheplates/Utils/app_defaults.dart';
+import 'package:flutter_sheplates/Utils/app_utils.dart';
+import 'package:flutter_sheplates/auth/api_config.dart';
+import 'package:flutter_sheplates/modals/response/PromoCodeListResponse.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/services.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -12,8 +21,14 @@ class ReferralCodeScreen extends StatefulWidget {
 }
 
 class _ReferralCodeScreenState extends State<ReferralCodeScreen> {
-  String referralCode = "DOKG4GS86";
+  StreamController<List<Promocode>> _streamController = StreamController.broadcast();
   var size;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getPromocodeList();
+  }
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
@@ -36,32 +51,93 @@ class _ReferralCodeScreenState extends State<ReferralCodeScreen> {
         bottom: PreferredSize(child: Container(color: Colors.grey, height: 1.0), preferredSize: Size.fromHeight(1.0)),
       ),
       body: SingleChildScrollView(
-        child: Container(
+        child: StreamBuilder<List<Promocode>>(
+    stream: _streamController.stream,
+    builder: (context, snapshot) {
+    if (!snapshot.hasData)
+    return Container(
+    width: MediaQuery.of(context).size.width,
+    height: MediaQuery.of(context).size.height,
+    alignment: Alignment.center,
+    child: CircularProgressIndicator(),
+    );
+    if (snapshot.data.length != 0) {
+    return
+    ListView.builder(
+    shrinkWrap: true,
+    physics: NeverScrollableScrollPhysics(),
+    itemCount: 1,
+    itemBuilder: (context, index) {
+      String code = snapshot.data[index].type =="REFERRAL"? snapshot.data[index].code:"";
+      String description = snapshot.data[index].type =="REFERRAL" ?snapshot.data[index].description: "";
+      String type = snapshot.data[index].type =="REFERRAL" ?snapshot.data[index].type: "";
+      int amount = (snapshot.data[index].type == "REFERRAL") ? snapshot.data[index].offerUpTo : 0;
+      String name= snapshot.data[index].type == "REFERRAL" ? snapshot.data[index].name: "";
+    return
+        Container(
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          child: Center(
+          child:  snapshot.data[index].type =="REFERRAL"?
+             Center(
+              child: Column(
+                children: [
+                  SizedBox(height: 40),
+                  logo(),
+                  SizedBox(height: 60),
+                  subTitle(),
+                  SizedBox(height: 25),
+                  referralCodeFieldAndButton(code, description, type),
+                  SizedBox(height: 60),
+                  textField(amount),
+                  SizedBox(height: 60),
+                  inviteButton(code, description, type, amount, name),
+                ],
+              ),
+            ): Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
               children: [
-                SizedBox(height: 40),
-                logo(),
-                SizedBox(height: 60),
-                subTitle(),
-                SizedBox(height: 25),
-                referralCodeFieldAndButton(),
-                SizedBox(height: 60),
-                textField(),
-                SizedBox(height: 60),
-                inviteButton(),
+                Padding(
+                  padding: const EdgeInsets.only(top: 30.0),
+                  child: ScreenUtils.customText(
+                      data: "No Referral code is Available :)",
+                      textAlign: TextAlign.center),
+                ),
               ],
             ),
           ),
+
+        );});} else{
+      return Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 30.0),
+              child: ScreenUtils.customText(
+                  data: "No Referral code is Available :)",
+                  textAlign: TextAlign.center),
+            ),
+          ],
         ),
+      );
+    }})
       ),
     );
   }
 
-  Widget inviteButton() {
+  Widget inviteButton(String code, String description, String type, int amount, String name) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+   share(code, description, type, amount, name);
+      },
       child: Container(
         height: 50,
         decoration: BoxDecoration(
@@ -73,7 +149,7 @@ class _ReferralCodeScreenState extends State<ReferralCodeScreen> {
     );
   }
 
-  Widget textField() {
+  Widget textField(int amount) {
     return RichText(
       text: TextSpan(
         style: TextStyle(fontSize: 17.5, color: Colors.black),
@@ -85,14 +161,14 @@ class _ReferralCodeScreenState extends State<ReferralCodeScreen> {
           ),
           TextSpan(text: "and get "),
           TextSpan(
-            text: "RS 100 cashback ",
+            text: "Rs" + amount.toString(),
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
-          TextSpan(text: "for each friend that joins using your referral code. "),
+          TextSpan(text: "cashback for each friend that joins using your referral code. "),
           TextSpan(text: "\n\n"),
           TextSpan(text: "Your friends also get "),
           TextSpan(
-            text: "RS 50 ",
+            text: "Rs" +amount.toString(),
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           TextSpan(text: "off on his first order "),
@@ -101,7 +177,7 @@ class _ReferralCodeScreenState extends State<ReferralCodeScreen> {
     );
   }
 
-  Widget referralCodeFieldAndButton() {
+  Widget referralCodeFieldAndButton(String code, String description, String type) {
     return SizedBox(
       width: 335,
       child: Stack(
@@ -128,7 +204,7 @@ class _ReferralCodeScreenState extends State<ReferralCodeScreen> {
                     ),
                     child: Center(
                       child: Text(
-                        referralCode,
+                        code,
                         style: TextStyle(fontSize: 21, fontWeight: FontWeight.w500),
                       ),
                     ),
@@ -150,7 +226,7 @@ class _ReferralCodeScreenState extends State<ReferralCodeScreen> {
                   ),
                   child: InkWell(
                       onTap: () {
-                        Clipboard.setData(ClipboardData(text: referralCode));
+                        Clipboard.setData(ClipboardData(text: code));
                         Fluttertoast.showToast(
                             msg: "Copied",
                             toastLength: Toast.LENGTH_SHORT,
@@ -192,4 +268,37 @@ class _ReferralCodeScreenState extends State<ReferralCodeScreen> {
   }
 
   Widget logo() => Image.asset('assets/2.0x/referral_code.png', height: size.width * .4);
+
+  getPromocodeList() async {
+    String token = await SharedPrefHelper().getWithDefault("token", "");
+    print(token);
+    CommonUtils.fullScreenProgress(context);
+    var url = ApiConfig.promocode;
+    NetworkUtil().get(url, token: token).then((res) {
+      // CommonUtils.dismissProgressDialog(context);
+      PromoCodeListResponse response = PromoCodeListResponse.fromJson(res);
+
+      if (response.status == 200) {
+        CommonUtils.dismissProgressDialog(context);
+        _streamController.sink.add(response.data);
+      } else {
+        CommonUtils.dismissProgressDialog(context);
+        CommonUtils.showToast(
+            msg: "Something went wrong!", bgColor: Colors.black, textColor: Colors.white);
+      }
+    }).catchError((error) {
+      CommonUtils.dismissProgressDialog(context);
+      CommonUtils.showToast(
+          msg: "Something went wrong , Please try again", bgColor: Colors.red, textColor: Colors.white);
+    });
+  }
+
+  Future<void>  share(String code, String description, String type, int amount, String name) async{
+
+      await FlutterShare.share(
+          title: name,
+          text: description,
+          chooserTitle: code
+      );
+  }
 }

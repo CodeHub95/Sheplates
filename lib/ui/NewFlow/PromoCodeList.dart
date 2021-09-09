@@ -1,27 +1,43 @@
+import 'dart:async';
+
 import 'package:dotted_border/dotted_border.dart';
+import 'package:flutter_sheplates/Utils/NetworkUtils.dart';
+import 'package:flutter_sheplates/Utils/ScreenUtils.dart';
+import 'package:flutter_sheplates/Utils/app_defaults.dart';
+import 'package:flutter_sheplates/Utils/app_utils.dart';
 import 'package:flutter_sheplates/Utils/hexColor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sheplates/auth/api_config.dart';
+import 'package:flutter_sheplates/modals/response/ApplyPromoCodeResponse.dart';
+import 'package:flutter_sheplates/modals/response/PromoCodeListResponse.dart';
 import 'package:flutter_sheplates/ui/DrawerScreen.dart';
 import 'package:flutter_sheplates/modals/promoCode.dart';
 
-class ApplyPromoCodeScreen extends StatefulWidget {
+class PromoCodeList extends StatefulWidget {
   @override
   _ApplyPromoCodeScreenState createState() => _ApplyPromoCodeScreenState();
 }
 
 var size;
 
-class _ApplyPromoCodeScreenState extends State<ApplyPromoCodeScreen> {
-  List<PromoCode> promoCodes = [
-    PromoCode("Get 60% Off for first Order", "SHI4l201"),
-    PromoCode("Get 20% Off using Credit Card Get 20% Off using Credit Card", "SHI4l202"),
-    PromoCode("Order 1 Meal Get 1 MealFree", "SHI4l203"),
-    PromoCode("Get 10% Off using HDFC Card", "SHI4l204"),
-    PromoCode("Get 60% Off for first order", "SHI4l205"),
-    PromoCode("Get 60% Off for first order", "SHI4l206"),
-    PromoCode("Get 60% Off for first order", "SHI4l207"),
-  ];
+class _ApplyPromoCodeScreenState extends State<PromoCodeList> {
+
+  // List<PromoCode> promoCodes = [
+  //   PromoCode("Get 60% Off for first Order", "SHI4l201"),
+  //   PromoCode("Get 20% Off using Credit Card Get 20% Off using Credit Card", "SHI4l202"),
+  //   PromoCode("Order 1 Meal Get 1 MealFree", "SHI4l203"),
+  //   PromoCode("Get 10% Off using HDFC Card", "SHI4l204"),
+  //   PromoCode("Get 60% Off for first order", "SHI4l205"),
+  //   PromoCode("Get 60% Off for first order", "SHI4l206"),
+  //   PromoCode("Get 60% Off for first order", "SHI4l207"),
+  // ];
+  StreamController<List<Promocode>> _streamController = StreamController.broadcast();
+  @override
+  void initState() {
+    // TODO: implement initState
+    getPromocodeList();
+  }
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
@@ -44,7 +60,9 @@ class _ApplyPromoCodeScreenState extends State<ApplyPromoCodeScreen> {
         leading: Builder(
           builder: (context) => IconButton(
             icon: Icon(Icons.arrow_back_rounded),
-            onPressed: () => {},
+            onPressed: () => {
+              Navigator.pop(context)
+            },
           ),
         ),
         actions: [
@@ -66,7 +84,9 @@ class _ApplyPromoCodeScreenState extends State<ApplyPromoCodeScreen> {
       body: Container(
         padding: EdgeInsets.only(left: 15, right: 15, top: 25, bottom: 10),
         child: SingleChildScrollView(
-          child: Column(
+          child:
+
+          Column(
             children: [
               promoCodeFieldAndButton(),
               SizedBox(height: 20),
@@ -81,10 +101,22 @@ class _ApplyPromoCodeScreenState extends State<ApplyPromoCodeScreen> {
   }
 
   Widget buildPromoCodes() {
-    return ListView.builder(
+    return StreamBuilder<List<Promocode>>(
+        stream: _streamController.stream,
+        builder: (context, snapshot) {
+      if (!snapshot.hasData)
+        return Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          alignment: Alignment.center,
+          child: CircularProgressIndicator(),
+        );
+      if (snapshot.data.length != 0) {
+        return
+          ListView.builder(
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
-      itemCount: promoCodes.length,
+      itemCount: snapshot.data.length,
       itemBuilder: (context, index) {
         return Container(
           height: 100,
@@ -107,8 +139,8 @@ class _ApplyPromoCodeScreenState extends State<ApplyPromoCodeScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  codeDescription(index),
-                  code(index),
+                  codeDescription(snapshot.data[index].description),
+                  code(snapshot.data[index].code),
                 ],
               ),
               applyButton(),
@@ -116,7 +148,26 @@ class _ApplyPromoCodeScreenState extends State<ApplyPromoCodeScreen> {
           ),
         );
       },
-    );
+    );}else{
+
+          return Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 30.0),
+                  child: ScreenUtils.customText(
+                      data: "No Promo code is Available :)",
+                      textAlign: TextAlign.center),
+                ),
+              ],
+            ),
+          );
+      }});
   }
 
   Widget applyButton() {
@@ -126,23 +177,16 @@ class _ApplyPromoCodeScreenState extends State<ApplyPromoCodeScreen> {
         color: Colors.red,
         fontSize: 17,
         fontWeight: FontWeight.w700,
-        // shadows: <Shadow>[
-        //   Shadow(
-        //     offset: Offset(2, 3),
-        //     blurRadius: 3,
-        //     color: Colors.grey[300],
-        //   ),
-        // ],
       ),
     );
   }
 
-  Widget codeDescription(int index) {
+  Widget codeDescription(String description) {
     return SizedBox(
       width: size.width * .65,
       child: Text(
         // fades when text is long
-        promoCodes[index].description,
+        description,
         overflow: TextOverflow.fade,
         maxLines: 1,
         softWrap: false,
@@ -156,9 +200,9 @@ class _ApplyPromoCodeScreenState extends State<ApplyPromoCodeScreen> {
     );
   }
 
-  Widget code(int index) {
+  Widget code(String code) {
     return Text(
-      promoCodes[index].code,
+      code,
       style: TextStyle(color: Colors.black, fontSize: 17, fontWeight: FontWeight.w600),
     );
   }
@@ -234,5 +278,29 @@ class _ApplyPromoCodeScreenState extends State<ApplyPromoCodeScreen> {
         ],
       ),
     );
+  }
+
+  getPromocodeList() async {
+    String token = await SharedPrefHelper().getWithDefault("token", "");
+    print(token);
+    CommonUtils.fullScreenProgress(context);
+    var url = ApiConfig.promocode;
+    NetworkUtil().get(url, token: token).then((res) {
+      // CommonUtils.dismissProgressDialog(context);
+      PromoCodeListResponse response = PromoCodeListResponse.fromJson(res);
+
+      if (response.status == 200) {
+        CommonUtils.dismissProgressDialog(context);
+        _streamController.sink.add(response.data);
+      } else {
+        CommonUtils.dismissProgressDialog(context);
+        CommonUtils.showToast(
+            msg: "Something went wrong!", bgColor: Colors.black, textColor: Colors.white);
+      }
+    }).catchError((error) {
+      CommonUtils.dismissProgressDialog(context);
+      CommonUtils.showToast(
+          msg: "Something went wrong , Please try again", bgColor: Colors.red, textColor: Colors.white);
+    });
   }
 }

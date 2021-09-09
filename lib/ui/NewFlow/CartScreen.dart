@@ -5,7 +5,6 @@ import 'package:flutter_sheplates/Utils/app_constants.dart';
 import 'package:flutter_sheplates/modals/request/CreateOrderOnRazorRequest.dart';
 import 'package:flutter_sheplates/modals/request/PaymentSubmitRequest.dart';
 import 'package:flutter_sheplates/modals/response/CreateOrderOnRazorResponse.dart';
-import 'package:flutter_sheplates/ui/NewFlow/HomeScreenWithTabs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sheplates/Utils/NetworkUtils.dart';
 import 'package:flutter_sheplates/Utils/ScreenUtils.dart';
@@ -15,27 +14,29 @@ import 'package:flutter_sheplates/modals/request/ConfirmOrderRequest.dart';
 import 'package:flutter_sheplates/modals/response/BaseResponse.dart';
 import 'package:flutter_sheplates/modals/response/CardResponse.dart';
 import 'package:flutter_sheplates/modals/response/CheckOutResponse.dart';
-import 'package:flutter_sheplates/ui/ProceedToPayment.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 class CartScreen extends StatefulWidget {
   final CheckOutResponse stockCheckOutResponse;
   final ConfirmOrderRequestModel confirmOrderRequestModel;
-
-  const CartScreen({Key key, this.stockCheckOutResponse, this.confirmOrderRequestModel}) : super(key: key);
+ final int ReferralAmount;
+ final String name;
+  const CartScreen({Key key, this.stockCheckOutResponse, this.confirmOrderRequestModel, this.ReferralAmount, this.name}) : super(key: key);
 
   @override
-  _CartScreenState createState() => _CartScreenState(this.stockCheckOutResponse, this.confirmOrderRequestModel);
+  _CartScreenState createState() => _CartScreenState(this.stockCheckOutResponse, this.confirmOrderRequestModel, this.ReferralAmount, this.name);
 }
 
 class _CartScreenState extends State<CartScreen> {
   final CheckOutResponse stockCheckOutResponse;
   final ConfirmOrderRequestModel confirmOrderRequestModel;
+  final int ReferralAmount;
+  final String name;
   StreamController<CardResponse> _streamController = StreamController.broadcast();
   StreamController<BaseResponse> _deleteController = StreamController.broadcast();
 
-  _CartScreenState(this.stockCheckOutResponse, this.confirmOrderRequestModel);
+  _CartScreenState(this.stockCheckOutResponse, this.confirmOrderRequestModel, this.ReferralAmount, this.name);
 
   int oId;
   num totalAmount;
@@ -261,17 +262,63 @@ class _CartScreenState extends State<CartScreen> {
                                   ),
                                   buildOtherDetails("Delivery", snapshot.data.data.deliveryCharges.toString(),
                                       snapshot.data.data.cartItems, snapshot.data.data.taxObj),
-                                  Column(
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  Visibility(
+                                    visible: ReferralAmount!=null && name!=null,
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                        Column(
                                         children: [
-                                          Text("Promo Code", style: TextStyle(fontSize: 17, height: 1.3)),
-                                          Text("-100", style: TextStyle(fontSize: 17)),
-                                        ],
-                                      ),
-                                      Divider(color: Colors.grey, thickness: .5),
-                                    ],
+                                        SizedBox(height: 5),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Stack(
+                                                  alignment: Alignment.topRight,
+                                                  children: [
+                                                    Container(
+                                                        width: 15,
+                                                        height: 15,
+                                                        decoration:
+                                                        BoxDecoration(shape: BoxShape.circle, border: Border.all(color: Colors.black, width: 1))),
+                                                    InkWell(
+                                                      onTap: () {
+                                                        showDialog(
+                                                          context: context,
+                                                          builder: (BuildContext context) => _codePopupDialog(
+                                                            context,
+                                                            name,
+                                                          ),
+                                                        );
+                                                      },
+                                                      child: Padding(
+                                                        padding: EdgeInsets.only(right: 5),
+                                                        child: Text("i", style: TextStyle(fontSize: 12)),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                            Text("Promo Code", style: TextStyle(fontSize: 17)),
+                                          ],
+                                        ),
+                                        SizedBox(height: 7),
+                                        Container(color: Colors.grey, height: .5),
+                                        SizedBox(height: 5),
+                                      ],
+                                    ),
+                                            // Text("Promo Code", style: TextStyle(fontSize: 17, height: 1.3)),
+                                            Text(ReferralAmount.toString(), style: TextStyle(fontSize: 17)),
+                                          ],
+                                        ),
+                                        Divider(color: Colors.grey, thickness: .5),
+                                      ],
+                                    ),
                                   ),
                                   buildOtherDetails("Taxes", snapshot.data.data.taxes.toString(),
                                       snapshot.data.data.cartItems, snapshot.data.data.taxObj),
@@ -575,6 +622,39 @@ class _CartScreenState extends State<CartScreen> {
                     },
                   ),
                 ),
+        ],
+      ),
+    );
+  }
+  Widget _codePopupDialog(BuildContext context, String name) {
+    return Dialog(
+      child: new Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              IconButton(
+                icon: const Icon(Icons.close),
+                color: Colors.black,
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          ),
+         Container(
+            height: 100,
+            // height: Get.height * 0.4,
+            child:  Center(
+                  child: Text(
+                      "Code Name: " +
+                     name,
+                      style: TextStyle(fontSize: 18, color: Colors.black, fontWeight: FontWeight.w600)),
+            )
+          )
         ],
       ),
     );

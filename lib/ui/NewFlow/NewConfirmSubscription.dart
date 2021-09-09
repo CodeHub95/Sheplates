@@ -1,5 +1,7 @@
 import 'dart:convert';
-import 'package:flutter_sheplates/ui/NewFlow/ApplyPromoCode.dart';
+import 'package:flutter_sheplates/modals/request/ApplyPromoCodeRequest.dart';
+import 'package:flutter_sheplates/modals/response/ApplyPromoCodeResponse.dart';
+import 'package:flutter_sheplates/ui/NewFlow/PromoCodeList.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter_sheplates/modals/request/ConfirmOrderRequest.dart';
 import 'package:flutter_sheplates/ui/NewFlow/CartScreen.dart';
@@ -37,7 +39,7 @@ class _HomeScreenState extends State<NewConfirmSubscription> {
   TextEditingController mealPlanController = new TextEditingController();
   TextEditingController dateController = new TextEditingController();
   TextEditingController foodController = new TextEditingController();
-  final _formKey = GlobalKey<FormState>();
+  TextEditingController codeController = TextEditingController();
   List<String> time = List();
   var quantity = ['1', '2', '3'];
   var duration = ['Weekly', 'Monthly', 'Custom'];
@@ -49,7 +51,8 @@ class _HomeScreenState extends State<NewConfirmSubscription> {
   RangeSelectionType selectionType;
   String prefferedTime;
   String quantityValue;
-
+  int ReferralAmount;
+  String name;
   DatePeriod datePeriod;
   List<DateTime> holidaysList = List();
 
@@ -81,7 +84,12 @@ class _HomeScreenState extends State<NewConfirmSubscription> {
 
     getMealName();
   }
-
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    codeController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     final color = Theme.of(context).accentColor;
@@ -204,7 +212,7 @@ class _HomeScreenState extends State<NewConfirmSubscription> {
                     children: [
                       InkWell(
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => ApplyPromoCodeScreen()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => PromoCodeList()));
                         },
                         child: Text(
                           "Select Promo Code",
@@ -274,6 +282,7 @@ class _HomeScreenState extends State<NewConfirmSubscription> {
                     child: Padding(
                       padding: EdgeInsets.only(left: 10),
                       child: TextField(
+                        controller: codeController,
                         style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
                         decoration: InputDecoration(
                           border: InputBorder.none,
@@ -298,7 +307,13 @@ class _HomeScreenState extends State<NewConfirmSubscription> {
                     color: HexColor("#FF5657"),
                     borderRadius: BorderRadius.only(topRight: Radius.circular(8), bottomRight: Radius.circular(8)),
                   ),
-                  child: Center(child: Text("APPLY", style: TextStyle(color: Colors.white, fontSize: 18))),
+                  child: Center(
+
+                      child: FlatButton(
+                        onPressed: (){
+                          applyCode(codeController.text);
+                        },
+                          child: Text("APPLY", style: TextStyle(color: Colors.white, fontSize: 18)))),
                 ),
               ),
             ],
@@ -427,7 +442,7 @@ class _HomeScreenState extends State<NewConfirmSubscription> {
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                    CartScreen(stockCheckOutResponse: checkOutResponse, confirmOrderRequestModel: request)));
+                    CartScreen(stockCheckOutResponse: checkOutResponse, confirmOrderRequestModel: request, ReferralAmount: ReferralAmount, name:name)));
       } else {
         CommonUtils.showToast(
             msg: "We are fully booked. Kindly choose another date.", bgColor: Colors.black, textColor: Colors.white);
@@ -455,5 +470,37 @@ class _HomeScreenState extends State<NewConfirmSubscription> {
       });
       return false;
     }
+  }
+
+   applyCode(String code)async {
+    String token = await SharedPrefHelper().getWithDefault("token", "");
+    print(token);
+    var type = code.contains("RE", 0)? "REFERRAL" : code.contains("FO", 0)? "FIRSTRORDER" :" ";
+    ApplyPromoCodeRequest request = ApplyPromoCodeRequest(
+      type: type,
+      code: code,
+    );
+    CommonUtils.fullScreenProgress(context);
+    NetworkUtil().post(url: ApiConfig.applyPromoCode, token: token, body: jsonEncode(request)).then((res) {
+      CommonUtils.dismissProgressDialog(context);
+      ApplyPromoCodeResponse response = ApplyPromoCodeResponse.fromJson(res);
+
+      if (response.status == 200) {
+
+        CommonUtils.showToast(msg: response.message, bgColor: Colors.black, textColor: Colors.white);
+         Navigator.pop(context);
+         setState(() {
+           ReferralAmount =100;
+           name = "REFERRAL CODE";
+         });
+      } else {
+        CommonUtils.showToast(
+            msg: response.message, bgColor: Colors.black, textColor: Colors.white);
+      }
+    }).catchError((error) {
+      CommonUtils.dismissProgressDialog(context);
+      CommonUtils.showToast(
+          msg: "Something went wrong , Please try again", bgColor: Colors.red, textColor: Colors.white);
+    });
   }
 }

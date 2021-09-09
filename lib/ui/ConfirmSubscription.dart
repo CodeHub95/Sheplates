@@ -315,7 +315,6 @@ class _HomeScreenState extends State<ConfirmSubscription> {
     print(token);
 
     List<String> holidays = List();
-
     holidaysList.forEach((element) {
       holidays.add(CommonUtils.getSimpleDateForApi(element));
     });
