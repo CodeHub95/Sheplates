@@ -1,9 +1,14 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter_sheplates/Utils/Routes.dart';
 import 'package:flutter_sheplates/Utils/app_constants.dart';
+import 'package:flutter_sheplates/Utils/hexColor.dart';
+import 'package:flutter_sheplates/auth/api_config.dart';
+import 'package:flutter_sheplates/modals/request/ApplyPromoCodeRequest.dart';
 import 'package:flutter_sheplates/modals/request/CreateOrderOnRazorRequest.dart';
 import 'package:flutter_sheplates/modals/request/PaymentSubmitRequest.dart';
+import 'package:flutter_sheplates/modals/response/ApplyPromoCodeResponse.dart';
 import 'package:flutter_sheplates/modals/response/CreateOrderOnRazorResponse.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sheplates/Utils/NetworkUtils.dart';
@@ -14,29 +19,38 @@ import 'package:flutter_sheplates/modals/request/ConfirmOrderRequest.dart';
 import 'package:flutter_sheplates/modals/response/BaseResponse.dart';
 import 'package:flutter_sheplates/modals/response/CardResponse.dart';
 import 'package:flutter_sheplates/modals/response/CheckOutResponse.dart';
+import 'package:flutter_sheplates/ui/NewFlow/PromoCodeList.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 class CartScreen extends StatefulWidget {
   final CheckOutResponse stockCheckOutResponse;
   final ConfirmOrderRequestModel confirmOrderRequestModel;
- final int ReferralAmount;
- final String name;
-  const CartScreen({Key key, this.stockCheckOutResponse, this.confirmOrderRequestModel, this.ReferralAmount, this.name}) : super(key: key);
+ int ReferralAmount;
+ String name;
+ String code;
+ String codeType;
+
+
+
+  CartScreen({Key key, this.stockCheckOutResponse, this.confirmOrderRequestModel, this.ReferralAmount, this.name, this.code, this.codeType}) : super(key: key);
 
   @override
-  _CartScreenState createState() => _CartScreenState(this.stockCheckOutResponse, this.confirmOrderRequestModel, this.ReferralAmount, this.name);
+  _CartScreenState createState() => _CartScreenState(this.stockCheckOutResponse, this.confirmOrderRequestModel, this.ReferralAmount, this.name, this.code, this.codeType);
 }
 
 class _CartScreenState extends State<CartScreen> {
   final CheckOutResponse stockCheckOutResponse;
   final ConfirmOrderRequestModel confirmOrderRequestModel;
-  final int ReferralAmount;
-  final String name;
+  int ReferralAmount;
+  String name;
+  String code;
+  String codeType;
+
   StreamController<CardResponse> _streamController = StreamController.broadcast();
   StreamController<BaseResponse> _deleteController = StreamController.broadcast();
-
-  _CartScreenState(this.stockCheckOutResponse, this.confirmOrderRequestModel, this.ReferralAmount, this.name);
+  TextEditingController codeController = TextEditingController();
+  _CartScreenState(this.stockCheckOutResponse, this.confirmOrderRequestModel, this.ReferralAmount, this.name, this.code, this.codeType);
 
   int oId;
   num totalAmount;
@@ -74,7 +88,12 @@ class _CartScreenState extends State<CartScreen> {
         paymentMode: "Razor Pay",
         orderId: oId.toString(),
         // stockCheckOutResponse.data.orders.id.toString(),
-        amount: totalAmount
+        amount: totalAmount,
+        code: code,
+        codeType: codeType,
+        isCodeApply: code!=null? true: false,
+        discountAmount: ReferralAmount!=null? ReferralAmount: 0,
+        payedAmountAfterDiscount: ReferralAmount!=null ? (totalAmount - ReferralAmount): 0,
         // stockCheckOutResponse.data.orders.totalAmount,
         );
     String token = await SharedPrefHelper().getWithDefault("token", "");
@@ -210,7 +229,9 @@ class _CartScreenState extends State<CartScreen> {
                               );
                             if (snapshot.data.data != null) {
                               oId = snapshot.data.data.cartItems[0].id;
-                              totalAmount = snapshot.data.data.grandTotal;
+                              totalAmount =ReferralAmount!=null? snapshot.data.data.grandTotal:
+                              (snapshot.data.data.grandTotal) - ReferralAmount ;
+
                               orders = snapshot.data;
                               return Column(
                                 children: [
@@ -361,10 +382,33 @@ class _CartScreenState extends State<CartScreen> {
                 ),
               ],
             ),
+            oId !=null?  promoCodeFieldAndButton(): Container(),
+            oId !=null? Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right:20.0),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => PromoCodeList()));
+                    },
+                    child: Text(
+                      "Select Promo Code",
+                      style: TextStyle(
+                        color: Colors.grey[700],
+                        fontSize: 17,
+                        fontStyle: FontStyle.italic,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ): Container(),
             Container(
               child: Column(
                 children: [
-                  SizedBox(
+                  oId !=null?  SizedBox(
                     height: 40,
                     width: 180,
                     child: RaisedButton(
@@ -378,7 +422,7 @@ class _CartScreenState extends State<CartScreen> {
                         submit();
                       },
                     ),
-                  ),
+                  ): Container(),
                   SizedBox(height: 10),
                   SizedBox(
                     height: 40,
@@ -613,7 +657,8 @@ class _CartScreenState extends State<CartScreen> {
               : Container(
                   height: 100,
                   child: ListView.builder(
-                    itemCount: cartItems.length,
+                    // itemCount: cartItems.length,
+                    itemCount: 1,
                     itemBuilder: (BuildContext context, int index) {
                       return Center(
                         child: Text("cGST25: " + taxObj.cGST25.toString() + "\n" + "sGST25:" + taxObj.sGST25.toString(),
@@ -658,5 +703,113 @@ class _CartScreenState extends State<CartScreen> {
         ],
       ),
     );
+  }
+
+
+  Widget promoCodeFieldAndButton() {
+    return Padding(
+      padding: const EdgeInsets.only(left:15.0, right: 15),
+      child: SizedBox(
+        width: double.infinity,
+        child: Stack(
+          alignment: Alignment.centerRight,
+          children: [
+            Container(
+              margin: EdgeInsets.only(right: 2),
+
+              child: DottedBorder(
+                borderType: BorderType.RRect,
+                radius: Radius.circular(8),
+                padding: EdgeInsets.zero,
+                dashPattern: [7],
+                color: HexColor("#FF5657"),
+                strokeWidth: 2,
+                child: Row(
+                  children: [
+                    Container(
+                      width: 270,
+                      height: 58,
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.only(topLeft: Radius.circular(8), bottomLeft: Radius.circular(8)),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 10),
+                        child: TextField(
+                          controller: codeController,
+                          style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: "Enter Promo Code",
+                            hintStyle: TextStyle(color: Colors.grey[400], fontWeight: FontWeight.normal, fontSize: 16),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(child: Container(height: 58)),
+                  ],
+                ),
+              ),
+            ),
+            Row(
+              children: [
+                SizedBox(width: MediaQuery.of(context).size.width/1.5),
+                Expanded(
+                  child: Container(
+                    // padding: EdgeInsets.only(left: 20, right: 20),
+                    height: 60,
+                    decoration: BoxDecoration(
+                      color: HexColor("#FF5657"),
+                      borderRadius: BorderRadius.only(topRight: Radius.circular(8), bottomRight: Radius.circular(8)),
+                    ),
+                    child: Center(
+                        child: FlatButton(
+                          child: Text("APPLY", style: TextStyle(color: Colors.white, fontSize: 18)),
+                          onPressed: (){
+                            applyCode(codeController.text, ReferralAmount, name);
+                          },
+                        )),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  applyCode(String code, int ReferralAmount, String name)async {
+    String token = await SharedPrefHelper().getWithDefault("token", "");
+    print(token);
+    var type = code.contains("RE", 0)? "REFERRAL" : code.contains("FO", 0)? "FIRSTRORDER" :" ";
+    ApplyPromoCodeRequest request = ApplyPromoCodeRequest(
+      type: type,
+      code: code,
+    );
+    CommonUtils.fullScreenProgress(context);
+    NetworkUtil().post(url: ApiConfig.applyPromoCode, token: token, body: jsonEncode(request)).then((res) {
+      CommonUtils.dismissProgressDialog(context);
+      ApplyPromoCodeResponse response = ApplyPromoCodeResponse.fromJson(res);
+
+      if (response.status == 200) {
+
+        CommonUtils.showToast(msg: response.message, bgColor: Colors.black, textColor: Colors.white);
+        Navigator.pop(context);
+        setState(() {
+          ReferralAmount =100;
+          name = "REFERRAL CODE";
+          code = code;
+          type = type;
+        });
+      } else {
+        CommonUtils.showToast(
+            msg: response.message, bgColor: Colors.black, textColor: Colors.white);
+      }
+    }).catchError((error) {
+      CommonUtils.dismissProgressDialog(context);
+      CommonUtils.showToast(
+          msg: "Something went wrong , Please try again", bgColor: Colors.red, textColor: Colors.white);
+    });
   }
 }

@@ -8,8 +8,15 @@ class PaymentSubmitRequest {
   String razorpay_payment_id;
  String razorpay_order_id;
  String razorpay_signature;
+String code;
+String codeType;
+bool isCodeApply;
+int discountAmount;
+int payedAmountAfterDiscount;
+
   PaymentSubmitRequest({this.orderId, this.transactionId, this.amount, this.paymentMode, this.status,
-    this.razorpay_order_id, this.razorpay_signature, this.razorpay_payment_id, this.type,});
+    this.razorpay_order_id, this.razorpay_signature, this.razorpay_payment_id, this.type,
+  this.code, this.codeType, this.isCodeApply, this.discountAmount, this.payedAmountAfterDiscount});
 
 
   factory PaymentSubmitRequest.fromJson(Map<String, dynamic> json) {
@@ -23,6 +30,11 @@ class PaymentSubmitRequest {
         razorpay_payment_id: json['razorpay_payment_id'],
       razorpay_signature: json['razorpay_signature'],
       razorpay_order_id: json['razorpay_payment_id'],
+      code: json['code'],
+      codeType: json['codeType'],
+      isCodeApply: json['isCodeApply'],
+      discountAmount: json['discountAmount'],
+      payedAmountAfterDiscount: json['payedAmountAfterDiscount'],
     );
   }
 
@@ -37,6 +49,11 @@ class PaymentSubmitRequest {
     data['razorpay_payment_id'] = this.razorpay_payment_id;
     data['razorpay_signature'] = this.razorpay_signature;
     data['razorpay_order_id'] = this.razorpay_order_id;
+    data['code'] = this.code;
+    data['codeType'] = this.codeType;
+    data['isCodeApply'] = this.isCodeApply;
+    data['discountAmount'] = this.discountAmount;
+    data['payedAmountAfterDiscount'] = this.payedAmountAfterDiscount;
     return data;
   }
 }

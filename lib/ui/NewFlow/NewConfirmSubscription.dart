@@ -84,12 +84,13 @@ class _HomeScreenState extends State<NewConfirmSubscription> {
 
     getMealName();
   }
-  @override
-  void dispose() {
-    // Clean up the controller when the widget is disposed.
-    codeController.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   // Clean up the controller when the widget is disposed.
+  //   codeController.dispose();
+  //
+  //   super.dispose();
+  // }
   @override
   Widget build(BuildContext context) {
     final color = Theme.of(context).accentColor;
@@ -205,31 +206,31 @@ class _HomeScreenState extends State<NewConfirmSubscription> {
                         hint: "Choose Your Date"),
                   ),
                   SizedBox(height: 30),
-                  promoCodeFieldAndButton(),
-                  SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => PromoCodeList()));
-                        },
-                        child: Text(
-                          "Select Promo Code",
-                          style: TextStyle(
-                            color: Colors.grey[700],
-                            fontSize: 17,
-                            fontStyle: FontStyle.italic,
-                            decoration: TextDecoration.underline,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                  // promoCodeFieldAndButton(),
+                  // SizedBox(height: 20),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.end,
+                  //   children: [
+                  //     InkWell(
+                  //       onTap: () {
+                  //         Navigator.push(context, MaterialPageRoute(builder: (context) => PromoCodeList()));
+                  //       },
+                  //       child: Text(
+                  //         "Select Promo Code",
+                  //         style: TextStyle(
+                  //           color: Colors.grey[700],
+                  //           fontSize: 17,
+                  //           fontStyle: FontStyle.italic,
+                  //           decoration: TextDecoration.underline,
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
                   Container(
                       padding: EdgeInsets.only(),
                       margin: EdgeInsets.only(top: 40, bottom: 40, right: 0, left: 0),
-                      height: 40,
+                      height: 50,
                       alignment: Alignment.center,
                       child: RaisedButton(
                           padding: EdgeInsets.only(left: 15, right: 15),
@@ -255,73 +256,73 @@ class _HomeScreenState extends State<NewConfirmSubscription> {
         )));
   }
 
-  Widget promoCodeFieldAndButton() {
-    return SizedBox(
-      width: double.infinity,
-      child: Stack(
-        alignment: Alignment.centerRight,
-        children: [
-          Container(
-            margin: EdgeInsets.only(right: 2),
-            child: DottedBorder(
-              borderType: BorderType.RRect,
-              radius: Radius.circular(8),
-              padding: EdgeInsets.zero,
-              dashPattern: [7],
-              color: HexColor("#FF5657"),
-              strokeWidth: 2,
-              child: Row(
-                children: [
-                  Container(
-                    width: 270,
-                    height: 58,
-                    decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      borderRadius: BorderRadius.only(topLeft: Radius.circular(8), bottomLeft: Radius.circular(8)),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 10),
-                      child: TextField(
-                        controller: codeController,
-                        style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: "Enter Promo Code",
-                          hintStyle: TextStyle(color: Colors.grey[400], fontWeight: FontWeight.normal, fontSize: 16),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Expanded(child: Container(height: 58)),
-                ],
-              ),
-            ),
-          ),
-          Row(
-            children: [
-              SizedBox(width: 270),
-              Expanded(
-                child: Container(
-                  height: 60,
-                  decoration: BoxDecoration(
-                    color: HexColor("#FF5657"),
-                    borderRadius: BorderRadius.only(topRight: Radius.circular(8), bottomRight: Radius.circular(8)),
-                  ),
-                  child: Center(
-
-                      child: FlatButton(
-                        onPressed: (){
-                          applyCode(codeController.text);
-                        },
-                          child: Text("APPLY", style: TextStyle(color: Colors.white, fontSize: 18)))),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget promoCodeFieldAndButton() {
+  //   return SizedBox(
+  //     width: double.infinity,
+  //     child: Stack(
+  //       alignment: Alignment.centerRight,
+  //       children: [
+  //         Container(
+  //           margin: EdgeInsets.only(right: 2),
+  //           child: DottedBorder(
+  //             borderType: BorderType.RRect,
+  //             radius: Radius.circular(8),
+  //             padding: EdgeInsets.zero,
+  //             dashPattern: [7],
+  //             color: HexColor("#FF5657"),
+  //             strokeWidth: 2,
+  //             child: Row(
+  //               children: [
+  //                 Container(
+  //                   width: 270,
+  //                   height: 58,
+  //                   decoration: BoxDecoration(
+  //                     color: Colors.transparent,
+  //                     borderRadius: BorderRadius.only(topLeft: Radius.circular(8), bottomLeft: Radius.circular(8)),
+  //                   ),
+  //                   child: Padding(
+  //                     padding: EdgeInsets.only(left: 10),
+  //                     child: TextField(
+  //                       controller: codeController,
+  //                       style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
+  //                       decoration: InputDecoration(
+  //                         border: InputBorder.none,
+  //                         hintText: "Enter Promo Code",
+  //                         hintStyle: TextStyle(color: Colors.grey[400], fontWeight: FontWeight.normal, fontSize: 16),
+  //                       ),
+  //                     ),
+  //                   ),
+  //                 ),
+  //                 Expanded(child: Container(height: 58)),
+  //               ],
+  //             ),
+  //           ),
+  //         ),
+  //         Row(
+  //           children: [
+  //             SizedBox(width: 270),
+  //             Expanded(
+  //               child: Container(
+  //                 height: 60,
+  //                 decoration: BoxDecoration(
+  //                   color: HexColor("#FF5657"),
+  //                   borderRadius: BorderRadius.only(topRight: Radius.circular(8), bottomRight: Radius.circular(8)),
+  //                 ),
+  //                 child: Center(
+  //
+  //                     child: FlatButton(
+  //                       onPressed: (){
+  //                         applyCode(codeController.text);
+  //                       },
+  //                         child: Text("APPLY", style: TextStyle(color: Colors.white, fontSize: 18)))),
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Widget inputWidget(
       {@required String attribute,
@@ -442,7 +443,7 @@ class _HomeScreenState extends State<NewConfirmSubscription> {
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                    CartScreen(stockCheckOutResponse: checkOutResponse, confirmOrderRequestModel: request, ReferralAmount: ReferralAmount, name:name)));
+                    CartScreen(stockCheckOutResponse: checkOutResponse, confirmOrderRequestModel: request)));
       } else {
         CommonUtils.showToast(
             msg: "We are fully booked. Kindly choose another date.", bgColor: Colors.black, textColor: Colors.white);
@@ -472,35 +473,35 @@ class _HomeScreenState extends State<NewConfirmSubscription> {
     }
   }
 
-   applyCode(String code)async {
-    String token = await SharedPrefHelper().getWithDefault("token", "");
-    print(token);
-    var type = code.contains("RE", 0)? "REFERRAL" : code.contains("FO", 0)? "FIRSTRORDER" :" ";
-    ApplyPromoCodeRequest request = ApplyPromoCodeRequest(
-      type: type,
-      code: code,
-    );
-    CommonUtils.fullScreenProgress(context);
-    NetworkUtil().post(url: ApiConfig.applyPromoCode, token: token, body: jsonEncode(request)).then((res) {
-      CommonUtils.dismissProgressDialog(context);
-      ApplyPromoCodeResponse response = ApplyPromoCodeResponse.fromJson(res);
-
-      if (response.status == 200) {
-
-        CommonUtils.showToast(msg: response.message, bgColor: Colors.black, textColor: Colors.white);
-         Navigator.pop(context);
-         setState(() {
-           ReferralAmount =100;
-           name = "REFERRAL CODE";
-         });
-      } else {
-        CommonUtils.showToast(
-            msg: response.message, bgColor: Colors.black, textColor: Colors.white);
-      }
-    }).catchError((error) {
-      CommonUtils.dismissProgressDialog(context);
-      CommonUtils.showToast(
-          msg: "Something went wrong , Please try again", bgColor: Colors.red, textColor: Colors.white);
-    });
-  }
+  //  applyCode(String code)async {
+  //   String token = await SharedPrefHelper().getWithDefault("token", "");
+  //   print(token);
+  //   var type = code.contains("RE", 0)? "REFERRAL" : code.contains("FO", 0)? "FIRSTRORDER" :" ";
+  //   ApplyPromoCodeRequest request = ApplyPromoCodeRequest(
+  //     type: type,
+  //     code: code,
+  //   );
+  //   CommonUtils.fullScreenProgress(context);
+  //   NetworkUtil().post(url: ApiConfig.applyPromoCode, token: token, body: jsonEncode(request)).then((res) {
+  //     CommonUtils.dismissProgressDialog(context);
+  //     ApplyPromoCodeResponse response = ApplyPromoCodeResponse.fromJson(res);
+  //
+  //     if (response.status == 200) {
+  //
+  //       CommonUtils.showToast(msg: response.message, bgColor: Colors.black, textColor: Colors.white);
+  //        Navigator.pop(context);
+  //        setState(() {
+  //          ReferralAmount =100;
+  //          name = "REFERRAL CODE";
+  //        });
+  //     } else {
+  //       CommonUtils.showToast(
+  //           msg: response.message, bgColor: Colors.black, textColor: Colors.white);
+  //     }
+  //   }).catchError((error) {
+  //     CommonUtils.dismissProgressDialog(context);
+  //     CommonUtils.showToast(
+  //         msg: "Something went wrong , Please try again", bgColor: Colors.red, textColor: Colors.white);
+  //   });
+  // }
 }
