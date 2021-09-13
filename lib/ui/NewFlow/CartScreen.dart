@@ -54,15 +54,20 @@ class _CartScreenState extends State<CartScreen> {
 
   int oId;
   num totalAmount;
+  bool cartRes = false;
   Razorpay _razorpay;
 
   CardResponse orders;
+
 
   @override
   Future<void> initState() {
     // TODO: implement initState
     super.initState();
-    getCartItem();
+    if(mounted){
+      getCartItem();
+    }
+
     _razorpay = Razorpay();
     _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
     _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
@@ -229,8 +234,11 @@ class _CartScreenState extends State<CartScreen> {
                               );
                             if (snapshot.data.data != null) {
                               oId = snapshot.data.data.cartItems[0].id;
-                              totalAmount =ReferralAmount!=null? snapshot.data.data.grandTotal:
-                              (snapshot.data.data.grandTotal) - ReferralAmount ;
+
+                              totalAmount =  ReferralAmount!=null?
+                              (snapshot.data.data.grandTotal.toInt() - ReferralAmount.toInt()):
+                              snapshot.data.data.grandTotal
+                               ;
 
                               orders = snapshot.data;
                               return Column(
@@ -382,8 +390,12 @@ class _CartScreenState extends State<CartScreen> {
                 ),
               ],
             ),
-            oId !=null?  promoCodeFieldAndButton(): Container(),
-            oId !=null? Row(
+            cartRes?
+            // oId !=null?
+            promoCodeFieldAndButton(): Container(),
+            // oId !=null
+            cartRes
+                ? Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Padding(
@@ -408,7 +420,9 @@ class _CartScreenState extends State<CartScreen> {
             Container(
               child: Column(
                 children: [
-                  oId !=null?  SizedBox(
+                  // oId !=null
+                  cartRes
+                      ?  SizedBox(
                     height: 40,
                     width: 180,
                     child: RaisedButton(
@@ -551,6 +565,11 @@ class _CartScreenState extends State<CartScreen> {
     CardResponse cardResponse = CardResponse.fromJson(res);
     if (cardResponse.status == 200) {
       _streamController.sink.add(cardResponse);
+      setState(() {
+        cartRes = cardResponse.data.cartItems !=null?
+        true : false;
+      });
+
     } else {
       _streamController.sink.add(cardResponse);
     }

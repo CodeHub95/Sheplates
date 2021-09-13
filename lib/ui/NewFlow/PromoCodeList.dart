@@ -18,17 +18,13 @@ var size;
 
 class _ApplyPromoCodeScreenState extends State<PromoCodeList> {
 
-  // List<PromoCode> promoCodes = [
-  //   PromoCode("Get 60% Off for first Order", "SHI4l201"),
-  //   PromoCode("Get 20% Off using Credit Card Get 20% Off using Credit Card", "SHI4l202"),
-  //   PromoCode("Order 1 Meal Get 1 MealFree", "SHI4l203"),
-  //   PromoCode("Get 10% Off using HDFC Card", "SHI4l204"),
-  //   PromoCode("Get 60% Off for first order", "SHI4l205"),
-  //   PromoCode("Get 60% Off for first order", "SHI4l206"),
-  //   PromoCode("Get 60% Off for first order", "SHI4l207"),
-  // ];
   StreamController<List<Promocode>> _streamController = StreamController.broadcast();
   // TextEditingController codeController = TextEditingController();
+  String firstHalf;
+  String secondHalf;
+  String thirdHalf;
+  bool flag = true;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -115,35 +111,51 @@ class _ApplyPromoCodeScreenState extends State<PromoCodeList> {
       physics: NeverScrollableScrollPhysics(),
       itemCount: snapshot.data.length,
       itemBuilder: (context, index) {
-        return Container(
-          height: 100,
-          width: double.infinity,
-          margin: EdgeInsets.symmetric(vertical: 11, horizontal: 3),
-          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(blurRadius: 2, color: Colors.grey[200], offset: Offset(0, 2), spreadRadius: 2.0),
-            ],
-            border: Border.all(color: Colors.grey[350], width: 1.5),
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        return  Container(
+            // height: 150,
+            // margin: EdgeInsets.fromLTRB(10, 50, 10, 8),
+            // width: double.infinity,
+            // margin: EdgeInsets.symmetric(vertical: 11, horizontal: 3),
+            margin: EdgeInsets.fromLTRB(1, 1, 1, 1),
+            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(blurRadius: 2, color: Colors.grey[200], offset: Offset(0, 2), spreadRadius: 2.0),
+              ],
+              border: Border.all(color: Colors.grey[350], width: 1.5),
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              
+            ),
+            child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  codeDescription(snapshot.data[index].description),
-                  code(snapshot.data[index].code),
-                ],
-              ),
-              applyButton(),
-            ],
-          ),
-        );
+              mainAxisAlignment:  MainAxisAlignment.start,
+              children: [
+                Text(snapshot.data[index].name),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+
+                        code(snapshot.data[index].code),
+                    applyButton(),
+
+                      // ],
+                    // ),
+
+                  ],
+                ),
+            // Column(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   crossAxisAlignment: CrossAxisAlignment.start,
+            //   children: [
+
+                codeDescription(snapshot.data[index].description),
+            //   ],
+            // )
+              ])
+          );
+
       },
     );}else{
 
@@ -179,21 +191,59 @@ class _ApplyPromoCodeScreenState extends State<PromoCodeList> {
   }
 
   Widget codeDescription(String description) {
-    return SizedBox(
-      width: size.width * .65,
-      child: Text(
-        // fades when text is long
-        description,
-        overflow: TextOverflow.fade,
-        maxLines: 1,
-        softWrap: false,
-        //
-        style: TextStyle(
-          color: Colors.grey[600],
-          fontSize: 17,
-          fontWeight: FontWeight.w500,
+    if (description.length > 30) {
+      firstHalf = description.substring(0, 30);
+      secondHalf = description.substring(30, 60);
+      thirdHalf = description.substring(60, description.length);
+    } else {
+      firstHalf = description;
+      secondHalf = "";
+    }
+    // return SizedBox(
+    //   width: size.width * .65,
+    //   child: Text(
+    //     // fades when text is long
+    //     description,
+    //     // overflow: TextOverflow.fade,
+    //     // maxLines: 1,
+    //     // softWrap: false,
+    //     //
+    //     style: TextStyle(
+    //       color: Colors.grey[600],
+    //       fontSize: 17,
+    //       fontWeight: FontWeight.w500,
+    //     ),
+    //   ),
+    // );
+    return Row(
+      children: [
+        Container(
+          padding: new EdgeInsets.symmetric(horizontal: 1.0, vertical: 1.0),
+          child: secondHalf.isEmpty
+              ? new Text(firstHalf)
+              : new Column(
+            children: <Widget>[
+              new Text(flag ? (firstHalf + "...") : (firstHalf + "\n"+secondHalf + "\n" + thirdHalf)),
+              new InkWell(
+                child: new Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    new Text(
+                      flag ? "show more" : "show less",
+                      style: new TextStyle(color: Colors.blue),
+                    ),
+                  ],
+                ),
+                onTap: () {
+                  setState(() {
+                    flag = !flag;
+                  });
+                },
+              ),
+            ],
+          ),
         ),
-      ),
+      ],
     );
   }
 

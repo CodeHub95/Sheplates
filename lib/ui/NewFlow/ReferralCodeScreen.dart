@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter_share/flutter_share.dart';
 import 'package:flutter_sheplates/Utils/NetworkUtils.dart';
 import 'package:flutter_sheplates/Utils/ScreenUtils.dart';
@@ -23,12 +22,14 @@ class ReferralCodeScreen extends StatefulWidget {
 class _ReferralCodeScreenState extends State<ReferralCodeScreen> {
   StreamController<List<Promocode>> _streamController = StreamController.broadcast();
   var size;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     getPromocodeList();
   }
+
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
@@ -68,15 +69,37 @@ class _ReferralCodeScreenState extends State<ReferralCodeScreen> {
     physics: NeverScrollableScrollPhysics(),
     itemCount: 1,
     itemBuilder: (context, index) {
-      String code = snapshot.data[index].type =="REFERRAL"? snapshot.data[index].code:"";
-      String description = snapshot.data[index].type =="REFERRAL" ?snapshot.data[index].description: "";
-      String type = snapshot.data[index].type =="REFERRAL" ?snapshot.data[index].type: "";
-      int amount = (snapshot.data[index].type == "REFERRAL") ? snapshot.data[index].offerUpTo : 0;
-      String name= snapshot.data[index].type == "REFERRAL" ? snapshot.data[index].name: "";
+      String code =
+      snapshot.data[index].type =="REFERRAL"?
+      snapshot.data[index].code
+      :""
+      ;
+      String description
+      =
+      snapshot.data[index].type =="REFERRAL" ?
+      snapshot.data[index].description.toString()
+          : ""
+      ;
+      String type =
+      snapshot.data[index].type =="REFERRAL" ?
+      snapshot.data[index].type.toString()
+          : ""
+      ;
+      int amount =
+      (snapshot.data[index].type == "REFERRAL") ?
+      snapshot.data[index].offerUpTo
+      : 0
+      ;
+      String name=
+      snapshot.data[index].type == "REFERRAL" ?
+      snapshot.data[index].name
+          : ""
+      ;
     return
         Container(
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          child:  snapshot.data[index].type =="REFERRAL"?
+          child:
+          // snapshot.data[index].type =="REFERRAL"?
              Center(
               child: Column(
                 children: [
@@ -92,23 +115,24 @@ class _ReferralCodeScreenState extends State<ReferralCodeScreen> {
                   inviteButton(code, description, type, amount, name),
                 ],
               ),
-            ): Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 30.0),
-                  child: ScreenUtils.customText(
-                      data: "No Referral code is Available :)",
-                      textAlign: TextAlign.center),
-                ),
-              ],
-            ),
-          ),
+            )
+          //     : Container(
+          //   width: MediaQuery.of(context).size.width,
+          //   height: MediaQuery.of(context).size.height,
+          //   child: Column(
+          //     crossAxisAlignment: CrossAxisAlignment.center,
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     mainAxisSize: MainAxisSize.max,
+          //     children: [
+          //       Padding(
+          //         padding: const EdgeInsets.only(top: 30.0),
+          //         child: ScreenUtils.customText(
+          //             data: "No Referral code is Available :)",
+          //             textAlign: TextAlign.center),
+          //       ),
+          //     ],
+          //   ),
+          // ),
 
         );});} else{
       return Container(
@@ -277,7 +301,6 @@ class _ReferralCodeScreenState extends State<ReferralCodeScreen> {
     NetworkUtil().get(url, token: token).then((res) {
       // CommonUtils.dismissProgressDialog(context);
       PromoCodeListResponse response = PromoCodeListResponse.fromJson(res);
-
       if (response.status == 200) {
         CommonUtils.dismissProgressDialog(context);
         _streamController.sink.add(response.data);
@@ -293,11 +316,10 @@ class _ReferralCodeScreenState extends State<ReferralCodeScreen> {
     });
   }
 
-  Future<void>  share(String code, String description, String type, int amount, String name) async{
-
+  Future<void> share(String code, String description, String type, int amount, String name) async{
       await FlutterShare.share(
-          title: name,
-          text: description,
+          title: code,
+          text: "Code: " + code+"\n" +" \n" + description,
           chooserTitle: code
       );
   }
