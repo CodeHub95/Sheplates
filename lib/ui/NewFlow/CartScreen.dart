@@ -624,7 +624,7 @@ class _CartScreenState extends State<CartScreen> {
       print("create order razorpay response" + orderResponse.data.order.amount.toString());
       openCheckout(
         name != null ? name.toString() : " ",
-        totalAmount,
+        totalAmount.toInt(),
         // stockCheckOutResponse.data.orders.totalAmount.toInt(),
         orderId.toString(),
         // email, phone

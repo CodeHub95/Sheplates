@@ -99,7 +99,7 @@ class _ReferralCodeScreenState extends State<ReferralCodeScreen> {
         Container(
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child:
-          // snapshot.data[index].type =="REFERRAL"?
+          snapshot.data[index].type =="REFERRAL"?
              Center(
               child: Column(
                 children: [
@@ -116,23 +116,23 @@ class _ReferralCodeScreenState extends State<ReferralCodeScreen> {
                 ],
               ),
             )
-          //     : Container(
-          //   width: MediaQuery.of(context).size.width,
-          //   height: MediaQuery.of(context).size.height,
-          //   child: Column(
-          //     crossAxisAlignment: CrossAxisAlignment.center,
-          //     mainAxisAlignment: MainAxisAlignment.center,
-          //     mainAxisSize: MainAxisSize.max,
-          //     children: [
-          //       Padding(
-          //         padding: const EdgeInsets.only(top: 30.0),
-          //         child: ScreenUtils.customText(
-          //             data: "No Referral code is Available :)",
-          //             textAlign: TextAlign.center),
-          //       ),
-          //     ],
-          //   ),
-          // ),
+              : Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 30.0),
+                  child: ScreenUtils.customText(
+                      data: "No Referral code is Available :)",
+                      textAlign: TextAlign.center),
+                ),
+              ],
+            ),
+          ),
 
         );});} else{
       return Container(
