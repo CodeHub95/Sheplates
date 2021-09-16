@@ -94,11 +94,15 @@ class _CartScreenState extends State<CartScreen> {
         orderId: oId.toString(),
         // stockCheckOutResponse.data.orders.id.toString(),
         amount: totalAmount,
-        code: code,
-        codeType: codeType,
-        isCodeApply: code!=null? true: false,
-        discountAmount: ReferralAmount!=null? ReferralAmount: 0,
-        payedAmountAfterDiscount: ReferralAmount!=null ? (totalAmount - ReferralAmount): 0,
+
+        //-----------********************
+        // code: code,
+        // codeType: codeType,
+        // isCodeApply: code!=null? true: false,
+        // discountAmount: ReferralAmount!=null? ReferralAmount: 0,
+        // payedAmountAfterDiscount: ReferralAmount!=null ? (totalAmount - ReferralAmount): 0,
+
+        //-------------*****************
         // stockCheckOutResponse.data.orders.totalAmount,
         );
     String token = await SharedPrefHelper().getWithDefault("token", "");
@@ -291,64 +295,64 @@ class _CartScreenState extends State<CartScreen> {
                                   ),
                                   buildOtherDetails("Delivery", snapshot.data.data.deliveryCharges.toString(),
                                       snapshot.data.data.cartItems, snapshot.data.data.taxObj),
-                                  Visibility(
-                                    visible: ReferralAmount!=null && name!=null,
-                                    child: Column(
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                        Column(
-                                        children: [
-                                        SizedBox(height: 5),
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Stack(
-                                                  alignment: Alignment.topRight,
-                                                  children: [
-                                                    Container(
-                                                        width: 15,
-                                                        height: 15,
-                                                        decoration:
-                                                        BoxDecoration(shape: BoxShape.circle, border: Border.all(color: Colors.black, width: 1))),
-                                                    InkWell(
-                                                      onTap: () {
-                                                        showDialog(
-                                                          context: context,
-                                                          builder: (BuildContext context) => _codePopupDialog(
-                                                            context,
-                                                            name,
-                                                          ),
-                                                        );
-                                                      },
-                                                      child: Padding(
-                                                        padding: EdgeInsets.only(right: 5),
-                                                        child: Text("i", style: TextStyle(fontSize: 12)),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                            Text("Promo Code", style: TextStyle(fontSize: 17)),
-                                          ],
-                                        ),
-                                        SizedBox(height: 7),
-                                        Container(color: Colors.grey, height: .5),
-                                        SizedBox(height: 5),
-                                      ],
-                                    ),
-                                            // Text("Promo Code", style: TextStyle(fontSize: 17, height: 1.3)),
-                                            Text(ReferralAmount.toString(), style: TextStyle(fontSize: 17)),
-                                          ],
-                                        ),
-                                        Divider(color: Colors.grey, thickness: .5),
-                                      ],
-                                    ),
-                                  ),
+                                  // Visibility(
+                                  //   visible: ReferralAmount!=null && name!=null,
+                                  //   child: Column(
+                                  //     children: [
+                                  //       Row(
+                                  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  //         children: [
+                                  //       Column(
+                                  //       children: [
+                                  //       SizedBox(height: 5),
+                                  //       Row(
+                                  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  //         children: [
+                                  //           Row(
+                                  //             children: [
+                                  //               Stack(
+                                  //                 alignment: Alignment.topRight,
+                                  //                 children: [
+                                  //                   Container(
+                                  //                       width: 15,
+                                  //                       height: 15,
+                                  //                       decoration:
+                                  //                       BoxDecoration(shape: BoxShape.circle, border: Border.all(color: Colors.black, width: 1))),
+                                  //                   InkWell(
+                                  //                     onTap: () {
+                                  //                       showDialog(
+                                  //                         context: context,
+                                  //                         builder: (BuildContext context) => _codePopupDialog(
+                                  //                           context,
+                                  //                           name,
+                                  //                         ),
+                                  //                       );
+                                  //                     },
+                                  //                     child: Padding(
+                                  //                       padding: EdgeInsets.only(right: 5),
+                                  //                       child: Text("i", style: TextStyle(fontSize: 12)),
+                                  //                     ),
+                                  //                   ),
+                                  //                 ],
+                                  //               ),
+                                  //             ],
+                                  //           ),
+                                  //           Text("Promo Code", style: TextStyle(fontSize: 17)),
+                                  //         ],
+                                  //       ),
+                                  //       SizedBox(height: 7),
+                                  //       Container(color: Colors.grey, height: .5),
+                                  //       SizedBox(height: 5),
+                                  //     ],
+                                  //   ),
+                                  //           // Text("Promo Code", style: TextStyle(fontSize: 17, height: 1.3)),
+                                  //           Text(ReferralAmount.toString(), style: TextStyle(fontSize: 17)),
+                                  //         ],
+                                  //       ),
+                                  //       Divider(color: Colors.grey, thickness: .5),
+                                  //     ],
+                                  //   ),
+                                  // ),
                                   buildOtherDetails("Taxes", snapshot.data.data.taxes.toString(),
                                       snapshot.data.data.cartItems, snapshot.data.data.taxObj),
                                   Column(
@@ -390,33 +394,31 @@ class _CartScreenState extends State<CartScreen> {
                 ),
               ],
             ),
-            cartRes?
-            // oId !=null?
-            promoCodeFieldAndButton(): Container(),
-            // oId !=null
-            cartRes
-                ? Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(right:20.0),
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => PromoCodeList()));
-                    },
-                    child: Text(
-                      "Select Promo Code",
-                      style: TextStyle(
-                        color: Colors.grey[700],
-                        fontSize: 17,
-                        fontStyle: FontStyle.italic,
-                        decoration: TextDecoration.underline,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ): Container(),
+            // cartRes?
+            // promoCodeFieldAndButton(): Container(),
+            // cartRes
+            //     ? Row(
+            //   mainAxisAlignment: MainAxisAlignment.end,
+            //   children: [
+            //     Padding(
+            //       padding: const EdgeInsets.only(right:20.0),
+            //       child: InkWell(
+            //         onTap: () {
+            //           Navigator.push(context, MaterialPageRoute(builder: (context) => PromoCodeList()));
+            //         },
+            //         child: Text(
+            //           "Select Promo Code",
+            //           style: TextStyle(
+            //             color: Colors.grey[700],
+            //             fontSize: 17,
+            //             fontStyle: FontStyle.italic,
+            //             decoration: TextDecoration.underline,
+            //           ),
+            //         ),
+            //       ),
+            //     ),
+            //   ],
+            // ): Container(),
             Container(
               child: Column(
                 children: [
@@ -725,110 +727,110 @@ class _CartScreenState extends State<CartScreen> {
   }
 
 
-  Widget promoCodeFieldAndButton() {
-    return Padding(
-      padding: const EdgeInsets.only(left:15.0, right: 15),
-      child: SizedBox(
-        width: double.infinity,
-        child: Stack(
-          alignment: Alignment.centerRight,
-          children: [
-            Container(
-              margin: EdgeInsets.only(right: 2),
-
-              child: DottedBorder(
-                borderType: BorderType.RRect,
-                radius: Radius.circular(8),
-                padding: EdgeInsets.zero,
-                dashPattern: [7],
-                color: HexColor("#FF5657"),
-                strokeWidth: 2,
-                child: Row(
-                  children: [
-                    Container(
-                      width: 270,
-                      height: 58,
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.only(topLeft: Radius.circular(8), bottomLeft: Radius.circular(8)),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.only(left: 10),
-                        child: TextField(
-                          controller: codeController,
-                          style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: "Enter Promo Code",
-                            hintStyle: TextStyle(color: Colors.grey[400], fontWeight: FontWeight.normal, fontSize: 16),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(child: Container(height: 58)),
-                  ],
-                ),
-              ),
-            ),
-            Row(
-              children: [
-                SizedBox(width: MediaQuery.of(context).size.width/1.5),
-                Expanded(
-                  child: Container(
-                    // padding: EdgeInsets.only(left: 20, right: 20),
-                    height: 60,
-                    decoration: BoxDecoration(
-                      color: HexColor("#FF5657"),
-                      borderRadius: BorderRadius.only(topRight: Radius.circular(8), bottomRight: Radius.circular(8)),
-                    ),
-                    child: Center(
-                        child: FlatButton(
-                          child: Text("APPLY", style: TextStyle(color: Colors.white, fontSize: 18)),
-                          onPressed: (){
-                            applyCode(codeController.text, ReferralAmount, name);
-                          },
-                        )),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  applyCode(String code, int ReferralAmount, String name)async {
-    String token = await SharedPrefHelper().getWithDefault("token", "");
-    print(token);
-    var type = code.contains("RE", 0)? "REFERRAL" : code.contains("FO", 0)? "FIRSTRORDER" :" ";
-    ApplyPromoCodeRequest request = ApplyPromoCodeRequest(
-      type: type,
-      code: code,
-    );
-    CommonUtils.fullScreenProgress(context);
-    NetworkUtil().post(url: ApiConfig.applyPromoCode, token: token, body: jsonEncode(request)).then((res) {
-      CommonUtils.dismissProgressDialog(context);
-      ApplyPromoCodeResponse response = ApplyPromoCodeResponse.fromJson(res);
-
-      if (response.status == 200) {
-
-        CommonUtils.showToast(msg: response.message, bgColor: Colors.black, textColor: Colors.white);
-        Navigator.pop(context);
-        setState(() {
-          ReferralAmount =100;
-          name = "REFERRAL CODE";
-          code = code;
-          type = type;
-        });
-      } else {
-        CommonUtils.showToast(
-            msg: response.message, bgColor: Colors.black, textColor: Colors.white);
-      }
-    }).catchError((error) {
-      CommonUtils.dismissProgressDialog(context);
-      CommonUtils.showToast(
-          msg: "Something went wrong , Please try again", bgColor: Colors.red, textColor: Colors.white);
-    });
-  }
+  // Widget promoCodeFieldAndButton() {
+  //   return Padding(
+  //     padding: const EdgeInsets.only(left:15.0, right: 15),
+  //     child: SizedBox(
+  //       width: double.infinity,
+  //       child: Stack(
+  //         alignment: Alignment.centerRight,
+  //         children: [
+  //           Container(
+  //             margin: EdgeInsets.only(right: 2),
+  //
+  //             child: DottedBorder(
+  //               borderType: BorderType.RRect,
+  //               radius: Radius.circular(8),
+  //               padding: EdgeInsets.zero,
+  //               dashPattern: [7],
+  //               color: HexColor("#FF5657"),
+  //               strokeWidth: 2,
+  //               child: Row(
+  //                 children: [
+  //                   Container(
+  //                     width: 270,
+  //                     height: 58,
+  //                     decoration: BoxDecoration(
+  //                       color: Colors.transparent,
+  //                       borderRadius: BorderRadius.only(topLeft: Radius.circular(8), bottomLeft: Radius.circular(8)),
+  //                     ),
+  //                     child: Padding(
+  //                       padding: EdgeInsets.only(left: 10),
+  //                       child: TextField(
+  //                         controller: codeController,
+  //                         style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
+  //                         decoration: InputDecoration(
+  //                           border: InputBorder.none,
+  //                           hintText: "Enter Promo Code",
+  //                           hintStyle: TextStyle(color: Colors.grey[400], fontWeight: FontWeight.normal, fontSize: 16),
+  //                         ),
+  //                       ),
+  //                     ),
+  //                   ),
+  //                   Expanded(child: Container(height: 58)),
+  //                 ],
+  //               ),
+  //             ),
+  //           ),
+  //           Row(
+  //             children: [
+  //               SizedBox(width: MediaQuery.of(context).size.width/1.5),
+  //               Expanded(
+  //                 child: Container(
+  //                   // padding: EdgeInsets.only(left: 20, right: 20),
+  //                   height: 60,
+  //                   decoration: BoxDecoration(
+  //                     color: HexColor("#FF5657"),
+  //                     borderRadius: BorderRadius.only(topRight: Radius.circular(8), bottomRight: Radius.circular(8)),
+  //                   ),
+  //                   child: Center(
+  //                       child: FlatButton(
+  //                         child: Text("APPLY", style: TextStyle(color: Colors.white, fontSize: 18)),
+  //                         onPressed: (){
+  //                           applyCode(codeController.text, ReferralAmount, name);
+  //                         },
+  //                       )),
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
+  //
+  // applyCode(String code, int ReferralAmount, String name)async {
+  //   String token = await SharedPrefHelper().getWithDefault("token", "");
+  //   print(token);
+  //   var type = code.contains("RE", 0)? "REFERRAL" : code.contains("FO", 0)? "FIRSTRORDER" :" ";
+  //   ApplyPromoCodeRequest request = ApplyPromoCodeRequest(
+  //     type: type,
+  //     code: code,
+  //   );
+  //   CommonUtils.fullScreenProgress(context);
+  //   NetworkUtil().post(url: ApiConfig.applyPromoCode, token: token, body: jsonEncode(request)).then((res) {
+  //     CommonUtils.dismissProgressDialog(context);
+  //     ApplyPromoCodeResponse response = ApplyPromoCodeResponse.fromJson(res);
+  //
+  //     if (response.status == 200) {
+  //
+  //       CommonUtils.showToast(msg: response.message, bgColor: Colors.black, textColor: Colors.white);
+  //       Navigator.pop(context);
+  //       setState(() {
+  //         ReferralAmount =100;
+  //         name = "REFERRAL CODE";
+  //         code = code;
+  //         type = type;
+  //       });
+  //     } else {
+  //       CommonUtils.showToast(
+  //           msg: response.message, bgColor: Colors.black, textColor: Colors.white);
+  //     }
+  //   }).catchError((error) {
+  //     CommonUtils.dismissProgressDialog(context);
+  //     CommonUtils.showToast(
+  //         msg: "Something went wrong , Please try again", bgColor: Colors.red, textColor: Colors.white);
+  //   });
+  // }
 }

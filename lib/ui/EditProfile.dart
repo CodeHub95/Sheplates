@@ -545,6 +545,7 @@ class _HomeScreenState extends State<EditProfileScreen> {
     }
 
     formData.files.addAll(listImages);
+
     CommonUtils.fullScreenProgress(context);
     String token = await SharedPrefHelper().getWithDefault("token", null);
     String url = "user/edit-profile";

@@ -132,12 +132,12 @@ class _CommonDrawerState extends State<CustomDrawer> {
             title: Text("FAQs", style: TextStyle(fontSize: 16, color: Colors.grey[600])),
             onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => FaqScreen())),
           ),
-          Divider(),
-          ListTile(
-            leading: Image.asset("assets/refferal_icon_menu.png", height: 25, width: 25, color: Colors.black),
-            title: Text("Referral Code", style: TextStyle(fontSize: 16, color: Colors.grey[600])),
-            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ReferralCodeScreen())),
-          ),
+          // Divider(),
+          // ListTile(
+          //   leading: Image.asset("assets/refferal_icon_menu.png", height: 25, width: 25, color: Colors.black),
+          //   title: Text("Referral Code", style: TextStyle(fontSize: 16, color: Colors.grey[600])),
+          //   onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ReferralCodeScreen())),
+          // ),
           Divider(),
           ListTile(
             leading: Image.asset("assets/logout_icon.png", height: 25, width: 25, color: Colors.black),
