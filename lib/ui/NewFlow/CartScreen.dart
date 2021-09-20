@@ -96,11 +96,11 @@ class _CartScreenState extends State<CartScreen> {
         amount: totalAmount,
 
         //-----------********************
-        // code: code,
-        // codeType: codeType,
-        // isCodeApply: code!=null? true: false,
-        // discountAmount: ReferralAmount!=null? ReferralAmount: 0,
-        // payedAmountAfterDiscount: ReferralAmount!=null ? (totalAmount - ReferralAmount): 0,
+        code: code,
+        codeType: codeType,
+        isCodeApply: code!=null? true: false,
+        discountAmount: ReferralAmount!=null? ReferralAmount: 0,
+        payedAmountAfterDiscount: ReferralAmount!=null ? (totalAmount - ReferralAmount): 0,
 
         //-------------*****************
         // stockCheckOutResponse.data.orders.totalAmount,
@@ -208,260 +208,274 @@ class _CartScreenState extends State<CartScreen> {
         ),
         elevation: 4,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Stack(
-              alignment: Alignment.topCenter,
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black, width: 2),
-                  ),
-                  margin: EdgeInsets.only(left: 15, right: 15, top: 15),
-                  padding: EdgeInsets.only(left: 15, right: 15, top: 25),
-                  height: MediaQuery.of(context).size.height * .55,
-                  width: MediaQuery.of(context).size.width - 15,
-                  // color: Colors.tealAccent,
-                  child: SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      child: StreamBuilder<CardResponse>(
-                          stream: _streamController.stream,
-                          builder: (context, snapshot) {
-                            if (!snapshot.hasData)
-                              return Container(
-                                width: MediaQuery.of(context).size.width,
-                                height: MediaQuery.of(context).size.height,
-                                alignment: Alignment.center,
-                                child: CircularProgressIndicator(),
-                              );
-                            if (snapshot.data.data != null) {
-                              oId = snapshot.data.data.cartItems[0].id;
-
-                              totalAmount =  ReferralAmount!=null?
-                              (snapshot.data.data.grandTotal.toInt() - ReferralAmount.toInt()):
-                              snapshot.data.data.grandTotal
-                               ;
-
-                              orders = snapshot.data;
-                              return Column(
-                                children: [
-                                  ListView.builder(
-                                    shrinkWrap: true,
-                                    physics: NeverScrollableScrollPhysics(),
-                                    padding: const EdgeInsets.all(8),
-                                    itemCount: snapshot.data.data.cartItems.length,
-                                    itemBuilder: (BuildContext context, int index) {
-                                      return buildCartItem(
-                                          mealTitle: snapshot.data.data.cartItems[index].catalog.mealName,
-                                          mealDesc: "Qty:" +
-                                              snapshot.data.data.cartItems[index].quantity.toString() +
-                                              "," "Days:" +
-                                              snapshot.data.data.cartItems[index].days.toString() +
-                                              "," +
-                                              "Time:" +
-                                              snapshot.data.data.cartItems[index].preferredDeliveryTime,
-                                          mealAmount: snapshot.data.data.cartItems[index].catalog.price.toString(),
-                                          itemId: snapshot.data.data.cartItems[index].id);
-                                    },
-                                  ),
-                                  Column(
-                                    children: [
-                                      SizedBox(height: 5),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text("Packaging", style: TextStyle(fontSize: 17)),
-                                          Text(snapshot.data.data.packingCharges.toString(),
-                                              style: TextStyle(fontSize: 17)),
-                                        ],
-                                      ),
-                                      SizedBox(height: 7),
-                                      Container(color: Colors.grey, height: .5),
-                                      SizedBox(height: 7),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text("Item Total", style: TextStyle(fontSize: 17)),
-                                          Text(snapshot.data.data.itemTotalForApp.toString(),
-                                              style: TextStyle(fontSize: 17)),
-                                        ],
-                                      ),
-                                      SizedBox(height: 7),
-                                      Container(color: Colors.grey, height: .5),
-                                      // SizedBox(height: 5),
-                                    ],
-                                  ),
-                                  buildOtherDetails("Delivery", snapshot.data.data.deliveryCharges.toString(),
-                                      snapshot.data.data.cartItems, snapshot.data.data.taxObj),
-                                  // Visibility(
-                                  //   visible: ReferralAmount!=null && name!=null,
-                                  //   child: Column(
-                                  //     children: [
-                                  //       Row(
-                                  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  //         children: [
-                                  //       Column(
-                                  //       children: [
-                                  //       SizedBox(height: 5),
-                                  //       Row(
-                                  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  //         children: [
-                                  //           Row(
-                                  //             children: [
-                                  //               Stack(
-                                  //                 alignment: Alignment.topRight,
-                                  //                 children: [
-                                  //                   Container(
-                                  //                       width: 15,
-                                  //                       height: 15,
-                                  //                       decoration:
-                                  //                       BoxDecoration(shape: BoxShape.circle, border: Border.all(color: Colors.black, width: 1))),
-                                  //                   InkWell(
-                                  //                     onTap: () {
-                                  //                       showDialog(
-                                  //                         context: context,
-                                  //                         builder: (BuildContext context) => _codePopupDialog(
-                                  //                           context,
-                                  //                           name,
-                                  //                         ),
-                                  //                       );
-                                  //                     },
-                                  //                     child: Padding(
-                                  //                       padding: EdgeInsets.only(right: 5),
-                                  //                       child: Text("i", style: TextStyle(fontSize: 12)),
-                                  //                     ),
-                                  //                   ),
-                                  //                 ],
-                                  //               ),
-                                  //             ],
-                                  //           ),
-                                  //           Text("Promo Code", style: TextStyle(fontSize: 17)),
-                                  //         ],
-                                  //       ),
-                                  //       SizedBox(height: 7),
-                                  //       Container(color: Colors.grey, height: .5),
-                                  //       SizedBox(height: 5),
-                                  //     ],
-                                  //   ),
-                                  //           // Text("Promo Code", style: TextStyle(fontSize: 17, height: 1.3)),
-                                  //           Text(ReferralAmount.toString(), style: TextStyle(fontSize: 17)),
-                                  //         ],
-                                  //       ),
-                                  //       Divider(color: Colors.grey, thickness: .5),
-                                  //     ],
-                                  //   ),
-                                  // ),
-                                  buildOtherDetails("Taxes", snapshot.data.data.taxes.toString(),
-                                      snapshot.data.data.cartItems, snapshot.data.data.taxObj),
-                                  Column(
-                                    children: [
-                                      SizedBox(height: 5),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text("Total", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                                          Text(snapshot.data.data.grandTotal.toString(),
-                                              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                                        ],
-                                      ),
-                                      SizedBox(height: 5),
-                                      Container(color: Colors.grey, height: .5),
-                                      SizedBox(height: 5),
-                                    ],
-                                  ),
-                                ],
-                              );
-                            } else
-                              return Container(
-                                width: MediaQuery.of(context).size.width,
-                                height: MediaQuery.of(context).size.height,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(top: 30.0),
-                                  child: ScreenUtils.customText(data: "No Detail Found", textAlign: TextAlign.center),
-                                ),
-                              );
-                          })),
-                ),
-                Container(
-                  // color: Colors.white,
-                  color: Colors.grey[50],
-                  child: Padding(
-                    padding: EdgeInsets.only(left: 25, right: 25),
-                    child: Text("ORDER SUMMARY", style: TextStyle(fontSize: 25, color: Colors.black)),
-                  ),
-                ),
-              ],
-            ),
-            // cartRes?
-            // promoCodeFieldAndButton(): Container(),
-            // cartRes
-            //     ? Row(
-            //   mainAxisAlignment: MainAxisAlignment.end,
-            //   children: [
-            //     Padding(
-            //       padding: const EdgeInsets.only(right:20.0),
-            //       child: InkWell(
-            //         onTap: () {
-            //           Navigator.push(context, MaterialPageRoute(builder: (context) => PromoCodeList()));
-            //         },
-            //         child: Text(
-            //           "Select Promo Code",
-            //           style: TextStyle(
-            //             color: Colors.grey[700],
-            //             fontSize: 17,
-            //             fontStyle: FontStyle.italic,
-            //             decoration: TextDecoration.underline,
-            //           ),
-            //         ),
-            //       ),
-            //     ),
-            //   ],
-            // ): Container(),
-            Container(
-              child: Column(
+      body: SingleChildScrollView(
+        // child: Center(
+            child:
+            Column(
+                // mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  // oId !=null
-                  cartRes
-                      ?  SizedBox(
-                    height: 40,
-                    width: 180,
-                    child: RaisedButton(
-                      shape: RoundedRectangleBorder(
-                        side: BorderSide(color: Colors.red, width: 1),
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                      color: Colors.redAccent,
-                      child: Text("Proceed to buy", style: TextStyle(color: Colors.white)),
-                      onPressed: () {
-                        submit();
-                      },
-                    ),
-                  ): Container(),
-                  SizedBox(height: 10),
-                  SizedBox(
-                    height: 40,
-                    width: 180,
-                    child: RaisedButton(
-                      shape: RoundedRectangleBorder(
-                        side: BorderSide(color: Colors.red, width: 1),
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                      color: Colors.white,
-                      child: Text("Back to plans", style: TextStyle(color: Colors.redAccent)),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
+                  Padding(
+                    padding: const EdgeInsets.only(top:20.0),
+                    child: Stack(
+                      alignment: Alignment.topCenter,
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black, width: 2),
+                          ),
+                          margin: EdgeInsets.only(left: 15, right: 15, top: 15),
+                          padding: EdgeInsets.only(left: 15, right: 15, top: 25),
+                          height: MediaQuery.of(context).size.height * .55,
+                          width: MediaQuery.of(context).size.width - 15,
+                          // color: Colors.tealAccent,
+                          child: SingleChildScrollView(
+                              scrollDirection: Axis.vertical,
+                              child: StreamBuilder<CardResponse>(
+                                  stream: _streamController.stream,
+                                  builder: (context, snapshot) {
+                                    if (!snapshot.hasData)
+                                      return Container(
+                                        width: MediaQuery.of(context).size.width,
+                                        height: MediaQuery.of(context).size.height,
+                                        alignment: Alignment.center,
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    if (snapshot.data.data != null) {
+                                      oId = snapshot.data.data.cartItems[0].id;
+
+                                      totalAmount =  ReferralAmount!=null?
+                                      (snapshot.data.data.grandTotal.toInt() - ReferralAmount.toInt()):
+                                      snapshot.data.data.grandTotal
+                                       ;
+
+                                      orders = snapshot.data;
+                                      return Column(
+                                        children: [
+                                          ListView.builder(
+                                            shrinkWrap: true,
+                                            physics: NeverScrollableScrollPhysics(),
+                                            padding: const EdgeInsets.all(8),
+                                            itemCount: snapshot.data.data.cartItems.length,
+                                            itemBuilder: (BuildContext context, int index) {
+                                              return buildCartItem(
+                                                  mealTitle: snapshot.data.data.cartItems[index].catalog.mealName,
+                                                  mealDesc: "Qty:" +
+                                                      snapshot.data.data.cartItems[index].quantity.toString() +
+                                                      "," "Days:" +
+                                                      snapshot.data.data.cartItems[index].days.toString() +
+                                                      "," +
+                                                      "Time:" +
+                                                      snapshot.data.data.cartItems[index].preferredDeliveryTime,
+                                                  mealAmount: snapshot.data.data.cartItems[index].catalog.price.toString(),
+                                                  itemId: snapshot.data.data.cartItems[index].id);
+                                            },
+                                          ),
+                                          Column(
+                                            children: [
+                                              SizedBox(height: 5),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Text("Packaging", style: TextStyle(fontSize: 17)),
+                                                  Text(snapshot.data.data.packingCharges.toString(),
+                                                      style: TextStyle(fontSize: 17)),
+                                                ],
+                                              ),
+                                              SizedBox(height: 7),
+                                              Container(color: Colors.grey, height: .5),
+                                              SizedBox(height: 7),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Text("Item Total", style: TextStyle(fontSize: 17)),
+                                                  Text(snapshot.data.data.itemTotalForApp.toString(),
+                                                      style: TextStyle(fontSize: 17)),
+                                                ],
+                                              ),
+                                              SizedBox(height: 7),
+                                              Container(color: Colors.grey, height: .5),
+                                              // SizedBox(height: 5),
+                                            ],
+                                          ),
+                                          buildOtherDetails("Delivery", snapshot.data.data.deliveryCharges.toString(),
+                                              snapshot.data.data.cartItems, snapshot.data.data.taxObj),
+                                          Visibility(
+                                            visible: ReferralAmount!=null && name!=null,
+                                            child: Column(
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                Column(
+                                                children: [
+                                                SizedBox(height: 5),
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    Row(
+                                                      children: [
+                                                        Stack(
+                                                          alignment: Alignment.topRight,
+                                                          children: [
+                                                            Container(
+                                                                width: 15,
+                                                                height: 15,
+                                                                decoration:
+                                                                BoxDecoration(shape: BoxShape.circle, border: Border.all(color: Colors.black, width: 1))),
+                                                            InkWell(
+                                                              onTap: () {
+                                                                showDialog(
+                                                                  context: context,
+                                                                  builder: (BuildContext context) => _codePopupDialog(
+                                                                    context,
+                                                                    name,
+                                                                  ),
+                                                                );
+                                                              },
+                                                              child: Padding(
+                                                                padding: EdgeInsets.only(right: 5),
+                                                                child: Text("i", style: TextStyle(fontSize: 12)),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Text("Promo Code", style: TextStyle(fontSize: 17)),
+                                                  ],
+                                                ),
+                                                SizedBox(height: 7),
+                                                Container(color: Colors.grey, height: .5),
+                                                SizedBox(height: 5),
+                                              ],
+                                            ),
+                                                    // Text("Promo Code", style: TextStyle(fontSize: 17, height: 1.3)),
+                                                    Text(ReferralAmount.toString(), style: TextStyle(fontSize: 17)),
+                                                  ],
+                                                ),
+                                                Divider(color: Colors.grey, thickness: .5),
+                                              ],
+                                            ),
+                                          ),
+                                          buildOtherDetails("Taxes", snapshot.data.data.taxes.toString(),
+                                              snapshot.data.data.cartItems, snapshot.data.data.taxObj),
+                                          Column(
+                                            children: [
+                                              SizedBox(height: 5),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Text("Total", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                                                  Text(snapshot.data.data.grandTotal.toString(),
+                                                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                                                ],
+                                              ),
+                                              SizedBox(height: 5),
+                                              Container(color: Colors.grey, height: .5),
+                                              SizedBox(height: 5),
+                                            ],
+                                          ),
+                                        ],
+                                      );
+                                    } else
+                                      return Container(
+                                        width: MediaQuery.of(context).size.width,
+                                        height: MediaQuery.of(context).size.height,
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(top: 30.0),
+                                          child: ScreenUtils.customText(data: "No Detail Found", textAlign: TextAlign.center),
+                                        ),
+                                      );
+                                  })),
+                        ),
+                        Container(
+                          // color: Colors.white,
+                          color: Colors.grey[50],
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 25, right: 25),
+                            child: Text("ORDER SUMMARY", style: TextStyle(fontSize: 25, color: Colors.black)),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
+                  cartRes?
+                  Padding(
+                    padding: const EdgeInsets.only(top:20.0, bottom: 10),
+                    child: promoCodeFieldAndButton(),
+                  ): Container(),
+                  cartRes
+                      ? Padding(
+                        padding: const EdgeInsets.only(bottom:10.0),
+                        child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                        Padding(
+                          padding: const EdgeInsets.only(right:20.0),
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => PromoCodeList()));
+                            },
+                            child: Text(
+                              "Select Promo Code",
+                              style: TextStyle(
+                                color: Colors.grey[700],
+                                fontSize: 17,
+                                fontStyle: FontStyle.italic,
+                                decoration: TextDecoration.underline,
+                              ),
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+                      ): Container(),
+                  Container(
+                    child: Column(
+                      children: [
+                        // oId !=null
+                        cartRes
+                            ?  SizedBox(
+                          height: 40,
+                          width: 180,
+                          child: RaisedButton(
+                            shape: RoundedRectangleBorder(
+                              side: BorderSide(color: Colors.red, width: 1),
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
+                            color: Colors.redAccent,
+                            child: Text("Proceed to buy", style: TextStyle(color: Colors.white)),
+                            onPressed: () {
+                              submit();
+                            },
+                          ),
+                        ): Container(),
+                        SizedBox(height: 10),
+                        SizedBox(
+                          height: 40,
+                          width: 180,
+                          child: RaisedButton(
+                            shape: RoundedRectangleBorder(
+                              side: BorderSide(color: Colors.red, width: 1),
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
+                            color: Colors.white,
+                            child: Text("Back to plans", style: TextStyle(color: Colors.redAccent)),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 15),
                 ],
               ),
-            ),
-            SizedBox(height: 15),
-          ],
-        ),
+     
+          // ),
       ),
+
     );
   }
 
@@ -475,9 +489,14 @@ class _CartScreenState extends State<CartScreen> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  mealTitle,
-                  style: TextStyle(color: Colors.black, fontSize: 17, fontWeight: FontWeight.normal),
+              Container(
+                    width: MediaQuery.of(context).size.width/2,
+                  
+                      child: Text(
+                        mealTitle,
+                        style: TextStyle(color: Colors.black, fontSize: 17, fontWeight: FontWeight.normal),
+                      ),
+
                 ),
                 SizedBox(height: 4),
                 Text(mealDesc, style: TextStyle(color: Colors.grey, fontSize: 14))
@@ -727,110 +746,110 @@ class _CartScreenState extends State<CartScreen> {
   }
 
 
-  // Widget promoCodeFieldAndButton() {
-  //   return Padding(
-  //     padding: const EdgeInsets.only(left:15.0, right: 15),
-  //     child: SizedBox(
-  //       width: double.infinity,
-  //       child: Stack(
-  //         alignment: Alignment.centerRight,
-  //         children: [
-  //           Container(
-  //             margin: EdgeInsets.only(right: 2),
-  //
-  //             child: DottedBorder(
-  //               borderType: BorderType.RRect,
-  //               radius: Radius.circular(8),
-  //               padding: EdgeInsets.zero,
-  //               dashPattern: [7],
-  //               color: HexColor("#FF5657"),
-  //               strokeWidth: 2,
-  //               child: Row(
-  //                 children: [
-  //                   Container(
-  //                     width: 270,
-  //                     height: 58,
-  //                     decoration: BoxDecoration(
-  //                       color: Colors.transparent,
-  //                       borderRadius: BorderRadius.only(topLeft: Radius.circular(8), bottomLeft: Radius.circular(8)),
-  //                     ),
-  //                     child: Padding(
-  //                       padding: EdgeInsets.only(left: 10),
-  //                       child: TextField(
-  //                         controller: codeController,
-  //                         style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
-  //                         decoration: InputDecoration(
-  //                           border: InputBorder.none,
-  //                           hintText: "Enter Promo Code",
-  //                           hintStyle: TextStyle(color: Colors.grey[400], fontWeight: FontWeight.normal, fontSize: 16),
-  //                         ),
-  //                       ),
-  //                     ),
-  //                   ),
-  //                   Expanded(child: Container(height: 58)),
-  //                 ],
-  //               ),
-  //             ),
-  //           ),
-  //           Row(
-  //             children: [
-  //               SizedBox(width: MediaQuery.of(context).size.width/1.5),
-  //               Expanded(
-  //                 child: Container(
-  //                   // padding: EdgeInsets.only(left: 20, right: 20),
-  //                   height: 60,
-  //                   decoration: BoxDecoration(
-  //                     color: HexColor("#FF5657"),
-  //                     borderRadius: BorderRadius.only(topRight: Radius.circular(8), bottomRight: Radius.circular(8)),
-  //                   ),
-  //                   child: Center(
-  //                       child: FlatButton(
-  //                         child: Text("APPLY", style: TextStyle(color: Colors.white, fontSize: 18)),
-  //                         onPressed: (){
-  //                           applyCode(codeController.text, ReferralAmount, name);
-  //                         },
-  //                       )),
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
-  //
-  // applyCode(String code, int ReferralAmount, String name)async {
-  //   String token = await SharedPrefHelper().getWithDefault("token", "");
-  //   print(token);
-  //   var type = code.contains("RE", 0)? "REFERRAL" : code.contains("FO", 0)? "FIRSTRORDER" :" ";
-  //   ApplyPromoCodeRequest request = ApplyPromoCodeRequest(
-  //     type: type,
-  //     code: code,
-  //   );
-  //   CommonUtils.fullScreenProgress(context);
-  //   NetworkUtil().post(url: ApiConfig.applyPromoCode, token: token, body: jsonEncode(request)).then((res) {
-  //     CommonUtils.dismissProgressDialog(context);
-  //     ApplyPromoCodeResponse response = ApplyPromoCodeResponse.fromJson(res);
-  //
-  //     if (response.status == 200) {
-  //
-  //       CommonUtils.showToast(msg: response.message, bgColor: Colors.black, textColor: Colors.white);
-  //       Navigator.pop(context);
-  //       setState(() {
-  //         ReferralAmount =100;
-  //         name = "REFERRAL CODE";
-  //         code = code;
-  //         type = type;
-  //       });
-  //     } else {
-  //       CommonUtils.showToast(
-  //           msg: response.message, bgColor: Colors.black, textColor: Colors.white);
-  //     }
-  //   }).catchError((error) {
-  //     CommonUtils.dismissProgressDialog(context);
-  //     CommonUtils.showToast(
-  //         msg: "Something went wrong , Please try again", bgColor: Colors.red, textColor: Colors.white);
-  //   });
-  // }
+  Widget promoCodeFieldAndButton() {
+    return Padding(
+      padding: const EdgeInsets.only(left:15.0, right: 15),
+      child: SizedBox(
+        width: double.infinity,
+        child: Stack(
+          alignment: Alignment.centerRight,
+          children: [
+            Container(
+              margin: EdgeInsets.only(right: 2),
+
+              child: DottedBorder(
+                borderType: BorderType.RRect,
+                radius: Radius.circular(8),
+                padding: EdgeInsets.zero,
+                dashPattern: [7],
+                color: HexColor("#FF5657"),
+                strokeWidth: 2,
+                child: Row(
+                  children: [
+                    Container(
+                      width: 270,
+                      height: 58,
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.only(topLeft: Radius.circular(8), bottomLeft: Radius.circular(8)),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 10),
+                        child: TextField(
+                          controller: codeController,
+                          style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: "Enter Promo Code",
+                            hintStyle: TextStyle(color: Colors.grey[400], fontWeight: FontWeight.normal, fontSize: 16),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(child: Container(height: 58)),
+                  ],
+                ),
+              ),
+            ),
+            Row(
+              children: [
+                SizedBox(width: MediaQuery.of(context).size.width/1.5),
+                Expanded(
+                  child: Container(
+                    // padding: EdgeInsets.only(left: 20, right: 20),
+                    height: 60,
+                    decoration: BoxDecoration(
+                      color: HexColor("#FF5657"),
+                      borderRadius: BorderRadius.only(topRight: Radius.circular(8), bottomRight: Radius.circular(8)),
+                    ),
+                    child: Center(
+                        child: FlatButton(
+                          child: Text("APPLY", style: TextStyle(color: Colors.white, fontSize: 18)),
+                          onPressed: (){
+                            applyCode(codeController.text, ReferralAmount, name);
+                          },
+                        )),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  applyCode(String code, int ReferralAmount, String name)async {
+    String token = await SharedPrefHelper().getWithDefault("token", "");
+    print(token);
+    var type = code.contains("RE", 0)? "REFERRAL" : code.contains("FO", 0)? "FIRSTRORDER" :" ";
+    ApplyPromoCodeRequest request = ApplyPromoCodeRequest(
+      type: type,
+      code: code,
+    );
+    CommonUtils.fullScreenProgress(context);
+    NetworkUtil().post(url: ApiConfig.applyPromoCode, token: token, body: jsonEncode(request)).then((res) {
+      CommonUtils.dismissProgressDialog(context);
+      ApplyPromoCodeResponse response = ApplyPromoCodeResponse.fromJson(res);
+
+      if (response.status == 200) {
+
+        CommonUtils.showToast(msg: response.message, bgColor: Colors.black, textColor: Colors.white);
+        Navigator.pop(context);
+        setState(() {
+          ReferralAmount =100;
+          name = "REFERRAL CODE";
+          code = code;
+          type = type;
+        });
+      } else {
+        CommonUtils.showToast(
+            msg: response.message, bgColor: Colors.black, textColor: Colors.white);
+      }
+    }).catchError((error) {
+      CommonUtils.dismissProgressDialog(context);
+      CommonUtils.showToast(
+          msg: "Something went wrong , Please try again", bgColor: Colors.red, textColor: Colors.white);
+    });
+  }
 }

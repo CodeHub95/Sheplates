@@ -199,22 +199,6 @@ class _ApplyPromoCodeScreenState extends State<PromoCodeList> {
       firstHalf = description;
       secondHalf = "";
     }
-    // return SizedBox(
-    //   width: size.width * .65,
-    //   child: Text(
-    //     // fades when text is long
-    //     description,
-    //     // overflow: TextOverflow.fade,
-    //     // maxLines: 1,
-    //     // softWrap: false,
-    //     //
-    //     style: TextStyle(
-    //       color: Colors.grey[600],
-    //       fontSize: 17,
-    //       fontWeight: FontWeight.w500,
-    //     ),
-    //   ),
-    // );
     return Row(
       children: [
         Container(

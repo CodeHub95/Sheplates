@@ -64,8 +64,9 @@ class _HomeScreenState extends State<NewConfirmSubscription> {
   @override
   initState() {
     super.initState();
+    print("----" + widget.rows.mealCategory.category.toString());
+    if (widget.rows.mealCategory.category == "Breakfast") {
 
-    if (widget.rows.mealCategory.category == "BreakFast") {
       time = ['7:00-7:30', '7:30-8:00', '8:00-8:30', '8:30-9:00', '9:00-9:30', '9:30-10:00'];
     } else if (widget.rows.mealCategory.category == "Lunch") {
       time = ['11:30-12:00', '12:00-12:30', '12:30-13:00', '13:00-13:30', '13:30-14:00', '14:30-15:00'];

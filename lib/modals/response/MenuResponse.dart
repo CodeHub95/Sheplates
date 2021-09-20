@@ -13,7 +13,7 @@ class MenuResponse {
       json['data'].forEach((v) {
         data.add(new Obj.fromJson(v));
       });
-    }
+    }else null;
   }
 
   Map<String, dynamic> toJson() {

@@ -287,20 +287,20 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
 
   Text buildTab(String tabTitle) => Text(tabTitle, style: TextStyle(fontSize: 17, color: Colors.black));
 
-  getList() async {
-    String token = await SharedPrefHelper().getWithDefault("token", "");
-    var res = await NetworkUtil().get("user/subscription-plans?cuisine_id=$mainCategoryID", token: token);
-    HomeListResponse homeListResponse = HomeListResponse.fromJson(res);
-    if (homeListResponse.status == 200) {
-      if (homeListResponse.data.subscriptionPlanData != null) {
-        _streamController.sink.add(homeListResponse.data.subscriptionPlanData.rows);
-      }
-      isSubscribed = homeListResponse.data.suscriber;
-      if (homeListResponse.data.deliveryAddressExist == 0) {
-        CommonUtils.showToast(
-            msg: "You have't added your delivery Location Please add", bgColor: Colors.black, textColor: Colors.white);
-        Navigator.pushNamedAndRemoveUntil(context, Routes.deliveryStaticScreen, (route) => false);
-      }
-    }
-  }
+  // getList() async {
+  //   String token = await SharedPrefHelper().getWithDefault("token", "");
+  //   var res = await NetworkUtil().get("user/subscription-plans?cuisine_id=$mainCategoryID", token: token);
+  //   HomeListResponse homeListResponse = HomeListResponse.fromJson(res);
+  //   if (homeListResponse.status == 200) {
+  //     if (homeListResponse.data.subscriptionPlanData != null) {
+  //       _streamController.sink.add(homeListResponse.data.subscriptionPlanData.rows);
+  //     }
+  //     isSubscribed = homeListResponse.data.suscriber;
+  //     if (homeListResponse.data.deliveryAddressExist == 0) {
+  //       CommonUtils.showToast(
+  //           msg: "You have't added your delivery Location Please add", bgColor: Colors.black, textColor: Colors.white);
+  //       Navigator.pushNamedAndRemoveUntil(context, Routes.deliveryStaticScreen, (route) => false);
+  //     }
+  //   }
+  // }
 }

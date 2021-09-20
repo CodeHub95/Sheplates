@@ -44,7 +44,10 @@ class _TabDataState extends State<TabData> {
 
   @override
   void initState() {
-    getList(tabID);
+    if(mounted){
+      getList(tabID, mainCategoryID);
+    }
+
     super.initState();
   }
 
@@ -70,7 +73,7 @@ class _TabDataState extends State<TabData> {
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
                       padding: const EdgeInsets.all(8),
-                      itemCount: snapshot.data.length,
+                      itemCount: 1,
                       itemBuilder: (BuildContext context, int index) {
                         return Padding(
                           padding: EdgeInsets.only(left: 5, right: 5, top: 15),
@@ -318,7 +321,7 @@ class _TabDataState extends State<TabData> {
     }
   }
 
-  getList(int tabID) async {
+  getList(int tabID, int mainCategoryID) async {
     String token = await SharedPrefHelper().getWithDefault("token", "");
     String apiURL = tabID == 58765
         ? "user/subscription-plans?cuisine_id=$mainCategoryID"

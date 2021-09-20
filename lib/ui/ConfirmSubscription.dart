@@ -63,7 +63,7 @@ class _HomeScreenState extends State<ConfirmSubscription> {
   @override
   initState() {
     super.initState();
-
+print("----" + widget.rows.mealCategory.category.toString());
     if (widget.rows.mealCategory.category == "BreakFast") {
       time = ['7:00-7:30', '7:30-8:00', '8:00-8:30', '8:30-9:00', '9:00-9:30', '9:30-10:00'];
     } else if (widget.rows.mealCategory.category == "Lunch") {
@@ -129,6 +129,7 @@ class _HomeScreenState extends State<ConfirmSubscription> {
                     hint: "Meal Plan",
                   ),
                   inputWidgetDropDown(
+                    readOnly: false,
                     attribute: "delivery_time",
                     validators: [FormBuilderValidators.required()],
                     hint: "Preferred Delivery Time",
