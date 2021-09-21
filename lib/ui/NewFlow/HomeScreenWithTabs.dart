@@ -38,10 +38,13 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
   @override
   initState() {
     super.initState();
-    if (mounted) _appDownload();
-    getTabs();
+    if (mounted) {
+      getTabs();
+      updateCartIconNumber();
+    }_appDownload();
+
     // if (mounted) updateCartIconNumber();
-    updateCartIconNumber();
+
     // getList();
   }
 
@@ -54,7 +57,7 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
     CardResponse cardResponse = CardResponse.fromJson(res);
     if (cardResponse.status == 200) {
       if (cardResponse.data == null) {
-        return;
+        setState(() => numberOfCartItems = null);
       } else {
         setState(() => numberOfCartItems = cardResponse.data.cartItems.length);
       }
@@ -72,28 +75,28 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
     var res = await NetworkUtil().get("user/meal-category", token: token);
     tabNamesFilters = TabNamesFilters.fromJson(res);
     setState(() {});
-    if (tabNamesFilters.status == 200) {}
+    // if (tabNamesFilters.status == 200) {}
   }
 
-  Future<void> _addRequest() async {
-    CommonUtils.fullScreenProgress(context);
-    String url = "user/add-user-request";
-    String token = await SharedPrefHelper().getWithDefault("token", "");
-    String userData = await SharedPrefHelper().getWithDefault(SharedPrefConstants.userData, jsonEncode({}));
-    Profile profile = Profile.fromJson(jsonDecode(userData));
-    String location = profile.userAddresses[0].fullAddress;
-    AddUserRequest request =
-        AddUserRequest(type: "Meal plan customization", address: location.toString(), category: "Meal");
-    var res = await NetworkUtil().post(url: url, body: jsonEncode(request), token: token);
-    BaseResponse response = BaseResponse.fromJson(res);
-    if (response.status == 200) {
-      CommonUtils.dismissProgressDialog(context);
-      CommonUtils.showToast(msg: response.message, bgColor: AppColor.darkThemeBlueColor, textColor: Colors.white);
-    } else {
-      CommonUtils.errorMessage(msg: response.message);
-      CommonUtils.dismissProgressDialog(context);
-    }
-  }
+  // Future<void> _addRequest() async {
+  //   CommonUtils.fullScreenProgress(context);
+  //   String url = "user/add-user-request";
+  //   String token = await SharedPrefHelper().getWithDefault("token", "");
+  //   String userData = await SharedPrefHelper().getWithDefault(SharedPrefConstants.userData, jsonEncode({}));
+  //   Profile profile = Profile.fromJson(jsonDecode(userData));
+  //   String location = profile.userAddresses[0].fullAddress;
+  //   AddUserRequest request =
+  //       AddUserRequest(type: "Meal plan customization", address: location.toString(), category: "Meal");
+  //   var res = await NetworkUtil().post(url: url, body: jsonEncode(request), token: token);
+  //   BaseResponse response = BaseResponse.fromJson(res);
+  //   if (response.status == 200) {
+  //     CommonUtils.dismissProgressDialog(context);
+  //     CommonUtils.showToast(msg: response.message, bgColor: AppColor.darkThemeBlueColor, textColor: Colors.white);
+  //   } else {
+  //     CommonUtils.errorMessage(msg: response.message);
+  //     CommonUtils.dismissProgressDialog(context);
+  //   }
+  // }
 
   Future<void> _appDownload() async {
     String url = "user/download-app";
@@ -101,7 +104,6 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
     String token = await SharedPrefHelper().getWithDefault("token", "");
     AppDownloadRequest request = AppDownloadRequest(deviceId: deviceId);
     var res = await NetworkUtil().post(url: url, body: jsonEncode(request), token: token);
-    BaseResponse response = BaseResponse.fromJson(res);
   }
 
   final List<String> images = <String>[
@@ -199,9 +201,20 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
                   children: [
                     IconButton(
                       icon: Icon(Icons.shopping_cart_outlined, color: Colors.grey),
-                      onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => CartScreen()))
-                          .then((value) => updateCartIconNumber()),
-                    ),
+                      onPressed: () async {
+                        // Navigator.push(context, MaterialPageRoute(builder: (context) => CartScreen()))
+                        // .then((value) => updateCartIconNumber()),
+                        var result = await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CartScreen(),
+                            )).then((value) => updateCartIconNumber());
+                        if (result == "Update") {
+                        setState(() {
+                          updateCartIconNumber();
+                        });
+                        }
+                      } ),
                     numberOfCartItems == null
                         ? Container()
                         : Container(

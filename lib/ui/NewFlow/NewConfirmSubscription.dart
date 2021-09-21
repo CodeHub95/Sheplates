@@ -349,14 +349,16 @@ class _HomeScreenState extends State<NewConfirmSubscription> {
             MaterialPageRoute(
                 builder: (context) =>
                     CartScreen(stockCheckOutResponse: checkOutResponse, confirmOrderRequestModel: request)));
-      } else {
+
+      }
+      else {
         CommonUtils.showToast(
             msg: "We are fully booked. Kindly choose another date.", bgColor: Colors.black, textColor: Colors.white);
       }
     }).catchError((error) {
       CommonUtils.dismissProgressDialog(context);
       CommonUtils.showToast(
-          msg: "Something went wrong , Please try again", bgColor: Colors.red, textColor: Colors.white);
+          msg: "There is no kitchen available.", bgColor: Colors.red, textColor: Colors.white);
     });
   }
 

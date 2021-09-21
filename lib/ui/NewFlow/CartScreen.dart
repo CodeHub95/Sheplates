@@ -203,7 +203,9 @@ class _CartScreenState extends State<CartScreen> {
               Icons.arrow_back,
               color: Colors.black,
             ),
-            onPressed: () => {Navigator.pop(context)},
+            onPressed: () => {
+            Navigator.pop(context, "Update")
+            },
           ),
         ),
         elevation: 4,
@@ -587,7 +589,9 @@ class _CartScreenState extends State<CartScreen> {
     if (cardResponse.status == 200) {
       _streamController.sink.add(cardResponse);
       setState(() {
+        // String itemno = await SharedPrefHelper().save("itemno", cardResponse.data.cartItems !=null? cardResponse.data.cartItems.toString(): null);
         cartRes = cardResponse.data.cartItems !=null?
+
         true : false;
       });
 
@@ -819,37 +823,46 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 
-  applyCode(String code, int ReferralAmount, String name)async {
+ Future<void> applyCode(String code, int ReferralAmount, String name)async {
     String token = await SharedPrefHelper().getWithDefault("token", "");
     print(token);
+
     var type = code.contains("RE", 0)? "REFERRAL" : code.contains("FO", 0)? "FIRSTRORDER" :" ";
-    ApplyPromoCodeRequest request = ApplyPromoCodeRequest(
-      type: type,
-      code: code,
-    );
-    CommonUtils.fullScreenProgress(context);
-    NetworkUtil().post(url: ApiConfig.applyPromoCode, token: token, body: jsonEncode(request)).then((res) {
-      CommonUtils.dismissProgressDialog(context);
-      ApplyPromoCodeResponse response = ApplyPromoCodeResponse.fromJson(res);
+    if(type!= " "){
+      ApplyPromoCodeRequest request = ApplyPromoCodeRequest(
+        type: type,
+        code: code,
+      );
+      CommonUtils.fullScreenProgress(context);
 
-      if (response.status == 200) {
+      NetworkUtil().post(url: ApiConfig.applyPromoCode, token: token, body: jsonEncode(request)).then((res) {
+        CommonUtils.dismissProgressDialog(context);
+        ApplyPromoCodeResponse response = ApplyPromoCodeResponse.fromJson(res);
 
-        CommonUtils.showToast(msg: response.message, bgColor: Colors.black, textColor: Colors.white);
-        Navigator.pop(context);
-        setState(() {
-          ReferralAmount =100;
-          name = "REFERRAL CODE";
-          code = code;
-          type = type;
-        });
-      } else {
+        if (response.status == 200) {
+
+          CommonUtils.showToast(msg: response.message, bgColor: Colors.black, textColor: Colors.white);
+          // Navigator.pop(context);
+          setState(() {
+            ReferralAmount =100;
+            name = "REFERRAL CODE";
+            code = code;
+            type = type;
+          });
+        } else {
+          CommonUtils.showToast(
+              msg: response.message, bgColor: Colors.black, textColor: Colors.white);
+        }
+      }).catchError((error) {
+        CommonUtils.dismissProgressDialog(context);
         CommonUtils.showToast(
-            msg: response.message, bgColor: Colors.black, textColor: Colors.white);
-      }
-    }).catchError((error) {
+            msg: "Something went wrong , Please try again", bgColor: Colors.red, textColor: Colors.white);
+      });
+    }else{
       CommonUtils.dismissProgressDialog(context);
       CommonUtils.showToast(
-          msg: "Something went wrong , Please try again", bgColor: Colors.red, textColor: Colors.white);
-    });
+          msg: "Invalid Promo Code", bgColor: Colors.red, textColor: Colors.white);
+    }
+
   }
 }

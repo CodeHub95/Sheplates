@@ -44,13 +44,17 @@ class _TabDataState extends State<TabData> {
 
   @override
   void initState() {
-    if(mounted){
-      getList(tabID, mainCategoryID);
-    }
 
-    super.initState();
+    // if(mounted){
+      getList();
+    // }
+      super.initState();
   }
-
+@override
+void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -73,7 +77,7 @@ class _TabDataState extends State<TabData> {
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
                       padding: const EdgeInsets.all(8),
-                      itemCount: 1,
+                      itemCount: snapshot.data.length,
                       itemBuilder: (BuildContext context, int index) {
                         return Padding(
                           padding: EdgeInsets.only(left: 5, right: 5, top: 15),
@@ -321,27 +325,31 @@ class _TabDataState extends State<TabData> {
     }
   }
 
-  getList(int tabID, int mainCategoryID) async {
+   getList() async {
+    // showProgress(context, 'Registering user, please wait...', true);
+    // CircularProgressIndicator();
     String token = await SharedPrefHelper().getWithDefault("token", "");
-    String apiURL = tabID == 58765
-        ? "user/subscription-plans?cuisine_id=$mainCategoryID"
-        : "user/subscription-plans?category_id=$tabID&cuisine_id=$mainCategoryID";
+    int tabb = widget.tabID;
 
-    var res = await NetworkUtil().get(apiURL, token: token);
+      String apiURL = (tabb == 58765)? "user/subscription-plans?cuisine_id=$mainCategoryID":
+      "user/subscription-plans?category_id=$tabb&cuisine_id=$mainCategoryID";
 
-    HomeListResponse homeListResponse = HomeListResponse.fromJson(res);
-    if (homeListResponse.status == 200) {
-      if (homeListResponse.data.subscriptionPlanData != null) {
-        _streamController.sink.add(homeListResponse.data.subscriptionPlanData.rows);
+      var res = await NetworkUtil().get(apiURL, token: token);
+      HomeListResponse homeListResponse = HomeListResponse.fromJson(res);
+      if (homeListResponse.status == 200) {
+        if (homeListResponse.data.subscriptionPlanData != null) {
+
+          setState(() { });
+            _streamController.sink.add(homeListResponse.data.subscriptionPlanData.rows);
+        }
+        // isSubscribed = homeListResponse.data.suscriber;
+        // isSubscribed = false;
+        if (homeListResponse.data.deliveryAddressExist == 0) {
+          CommonUtils.showToast(
+              msg: "You have't added your delivery Location Please add", bgColor: Colors.black, textColor: Colors.white);
+          Navigator.pushNamedAndRemoveUntil(context, Routes.deliveryStaticScreen, (route) => false);
+        }
       }
-      // isSubscribed = homeListResponse.data.suscriber;
-      // isSubscribed = false;
 
-      if (homeListResponse.data.deliveryAddressExist == 0) {
-        CommonUtils.showToast(
-            msg: "You have't added your delivery Location Please add", bgColor: Colors.black, textColor: Colors.white);
-        Navigator.pushNamedAndRemoveUntil(context, Routes.deliveryStaticScreen, (route) => false);
-      }
-    }
   }
 }

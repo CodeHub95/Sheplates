@@ -191,10 +191,10 @@ class _ApplyPromoCodeScreenState extends State<PromoCodeList> {
   }
 
   Widget codeDescription(String description) {
-    if (description.length > 30) {
+    if (description.length > 60) {
       firstHalf = description.substring(0, 30);
-      secondHalf = description.substring(30, 60);
-      thirdHalf = description.substring(60, description.length);
+       secondHalf = description.substring(30, 50);
+      thirdHalf = description.substring(50, description.length);
     } else {
       firstHalf = description;
       secondHalf = "";
