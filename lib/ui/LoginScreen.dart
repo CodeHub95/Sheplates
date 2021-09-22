@@ -267,8 +267,8 @@ class _MyHomePageState extends State<LoginScreen> {
           deviceToken: deviceToken,
           deviceType: Platform.isAndroid ? "Android" : "Ios",
         );
-        var res = await NetworkUtil().post(url: url, body: request);
-        LoginResponse response = LoginResponse.fromJson(res);
+        NetworkUtil().post(url: url, body: request).then((value) async {
+        LoginResponse response = LoginResponse.fromJson(value);
         if (response.status == 200) {
           CommonUtils.dismissProgressDialog(context);
           await SharedPrefHelper().save("token", response.token);
@@ -295,7 +295,13 @@ class _MyHomePageState extends State<LoginScreen> {
           CommonUtils.dismissProgressDialog(context);
           CommonUtils.errorMessage(msg: response.message);
         }
-      } else {
+          }).catchError((errorResponse) {
+
+          CommonUtils.errorMessage(msg: "User Not Found!");
+          CommonUtils.dismissProgressDialog(context);
+
+          return null;
+        });} else {
         CommonUtils.showToast(
             msg: "Please select terms and conditions", bgColor: AppColor.darkThemeBlueColor, textColor: Colors.white);
       }

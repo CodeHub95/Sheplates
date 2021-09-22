@@ -287,7 +287,7 @@ class _MyHomePageState extends State<RegisterDetailScreen> {
           CommonUtils.dismissProgressDialog(context);
 
         return null;
-      });;
+      });
 
     }
   }
