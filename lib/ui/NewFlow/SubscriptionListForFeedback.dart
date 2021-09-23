@@ -82,7 +82,40 @@ class _SubscriptionListForFeedbackState extends State<SubscriptionListForFeedbac
                   ],
                 ),
               );
-            } else
+            }
+            else if(snapshot.data.data.isEmpty){
+              print('project snapshot data is: ${snapshot.data}');
+              return Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Image.asset("assets/not_delivering.png"),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 30.0),
+                      child: ScreenUtils.customText(
+                          data: "Your List is Empty!", textAlign: TextAlign.center),
+                    ),
+
+                    // this button is just for navigatig to feedback screen for testing
+                    // RaisedButton(
+                    //     onPressed: () => Navigator.push(
+                    //         context,
+                    //         MaterialPageRoute(
+                    //             builder: (context) => FeedBack(
+                    //                 // idd: snapshot.data.data[index].id,
+                    //                 // startDate: snapshot.data.data[index].startDate.toString(),
+                    //                 // endDate: snapshot.data.data[index].endDate.toString(),
+                    //                 // feedbackAsMap: snapshot.data.data[index].feedback,
+                    //                 )))),
+                  ],
+                ),
+              );
+            }
+            else
               return Container(
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
@@ -184,6 +217,7 @@ class _SubscriptionListForFeedbackState extends State<SubscriptionListForFeedbac
                 //   ],
                 // ),
               );
+
           },
         ),
         // child: ListView.builder(
