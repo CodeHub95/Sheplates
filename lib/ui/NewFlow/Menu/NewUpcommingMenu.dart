@@ -48,9 +48,11 @@ class NewUpcommingMenuState extends State<NewUpcommingMenu> {
       if (snapshot.hasData) {
      return DefaultTabController(
         length: 5,
-        child: _listcontroller ==null
-            ? Center(child: Text("You don't have any active subscription"))
-            : Scaffold(
+        child:
+        // _listcontroller ==null
+        //     ? Center(child: Text("You don't have any active subscription"))
+        //     :
+        Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.white,
             automaticallyImplyLeading: false,
@@ -84,22 +86,33 @@ class NewUpcommingMenuState extends State<NewUpcommingMenu> {
             physics: NeverScrollableScrollPhysics(),
             children: [
               UpcommingMenuTabData(
-              menu.where((element) => element.mealCategory == "BreakFast").toList()
+                  menu !=null?
+              menu.where((element) => element.mealCategory == "BreakFast").toList():menu
 
               ),
-              UpcommingMenuTabData(menu
+              UpcommingMenuTabData(
+                  menu !=null?
+                  menu
                   .where((element) => element.mealCategory == "Lunch")
-                  .toList()
+                  .toList(): menu
               ),
-              UpcommingMenuTabData(menu
+              UpcommingMenuTabData(
+                  menu !=null?
+                  menu
                   .where((element) => element.mealCategory == "Snacks")
                   .toList()
+                      : menu
               ),
-              UpcommingMenuTabData(menu
+              UpcommingMenuTabData(
+                  menu !=null?
+                  menu
                   .where((element) => element.mealCategory == "Dinner")
-                  .toList()
+                  .toList():
+                      menu
               ),
-              UpcommingMenuTabData(menu),
+              UpcommingMenuTabData(
+                  menu !=null?
+                  menu: menu),
             ],
           ),
         ),
@@ -109,7 +122,8 @@ class NewUpcommingMenuState extends State<NewUpcommingMenu> {
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           alignment: Alignment.center,
-          child: CircularProgressIndicator(),
+          child:     Center(
+              child: Text("You don't have any active subscription"))
         );})
     );
   }
@@ -124,8 +138,10 @@ class NewUpcommingMenuState extends State<NewUpcommingMenu> {
     if (menuResponse.status == 200) {
       // CommonUtils.dismissProgressDialog(context);
       if (menuResponse.data == null) {
-        _listcontroller.sink.addError(menuResponse.message);
-        menu = menuResponse.data;
+        setState(() {
+          _listcontroller.sink.add(menuResponse);
+          menu = menuResponse.data;
+        });
         CommonUtils.showToast(
             msg: "Do not have any ActiveSubscription Plan",
             bgColor: AppColor.darkThemeBlueColor,

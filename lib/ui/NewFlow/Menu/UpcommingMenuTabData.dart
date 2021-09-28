@@ -30,9 +30,23 @@ class _UpcommingMenuTabDataState extends State<UpcommingMenuTabData> {
   bool isExpanded = false;
 
   @override
+  void initState() {
+    // TODO: implement initState
+    if(menuData == null){
+      setState(() {
+        menuData = null;
+      });
+    }
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: menuData.length == 0
+      body:
+      menuData == null
+    ||
+    menuData.length == 0
+    || menuData.isEmpty
           ? Center(
               child: Text(
               "You don't have this subscription",

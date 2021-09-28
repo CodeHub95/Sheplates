@@ -244,7 +244,7 @@ class _CartScreenState extends State<CartScreen> {
                                       );
                                     if (snapshot.data.data != null) {
                                       oId = snapshot.data.data.cartItems[0].id;
-
+                                      // totalAmount = snapshot.data.data.grandTotal.toInt();
                                       totalAmount =  ReferralAmount!=null?
                                       (snapshot.data.data.grandTotal.toInt() - ReferralAmount.toInt()):
                                       snapshot.data.data.grandTotal
@@ -432,43 +432,46 @@ class _CartScreenState extends State<CartScreen> {
                     ],
                   ),
                       ): Container(),
-                  Container(
-                    child: Column(
-                      children: [
-                        // oId !=null
-                        cartRes
-                            ?  SizedBox(
-                          height: 40,
-                          width: 180,
-                          child: RaisedButton(
-                            shape: RoundedRectangleBorder(
-                              side: BorderSide(color: Colors.red, width: 1),
-                              borderRadius: BorderRadius.circular(5.0),
+                  Padding(
+                    padding: const EdgeInsets.only(top:20.0),
+                    child: Container(
+                      child: Column(
+                        children: [
+                          // oId !=null
+                          cartRes
+                              ?  SizedBox(
+                            height: 40,
+                            width: 180,
+                            child: RaisedButton(
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(color: Colors.red, width: 1),
+                                borderRadius: BorderRadius.circular(5.0),
+                              ),
+                              color: Colors.redAccent,
+                              child: Text("Proceed to buy", style: TextStyle(color: Colors.white)),
+                              onPressed: () {
+                                submit();
+                              },
                             ),
-                            color: Colors.redAccent,
-                            child: Text("Proceed to buy", style: TextStyle(color: Colors.white)),
-                            onPressed: () {
-                              submit();
-                            },
-                          ),
-                        ): Container(),
-                        SizedBox(height: 10),
-                        SizedBox(
-                          height: 40,
-                          width: 180,
-                          child: RaisedButton(
-                            shape: RoundedRectangleBorder(
-                              side: BorderSide(color: Colors.red, width: 1),
-                              borderRadius: BorderRadius.circular(5.0),
+                          ): Container(),
+                          SizedBox(height: 10),
+                          SizedBox(
+                            height: 40,
+                            width: 180,
+                            child: RaisedButton(
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(color: Colors.red, width: 1),
+                                borderRadius: BorderRadius.circular(5.0),
+                              ),
+                              color: Colors.white,
+                              child: Text("Back to plans", style: TextStyle(color: Colors.redAccent)),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
                             ),
-                            color: Colors.white,
-                            child: Text("Back to plans", style: TextStyle(color: Colors.redAccent)),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                   SizedBox(height: 15),

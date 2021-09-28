@@ -206,7 +206,8 @@ class _MyHomePageState extends State<LoginScreen> {
                                   recognizer: new TapGestureRecognizer()
                                     ..onTap = () async {
                                       final url =
-                                          'https://sheplates-staging-959022279.ap-south-1.elb.amazonaws.com/terms-of-use';
+                                          "http://13.235.86.192/terms-of-use";
+                                          // 'https://sheplates-staging-959022279.ap-south-1.elb.amazonaws.com/terms-of-use';
                                       if (await canLaunch(url)) {
                                         await launch(
                                           url,

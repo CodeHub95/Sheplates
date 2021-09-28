@@ -17,12 +17,27 @@ class _ActiveWidgetTabDataCopyState extends State<ServingTodayTabData> {
   bool isExpanded = false;
 
   @override
+  void initState() {
+    // TODO: implement initState
+    if(menuData == null){
+      setState(() {
+        menuData = null;
+      });
+    }
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body:
+      menuData == null
+      ||
       menuData.length == 0
-          ? Center(child: Text("You don't have this subscription", style: TextStyle(color: Colors.black), ))
-          : Padding(
+          || menuData.isEmpty
+          ? Center(child: Text("You don't have any subscription", style: TextStyle(color: Colors.black), ))
+          :
+
+      Padding(
         padding: EdgeInsets.only(top: 10),
         child: ListView.builder(
           itemCount: menuData.length,

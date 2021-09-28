@@ -57,6 +57,7 @@ class _HomeScreenState extends State<MealDetailScreen> {
             preferredSize: Size.fromHeight(1.0)),
       ),
       body: SingleChildScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
         child: Container(
           // height:  MediaQuery.of(context).size.height,
           decoration: BoxDecoration(

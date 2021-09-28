@@ -17,9 +17,11 @@ class _ActiveWidgetTabDataCopyState extends State<ActiveWidgetTabDataCopy> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: activeSubscriptionList.length == 0
+      body:
+      activeSubscriptionList == null
           ? Center(child: Text("You don't have this subscription"))
-          : Padding(
+          :
+        Padding(
               padding: EdgeInsets.only(top: 10),
               child: ListView.builder(
                 itemCount: activeSubscriptionList.length,

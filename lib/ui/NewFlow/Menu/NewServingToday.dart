@@ -50,10 +50,12 @@ class ActiveWidgetWithTabState extends State<NewServingTodayMenu> {
             if (snapshot.hasData) {
              return DefaultTabController(
                 length: 5,
-                child: _listcontroller == null
-                    ? Center(
-                    child: Text("You don't have any active subscription"))
-                    : Scaffold(
+                child:
+                // snapshot.data.data == null
+                //     ? Center(
+                //     child: Text("You don't have any active subscription"))
+                //     :
+                Scaffold(
                   appBar: AppBar(
                     backgroundColor: Colors.white,
                     automaticallyImplyLeading: false,
@@ -90,24 +92,37 @@ class ActiveWidgetWithTabState extends State<NewServingTodayMenu> {
                     children: [
                       ServingTodayTabData(
 // menuData
-
+menu !=null?
                           menu.where((element) =>
                           element.mealCategory == "BreakFast").toList()
+    :menu
 
                       ),
-                      ServingTodayTabData(menu
+                      ServingTodayTabData(
+                          menu!=null?
+                          menu
                           .where((element) => element.mealCategory == "Lunch")
                           .toList()
+                              : menu
+
                       ),
-                      ServingTodayTabData(menu
+                      ServingTodayTabData(
+                        menu!=null?
+                          menu
                           .where((element) => element.mealCategory == "Snacks")
                           .toList()
+                              : menu
                       ),
-                      ServingTodayTabData(menu
+                      ServingTodayTabData(
+                          menu!=null?
+                          menu
                           .where((element) => element.mealCategory == "Dinner")
                           .toList()
+                              :menu
                       ),
-                      ServingTodayTabData(menu),
+                      ServingTodayTabData(
+                        menu!=null?
+                          menu: menu),
                     ],
                   ),
                 ),
@@ -119,7 +134,10 @@ class ActiveWidgetWithTabState extends State<NewServingTodayMenu> {
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
                 alignment: Alignment.center,
-                child: CircularProgressIndicator(),
+                child:
+                // CircularProgressIndicator(),
+                Center(
+                    child: Text("You don't have any active subscription"))
               );
           })
     );
@@ -132,9 +150,15 @@ class ActiveWidgetWithTabState extends State<NewServingTodayMenu> {
     var res = await NetworkUtil().get("user/my-menu", token:token);
     MenuResponse menuResponse = MenuResponse.fromJson(res);
     if (menuResponse.status == 200) {
-      if (menuResponse.data == null) {
-        _listcontroller.sink.addError(menuResponse.message);
-        menu = menuResponse.data;
+      if (menuResponse.data == null ) {
+
+        setState(() {
+          _listcontroller.sink.add(menuResponse);
+          menu = menuResponse.data;
+
+          print("---------------");
+          print(menu);
+        });
         CommonUtils.showToast(
             msg: "Do not have any ActiveSubscription Plan",
             bgColor: AppColor.darkThemeBlueColor,
@@ -143,7 +167,12 @@ class ActiveWidgetWithTabState extends State<NewServingTodayMenu> {
         setState(() {
           _listcontroller.sink.add(menuResponse);
           menu = menuResponse.data;
+          print("<<<<<<<<<<<<");
+          print(menu);
+          print(_listcontroller);
         });
+        print("<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>");
+        print(menu);
             return menu;
       }
     } else {

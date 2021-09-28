@@ -8,12 +8,13 @@ class MenuResponse {
   MenuResponse.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    if (json['data'] != null) {
+    if (json['data'] != null && json['data'].isNotEmpty  ) {
       data = new List<Obj>();
-      json['data'].forEach((v) {
+      // json['data'] != null??
+          json['data'].forEach((v) {
         data.add(new Obj.fromJson(v));
       });
-    }else null;
+    }
   }
 
   Map<String, dynamic> toJson() {

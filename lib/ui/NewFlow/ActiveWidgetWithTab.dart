@@ -20,9 +20,8 @@ class ActiveWidgetWithTabState extends State<ActiveWidgetWithTab> {
       top: true,
       child: DefaultTabController(
         length: 5,
-        child: activeSubscriptionList.isEmpty
-            ? Center(child: Text("You don't have any active subscription"))
-            : Scaffold(
+        child:
+        Scaffold(
                 appBar: AppBar(
                   backgroundColor: Colors.white,
                   automaticallyImplyLeading: false,
@@ -55,18 +54,29 @@ class ActiveWidgetWithTabState extends State<ActiveWidgetWithTab> {
                 body: TabBarView(
                   physics: NeverScrollableScrollPhysics(),
                   children: [
-                    ActiveWidgetTabDataCopy(activeSubscriptionList
+
+                    ActiveWidgetTabDataCopy(
+                activeSubscriptionList.isNotEmpty?
+                        activeSubscriptionList
                         .where((element) => element.orders[0].catalog.mealCategory.category == "BreakFast")
-                        .toList()),
-                    ActiveWidgetTabDataCopy(activeSubscriptionList
+                        .toList(): null
+
+                    ),
+                    ActiveWidgetTabDataCopy(
+                        activeSubscriptionList.isNotEmpty?
+                        activeSubscriptionList
                         .where((element) => element.orders[0].catalog.mealCategory.category == "Lunch")
-                        .toList()),
-                    ActiveWidgetTabDataCopy(activeSubscriptionList
+                        .toList(): null),
+                    ActiveWidgetTabDataCopy(
+                        activeSubscriptionList.isNotEmpty?
+                        activeSubscriptionList
                         .where((element) => element.orders[0].catalog.mealCategory.category == "Snacks")
-                        .toList()),
-                    ActiveWidgetTabDataCopy(activeSubscriptionList
+                        .toList():null),
+                    ActiveWidgetTabDataCopy(
+                        activeSubscriptionList.isNotEmpty?
+                        activeSubscriptionList
                         .where((element) => element.orders[0].catalog.mealCategory.category == "Dinner")
-                        .toList()),
+                        .toList(): null),
                     ActiveWidgetTabDataCopy(activeSubscriptionList),
                   ],
                 ),

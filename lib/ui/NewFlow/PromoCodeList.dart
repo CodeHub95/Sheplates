@@ -125,7 +125,7 @@ class _ApplyPromoCodeScreenState extends State<PromoCodeList> {
               ],
               border: Border.all(color: Colors.grey[350], width: 1.5),
               borderRadius: BorderRadius.all(Radius.circular(10)),
-              
+
             ),
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
