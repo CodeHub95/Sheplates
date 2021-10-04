@@ -19,6 +19,7 @@ import 'package:flutter_sheplates/modals/request/ConfirmOrderRequest.dart';
 import 'package:flutter_sheplates/modals/response/BaseResponse.dart';
 import 'package:flutter_sheplates/modals/response/CardResponse.dart';
 import 'package:flutter_sheplates/modals/response/CheckOutResponse.dart';
+import 'package:flutter_sheplates/ui/NewFlow/HomeScreenWithTabs.dart';
 import 'package:flutter_sheplates/ui/NewFlow/PromoCodeList.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
@@ -30,13 +31,13 @@ class CartScreen extends StatefulWidget {
  String name;
  String code;
  String codeType;
-
-
-
-  CartScreen({Key key, this.stockCheckOutResponse, this.confirmOrderRequestModel, this.ReferralAmount, this.name, this.code, this.codeType}) : super(key: key);
+final String categoryname;
+final String type;
+final int maincategoryId;
+  CartScreen({Key key, this.stockCheckOutResponse, this.confirmOrderRequestModel, this.ReferralAmount, this.name, this.code, this.codeType, this.categoryname, this.type, this.maincategoryId}) : super(key: key);
 
   @override
-  _CartScreenState createState() => _CartScreenState(this.stockCheckOutResponse, this.confirmOrderRequestModel, this.ReferralAmount, this.name, this.code, this.codeType);
+  _CartScreenState createState() => _CartScreenState(this.stockCheckOutResponse, this.confirmOrderRequestModel, this.ReferralAmount, this.name, this.code, this.codeType, this.type, this.maincategoryId);
 }
 
 class _CartScreenState extends State<CartScreen> {
@@ -46,11 +47,12 @@ class _CartScreenState extends State<CartScreen> {
   String name;
   String code;
   String codeType;
-
+  String type;
+int maincategoryId;
   StreamController<CardResponse> _streamController = StreamController.broadcast();
   StreamController<BaseResponse> _deleteController = StreamController.broadcast();
   TextEditingController codeController = TextEditingController();
-  _CartScreenState(this.stockCheckOutResponse, this.confirmOrderRequestModel, this.ReferralAmount, this.name, this.code, this.codeType);
+  _CartScreenState(this.stockCheckOutResponse, this.confirmOrderRequestModel, this.ReferralAmount, this.name, this.code, this.codeType, this.type, this.maincategoryId);
 
   int oId;
   num totalAmount;
@@ -204,7 +206,12 @@ class _CartScreenState extends State<CartScreen> {
               color: Colors.black,
             ),
             onPressed: () => {
-            Navigator.pop(context, "Update")
+            // Navigator.pop(context, "Update")
+              type!=null?
+            Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => HomeScreenWithTabs(categoryName: widget.categoryname, mainCategoryID:  widget.maincategoryId,)),
+            ):Navigator.pop(context, "Update")
             },
           ),
         ),

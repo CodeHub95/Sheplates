@@ -18,8 +18,9 @@ import 'package:flutter_sheplates/ui/custom/date_range_picker.dart';
 
 class NewConfirmSubscription extends StatefulWidget {
   final Rows rows;
-
-  NewConfirmSubscription(this.rows);
+  final String categoryname;
+  final int maincategoryId;
+  NewConfirmSubscription(this.rows, this.categoryname, this.maincategoryId);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -39,7 +40,7 @@ class _HomeScreenState extends State<NewConfirmSubscription> {
 
   final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
   bool _autoValidate = false;
-
+String type;
   DateTime selectedDate = DateTime.now();
   RangeSelectionType selectionType;
   String prefferedTime;
@@ -348,7 +349,7 @@ class _HomeScreenState extends State<NewConfirmSubscription> {
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                    CartScreen(stockCheckOutResponse: checkOutResponse, confirmOrderRequestModel: request)));
+                    CartScreen(stockCheckOutResponse: checkOutResponse, confirmOrderRequestModel: request, categoryname: widget.categoryname, type: "confirmsubscrip", maincategoryId: widget.maincategoryId )));
 
       }
       else {

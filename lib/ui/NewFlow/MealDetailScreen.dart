@@ -10,8 +10,9 @@ import 'package:flutter_sheplates/ui/NewFlow/NextWeekScreen.dart';
 class MealDetailScreen extends StatefulWidget {
   final Rows mealDetails;
   final bool isSuscribed;
-
-  const MealDetailScreen({Key key, this.mealDetails, this.isSuscribed}) : super(key: key);
+  final String categoryname;
+  final int maincategoryId;
+  const MealDetailScreen({Key key, this.mealDetails, this.isSuscribed, this.categoryname, this.maincategoryId}) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -174,7 +175,7 @@ class _HomeScreenState extends State<MealDetailScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => NewConfirmSubscription(widget.mealDetails),
+                      builder: (context) => NewConfirmSubscription(widget.mealDetails, widget.categoryname, widget.maincategoryId),
                     ),
                   );
                 },

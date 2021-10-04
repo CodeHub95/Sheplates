@@ -21,14 +21,15 @@ class TabData extends StatefulWidget {
   int mainCategoryID;
   int tabID;
   Function updateCartIconNumber;
+  String categoryName;
   TabData(this._streamController, this.isSubscribed, this.images, this.mainCategoryID, this.tabID,
-      this.updateCartIconNumber,
+      this.updateCartIconNumber, this.categoryName,
       {Key key})
       : super(key: key);
 
   @override
   _TabDataState createState() =>
-      _TabDataState(_streamController, isSubscribed, images, mainCategoryID, tabID, updateCartIconNumber);
+      _TabDataState(_streamController, isSubscribed, images, mainCategoryID, tabID, updateCartIconNumber, categoryName);
 }
 
 class _TabDataState extends State<TabData> {
@@ -38,9 +39,10 @@ class _TabDataState extends State<TabData> {
   int mainCategoryID;
   int tabID;
   Function updateCartIconNumber;
+  String categoryName;
 
   _TabDataState(this._streamController, this.isSubscribed, this.images, this.mainCategoryID, this.tabID,
-      this.updateCartIconNumber);
+      this.updateCartIconNumber, this.categoryName);
 
   @override
   void initState() {
@@ -156,6 +158,8 @@ void dispose() {
                                                     builder: (context) => MealDetailScreen(
                                                       mealDetails: snapshot.data[index],
                                                       isSuscribed: isSubscribed,
+                                                      categoryname: widget.categoryName,
+                                                      maincategoryId: widget.mainCategoryID
                                                     ),
                                                   ),
                                                   // ), // comment this line and uncomment below one to update cart icon number on homescreen
