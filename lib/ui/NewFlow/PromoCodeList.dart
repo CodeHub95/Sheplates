@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter_sheplates/Utils/NetworkUtils.dart';
 import 'package:flutter_sheplates/Utils/ScreenUtils.dart';
 import 'package:flutter_sheplates/Utils/app_defaults.dart';
@@ -6,8 +7,11 @@ import 'package:flutter_sheplates/Utils/app_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sheplates/auth/api_config.dart';
+import 'package:flutter_sheplates/modals/request/ApplyPromoCodeRequest.dart';
+import 'package:flutter_sheplates/modals/response/ApplyPromoCodeResponse.dart';
 import 'package:flutter_sheplates/modals/response/PromoCodeListResponse.dart';
 import 'package:flutter_sheplates/ui/DrawerScreen.dart';
+import 'package:flutter_sheplates/ui/NewFlow/CartScreen.dart';
 
 class PromoCodeList extends StatefulWidget {
   @override
@@ -23,6 +27,7 @@ class _ApplyPromoCodeScreenState extends State<PromoCodeList> {
   String firstHalf;
   String secondHalf;
   String thirdHalf;
+  String fourthHalf;
   bool flag = true;
 
   @override
@@ -138,21 +143,11 @@ class _ApplyPromoCodeScreenState extends State<PromoCodeList> {
                   children: [
 
                         code(snapshot.data[index].code),
-                    applyButton(),
-
-                      // ],
-                    // ),
-
+                    applyButton(snapshot.data[index].code, snapshot.data[index].offerUpTo, snapshot.data[index].name),
                   ],
                 ),
-            // Column(
-            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //   crossAxisAlignment: CrossAxisAlignment.start,
-            //   children: [
 
                 codeDescription(snapshot.data[index].description),
-            //   ],
-            // )
               ])
           );
 
@@ -179,22 +174,28 @@ class _ApplyPromoCodeScreenState extends State<PromoCodeList> {
       }});
   }
 
-  Widget applyButton() {
-    return Text(
-      "APPLY",
-      style: TextStyle(
-        color: Colors.red,
-        fontSize: 17,
-        fontWeight: FontWeight.w700,
+  Widget applyButton(String code, int ReferralAmount, String name) {
+    return GestureDetector(
+      child: Text(
+        "APPLY",
+        style: TextStyle(
+          color: Colors.red,
+          fontSize: 17,
+          fontWeight: FontWeight.w700,
+        ),
       ),
+      onTap: (){
+        applyCode(code, ReferralAmount, name);
+      },
     );
   }
 
   Widget codeDescription(String description) {
     if (description.length > 60) {
-      firstHalf = description.substring(0, 30);
-       secondHalf = description.substring(30, 50);
-      thirdHalf = description.substring(50, description.length);
+      firstHalf = description.substring(0, 40);
+       secondHalf = description.substring(40, 80);
+      thirdHalf = description.substring(80, 120);
+      fourthHalf = description.substring(120, description.length);
     } else {
       firstHalf = description;
       secondHalf = "";
@@ -207,7 +208,7 @@ class _ApplyPromoCodeScreenState extends State<PromoCodeList> {
               ? new Text(firstHalf)
               : new Column(
             children: <Widget>[
-              new Text(flag ? (firstHalf + "...") : (firstHalf + "\n"+secondHalf + "\n" + thirdHalf)),
+              new Text(flag ? (firstHalf + "...") : (firstHalf + "\n"+secondHalf + "\n" + thirdHalf + "\n" + fourthHalf)),
               new InkWell(
                 child: new Column(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -250,74 +251,6 @@ class _ApplyPromoCodeScreenState extends State<PromoCodeList> {
     );
   }
 
-  // Widget promoCodeFieldAndButton() {
-  //   return SizedBox(
-  //     width: double.infinity,
-  //     child: Stack(
-  //       alignment: Alignment.centerRight,
-  //       children: [
-  //         Container(
-  //           margin: EdgeInsets.only(right: 2),
-  //           child: DottedBorder(
-  //             borderType: BorderType.RRect,
-  //             radius: Radius.circular(8),
-  //             padding: EdgeInsets.zero,
-  //             dashPattern: [7],
-  //             color: HexColor("#FF5657"),
-  //             strokeWidth: 2,
-  //             child: Row(
-  //               children: [
-  //                 Container(
-  //                   width: 270,
-  //                   height: 58,
-  //                   decoration: BoxDecoration(
-  //                     color: Colors.transparent,
-  //                     borderRadius: BorderRadius.only(topLeft: Radius.circular(8), bottomLeft: Radius.circular(8)),
-  //                   ),
-  //                   child: Padding(
-  //                     padding: EdgeInsets.only(left: 10),
-  //                     child: TextField(
-  //                       controller: codeController,
-  //                       style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
-  //                       decoration: InputDecoration(
-  //                         border: InputBorder.none,
-  //                         hintText: "Enter Promo Code",
-  //                         hintStyle: TextStyle(color: Colors.grey[400], fontWeight: FontWeight.normal, fontSize: 16),
-  //                       ),
-  //                     ),
-  //                   ),
-  //                 ),
-  //                 Expanded(child: Container(height: 58)),
-  //               ],
-  //             ),
-  //           ),
-  //         ),
-  //         Row(
-  //           children: [
-  //             SizedBox(width: 270),
-  //             Expanded(
-  //               child: Container(
-  //                 height: 60,
-  //                 decoration: BoxDecoration(
-  //                   color: HexColor("#FF5657"),
-  //                   borderRadius: BorderRadius.only(topRight: Radius.circular(8), bottomRight: Radius.circular(8)),
-  //                 ),
-  //                 child: Center(
-  //                     child: FlatButton(
-  //                         child: Text("APPLY", style: TextStyle(color: Colors.white, fontSize: 18)),
-  //                       onPressed: (){
-  //                         applyCode(codeController.text);
-  //                       },
-  //                     )),
-  //               ),
-  //             ),
-  //           ],
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
-
   getPromocodeList() async {
     String token = await SharedPrefHelper().getWithDefault("token", "");
     print(token);
@@ -342,35 +275,52 @@ class _ApplyPromoCodeScreenState extends State<PromoCodeList> {
     });
   }
 
-  // applyCode(String code)async {
-  //   String token = await SharedPrefHelper().getWithDefault("token", "");
-  //   print(token);
-  //   var type = code.contains("RE", 0)? "REFERRAL" : code.contains("FO", 0)? "FIRSTRORDER" :" ";
-  //   ApplyPromoCodeRequest request = ApplyPromoCodeRequest(
-  //     type: type,
-  //     code: code,
-  //   );
-  //   CommonUtils.fullScreenProgress(context);
-  //   NetworkUtil().post(url: ApiConfig.applyPromoCode, token: token, body: jsonEncode(request)).then((res) {
-  //     CommonUtils.dismissProgressDialog(context);
-  //     ApplyPromoCodeResponse response = ApplyPromoCodeResponse.fromJson(res);
-  //
-  //     if (response.status == 200) {
-  //
-  //       CommonUtils.showToast(msg: response.message, bgColor: Colors.black, textColor: Colors.white);
-  //       Navigator.pop(context);
-  //       setState(() {
-  //         ReferralAmount =100;
-  //         name = "REFERRAL CODE";
-  //       });
-  //     } else {
-  //       CommonUtils.showToast(
-  //           msg: response.message, bgColor: Colors.black, textColor: Colors.white);
-  //     }
-  //   }).catchError((error) {
-  //     CommonUtils.dismissProgressDialog(context);
-  //     CommonUtils.showToast(
-  //         msg: "Something went wrong , Please try again", bgColor: Colors.red, textColor: Colors.white);
-  //   });
-  // }
+  Future<void> applyCode(String code, int ReferralAmount, String name)async {
+    String token = await SharedPrefHelper().getWithDefault("token", "");
+    print(token);
+
+    var type = code.contains("RE", 0)? "REFERRAL" : code.contains("FO", 0)? "FIRSTRORDER" :" ";
+    if(type!= " "){
+      ApplyPromoCodeRequest request = ApplyPromoCodeRequest(
+        type: type,
+        code: code,
+      );
+      CommonUtils.fullScreenProgress(context);
+
+      NetworkUtil().post(url: ApiConfig.applyPromoCode, token: token, body: jsonEncode(request)).then((res) {
+        CommonUtils.dismissProgressDialog(context);
+        ApplyPromoCodeResponse response = ApplyPromoCodeResponse.fromJson(res);
+
+        if (response.status == 200) {
+
+          CommonUtils.showToast(msg: response.message, bgColor: Colors.black, textColor: Colors.white);
+          // Navigator.pop(context);
+          setState(() {
+            ReferralAmount =100;
+            name = "REFERRAL CODE";
+            code = code;
+            type = type;
+          });
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => CartScreen(ReferralAmount: ReferralAmount, name: name, code: code, codeType: type,)),
+          );
+        } else {
+          CommonUtils.showToast(
+              msg: response.message, bgColor: Colors.black, textColor: Colors.white);
+        }
+      }).catchError((error) {
+        CommonUtils.dismissProgressDialog(context);
+        CommonUtils.showToast(
+            msg: "Something went wrong , Please try again", bgColor: Colors.red, textColor: Colors.white);
+      });
+    }else{
+      CommonUtils.dismissProgressDialog(context);
+      CommonUtils.showToast(
+          msg: "Invalid Promo Code", bgColor: Colors.red, textColor: Colors.white);
+    }
+
+  }
+
+
 }

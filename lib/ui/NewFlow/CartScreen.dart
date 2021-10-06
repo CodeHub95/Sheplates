@@ -21,6 +21,7 @@ import 'package:flutter_sheplates/modals/response/CardResponse.dart';
 import 'package:flutter_sheplates/modals/response/CheckOutResponse.dart';
 import 'package:flutter_sheplates/ui/NewFlow/HomeScreenWithTabs.dart';
 import 'package:flutter_sheplates/ui/NewFlow/PromoCodeList.dart';
+import 'package:flutter_sheplates/ui/ProceedToPayment.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
@@ -34,6 +35,7 @@ class CartScreen extends StatefulWidget {
 final String categoryname;
 final String type;
 final int maincategoryId;
+  num payedAmountAfterDiscount;
   CartScreen({Key key, this.stockCheckOutResponse, this.confirmOrderRequestModel, this.ReferralAmount, this.name, this.code, this.codeType, this.categoryname, this.type, this.maincategoryId}) : super(key: key);
 
   @override
@@ -60,7 +62,7 @@ int maincategoryId;
   Razorpay _razorpay;
 
   CardResponse orders;
-
+  num payedAmountAfterDiscount;
 
   @override
   Future<void> initState() {
@@ -85,7 +87,20 @@ int maincategoryId;
   Future<void> completePayment(PaymentSuccessResponse paymentSuccessResponse) async {
     CommonUtils.fullScreenProgress(context);
     String url = "user/payment";
+    print("++++++++++++++++++++++");
+    print(ReferralAmount);
+    if(ReferralAmount==null){
+      setState(() {
+        payedAmountAfterDiscount = totalAmount;
+      });
 
+    }else {
+      setState(() {
+        payedAmountAfterDiscount = double.parse(totalAmount.toString()) - double.parse(ReferralAmount.toString());
+      });
+
+    }
+ // num payedAmountAfterDiscount =ReferralAmount==null ?  totalAmount : (double.parse(totalAmount.toString()) - double.parse(ReferralAmount.toString()));
     PaymentSubmitRequest request = PaymentSubmitRequest(
         razorpay_payment_id: paymentSuccessResponse.paymentId,
         razorpay_order_id: paymentSuccessResponse.orderId,
@@ -96,14 +111,12 @@ int maincategoryId;
         orderId: oId.toString(),
         // stockCheckOutResponse.data.orders.id.toString(),
         amount: totalAmount,
-
         //-----------********************
         code: code,
         codeType: codeType,
         isCodeApply: code!=null? true: false,
         discountAmount: ReferralAmount!=null? ReferralAmount: 0,
-        payedAmountAfterDiscount: ReferralAmount!=null ? (totalAmount - ReferralAmount): 0,
-
+        payedAmountAfterDiscount: payedAmountAfterDiscount,
         //-------------*****************
         // stockCheckOutResponse.data.orders.totalAmount,
         );
@@ -113,13 +126,14 @@ int maincategoryId;
     print(response);
     if (response.status == 200) {
       CommonUtils.dismissProgressDialog(context);
-      CommonUtils.showToast(msg: response.message, bgColor: Colors.red, textColor: Colors.white);
+      CommonUtils.showToast(msg: "Successfully Subscribed!", bgColor: Colors.red, textColor: Colors.white);
       Navigator.of(context).pushNamedAndRemoveUntil(Routes.proceedToPayment, (route) => false,
           arguments: {'order': stockCheckOutResponse.data.orders});
+
       // Navigator
       //     .of(context)
       //     .pushReplacement(new MaterialPageRoute(builder: (BuildContext context) {
-      //   return ProceedToPayment( CardResponse);
+      //   return ProceedToPayment('order': stockCheckOutResponse.data.orders);
       // }));
     } else {
       CommonUtils.dismissProgressDialog(context);
@@ -854,7 +868,7 @@ int maincategoryId;
           CommonUtils.showToast(msg: response.message, bgColor: Colors.black, textColor: Colors.white);
           // Navigator.pop(context);
           setState(() {
-            ReferralAmount =100;
+            ReferralAmount = ReferralAmount + 100;
             name = "REFERRAL CODE";
             code = code;
             type = type;

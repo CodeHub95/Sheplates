@@ -11,8 +11,8 @@ class PaymentSubmitRequest {
 String code;
 String codeType;
 bool isCodeApply;
-int discountAmount;
-int payedAmountAfterDiscount;
+num discountAmount;
+num payedAmountAfterDiscount;
 
   PaymentSubmitRequest({this.orderId, this.transactionId, this.amount, this.paymentMode, this.status,
     this.razorpay_order_id, this.razorpay_signature, this.razorpay_payment_id, this.type,

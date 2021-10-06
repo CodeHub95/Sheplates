@@ -16,14 +16,17 @@ import 'package:flutter_sheplates/ui/Support.dart';
 
 class ProceedToPayment extends StatefulWidget {
   // final CardResponse orders;
-final Orders orders;
-  const ProceedToPayment({Key key, this.orders}) : super(key: key);
+   Orders orders;
+   ProceedToPayment({Key key, this.orders}) : super(key: key);
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _HomeScreenState createState() => _HomeScreenState(this.orders);
 }
 
 class _HomeScreenState extends State<ProceedToPayment> {
+  Orders orders;
+  _HomeScreenState(this.orders);
+
   @override
   initState() {
     // TODO: implement initState

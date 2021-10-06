@@ -44,7 +44,9 @@ class Routes {
             builder: (context) => RangePickerPage(events: [], selectionType: map['selectionType']));
 
       case proceedToPayment:
-        return MaterialPageRoute(builder: (context) => ProceedToPayment(orders: map['order']));
+        return MaterialPageRoute(builder: (context) => ProceedToPayment(
+            orders: map['order']
+        ));
 
       case deliveryStaticScreen:
         return MaterialPageRoute(builder: (context) => DeliveryStaticScreen());
