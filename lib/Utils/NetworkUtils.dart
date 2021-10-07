@@ -54,7 +54,7 @@ class NetworkUtil {
     }).catchError((errorResponse) {
       if (errorResponse.activeSubscriptionList.statusCode == 404) {
         // logout(context);
-        throw new Exception("User Not Found!");
+        throw new Exception(errorResponse);
       }
       return errorResponse.activeSubscriptionList.data;
     });

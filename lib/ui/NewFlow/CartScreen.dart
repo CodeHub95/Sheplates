@@ -91,7 +91,7 @@ int maincategoryId;
     print(ReferralAmount);
     if(ReferralAmount==null){
       setState(() {
-        payedAmountAfterDiscount = totalAmount;
+        payedAmountAfterDiscount = 0;
       });
 
     }else {
@@ -127,9 +127,13 @@ int maincategoryId;
     if (response.status == 200) {
       CommonUtils.dismissProgressDialog(context);
       CommonUtils.showToast(msg: "Successfully Subscribed!", bgColor: Colors.red, textColor: Colors.white);
-      Navigator.of(context).pushNamedAndRemoveUntil(Routes.proceedToPayment, (route) => false,
-          arguments: {'order': stockCheckOutResponse.data.orders});
-
+      // Navigator.of(context).pushNamed(Routes.proceedToPayment, (route) => false,
+      //     arguments: {'order': stockCheckOutResponse.data.orders});
+      Navigator.popAndPushNamed(
+        context,
+          Routes.proceedToPayment,
+          arguments: {'order': stockCheckOutResponse.data.orders}
+      );
       // Navigator
       //     .of(context)
       //     .pushReplacement(new MaterialPageRoute(builder: (BuildContext context) {
@@ -175,7 +179,7 @@ int maincategoryId;
   }
 
   void _handlePaymentSuccess(PaymentSuccessResponse paymentSuccessResponse) {
-    Fluttertoast.showToast(msg: "SUCCESS: " + paymentSuccessResponse.paymentId);
+    // Fluttertoast.showToast(msg: "SUCCESS: " + paymentSuccessResponse.paymentId);
 
     String paymentId = paymentSuccessResponse.paymentId.toString();
     String signature = paymentSuccessResponse.signature.toString();
@@ -266,11 +270,22 @@ int maincategoryId;
                                     if (snapshot.data.data != null) {
                                       oId = snapshot.data.data.cartItems[0].id;
                                       // totalAmount = snapshot.data.data.grandTotal.toInt();
-                                      totalAmount =  ReferralAmount!=null?
-                                      (snapshot.data.data.grandTotal.toInt() - ReferralAmount.toInt()):
-                                      snapshot.data.data.grandTotal
-                                       ;
 
+                                      // totalAmount =
+                                      // ReferralAmount!=null?
+                                      // (snapshot.data.data.grandTotal.toInt() - ReferralAmount.toInt()):
+                                      // snapshot.data.data.grandTotal
+                                      //  ;
+                                      if(ReferralAmount ==null){
+                                        totalAmount = snapshot.data.data.grandTotal;
+                                      }
+                                        else if(ReferralAmount!=null && ReferralAmount < snapshot.data.data.deliveryCharges)
+                                       {
+                                       totalAmount = snapshot.data.data.grandTotal - ReferralAmount;
+                                       }else if(ReferralAmount!=null && ReferralAmount>snapshot.data.data.deliveryCharges) {
+
+                                        totalAmount = snapshot.data.data.grandTotal - snapshot.data.data.deliveryCharges;
+                                      }
                                       orders = snapshot.data;
                                       return Column(
                                         children: [
@@ -851,7 +866,7 @@ int maincategoryId;
     String token = await SharedPrefHelper().getWithDefault("token", "");
     print(token);
 
-    var type = code.contains("RE", 0)? "REFERRAL" : code.contains("FO", 0)? "FIRSTRORDER" :" ";
+    var type = code.contains("RE", 0)? "REFERRAL" : code.contains("FO", 0)? "FIRSTORDER" :" ";
     if(type!= " "){
       ApplyPromoCodeRequest request = ApplyPromoCodeRequest(
         type: type,
@@ -868,7 +883,7 @@ int maincategoryId;
           CommonUtils.showToast(msg: response.message, bgColor: Colors.black, textColor: Colors.white);
           // Navigator.pop(context);
           setState(() {
-            ReferralAmount = ReferralAmount + 100;
+            ReferralAmount = 100;
             name = "REFERRAL CODE";
             code = code;
             type = type;
@@ -880,7 +895,7 @@ int maincategoryId;
       }).catchError((error) {
         CommonUtils.dismissProgressDialog(context);
         CommonUtils.showToast(
-            msg: "Something went wrong , Please try again", bgColor: Colors.red, textColor: Colors.white);
+            msg: "This code is not valid for your order", bgColor: Colors.red, textColor: Colors.white);
       });
     }else{
       CommonUtils.dismissProgressDialog(context);

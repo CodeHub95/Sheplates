@@ -279,7 +279,7 @@ class _ApplyPromoCodeScreenState extends State<PromoCodeList> {
     String token = await SharedPrefHelper().getWithDefault("token", "");
     print(token);
 
-    var type = code.contains("RE", 0)? "REFERRAL" : code.contains("FO", 0)? "FIRSTRORDER" :" ";
+    var type = code.contains("RE", 0)? "REFERRAL" : code.contains("FO", 0)? "FIRSTORDER" :" ";
     if(type!= " "){
       ApplyPromoCodeRequest request = ApplyPromoCodeRequest(
         type: type,
@@ -288,11 +288,13 @@ class _ApplyPromoCodeScreenState extends State<PromoCodeList> {
       CommonUtils.fullScreenProgress(context);
 
       NetworkUtil().post(url: ApiConfig.applyPromoCode, token: token, body: jsonEncode(request)).then((res) {
-        CommonUtils.dismissProgressDialog(context);
+
         ApplyPromoCodeResponse response = ApplyPromoCodeResponse.fromJson(res);
 
+      // var res = await NetworkUtil().post(url: "user/applyPromoCode", body: jsonEncode(request), token: token);
+      // ApplyPromoCodeResponse response = ApplyPromoCodeResponse.fromJson(res);
         if (response.status == 200) {
-
+          CommonUtils.dismissProgressDialog(context);
           CommonUtils.showToast(msg: response.message, bgColor: Colors.black, textColor: Colors.white);
           // Navigator.pop(context);
           setState(() {
@@ -305,14 +307,16 @@ class _ApplyPromoCodeScreenState extends State<PromoCodeList> {
             context,
             MaterialPageRoute(builder: (context) => CartScreen(ReferralAmount: ReferralAmount, name: name, code: code, codeType: type,)),
           );
-        } else {
+        }
+        else {
+          CommonUtils.dismissProgressDialog(context);
           CommonUtils.showToast(
               msg: response.message, bgColor: Colors.black, textColor: Colors.white);
         }
       }).catchError((error) {
         CommonUtils.dismissProgressDialog(context);
         CommonUtils.showToast(
-            msg: "Something went wrong , Please try again", bgColor: Colors.red, textColor: Colors.white);
+            msg: "This code is not valid for your order", bgColor: Colors.red, textColor: Colors.white);
       });
     }else{
       CommonUtils.dismissProgressDialog(context);
