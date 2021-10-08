@@ -11,9 +11,7 @@ import 'package:flutter_sheplates/Utils/hexColor.dart';
 import 'package:flutter_sheplates/modals/request/UserAddFeedbackRequest.dart';
 import 'package:flutter_sheplates/modals/response/BaseResponse.dart';
 import 'package:flutter_sheplates/modals/response/DeliveredMealResponse.dart' as feedbackObject;
-import 'package:flutter_sheplates/modals/response/GetFeedbackResponse.dart';
 import 'package:flutter_sheplates/ui/DrawerScreen.dart';
-import 'package:flutter_sheplates/ui/HomeScreen.dart';
 
 class FeedBack extends StatefulWidget {
   // DeliveredData data;
@@ -171,7 +169,7 @@ class _FeedBackState extends State<FeedBack> {
                           // keyboardType: TextInputType.datetime,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
-                            hintText: feedbackObj == null ? "Select start date" : startDate,
+                            hintText: startDate == null ? "29/09/1997" : startDate,
                             suffixIcon: (IconButton(
                               onPressed: () => _selectStartDate(context),
                               icon: Icon(Icons.date_range),
@@ -212,7 +210,7 @@ class _FeedBackState extends State<FeedBack> {
                           controller: endDateController,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
-                            hintText: feedbackObj == null ? "29/09/1997" : endDate,
+                            hintText: endDate == null ? "29/09/1997" : endDate,
                             suffixIcon: (IconButton(
                               onPressed: () => _selectEndDate(context),
                               icon: Icon(Icons.date_range),

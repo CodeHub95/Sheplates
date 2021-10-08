@@ -336,7 +336,8 @@ class _ReferralCodeScreenState extends State<ReferralCodeScreen> {
       String name) async {
     await FlutterShare.share(
         title: code,
-        text: "Code: " + code + "\n" + " \n" + description,
-        chooserTitle: code);
+        text: "https://play.google.com/store/apps/details?id=com.app.sheplates",
+        chooserTitle: code
+    );
   }
 }
