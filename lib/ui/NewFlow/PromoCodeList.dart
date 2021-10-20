@@ -116,41 +116,42 @@ class _ApplyPromoCodeScreenState extends State<PromoCodeList> {
       physics: NeverScrollableScrollPhysics(),
       itemCount: snapshot.data.length,
       itemBuilder: (context, index) {
-        return  Container(
-            // height: 150,
-            // margin: EdgeInsets.fromLTRB(10, 50, 10, 8),
-            // width: double.infinity,
-            // margin: EdgeInsets.symmetric(vertical: 11, horizontal: 3),
-            margin: EdgeInsets.fromLTRB(1, 1, 1, 1),
-            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(blurRadius: 2, color: Colors.grey[200], offset: Offset(0, 2), spreadRadius: 2.0),
-              ],
-              border: Border.all(color: Colors.grey[350], width: 1.5),
-              borderRadius: BorderRadius.all(Radius.circular(10)),
+        if(snapshot.data[index].type != "REFERRAL") {
+          return  Container(
+              margin: EdgeInsets.fromLTRB(1, 1, 1, 1),
+              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(blurRadius: 2,
+                      color: Colors.grey[200],
+                      offset: Offset(0, 2),
+                      spreadRadius: 2.0),
+                ],
+                border: Border.all(color: Colors.grey[350], width: 1.5),
+                borderRadius: BorderRadius.all(Radius.circular(10)),
 
-            ),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment:  MainAxisAlignment.start,
-              children: [
-                Text(snapshot.data[index].name),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+              ),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    Text(snapshot.data[index].name),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
 
                         code(snapshot.data[index].code),
-                    applyButton(snapshot.data[index].code, snapshot.data[index].offerUpTo, snapshot.data[index].name),
-                  ],
-                ),
+                        applyButton(snapshot.data[index].code, snapshot
+                            .data[index].offerUpTo, snapshot.data[index].name),
+                      ],
+                    ),
 
-                codeDescription(snapshot.data[index].description),
-              ])
+                    codeDescription(snapshot.data[index].description),
+                  ])
           );
-
+        }else return Container();
       },
     );}else{
 
@@ -279,7 +280,7 @@ class _ApplyPromoCodeScreenState extends State<PromoCodeList> {
     String token = await SharedPrefHelper().getWithDefault("token", "");
     print(token);
 
-    var type = code.contains("RE", 0)? "REFERRAL" : code.contains("FO", 0)? "FIRSTORDER" :" ";
+    var type = code.contains("FI", 0)? "FIRSTORDER" :" ";
     if(type!= " "){
       ApplyPromoCodeRequest request = ApplyPromoCodeRequest(
         type: type,
@@ -299,7 +300,7 @@ class _ApplyPromoCodeScreenState extends State<PromoCodeList> {
           // Navigator.pop(context);
           setState(() {
             ReferralAmount =100;
-            name = "REFERRAL CODE";
+            name = "FIRST ORDER";
             code = code;
             type = type;
           });

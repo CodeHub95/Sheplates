@@ -13,6 +13,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sheplates/Utils/hexColor.dart';
 import 'package:flutter_sheplates/ui/DrawerScreen.dart';
+import 'dart:io' show Platform;
 
 class ReferralCodeScreen extends StatefulWidget {
   @override
@@ -23,7 +24,11 @@ class _ReferralCodeScreenState extends State<ReferralCodeScreen> {
   StreamController<List<Promocode>> _streamController =
       StreamController.broadcast();
   var size;
-
+  String code;
+  String description;
+  String type;
+  int amount;
+  String name;
   @override
   void initState() {
     // TODO: implement initState
@@ -65,26 +70,26 @@ class _ReferralCodeScreenState extends State<ReferralCodeScreen> {
                     alignment: Alignment.center,
                     child: CircularProgressIndicator(),
                   );
-                if (snapshot.data.length != 0) {
+                if (snapshot.data.isNotEmpty) {
                   return ListView.builder(
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
-                      itemCount: 1,
+                      itemCount: snapshot.data.length,
                       itemBuilder: (context, index) {
-                        String code = snapshot.data[index].type == "REFERRAL"
+                        code = snapshot.data[index].type == "REFERRAL"
                             ? snapshot.data[index].code
                             : "";
-                        String description =
+                        description =
                             snapshot.data[index].type == "REFERRAL"
                                 ? snapshot.data[index].description.toString()
                                 : "";
-                        String type = snapshot.data[index].type == "REFERRAL"
+                         type = snapshot.data[index].type == "REFERRAL"
                             ? snapshot.data[index].type.toString()
                             : "";
-                        int amount = (snapshot.data[index].type == "REFERRAL")
+                         amount = (snapshot.data[index].type == "REFERRAL")
                             ? snapshot.data[index].offerUpTo
                             : 0;
-                        String name = snapshot.data[index].type == "REFERRAL"
+                         name = snapshot.data[index].type == "REFERRAL"
                             ? snapshot.data[index].name
                             : "";
                         return Container(
@@ -110,24 +115,7 @@ class _ReferralCodeScreenState extends State<ReferralCodeScreen> {
                                   ),
                                 )
                               : Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  height: MediaQuery.of(context).size.height,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(top: 30.0),
-                                        child: ScreenUtils.customText(
-                                            data:
-                                                "No Referral code is Available :)",
-                                            textAlign: TextAlign.center),
-                                      ),
-                                    ],
-                                  ),
+
                                 ),
                         );
                       });
@@ -158,6 +146,7 @@ class _ReferralCodeScreenState extends State<ReferralCodeScreen> {
       String code, String description, String type, int amount, String name) {
     return InkWell(
       onTap: () {
+
         share(code, description, type, amount, name);
       },
       child: Container(
@@ -334,10 +323,17 @@ class _ReferralCodeScreenState extends State<ReferralCodeScreen> {
 
   Future<void> share(String code, String description, String type, int amount,
       String name) async {
+    if(Platform.isAndroid){
     await FlutterShare.share(
         title: code,
         text: "https://play.google.com/store/apps/details?id=com.app.sheplates",
         chooserTitle: code
     );
-  }
+  }else if(Platform.isIOS){
+      await FlutterShare.share(
+          title: code,
+          text: "https://play.google.com/store/apps/details?id=com.app.sheplates",
+          chooserTitle: code
+      );
+    }}
 }
