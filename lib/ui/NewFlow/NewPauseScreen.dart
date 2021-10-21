@@ -185,11 +185,13 @@ class _HomeScreenState extends State<NewPauseScreen> {
                                         fontSize: 15, color: Colors.grey),
                                   ),
                                   Text(
+
                                     activeSubscription
                                         .orders[index].catalog.mealName
                                         .toString(),
+                                    overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
-                                        fontSize: 15, color: Colors.black),
+                                        fontSize: 15, color: Colors.black,),
                                   )
                                 ],
                               ),

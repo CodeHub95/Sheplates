@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sheplates/Utils/hexColor.dart';
@@ -23,11 +22,13 @@ class _PastWidgetWithTabsState extends State<PastWidgetWithTabs> {
       top: true,
       child: DefaultTabController(
         length: 5,
-        child: pastSubscriptionList == null
-            ? Center(child: CircularProgressIndicator())
-            : pastSubscriptionList.isEmpty
-                ? Center(child: Text("You don't have any past subscription"))
-                : Scaffold(
+        child:
+        // pastSubscriptionList == null
+        //     ? Center(child: CircularProgressIndicator())
+        //     : pastSubscriptionList.isEmpty
+        //         ? Center(child: Text("You don't have any past subscription"))
+        //         :
+        Scaffold(
                     appBar: AppBar(
                       backgroundColor: Colors.white,
                       automaticallyImplyLeading: false,
@@ -60,19 +61,35 @@ class _PastWidgetWithTabsState extends State<PastWidgetWithTabs> {
                     body: TabBarView(
                       physics: NeverScrollableScrollPhysics(),
                       children: [
-                        PastWidgetTabDataCopy(pastSubscriptionList
+                        PastWidgetTabDataCopy(
+                            pastSubscriptionList.isNotEmpty?
+                            pastSubscriptionList
                             .where((element) => element.orders[0].catalog.mealCategory.category == "BreakFast")
-                            .toList()),
-                        PastWidgetTabDataCopy(pastSubscriptionList
+                            .toList(): null
+
+                        ),
+                        PastWidgetTabDataCopy(
+                            pastSubscriptionList.isNotEmpty?
+                            pastSubscriptionList
                             .where((element) => element.orders[0].catalog.mealCategory.category == "Lunch")
-                            .toList()),
-                        PastWidgetTabDataCopy(pastSubscriptionList
+                            .toList(): null
+                        ),
+                        PastWidgetTabDataCopy(
+                            pastSubscriptionList.isNotEmpty?
+                            pastSubscriptionList
                             .where((element) => element.orders[0].catalog.mealCategory.category == "Snacks")
-                            .toList()),
-                        PastWidgetTabDataCopy(pastSubscriptionList
+                            .toList(): null
+                        ),
+                        PastWidgetTabDataCopy(
+                            pastSubscriptionList.isNotEmpty?
+                            pastSubscriptionList
                             .where((element) => element.orders[0].catalog.mealCategory.category == "Dinner")
-                            .toList()),
-                        PastWidgetTabDataCopy(pastSubscriptionList),
+                            .toList():
+                        null),
+                        PastWidgetTabDataCopy(
+                            pastSubscriptionList.isNotEmpty?
+                            pastSubscriptionList: null
+                        ),
                       ],
                     ),
                   ),

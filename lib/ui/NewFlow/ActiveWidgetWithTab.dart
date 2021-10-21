@@ -58,7 +58,7 @@ class ActiveWidgetWithTabState extends State<ActiveWidgetWithTab> {
                     ActiveWidgetTabDataCopy(
                 activeSubscriptionList.isNotEmpty?
                         activeSubscriptionList
-                        .where((element) => element.orders[0].catalog.mealCategory.category == "BreakFast")
+                        .where((element) => element.orders[0].catalog.mealCategory.category == "Breakfast")
                         .toList(): null
 
                     ),
@@ -77,7 +77,9 @@ class ActiveWidgetWithTabState extends State<ActiveWidgetWithTab> {
                         activeSubscriptionList
                         .where((element) => element.orders[0].catalog.mealCategory.category == "Dinner")
                         .toList(): null),
-                    ActiveWidgetTabDataCopy(activeSubscriptionList),
+                    ActiveWidgetTabDataCopy(
+                        activeSubscriptionList.isNotEmpty?
+                        activeSubscriptionList: null),
                   ],
                 ),
               ),

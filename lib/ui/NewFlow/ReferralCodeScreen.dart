@@ -108,7 +108,7 @@ class _ReferralCodeScreenState extends State<ReferralCodeScreen> {
                                           code, description, type),
                                       SizedBox(height: 60),
                                       textField(amount),
-                                      SizedBox(height: 60),
+                                      SizedBox(height: 30),
                                       inviteButton(code, description, type,
                                           amount, name),
                                     ],
@@ -172,21 +172,25 @@ class _ReferralCodeScreenState extends State<ReferralCodeScreen> {
             text: "Sheplates App ",
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
-          TextSpan(text: "and get "),
+          TextSpan(text: "and subscribe to a meal plan. For every friend who subscribes, you are eligible for an offer upto "),
           TextSpan(
-            text: "Rs" + amount.toString(),
+            text: "Rs 50. ",
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           TextSpan(
               text:
-                  "cashback for each friend that joins using your referral code. "),
-          TextSpan(text: "\n\n"),
-          TextSpan(text: "Your friends also get "),
+                  "Refer more friends and get more offers! "),
           TextSpan(
-            text: "Rs" + amount.toString(),
+              text:
+              "\n" + "\n"),
+          TextSpan(
+              text:
+              "Your friend using your referral code will also be getting an offer upto "),
+          TextSpan(
+            text: "Rs.100 ",
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
-          TextSpan(text: "off on his first order "),
+          TextSpan(text: "on their first order."),
         ],
       ),
     );

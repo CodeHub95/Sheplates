@@ -18,7 +18,7 @@ class _ActiveWidgetTabDataCopyState extends State<ActiveWidgetTabDataCopy> {
   Widget build(BuildContext context) {
     return Scaffold(
       body:
-      activeSubscriptionList == null
+      activeSubscriptionList == null || activeSubscriptionList.length==0
           ? Center(child: Text("You don't have this subscription"))
           :
         Padding(

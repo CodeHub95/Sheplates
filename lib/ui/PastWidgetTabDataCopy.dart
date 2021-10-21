@@ -17,18 +17,21 @@ class _PastWidgetTabDataCopyState extends State<PastWidgetTabDataCopy> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: pastSubscriptionList.length == 0
+      body: pastSubscriptionList ==null || pastSubscriptionList.length==0
           ? Center(child: Text("You don't have this subscription"))
           : Padding(
               padding: EdgeInsets.only(top: 10),
               child: ListView.builder(
                 itemCount: pastSubscriptionList.length,
                 itemBuilder: (BuildContext context, int index) {
+
                   for(int i =0; i<=pastSubscriptionList[index].orders.length; i++ ) {
-                    return Padding(
+                    return
+                      Padding(
                       padding: EdgeInsets.symmetric(
                           horizontal: 10, vertical: 5),
-                      child: ExpansionPanelList(
+                      child:
+                      ExpansionPanelList(
                           children: [
                             ExpansionPanel(
                               canTapOnHeader: true,
@@ -328,7 +331,9 @@ class _PastWidgetTabDataCopyState extends State<PastWidgetTabDataCopy> {
                                 !pastSubscriptionList[index].isExpanded,
                               )),
                     );
-                  }  },
+                  }
+                  return null;
+                   },
               ),
             ),
     );

@@ -16,7 +16,7 @@ import 'package:flutter_sheplates/ui/Support.dart';
 
 class ProceedToPayment extends StatefulWidget {
   // final CardResponse orders;
-   Orders orders;
+   CardResponse orders;
    ProceedToPayment({Key key, this.orders}) : super(key: key);
 
   @override
@@ -24,7 +24,7 @@ class ProceedToPayment extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<ProceedToPayment> {
-  Orders orders;
+  CardResponse orders;
   _HomeScreenState(this.orders);
 
   @override
@@ -96,7 +96,7 @@ class _HomeScreenState extends State<ProceedToPayment> {
                 padding: EdgeInsets.only(top: 5),
                 child: Text(
                   CommonUtils.getSimpleDate(
-                      DateTime.parse(widget.orders.startDate)),
+                      DateTime.parse(widget.orders.data.cartItems[0].startDate)),
                   style: TextStyle(
                       fontSize: 25,
                       color: Colors.red,
@@ -269,7 +269,7 @@ class _HomeScreenState extends State<ProceedToPayment> {
                   Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => FeedBack(idd: widget.orders.id, startDate: widget.orders.startDate, endDate: widget.orders.endDate),
+                        builder: (context) => FeedBack(idd: widget.orders.data.cartItems[0].id, startDate: widget.orders.data.cartItems[0].startDate, endDate: widget.orders.data.cartItems[0].endDate),
                       ),
                           (Route<dynamic> route) => false
                   );

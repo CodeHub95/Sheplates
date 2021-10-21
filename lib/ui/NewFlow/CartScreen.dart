@@ -129,16 +129,16 @@ int maincategoryId;
       CommonUtils.showToast(msg: "Successfully Subscribed!", bgColor: Colors.red, textColor: Colors.white);
       // Navigator.of(context).pushNamed(Routes.proceedToPayment, (route) => false,
       //     arguments: {'order': stockCheckOutResponse.data.orders});
-      Navigator.popAndPushNamed(
-        context,
-          Routes.proceedToPayment,
-          arguments: {'order': stockCheckOutResponse.data.orders}
-      );
-      // Navigator
-      //     .of(context)
-      //     .pushReplacement(new MaterialPageRoute(builder: (BuildContext context) {
-      //   return ProceedToPayment('order': stockCheckOutResponse.data.orders);
-      // }));
+      // Navigator.popAndPushNamed(
+      //   context,
+      //     Routes.proceedToPayment,
+      //     arguments: {'order': stockCheckOutResponse.data.orders}
+      // );
+      Navigator
+          .of(context)
+          .pushReplacement(new MaterialPageRoute(builder: (BuildContext context) {
+        return ProceedToPayment(orders: orders);
+      }));
     } else {
       CommonUtils.dismissProgressDialog(context);
     }
