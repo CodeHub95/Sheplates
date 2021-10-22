@@ -282,7 +282,7 @@ int maincategoryId;
                                         else if(ReferralAmount!=null && ReferralAmount < snapshot.data.data.deliveryCharges)
                                        {
                                        totalAmount = snapshot.data.data.grandTotal - ReferralAmount;
-                                       }else if(ReferralAmount!=null && ReferralAmount>snapshot.data.data.deliveryCharges) {
+                                       }else if(ReferralAmount!=null && ReferralAmount > snapshot.data.data.deliveryCharges) {
 
                                         totalAmount = snapshot.data.data.grandTotal - snapshot.data.data.deliveryCharges;
                                       }

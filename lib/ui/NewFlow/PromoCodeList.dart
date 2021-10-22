@@ -280,7 +280,7 @@ class _ApplyPromoCodeScreenState extends State<PromoCodeList> {
     String token = await SharedPrefHelper().getWithDefault("token", "");
     print(token);
 
-    var type = code.contains("FI", 0)? "FIRSTORDER" :" ";
+    var type = code.contains("FI", 0)? "FIRSTORDER" :  code.contains("FR", 0)? "FREEDELIVERY":" " ;
     if(type!= " "){
       ApplyPromoCodeRequest request = ApplyPromoCodeRequest(
         type: type,
@@ -299,7 +299,7 @@ class _ApplyPromoCodeScreenState extends State<PromoCodeList> {
           CommonUtils.showToast(msg: response.message, bgColor: Colors.black, textColor: Colors.white);
           // Navigator.pop(context);
           setState(() {
-            ReferralAmount =100;
+            ReferralAmount = ReferralAmount;
             name = "FIRST ORDER";
             code = code;
             type = type;
