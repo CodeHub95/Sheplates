@@ -184,14 +184,20 @@ class _HomeScreenState extends State<NewPauseScreen> {
                                     style: TextStyle(
                                         fontSize: 15, color: Colors.grey),
                                   ),
-                                  Text(
+                                  Container(
+                                    width: MediaQuery.of(context).size.width/2,
+                                    child: SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      child: Text(
 
-                                    activeSubscription
-                                        .orders[index].catalog.mealName
-                                        .toString(),
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        fontSize: 15, color: Colors.black,),
+                                        activeSubscription
+                                            .orders[index].catalog.mealName
+                                            .toString(),
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            fontSize: 15, color: Colors.black,),
+                                      ),
+                                    ),
                                   )
                                 ],
                               ),
