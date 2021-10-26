@@ -277,11 +277,8 @@ class _HomeScreenState extends State<NewPauseScreen> {
                       // pause==true:
                       // pause==false
                       // pause ==  (activeSubscription.orders[0].status.toString()=="Active")? true:false
-                      activeSubscription.orders[0].status.toString() == "Active"
-                          ? () async {
-                              selectedDate =
-                              await _selectDate(context,
-                                  lastDate: DateTime.parse(endDate));
+                      activeSubscription.orders[0].status.toString() == "Active" ? () async {
+                              selectedDate = await _selectDate(context, lastDate: DateTime.parse(endDate));
                               if (selectedDate != null) {
                                 setState(() {
                                   if (pause)
@@ -291,29 +288,12 @@ class _HomeScreenState extends State<NewPauseScreen> {
                                 });
                                 _showcontent();
                               }
-                            }
-                          : () async {
-                              selectedDate = await _selectDate(context);
-                              if (selectedDate != null) {
-                                reactiveSubcription();
-                              }
+                            } : () async {selectedDate = await _selectDate(context);if (selectedDate != null) {reactiveSubcription();}
                             })),
           Padding(
             padding: const EdgeInsets.only(top: 30.0),
             child: Visibility(
-                visible:
-                    // activeSubscription.orders !=
-                    //     "0000-00-00" ||
-                    //     pauseSubscriptionDate !=
-                    //         "0000-00-00" ||
-                    // pauseSubscriptionDate.toString()!=null || resumeSubscriptionDate.toString()!=null ||
-                activeSubscription.orders[0].resumeSubscriptionDate
-                    .toString() !=
-                    "1970-01-01 00:00:00.000" ||
-                    activeSubscription.orders[0].pauseSubscriptionDate
-                                .toString() !=
-                            "1970-01-01 00:00:00.000" ,
-
+                visible: activeSubscription.orders[0].resumeSubscriptionDate.toString() != "1970-01-01 00:00:00.000" || activeSubscription.orders[0].pauseSubscriptionDate.toString() != "1970-01-01 00:00:00.000" ,
                 child: Container(
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
@@ -631,13 +611,10 @@ class _HomeScreenState extends State<NewPauseScreen> {
       {DateTime startDate, DateTime initialDate, DateTime lastDate}) async {
     final DateTime picked = await showDatePicker(
         context: context,
-        initialDate: initialDate != null
-            ? initialDate
-            : DateTime.now().add(Duration(days: 1)),
-        firstDate: startDate != null
-            ? startDate
-            : DateTime.now().add(Duration(days: 1)),
-        lastDate: lastDate != null ? lastDate : DateTime.parse(endDate));
+        initialDate: initialDate != null ? initialDate : DateTime.now().add(Duration(days: 1)), firstDate: startDate != null ? startDate : DateTime.now().add(Duration(days: 1)),
+        // lastDate: lastDate != null ? lastDate : DateTime.parse(endDate));
+        lastDate: lastDate != null  && lastDate.compareTo(DateTime.now().add(Duration(days: 1)))>0 ? lastDate : DateTime.now().add(Duration(days: 1)));
+
     if (picked != null && picked != selectedDate) return picked;
   }
 }

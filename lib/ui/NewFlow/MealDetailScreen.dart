@@ -58,7 +58,7 @@ class _HomeScreenState extends State<MealDetailScreen> {
             preferredSize: Size.fromHeight(1.0)),
       ),
       body: SingleChildScrollView(
-        physics: const AlwaysScrollableScrollPhysics(),
+
         child: Container(
           // height:  MediaQuery.of(context).size.height,
           decoration: BoxDecoration(
@@ -66,121 +66,124 @@ class _HomeScreenState extends State<MealDetailScreen> {
                   // image: AssetImage(
                   //     "assets/menu_listing.png")
                   )),
-          child: Column(
-            // mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Stack(
-                children: [
-                  Container(
-                    // height: MediaQuery.of(context).size.height,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(fit: BoxFit.fill, image: AssetImage("assets/menu_listing.png"))),
-                    // height: MediaQuery.of(context).size.height,
-                    child: Column(
-                      // mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Padding(padding: EdgeInsets.only(top: 40)),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  "QUALITY",
-                                  style: TextStyle(fontSize: 25, color: Colors.white),
-                                ),
-                                Padding(
-                                    padding: EdgeInsets.only(top: 10),
-                                    child: Text(
-                                      "A Taste of Home Made Food",
-                                      style: TextStyle(fontSize: 17, color: Colors.white),
-                                    ))
-                              ],
-                            )
-                          ],
-                        ),
-                        Padding(
-                            padding: EdgeInsets.only(top: 10, right: 30, left: 30),
-                            child: Container(
-                                height: 10,
-                                width: MediaQuery.of(context).size.width,
-                                decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        fit: BoxFit.fill, image: AssetImage("assets/arrow_menu.png"))))),
-                        Container(
-                          // height: MediaQuery.of(context).size.height / 1.2,
-                          height: MediaQuery.of(context).size.height,
-                          child: SingleChildScrollView(
-                            child: Padding(
-                              padding: EdgeInsets.only(top: 5, left: 30, right: 30),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+          child: SingleChildScrollView(
+
+            child: Column(
+              // mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Stack(
+                  children: [
+                    Container(
+                      // height: MediaQuery.of(context).size.height,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(fit: BoxFit.fill, image: AssetImage("assets/menu_listing.png"))),
+                      // height: MediaQuery.of(context).size.height,
+                      child: Column(
+                        // mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Padding(padding: EdgeInsets.only(top: 40)),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Column(
+                                mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  widget.mealDetails.menu.monday2 != null
-                                      ? WeekSeparator(weekName: "Current Week")
-                                      : Container(),
-                                  Day(dayName: "Monday:"),
-                                  Meal(mealName: widget.mealDetails.menu.monday),
-                                  Day(dayName: "Tuesday:"),
-                                  Meal(mealName: widget.mealDetails.menu.tuesday),
-                                  Day(dayName: "Wednesday:"),
-                                  Meal(mealName: widget.mealDetails.menu.wednesday),
-                                  Day(dayName: "Thursday:"),
-                                  Meal(mealName: widget.mealDetails.menu.thrusday),
-                                  Day(dayName: "Friday:"),
-                                  Meal(mealName: widget.mealDetails.menu.friday),
-                                  Day(dayName: "Saturday:"),
-                                  Meal(mealName: widget.mealDetails.menu.saturday),
+                                  Text(
+                                    "QUALITY",
+                                    style: TextStyle(fontSize: 25, color: Colors.white),
+                                  ),
                                   Padding(
-                                    padding: EdgeInsets.only(top: 10),
-                                    child: Text(
-                                      widget.mealDetails.menu.sunday != null && widget.mealDetails.menu.sunday != ""
-                                          ? "Sunday:"
-                                          : "",
-                                      style: TextStyle(fontSize: 20, color: Colors.red),
-                                    ),
-                                  ),
-                                  Container(
-                                    width: MediaQuery.of(context).size.width / 1.1,
-                                    child: Text(
-                                        widget.mealDetails.menu.sunday != null && widget.mealDetails.menu.sunday != ""
-                                            ? widget.mealDetails.menu.sunday
-                                            : "",
-                                        maxLines: 3,
-                                        style: TextStyle(fontSize: 14, color: Colors.white)),
-                                  ),
-                                  widget.mealDetails.menu.monday2 != null ? WeekTwoButton(widget: widget) : Container(),
+                                      padding: EdgeInsets.only(top: 10),
+                                      child: Text(
+                                        "A Taste of Home Made Food",
+                                        style: TextStyle(fontSize: 17, color: Colors.white),
+                                      ))
                                 ],
+                              )
+                            ],
+                          ),
+                          Padding(
+                              padding: EdgeInsets.only(top: 10, right: 30, left: 30),
+                              child: Container(
+                                  height: 10,
+                                  width: MediaQuery.of(context).size.width,
+                                  decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                          fit: BoxFit.fill, image: AssetImage("assets/arrow_menu.png"))))),
+                          Container(
+                            // height: MediaQuery.of(context).size.height / 1.2,
+                            height: MediaQuery.of(context).size.height,
+                            child: SingleChildScrollView(
+                              child: Padding(
+                                padding: EdgeInsets.only(top: 5, left: 30, right: 30),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    widget.mealDetails.menu.monday2 != null
+                                        ? WeekSeparator(weekName: "Current Week")
+                                        : Container(),
+                                    Day(dayName: "Monday:"),
+                                    Meal(mealName: widget.mealDetails.menu.monday),
+                                    Day(dayName: "Tuesday:"),
+                                    Meal(mealName: widget.mealDetails.menu.tuesday),
+                                    Day(dayName: "Wednesday:"),
+                                    Meal(mealName: widget.mealDetails.menu.wednesday),
+                                    Day(dayName: "Thursday:"),
+                                    Meal(mealName: widget.mealDetails.menu.thrusday),
+                                    Day(dayName: "Friday:"),
+                                    Meal(mealName: widget.mealDetails.menu.friday),
+                                    Day(dayName: "Saturday:"),
+                                    Meal(mealName: widget.mealDetails.menu.saturday),
+                                    Padding(
+                                      padding: EdgeInsets.only(top: 10),
+                                      child: Text(
+                                        widget.mealDetails.menu.sunday != null && widget.mealDetails.menu.sunday != ""
+                                            ? "Sunday:"
+                                            : "",
+                                        style: TextStyle(fontSize: 20, color: Colors.red),
+                                      ),
+                                    ),
+                                    Container(
+                                      width: MediaQuery.of(context).size.width / 1.1,
+                                      child: Text(
+                                          widget.mealDetails.menu.sunday != null && widget.mealDetails.menu.sunday != ""
+                                              ? widget.mealDetails.menu.sunday
+                                              : "",
+                                          maxLines: 3,
+                                          style: TextStyle(fontSize: 14, color: Colors.white)),
+                                    ),
+                                    widget.mealDetails.menu.monday2 != null ? WeekTwoButton(widget: widget) : Container(),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                        )
-                      ],
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                  Padding(padding: EdgeInsets.only(bottom: 10)),
-                ],
-              ),
-              ScreenUtils.customButton(
-                context,
-                title: "Subscribe",
-                onCLick: () {
-                  mealName = widget.mealDetails.mealName;
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => NewConfirmSubscription(widget.mealDetails, widget.categoryname, widget.maincategoryId),
-                    ),
-                  );
-                },
-              ),
-            ],
+                    Padding(padding: EdgeInsets.only(bottom: 10)),
+                  ],
+                ),
+                ScreenUtils.customButton(
+                  context,
+                  title: "Subscribe",
+                  onCLick: () {
+                    mealName = widget.mealDetails.mealName;
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => NewConfirmSubscription(widget.mealDetails, widget.categoryname, widget.maincategoryId),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -199,29 +202,30 @@ class WeekTwoButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Column(
-        children: [
-          SizedBox(height: MediaQuery.of(context).size.height * .15),
-          SizedBox(
-            width: MediaQuery.of(context).size.width * .44,
-            child: RaisedButton(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-              color: AppColor.themeButtonColor,
-              textColor: Colors.white,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("Next Week", style: TextStyle(fontSize: 15)),
-                  Icon(Icons.arrow_forward, size: 20),
-                ],
+      child:  Column(
+          children: [
+            SizedBox(height: MediaQuery.of(context).size.height * .12),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * .44,
+              child: RaisedButton(
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+                color: AppColor.themeButtonColor,
+                textColor: Colors.white,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Next Week", style: TextStyle(fontSize: 15)),
+                    Icon(Icons.arrow_forward, size: 20),
+                  ],
+                ),
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => NextWeekScreen(snapshotData: widget)));
+                },
               ),
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => NextWeekScreen(snapshotData: widget)));
-              },
             ),
-          ),
-        ],
-      ),
+          ],
+        ),
+
     );
   }
 }
