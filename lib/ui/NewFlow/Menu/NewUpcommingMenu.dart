@@ -87,7 +87,7 @@ class NewUpcommingMenuState extends State<NewUpcommingMenu> {
             children: [
               UpcommingMenuTabData(
                   menu !=null?
-              menu.where((element) => element.mealCategory == "BreakFast").toList():menu
+              menu.where((element) => element.mealCategory == "Breakfast").toList():menu
 
               ),
               UpcommingMenuTabData(

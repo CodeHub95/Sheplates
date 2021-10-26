@@ -17,7 +17,7 @@ import 'package:flutter_sheplates/ui/NewFlow/SubscriptionForPauseAndReactive.dar
 import 'package:intl/intl.dart';
 
 class NewPauseScreen extends StatefulWidget {
-  Subscription activeSubscription;
+  dynamic activeSubscription;
 
   NewPauseScreen(this.activeSubscription);
 
@@ -39,7 +39,7 @@ class _HomeScreenState extends State<NewPauseScreen> {
 
   _HomeScreenState(this.activeSubscription);
 
-  Subscription activeSubscription;
+  dynamic activeSubscription;
 
   @override
   Future<void> initState() {
@@ -279,7 +279,8 @@ class _HomeScreenState extends State<NewPauseScreen> {
                       // pause ==  (activeSubscription.orders[0].status.toString()=="Active")? true:false
                       activeSubscription.orders[0].status.toString() == "Active"
                           ? () async {
-                              selectedDate = await _selectDate(context,
+                              selectedDate =
+                              await _selectDate(context,
                                   lastDate: DateTime.parse(endDate));
                               if (selectedDate != null) {
                                 setState(() {
@@ -306,12 +307,13 @@ class _HomeScreenState extends State<NewPauseScreen> {
                     //     pauseSubscriptionDate !=
                     //         "0000-00-00" ||
                     // pauseSubscriptionDate.toString()!=null || resumeSubscriptionDate.toString()!=null ||
+                activeSubscription.orders[0].resumeSubscriptionDate
+                    .toString() !=
+                    "1970-01-01 00:00:00.000" ||
                     activeSubscription.orders[0].pauseSubscriptionDate
                                 .toString() !=
-                            "1970-01-01 00:00:00.000" ||
-                        activeSubscription.orders[0].resumeSubscriptionDate
-                                .toString() !=
-                            "1970-01-01 00:00:00.000",
+                            "1970-01-01 00:00:00.000" ,
+
                 child: Container(
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(

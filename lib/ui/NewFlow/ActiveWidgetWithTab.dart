@@ -5,14 +5,14 @@ import 'package:flutter_sheplates/modals/response/MySubscriptionsResponse.dart';
 import 'package:flutter_sheplates/ui/ActiveWidgetTabDataCopy.dart';
 
 class ActiveWidgetWithTab extends StatefulWidget {
-  List<Subscription> activeSubscriptionList;
+  List<dynamic> activeSubscriptionList;
   ActiveWidgetWithTab(this.activeSubscriptionList);
   @override
   ActiveWidgetWithTabState createState() => ActiveWidgetWithTabState(activeSubscriptionList);
 }
 
 class ActiveWidgetWithTabState extends State<ActiveWidgetWithTab> {
-  List<Subscription> activeSubscriptionList;
+  List<dynamic> activeSubscriptionList;
   ActiveWidgetWithTabState(this.activeSubscriptionList);
   @override
   Widget build(BuildContext context) {
@@ -56,29 +56,29 @@ class ActiveWidgetWithTabState extends State<ActiveWidgetWithTab> {
                   children: [
 
                     ActiveWidgetTabDataCopy(
-                activeSubscriptionList.isNotEmpty?
+                activeSubscriptionList!=null && activeSubscriptionList.isNotEmpty?
                         activeSubscriptionList
                         .where((element) => element.orders[0].catalog.mealCategory.category == "Breakfast")
                         .toList(): null
 
                     ),
                     ActiveWidgetTabDataCopy(
-                        activeSubscriptionList.isNotEmpty?
+                        activeSubscriptionList!=null &&  activeSubscriptionList.isNotEmpty?
                         activeSubscriptionList
                         .where((element) => element.orders[0].catalog.mealCategory.category == "Lunch")
                         .toList(): null),
                     ActiveWidgetTabDataCopy(
-                        activeSubscriptionList.isNotEmpty?
+                        activeSubscriptionList!=null && activeSubscriptionList.isNotEmpty?
                         activeSubscriptionList
                         .where((element) => element.orders[0].catalog.mealCategory.category == "Snacks")
                         .toList():null),
                     ActiveWidgetTabDataCopy(
-                        activeSubscriptionList.isNotEmpty?
+                        activeSubscriptionList!=null &&  activeSubscriptionList.isNotEmpty?
                         activeSubscriptionList
                         .where((element) => element.orders[0].catalog.mealCategory.category == "Dinner")
                         .toList(): null),
                     ActiveWidgetTabDataCopy(
-                        activeSubscriptionList.isNotEmpty?
+                        activeSubscriptionList!=null && activeSubscriptionList.isNotEmpty?
                         activeSubscriptionList: null),
                   ],
                 ),

@@ -42,12 +42,14 @@ class Data {
   List<Subscription> pastSubscription;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-    activeSubscription: List<Subscription>.from(json["activeSubscription"].map((x) => Subscription.fromJson(x))),
+    activeSubscription:  json["activeSubscription"].length != 0?
+    List<Subscription>.from(json["activeSubscription"].map((x) => Subscription.fromJson(x))):
+    <Subscription>[],
     pastSubscription: List<Subscription>.from(json["pastSubscription"].map((x) => Subscription.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
-    "activeSubscription": List<dynamic>.from(activeSubscription.map((x) => x.toJson())),
+    "activeSubscription": activeSubscription != [] ?List<dynamic>.from(activeSubscription.map((x) => x.toJson())):[],
     "pastSubscription": List<dynamic>.from(pastSubscription.map((x) => x.toJson())),
   };
 }
@@ -64,7 +66,7 @@ class Subscription {
 
   factory Subscription.fromJson(Map<String, dynamic> json) => Subscription(
     sheplatesOrderId: json["sheplates_order_id"],
-    orders: List<Order>.from(json["orders"].map((x) => Order.fromJson(x))),
+    orders: json["orders"].length != []? List<Order>.from(json["orders"].map((x) => Order.fromJson(x))): [],
   );
 
   Map<String, dynamic> toJson() => {
@@ -168,7 +170,7 @@ class Order {
     reassignDate: DateTime.parse(json["reassign_date"]),
     createdAt: DateTime.parse(json["createdAt"]),
     updatedAt: DateTime.parse(json["updatedAt"]),
-    kitchen: Kitchen.fromJson(json["kitchen"]),
+    kitchen: json["kitchen"]!=null? Kitchen.fromJson(json["kitchen"]): null,
     catalog: Catalog.fromJson(json["catalog"]),
     transaction: Transaction.fromJson(json["transaction"]),
     userAddress: UserAddress.fromJson(json["user_address"]),

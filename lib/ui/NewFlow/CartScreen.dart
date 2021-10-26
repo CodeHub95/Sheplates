@@ -502,7 +502,10 @@ int maincategoryId;
                               color: Colors.white,
                               child: Text("Back to plans", style: TextStyle(color: Colors.redAccent)),
                               onPressed: () {
-                                Navigator.pop(context);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => HomeScreenWithTabs(categoryName: widget.categoryname, mainCategoryID:  widget.maincategoryId,)),
+                                );
                               },
                             ),
                           ),

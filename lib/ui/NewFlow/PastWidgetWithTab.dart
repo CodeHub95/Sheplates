@@ -13,7 +13,7 @@ class PastWidgetWithTabs extends StatefulWidget {
 }
 
 class _PastWidgetWithTabsState extends State<PastWidgetWithTabs> {
-  List<Subscription> pastSubscriptionList;
+  List<dynamic> pastSubscriptionList;
   _PastWidgetWithTabsState(this.pastSubscriptionList);
 
   @override
@@ -29,70 +29,70 @@ class _PastWidgetWithTabsState extends State<PastWidgetWithTabs> {
         //         ? Center(child: Text("You don't have any past subscription"))
         //         :
         Scaffold(
-                    appBar: AppBar(
-                      backgroundColor: Colors.white,
-                      automaticallyImplyLeading: false,
-                      elevation: 5,
-                      bottom: PreferredSize(
-                        preferredSize: Size.fromHeight(10),
-                        child: Column(
-                          children: [
-                            SizedBox(height: 20),
-                            TabBar(
-                              unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal),
-                              isScrollable: true,
-                              labelPadding: EdgeInsets.all(10),
-                              indicator: UnderlineTabIndicator(
-                                insets: EdgeInsets.all(6),
-                                borderSide: BorderSide(color: AppColor.themeButtonColor, width: 2),
-                              ),
-                              tabs: [
-                                buildTab("Breakfast"),
-                                buildTab("Lunch"),
-                                buildTab("Snacks"),
-                                buildTab("Dinner"),
-                                buildTab("All Day"),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
+          appBar: AppBar(
+            backgroundColor: Colors.white,
+            automaticallyImplyLeading: false,
+            elevation: 5,
+            bottom: PreferredSize(
+              preferredSize: Size.fromHeight(10),
+              child: Column(
+                children: [
+                  SizedBox(height: 20),
+                  TabBar(
+                    unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal),
+                    isScrollable: true,
+                    labelPadding: EdgeInsets.all(10),
+                    indicator: UnderlineTabIndicator(
+                      insets: EdgeInsets.all(6),
+                      borderSide: BorderSide(color: AppColor.themeButtonColor, width: 2),
                     ),
-                    body: TabBarView(
-                      physics: NeverScrollableScrollPhysics(),
-                      children: [
-                        PastWidgetTabDataCopy(
-                            pastSubscriptionList.isNotEmpty?
-                            pastSubscriptionList
-                            .where((element) => element.orders[0].catalog.mealCategory.category == "BreakFast")
-                            .toList(): null
-
-                        ),
-                        PastWidgetTabDataCopy(
-                            pastSubscriptionList.isNotEmpty?
-                            pastSubscriptionList
-                            .where((element) => element.orders[0].catalog.mealCategory.category == "Lunch")
-                            .toList(): null
-                        ),
-                        PastWidgetTabDataCopy(
-                            pastSubscriptionList.isNotEmpty?
-                            pastSubscriptionList
-                            .where((element) => element.orders[0].catalog.mealCategory.category == "Snacks")
-                            .toList(): null
-                        ),
-                        PastWidgetTabDataCopy(
-                            pastSubscriptionList.isNotEmpty?
-                            pastSubscriptionList
-                            .where((element) => element.orders[0].catalog.mealCategory.category == "Dinner")
-                            .toList():
-                        null),
-                        PastWidgetTabDataCopy(
-                            pastSubscriptionList.isNotEmpty?
-                            pastSubscriptionList: null
-                        ),
-                      ],
-                    ),
+                    tabs: [
+                      buildTab("Breakfast"),
+                      buildTab("Lunch"),
+                      buildTab("Snacks"),
+                      buildTab("Dinner"),
+                      buildTab("All Day"),
+                    ],
                   ),
+                ],
+              ),
+            ),
+          ),
+          body: TabBarView(
+            physics: NeverScrollableScrollPhysics(),
+            children: [
+              PastWidgetTabDataCopy(
+                  pastSubscriptionList.isNotEmpty?
+                  pastSubscriptionList
+                      .where((element) => element.orders[0].catalog.mealCategory.category == "Breakfast")
+                      .toList(): null
+
+              ),
+              PastWidgetTabDataCopy(
+                  pastSubscriptionList.isNotEmpty?
+                  pastSubscriptionList
+                      .where((element) => element.orders[0].catalog.mealCategory.category == "Lunch")
+                      .toList(): null
+              ),
+              PastWidgetTabDataCopy(
+                  pastSubscriptionList.isNotEmpty?
+                  pastSubscriptionList
+                      .where((element) => element.orders[0].catalog.mealCategory.category == "Snacks")
+                      .toList(): null
+              ),
+              PastWidgetTabDataCopy(
+                  pastSubscriptionList.isNotEmpty?
+                  pastSubscriptionList
+                      .where((element) => element.orders[0].catalog.mealCategory.category == "Dinner")
+                      .toList():
+                  null),
+              PastWidgetTabDataCopy(
+                  pastSubscriptionList.isNotEmpty?
+                  pastSubscriptionList: null
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

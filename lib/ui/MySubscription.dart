@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sheplates/modals/response/SubscriptionResponse.dart';
 import 'package:flutter_sheplates/ui/DrawerScreen.dart';
 import 'package:flutter_sheplates/modals/response/MySubscriptionsResponse.dart';
 import 'package:flutter_sheplates/Utils/app_defaults.dart';
@@ -36,58 +37,58 @@ class _HomeScreenState extends State<MySubscription> {
       body: subscriptionData == null
           ? Center(child: CircularProgressIndicator())
           : DefaultTabController(
-              length: 2,
-              child: Scaffold(
-                drawer: CustomDrawer(),
-                appBar: AppBar(
-                  bottom: TabBar(
-                    indicatorColor: Color(0xffF15C22),
-                    labelColor: Colors.black,
-                    tabs: [
-                      Tab(
-                        child: Text(
-                          "ACTIVE",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      Tab(
-                        child: Text(
-                          "PAST",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ],
-                  ),
-                  backgroundColor: Colors.white,
-                  title: Center(
-                      child: Padding(
-                          padding: EdgeInsets.only(right: 20),
-                          child: Text(
-                            "My SUBSCRIPTIONS",
-                            style: TextStyle(color: Colors.black, fontSize: 16),
-                            textAlign: TextAlign.center,
-                          ))),
-                  leading: Builder(
-                    builder: (context) => IconButton(
-                      icon: Image.asset(
-                        "assets/left_menu.png",
-                        fit: BoxFit.fill,
-                        // color: Colors.transparent,
-                      ),
-                      onPressed: () => Scaffold.of(context).openDrawer(),
-                    ),
+        length: 2,
+        child: Scaffold(
+          drawer: CustomDrawer(),
+          appBar: AppBar(
+            bottom: TabBar(
+              indicatorColor: Color(0xffF15C22),
+              labelColor: Colors.black,
+              tabs: [
+                Tab(
+                  child: Text(
+                    "ACTIVE",
+                    style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
-                body: TabBarView(
-                  physics: NeverScrollableScrollPhysics(), //stops data reloading and scrolling
-                  // children: [ActiveWidget(), PastWidgetWithTabs()],
-                  children: [
-                    ActiveWidgetWithTab(subscriptionData.data.activeSubscription),
-                    PastWidgetWithTabs(subscriptionData.data.pastSubscription)
-                  ],
+                Tab(
+                  child: Text(
+                    "PAST",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
+              ],
+            ),
+            backgroundColor: Colors.white,
+            title: Center(
+                child: Padding(
+                    padding: EdgeInsets.only(right: 20),
+                    child: Text(
+                      "My SUBSCRIPTIONS",
+                      style: TextStyle(color: Colors.black, fontSize: 16),
+                      textAlign: TextAlign.center,
+                    ))),
+            leading: Builder(
+              builder: (context) => IconButton(
+                icon: Image.asset(
+                  "assets/left_menu.png",
+                  fit: BoxFit.fill,
+                  // color: Colors.transparent,
+                ),
+                onPressed: () => Scaffold.of(context).openDrawer(),
               ),
             ),
+          ),
+          body: TabBarView(
+            physics: NeverScrollableScrollPhysics(), //stops data reloading and scrolling
+            // children: [ActiveWidget(), PastWidgetWithTabs()],
+            children: [
+              ActiveWidgetWithTab(subscriptionData.data.activeSubscription),
+              PastWidgetWithTabs(subscriptionData.data.pastSubscription)
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

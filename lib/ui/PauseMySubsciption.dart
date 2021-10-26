@@ -35,7 +35,7 @@ class _HomeScreenState extends State<PauseSubscription> {
   String resume_subscription_date;
   String pause_subscription_date;
   StreamController<PauseScreenDataResponse> _streamController =
-      StreamController.broadcast();
+  StreamController.broadcast();
   DateTime selectedDate = DateTime.now();
 
   @override
@@ -93,242 +93,242 @@ class _HomeScreenState extends State<PauseSubscription> {
                 return Container(
                     child: SingleChildScrollView(
                         child: Column(children: [
-                  Padding(
-                      padding: EdgeInsets.only(
-                          left: 30, right: 30, top: 30, bottom: 50),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        child: DottedBorder(
-                          padding: EdgeInsets.fromLTRB(20, 25, 20, 20),
-                          dashPattern: [5, 2],
-                          child: Container(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Delivery Address",
-                                  style: TextStyle(
-                                      color: Colors.black,
+                          Padding(
+                              padding: EdgeInsets.only(
+                                  left: 30, right: 30, top: 30, bottom: 50),
+                              child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                child: DottedBorder(
+                                  padding: EdgeInsets.fromLTRB(20, 25, 20, 20),
+                                  dashPattern: [5, 2],
+                                  child: Container(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "Delivery Address",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Padding(padding: EdgeInsets.only(top: 20)),
+                                        Text(
+                                          snapshot.data.data.address.fullAddress != null
+                                              ? snapshot.data.data.address.fullAddress
+                                              .toString()
+                                              : '',
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Padding(padding: EdgeInsets.only(top: 20)),
+                                        Row(
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Padding(
+                                                padding:
+                                                const EdgeInsets.only(left: 20),
+                                                child: Text(
+                                                  'Meals Delivered: ',
+                                                  style: TextStyle(
+                                                      fontSize: 18, color: Colors.grey),
+                                                )),
+                                            Text(
+                                              snapshot.data.data.order.mealsServed
+                                                  .toString(),
+                                              style: TextStyle(
+                                                  fontSize: 18, color: Colors.black),
+                                            )
+                                          ],
+                                        ),
+                                        Padding(padding: EdgeInsets.only(top: 15)),
+                                        Row(
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Padding(
+                                                padding:
+                                                const EdgeInsets.only(left: 20),
+                                                child: Text(
+                                                  'Meals Remaining: ',
+                                                  style: TextStyle(
+                                                      fontSize: 18, color: Colors.grey),
+                                                )),
+                                            Text(
+                                              (snapshot.data.data.order.totalMealCount -
+                                                  snapshot
+                                                      .data.data.order.mealsServed)
+                                                  .toString(),
+                                              style: TextStyle(
+                                                  fontSize: 18, color: Colors.black),
+                                            )
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    width: double.maxFinite,
+                                    decoration: BoxDecoration(),
+                                  ),
+                                ),
+                              )),
+                          Container(
+                              padding: EdgeInsets.fromLTRB(50, 0, 50, 10),
+                              height: 50,
+                              width: 400,
+                              child: RaisedButton(
+                                  textColor: Colors.white,
+                                  color: HexColor("#FF5657"),
+                                  child: Text(
+                                    // status==pause ? 'Pause' : 'Reactive Pause',
+                                    pause ? 'Pause' : 'Reactivate',
+                                    style: TextStyle(
                                       fontSize: 20,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Padding(padding: EdgeInsets.only(top: 20)),
-                                Text(
-                                  snapshot.data.data.address.fullAddress != null
-                                      ? snapshot.data.data.address.fullAddress
-                                          .toString()
-                                      : '',
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Padding(padding: EdgeInsets.only(top: 20)),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 20),
-                                        child: Text(
-                                          'Meals Delivered: ',
-                                          style: TextStyle(
-                                              fontSize: 18, color: Colors.grey),
-                                        )),
-                                    Text(
-                                      snapshot.data.data.order.mealsServed
-                                          .toString(),
-                                      style: TextStyle(
-                                          fontSize: 18, color: Colors.black),
-                                    )
-                                  ],
-                                ),
-                                Padding(padding: EdgeInsets.only(top: 15)),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 20),
-                                        child: Text(
-                                          'Meals Remaining: ',
-                                          style: TextStyle(
-                                              fontSize: 18, color: Colors.grey),
-                                        )),
-                                    Text(
-                                      (snapshot.data.data.order.totalMealCount -
-                                              snapshot
-                                                  .data.data.order.mealsServed)
-                                          .toString(),
-                                      style: TextStyle(
-                                          fontSize: 18, color: Colors.black),
-                                    )
-                                  ],
-                                ),
-                              ],
-                            ),
-                            width: double.maxFinite,
-                            decoration: BoxDecoration(),
-                          ),
-                        ),
-                      )),
-                  Container(
-                      padding: EdgeInsets.fromLTRB(50, 0, 50, 10),
-                      height: 50,
-                      width: 400,
-                      child: RaisedButton(
-                          textColor: Colors.white,
-                          color: HexColor("#FF5657"),
-                          child: Text(
-                            // status==pause ? 'Pause' : 'Reactive Pause',
-                            pause ? 'Pause' : 'Reactivate',
-                            style: TextStyle(
-                              fontSize: 20,
-                            ),
-                          ),
-                          // onPressed: _showcontent,
-                          onPressed: pause
-                              ? () async {
-                                  // setState(() {
-                                  //   // pause = !pause;
-                                  //
-                                  //   if (pause)
-                                  //     pause = false;
-                                  //   else
-                                  //     pause = true;
-                                  // });
+                                    ),
+                                  ),
+                                  // onPressed: _showcontent,
+                                  onPressed: pause
+                                      ? () async {
+                                    // setState(() {
+                                    //   // pause = !pause;
+                                    //
+                                    //   if (pause)
+                                    //     pause = false;
+                                    //   else
+                                    //     pause = true;
+                                    // });
 
-                                  selectedDate = await _selectDate(context,
-                                      lastDate: DateTime.parse(endDate));
-                                  if (selectedDate != null) {
-                                    setState(() {
-                                      // pause = !pause;
+                                    selectedDate = await _selectDate(context,
+                                        lastDate: DateTime.parse(endDate));
+                                    if (selectedDate != null) {
+                                      setState(() {
+                                        // pause = !pause;
 
-                                      if (pause)
-                                        pause = false;
-                                      else
-                                        pause = true;
-                                    });
-                                    _showcontent();
+                                        if (pause)
+                                          pause = false;
+                                        else
+                                          pause = true;
+                                      });
+                                      _showcontent();
+                                    }
                                   }
-                                }
-                              : () async {
-                                  selectedDate = await _selectDate(context);
-                                  if (selectedDate != null) {
-                                    reactiveSubcription();
-                                  }
-                                })),
-                  Visibility(
-                      visible:
-                          snapshot.data.data.order.resumeSubscriptionDate !=
+                                      : () async {
+                                    selectedDate = await _selectDate(context);
+                                    if (selectedDate != null) {
+                                      reactiveSubcription();
+                                    }
+                                  })),
+                          Visibility(
+                              visible:
+                              snapshot.data.data.order.resumeSubscriptionDate !=
                                   "0000-00-00" ||
-                              snapshot.data.data.order.pauseSubscriptionDate !=
-                                  "0000-00-00",
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(
-                            color: Colors.grey[300],
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        margin: EdgeInsets.all(8.0),
-                        padding: EdgeInsets.all(5.0),
-                        child: Row(
-                          children: [
-                            Icon(Icons.info),
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 5.0),
-                                child: RichText(
-                                    maxLines: 3,
-                                    text: TextSpan(children: <TextSpan>[
-                                      TextSpan(
-                                          text: "Note:",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 15.0,
-                                              fontWeight: FontWeight.bold)),
-                                      TextSpan(
-                                          text:pause
-                                              && snapshot.data.data.order.pauseSubscriptionDate.compareTo(DateTime.now().toString())>0
-                                              ? " Your Subscription Will be ":
-                                          !pause
-                                          && snapshot.data.data.order.resumeSubscriptionDate.compareTo(DateTime.now().toString())>0?
-                                          " Your Subscription Will be ":
-                                          " Your Subscription is ",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 15.0)),
-                                      TextSpan(
-                                          text:
-                                              pause &&
-                                                  snapshot.data.data.order.pauseSubscriptionDate.compareTo(DateTime.now().toString())>0 ?
+                                  snapshot.data.data.order.pauseSubscriptionDate !=
+                                      "0000-00-00",
+                              child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                decoration: BoxDecoration(
+                                    color: Colors.grey[300],
+                                    borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                                margin: EdgeInsets.all(8.0),
+                                padding: EdgeInsets.all(5.0),
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.info),
+                                    Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(left: 5.0),
+                                        child: RichText(
+                                            maxLines: 3,
+                                            text: TextSpan(children: <TextSpan>[
+                                              TextSpan(
+                                                  text: "Note:",
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 15.0,
+                                                      fontWeight: FontWeight.bold)),
+                                              TextSpan(
+                                                  text:pause
+                                                      && snapshot.data.data.order.pauseSubscriptionDate.compareTo(DateTime.now().toString())>0
+                                                      ? " Your Subscription Will be ":
+                                                  !pause
+                                                      && snapshot.data.data.order.resumeSubscriptionDate.compareTo(DateTime.now().toString())>0?
+                                                  " Your Subscription Will be ":
+                                                  " Your Subscription is ",
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 15.0)),
+                                              TextSpan(
+                                                  text:
+                                                  pause &&
+                                                      snapshot.data.data.order.pauseSubscriptionDate.compareTo(DateTime.now().toString())>0 ?
                                                   // &&
                                                   // snapshot.data.data.order.resumeSubscriptionDate != "0000-00-00"?
-                                              'Paused' : !pause &&
-                                                  snapshot.data.data.order.resumeSubscriptionDate.compareTo(DateTime.now().toString()) >0?
-                                              'Reactivated':
-                                                 !pause &&
-                                                  snapshot.data.data.order.pauseSubscriptionDate.compareTo(DateTime.now().toString()) !="0000-00-00" ?
-                                              // &&
-                                              // snapshot.data.data.order.resumeSubscriptionDate != "0000-00-00"?
-                                              'Paused':
+                                                  'Paused' : !pause &&
+                                                      snapshot.data.data.order.resumeSubscriptionDate.compareTo(DateTime.now().toString()) >0?
+                                                  'Reactivated':
+                                                  !pause &&
+                                                      snapshot.data.data.order.pauseSubscriptionDate.compareTo(DateTime.now().toString()) !="0000-00-00" ?
+                                                  // &&
+                                                  // snapshot.data.data.order.resumeSubscriptionDate != "0000-00-00"?
+                                                  'Paused':
                                                   "Reactivated",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 15.0)),
-                                      TextSpan(
-                                          text:
-                                          // pause ?
-                                              // && snapshot.data.data.order.resumeSubscriptionDate.compareTo(DateTime.now().toString())>0
-                                          // && snapshot.data.data.order.resumeSubscriptionDate != "0000-00-00"?
-                                         // " from ":
-                                          pause && snapshot.data.data.order.pauseSubscriptionDate.compareTo(DateTime.now().toString())==0 ? " " :
-                                          !pause && snapshot.data.data.order.resumeSubscriptionDate.compareTo(DateTime.now().toString())>0 ?
-                                          " from ":
-                                          pause && snapshot.data.data.order.pauseSubscriptionDate.compareTo(DateTime.now().toString())>0 ?
-                                          " from ":''
-                                          ,
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 15.0)),
-                                      TextSpan(
-                                          text: pause && snapshot.data.data.order.pauseSubscriptionDate.compareTo(DateTime.now().toString())>0?
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 15.0)),
+                                              TextSpan(
+                                                  text:
+                                                  // pause ?
+                                                  // && snapshot.data.data.order.resumeSubscriptionDate.compareTo(DateTime.now().toString())>0
+                                                  // && snapshot.data.data.order.resumeSubscriptionDate != "0000-00-00"?
+                                                  // " from ":
+                                                  pause && snapshot.data.data.order.pauseSubscriptionDate.compareTo(DateTime.now().toString())==0 ? " " :
+                                                  !pause && snapshot.data.data.order.resumeSubscriptionDate.compareTo(DateTime.now().toString())>0 ?
+                                                  " from ":
+                                                  pause && snapshot.data.data.order.pauseSubscriptionDate.compareTo(DateTime.now().toString())>0 ?
+                                                  " from ":''
+                                                  ,
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 15.0)),
+                                              TextSpan(
+                                                  text: pause && snapshot.data.data.order.pauseSubscriptionDate.compareTo(DateTime.now().toString())>0?
 
-                                          snapshot.data.data.order.pauseSubscriptionDate:
-                                         !pause && snapshot.data.data.order.resumeSubscriptionDate.compareTo(DateTime.now().toString())>0?
-                                          snapshot.data.data.order.resumeSubscriptionDate:
-                                          " "
-                                          ,
-                                              // snapshot.data.data.order.resumeSubscriptionDate != "0000-00-00" ?
-                                              //     " "
-                                              // '' : snapshot.data.data.order.resumeSubscriptionDate,
-
-
-                                          // pause
-                                          //     && snapshot.data.data.order.resumeSubscriptionDate.compareTo(DateTime.now().toString())>0
-                                          //     ?
-                                          // snapshot.data.data.order.resumeSubscriptionDate != "0000-00-00"?
-                                          //
-                                          //      CommonUtils.getSimpleDate(
-                                          //         DateTime.parse(
-                                          //             resume_subscription_date)): CommonUtils.getSimpleDate(
-                                          //     DateTime.parse(
-                                          //         pause_subscription_date)): "",
+                                                  snapshot.data.data.order.pauseSubscriptionDate:
+                                                  !pause && snapshot.data.data.order.resumeSubscriptionDate.compareTo(DateTime.now().toString())>0?
+                                                  snapshot.data.data.order.resumeSubscriptionDate:
+                                                  " "
+                                                  ,
+                                                  // snapshot.data.data.order.resumeSubscriptionDate != "0000-00-00" ?
+                                                  //     " "
+                                                  // '' : snapshot.data.data.order.resumeSubscriptionDate,
 
 
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 15.0)),
-                                    ])),
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
-                  )
-                ])));
+                                                  // pause
+                                                  //     && snapshot.data.data.order.resumeSubscriptionDate.compareTo(DateTime.now().toString())>0
+                                                  //     ?
+                                                  // snapshot.data.data.order.resumeSubscriptionDate != "0000-00-00"?
+                                                  //
+                                                  //      CommonUtils.getSimpleDate(
+                                                  //         DateTime.parse(
+                                                  //             resume_subscription_date)): CommonUtils.getSimpleDate(
+                                                  //     DateTime.parse(
+                                                  //         pause_subscription_date)): "",
+
+
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: 15.0)),
+                                            ])),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                          )
+                        ])));
               } else if (snapshot.hasError) {
                 return Container(
                   width: MediaQuery.of(context).size.width,
@@ -366,58 +366,58 @@ class _HomeScreenState extends State<PauseSubscription> {
           contentPadding: EdgeInsets.all(0.0),
           content: new SingleChildScrollView(
               child: Container(
-            height: 170,
-            child: new Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  //change here don't //worked
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                height: 170,
+                child: new Column(
                   children: [
-                    IconButton(
-                        icon: Icon(
-                          Icons.close,
-                          size: 20.0,
-                          color: Colors.black,
-                        ),
-                        onPressed: () => {
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      //change here don't //worked
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        IconButton(
+                            icon: Icon(
+                              Icons.close,
+                              size: 20.0,
+                              color: Colors.black,
+                            ),
+                            onPressed: () => {
                               Navigator.pushAndRemoveUntil(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => PauseSubscription(),
                                   ),
-                                  (Route<dynamic> route) => false)
+                                      (Route<dynamic> route) => false)
                             }),
+                      ],
+                    ),
+                    Text(
+                      'Do You want to Pause Your\n Subscription',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+
+                      textAlign: TextAlign.center,
+                    ),
+                    Padding(
+                        padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
+                        child: Container(
+                            padding: EdgeInsets.fromLTRB(20, 5, 20, 0),
+                            height: 40,
+                            width: 400,
+                            child: RaisedButton(
+                                color: HexColor("#FF5657"),
+                                textColor: Colors.white,
+                                child: Text(
+                                  'Confirm',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                onPressed: () {
+                                  submit();
+                                }))),
                   ],
                 ),
-                Text(
-                  'Do You want to Pause Your\n Subscription',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-
-                  textAlign: TextAlign.center,
-                ),
-                Padding(
-                    padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
-                    child: Container(
-                        padding: EdgeInsets.fromLTRB(20, 5, 20, 0),
-                        height: 40,
-                        width: 400,
-                        child: RaisedButton(
-                            color: HexColor("#FF5657"),
-                            textColor: Colors.white,
-                            child: Text(
-                              'Confirm',
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                            onPressed: () {
-                              submit();
-                            }))),
-              ],
-            ),
-          )),
+              )),
         );
       },
     );
@@ -430,7 +430,7 @@ class _HomeScreenState extends State<PauseSubscription> {
     PauseSubscriptionRequest request = PauseSubscriptionRequest(
       token: token,
       pause_subscription_date:
-          CommonUtils.getPauseDate(selectedDate.toIso8601String()),
+      CommonUtils.getPauseDate(selectedDate.toIso8601String()),
       orderId: oID.toInt(),
     );
     var res = await NetworkUtil()
@@ -448,7 +448,7 @@ class _HomeScreenState extends State<PauseSubscription> {
           MaterialPageRoute(
             builder: (context) => HomeScreen(),
           ),
-          (Route<dynamic> route) => false);
+              (Route<dynamic> route) => false);
     } else {
       CommonUtils.errorMessage(msg: response.message);
       CommonUtils.dismissProgressDialog(context);
@@ -463,7 +463,7 @@ class _HomeScreenState extends State<PauseSubscription> {
     ReactiveSubscriptionRequest request = ReactiveSubscriptionRequest(
         orderId: oID,
         resume_subscription_date:
-            CommonUtils.getPauseDate(selectedDate.toIso8601String()));
+        CommonUtils.getPauseDate(selectedDate.toIso8601String()));
     var res = await NetworkUtil()
         .post(url: url, body: jsonEncode(request), token: token);
     BaseResponse response = BaseResponse.fromJson(res);
@@ -487,7 +487,7 @@ class _HomeScreenState extends State<PauseSubscription> {
 
     var res = await NetworkUtil().get("user/pause-page", token: token);
     PauseScreenDataResponse pauseScreenDataResponse =
-        PauseScreenDataResponse.fromJson(res);
+    PauseScreenDataResponse.fromJson(res);
     if (pauseScreenDataResponse.status == 200) {
       if (pauseScreenDataResponse.data.order == null) {
         CommonUtils.showToast(
@@ -517,12 +517,12 @@ class _HomeScreenState extends State<PauseSubscription> {
       {DateTime startDate, DateTime initialDate, DateTime lastDate}) async {
     final DateTime picked = await showDatePicker(
         context: context,
-        initialDate: initialDate != null
-            ? initialDate
-            : DateTime.now().add(Duration(days: 1)),
-        firstDate: startDate != null
-            ? startDate
-            : DateTime.now().add(Duration(days: 1)),
+        // initialDate: initialDate != null
+        //     ? initialDate
+        //     : DateTime.now().add(Duration(days: 1)),
+        // firstDate: startDate != null
+        //     ? startDate
+        //     : DateTime.now().add(Duration(days: 1)),
         lastDate: lastDate != null ? lastDate : DateTime.parse(endDate));
     if (picked != null && picked != selectedDate) return picked;
   }

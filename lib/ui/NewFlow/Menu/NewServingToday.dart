@@ -94,7 +94,7 @@ class ActiveWidgetWithTabState extends State<NewServingTodayMenu> {
 // menuData
 menu !=null?
                           menu.where((element) =>
-                          element.mealCategory == "BreakFast").toList()
+                          element.mealCategory == "Breakfast").toList()
     :menu
 
                       ),

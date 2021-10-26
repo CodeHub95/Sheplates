@@ -68,48 +68,48 @@ class _SubscriptionForPauseAndReactiveState extends State<SubscriptionForPauseAn
                 ],
               ),
             ),
-    StreamBuilder<MySubscriptionResponse>(
-    stream: _listcontroller.stream,
-    builder: (context, snapshot) {
-        if(!snapshot.hasData)
-          return Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            alignment: Alignment.center,
-            child: CircularProgressIndicator(),
-          );
-    if (snapshot.data.data.activeSubscription.isNotEmpty) {
-    return
-            Container(
-              padding: EdgeInsets.only(left: 10, top: 10, right: 10),
-              height: MediaQuery.of(context).size.height
-                  * .7,
-              child:
-              ListView.builder(
-                itemCount: snapshot.data.data.activeSubscription.length,
-                itemBuilder: (context, index) {
-                  return Card(
-                    child: ListTile(
-                      onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => NewPauseScreen(
-                          snapshot.data.data.activeSubscription[index]
-                        )));
-                      },
-                      leading: Icon(Icons.subscriptions),
-                      title: Text("Subscription ID: " +snapshot.data.data.activeSubscription[index].sheplatesOrderId),
-                    ),
-                  );
-                },
-              ),
-            );} else return
+            StreamBuilder<MySubscriptionResponse>(
+                stream: _listcontroller.stream,
+                builder: (context, snapshot) {
+                  if(!snapshot.hasData)
+                    return Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
+                      alignment: Alignment.center,
+                      child: CircularProgressIndicator(),
+                    );
+                  if (snapshot.data.data.activeSubscription.isNotEmpty) {
+                    return
+                      Container(
+                        padding: EdgeInsets.only(left: 10, top: 10, right: 10),
+                        height: MediaQuery.of(context).size.height
+                            * .7,
+                        child:
+                        ListView.builder(
+                          itemCount: snapshot.data.data.activeSubscription.length,
+                          itemBuilder: (context, index) {
+                            return Card(
+                              child: ListTile(
+                                onTap: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => NewPauseScreen(
+                                      snapshot.data.data.activeSubscription[index]
+                                  )));
+                                },
+                                leading: Icon(Icons.subscriptions),
+                                title: Text("Subscription ID: " +snapshot.data.data.activeSubscription[index].sheplatesOrderId),
+                              ),
+                            );
+                          },
+                        ),
+                      );} else return
 
-            Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                alignment: Alignment.center,
-                child: Center(child: Text("You don't have any active subscription")));
+                    Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height,
+                        alignment: Alignment.center,
+                        child: Center(child: Text("You don't have any active subscription")));
 
-    })
+                })
           ],
         ),
       ),
