@@ -192,12 +192,14 @@ class _UpcommingMenuTabDataState extends State<UpcommingMenuTabData> {
                                                               MainAxisAlignment
                                                                   .start,
                                                           children: [
+
                                                             menuWidget(
                                                                 title: "Monday:",
                                                                 menu:
                                                                     menuData[index]
                                                                         .menu
                                                                         .monday),
+
                                                             menuWidget(
                                                                 title: "Tuesday:",
                                                                 menu:
@@ -238,52 +240,63 @@ class _UpcommingMenuTabDataState extends State<UpcommingMenuTabData> {
                                                                     .menu
                                                                     .sunday2 !=
                                                                 null) ...{
+                                                            Padding(
+                                                            padding: EdgeInsets.only(
+                                                            top: 20),
+                                                               child: Container(
+                                                                 alignment: Alignment.center,
+                                                                   child: Text(" *** for Next week ***", style: TextStyle(color: Colors.grey),))
+                                                            ) ,
+
+
                                                               menuWidget(
-                                                                  title: "Monday2:",
+                                                                  title: "Monday:",
                                                                   menu: menuData[
                                                                           index]
                                                                       .menu
                                                                       .monday),
                                                               menuWidget(
                                                                   title:
-                                                                      "Tuesday2:",
+                                                                      "Tuesday:",
                                                                   menu: menuData[
                                                                           index]
                                                                       .menu
                                                                       .tuesday),
                                                               menuWidget(
                                                                   title:
-                                                                      "Wednesday2:",
+                                                                      "Wednesday:",
                                                                   menu: menuData[
                                                                           index]
                                                                       .menu
                                                                       .wednesday),
                                                               menuWidget(
                                                                   title:
-                                                                      "Thursday2:",
+                                                                      "Thursday:",
                                                                   menu: menuData[
                                                                           index]
                                                                       .menu
                                                                       .thrusday),
                                                               menuWidget(
-                                                                  title: "Friday2:",
+                                                                  title: "Friday:",
                                                                   menu: menuData[
                                                                           index]
                                                                       .menu
                                                                       .friday),
                                                               menuWidget(
                                                                   title:
-                                                                      "Saturday2:",
+                                                                      "Saturday:",
                                                                   menu: menuData[
                                                                           index]
                                                                       .menu
                                                                       .saturday),
                                                               menuWidget(
-                                                                  title: "Sunday2:",
+                                                                  title: "Sunday:",
                                                                   menu: menuData[
                                                                           index]
                                                                       .menu
                                                                       .sunday),
+                                                            Padding(
+                                                            padding: EdgeInsets.only(top: 20)),
                                                             }
                                                           ].sublist(DateTime.now()
                                                                       .weekday >

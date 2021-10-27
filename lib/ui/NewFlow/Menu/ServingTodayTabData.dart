@@ -65,14 +65,19 @@ class _ActiveWidgetTabDataCopyState extends State<ServingTodayTabData> {
                         ),
                       ),
                       body: Container(
-                        color: Colors.grey,
+                        // color: Colors.grey,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image:
+                                AssetImage("assets/bg_menu.png"))),
                         width: MediaQuery.of(context).size.width,
 
                         child: Stack(children: [
                           Container(height: MediaQuery.of(context).size.height / 1.1,
                             decoration: BoxDecoration(
                                 image: DecorationImage(
-                                    fit: BoxFit.fill,
+                                    fit: BoxFit.cover,
                                     image:
                                     AssetImage("assets/bg_menu.png"))),
 

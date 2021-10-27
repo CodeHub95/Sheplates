@@ -189,7 +189,6 @@ class _HomeScreenState extends State<NewPauseScreen> {
                                     child: SingleChildScrollView(
                                       scrollDirection: Axis.horizontal,
                                       child: Text(
-
                                         activeSubscription
                                             .orders[index].catalog.mealName
                                             .toString(),

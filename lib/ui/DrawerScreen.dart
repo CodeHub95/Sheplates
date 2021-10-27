@@ -296,7 +296,7 @@ class _CommonDrawerState extends State<CustomDrawer> {
     BaseResponse response = await RestApiCalls().logout(body, token);
     if (response.status == 200) {
       CommonUtils.dismissProgressDialog(context);
-      SharedPrefHelper().clear();
+      // SharedPrefHelper().clear();
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (buildContext) => LoginRegisterScreen()));
     } else
       CommonUtils.dismissProgressDialog(context);

@@ -1,5 +1,6 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sheplates/modals/response/MySubscriptionsResponse.dart';
 import 'package:intl/intl.dart';
 
 class ActiveWidgetTabDataCopy extends StatefulWidget {
@@ -10,7 +11,7 @@ class ActiveWidgetTabDataCopy extends StatefulWidget {
 }
 
 class _ActiveWidgetTabDataCopyState extends State<ActiveWidgetTabDataCopy> {
-  List<dynamic> activeSubscriptionList;
+  List<Order> activeSubscriptionList;
   _ActiveWidgetTabDataCopyState(this.activeSubscriptionList);
   bool isExpanded = false;
 
@@ -38,7 +39,7 @@ class _ActiveWidgetTabDataCopyState extends State<ActiveWidgetTabDataCopy> {
                                   Padding(
                                     padding: EdgeInsets.only(left: 20),
                                     child: Text(
-                                      activeSubscriptionList[index].orders[0].catalog.mealName.toString(),
+                                      activeSubscriptionList[index].catalog.mealName.toString(),
                                       style: TextStyle(color: Colors.black, fontSize: 15),
                                     ),
                                   ),
@@ -66,25 +67,26 @@ class _ActiveWidgetTabDataCopyState extends State<ActiveWidgetTabDataCopy> {
                                               children: [
                                                 Padding(padding: EdgeInsets.only(top: 10)),
                                                 Text(
-                                                  activeSubscriptionList[index]
-                                                      .orders[0]
-                                                      .kitchen
-                                                      .kitchenName
-                                                      .toString(),
+                                                  // activeSubscriptionList[index]
+                                                  //     .orders[0]
+                                                  //     .kitchen
+                                                  //     .kitchenName
+                                                  //     .toString(),
+                                                  activeSubscriptionList[index].kitchen.kitchenName,
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(color: Colors.red, fontSize: 20),
                                                 ),
                                                 Padding(
                                                     padding: EdgeInsets.only(top: 10),
                                                     child: Text(
-                                                        "${activeSubscriptionList[index].orders[0].kitchen.zone.zoneName.toString()}" +
+                                                        "${activeSubscriptionList[index].kitchen.zone.zoneName.toString()}" +
                                                             ", " +
-                                                            '${activeSubscriptionList[index].orders[0].kitchen.zone.city.toString()}')),
+                                                            '${activeSubscriptionList[index].kitchen.zone.city.toString()}')),
                                                 Padding(
                                                     padding: EdgeInsets.only(top: 10),
                                                     child: Text(
                                                       'fssaiNumber: ' +
-                                                          activeSubscriptionList[index].orders[0].kitchen.fssaiNumber,
+                                                          activeSubscriptionList[index].kitchen.fssaiNumber,
                                                       style: TextStyle(fontWeight: FontWeight.bold),
                                                     )),
                                                 Padding(
@@ -92,7 +94,6 @@ class _ActiveWidgetTabDataCopyState extends State<ActiveWidgetTabDataCopy> {
                                                     child: Text(
                                                       'Order ID: ' +
                                                           activeSubscriptionList[index]
-                                                              .orders[0]
                                                               .transaction
                                                               .razorpayOrderId
                                                               .toString(),
@@ -101,7 +102,6 @@ class _ActiveWidgetTabDataCopyState extends State<ActiveWidgetTabDataCopy> {
                                                 Padding(padding: EdgeInsets.only(top: 10)),
                                                 Text(
                                                   activeSubscriptionList[index]
-                                                      .orders[0]
                                                       .catalog
                                                       .mealCategory
                                                       .category
@@ -118,7 +118,7 @@ class _ActiveWidgetTabDataCopyState extends State<ActiveWidgetTabDataCopy> {
                                                     ),
                                                     Text(
                                                       DateFormat("dd/MM/yyyy").format(DateTime.parse(
-                                                          activeSubscriptionList[index].orders[0].endDate.toString())),
+                                                          activeSubscriptionList[index].endDate.toString())),
                                                     )
                                                   ],
                                                 )
@@ -142,7 +142,7 @@ class _ActiveWidgetTabDataCopyState extends State<ActiveWidgetTabDataCopy> {
                                               style: TextStyle(color: Colors.grey, fontSize: 16),
                                             ),
                                             Text(
-                                              activeSubscriptionList[index].orders[0].duration.toString(),
+                                              activeSubscriptionList[index].duration.toString(),
                                               style: TextStyle(color: Colors.black, fontSize: 16),
                                             ),
                                           ],
@@ -163,7 +163,7 @@ class _ActiveWidgetTabDataCopyState extends State<ActiveWidgetTabDataCopy> {
                                             ),
                                             Text(
                                               DateFormat("MM/dd/yyyy").format(DateTime.parse(
-                                                  activeSubscriptionList[index].orders[0].startDate.toString())),
+                                                  activeSubscriptionList[index].startDate.toString())),
                                               style: TextStyle(color: Colors.black, fontSize: 16),
                                             )
                                           ],
@@ -183,7 +183,7 @@ class _ActiveWidgetTabDataCopyState extends State<ActiveWidgetTabDataCopy> {
                                               style: TextStyle(color: Colors.grey, fontSize: 16),
                                             ),
                                             Text(
-                                              activeSubscriptionList[index].orders[0].totalAmount.toString(),
+                                              activeSubscriptionList[index].totalAmount.toString(),
                                               style: TextStyle(color: Colors.black, fontSize: 16),
                                             )
                                           ],
@@ -203,7 +203,7 @@ class _ActiveWidgetTabDataCopyState extends State<ActiveWidgetTabDataCopy> {
                                               style: TextStyle(color: Colors.grey, fontSize: 16),
                                             ),
                                             Text(
-                                              activeSubscriptionList[index].orders[0].mealsServed.toString(),
+                                              activeSubscriptionList[index].mealsServed.toString(),
                                               style: TextStyle(color: Colors.black, fontSize: 16),
                                             )
                                           ],
@@ -223,8 +223,8 @@ class _ActiveWidgetTabDataCopyState extends State<ActiveWidgetTabDataCopy> {
                                               style: TextStyle(color: Colors.grey, fontSize: 16),
                                             ),
                                             Text(
-                                              (activeSubscriptionList[index].orders[0].totalMealCount -
-                                                      activeSubscriptionList[index].orders[0].mealsServed)
+                                              (activeSubscriptionList[index].totalMealCount -
+                                                      activeSubscriptionList[index].mealsServed)
                                                   .toString(),
                                               style: TextStyle(color: Colors.black, fontSize: 16),
                                             )

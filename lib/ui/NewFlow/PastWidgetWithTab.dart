@@ -13,9 +13,45 @@ class PastWidgetWithTabs extends StatefulWidget {
 }
 
 class _PastWidgetWithTabsState extends State<PastWidgetWithTabs> {
-  List<dynamic> pastSubscriptionList;
+  List<Subscription> pastSubscriptionList;
   _PastWidgetWithTabsState(this.pastSubscriptionList);
+  List<Order> brea = [];
+  List<Order> lun = [];
+  List<Order> snac = [];
+  List<Order> dinn = [];
+  List<Order> al = [];
+  @override
+  void initState() {
+    // TODO: implement initState
+    getList();
+    super.initState();
+  }
+  void getList() {
+    for (int j = 0; j < pastSubscriptionList.length; j++)
+      for (int i = 0; i < pastSubscriptionList[j].orders.length; i++)
+        if (pastSubscriptionList[j].orders[i].catalog.mealCategory.category == "Breakfast") {
+          brea.add(pastSubscriptionList[j].orders[i]);
+        }
+    for (int j = 0; j < pastSubscriptionList.length; j++)
+      for (int i = 0; i < pastSubscriptionList[j].orders.length; i++)
+        if (pastSubscriptionList[j].orders[i].catalog.mealCategory.category == "Lunch") {
+          lun.add(pastSubscriptionList[j].orders[i]);
+        }
+    for (int j = 0; j < pastSubscriptionList.length; j++)
+      for (int i = 0; i < pastSubscriptionList[j].orders.length; i++)
+        if (pastSubscriptionList[j].orders[i].catalog.mealCategory.category == "Snacks") {
+          snac.add(pastSubscriptionList[j].orders[i]);
+        }
+    for (int j = 0; j < pastSubscriptionList.length; j++)
+      for (int i = 0; i < pastSubscriptionList[j].orders.length; i++)
+        if (pastSubscriptionList[j].orders[i].catalog.mealCategory.category == "Dinner") {
+          dinn.add(pastSubscriptionList[j].orders[i]);
+        }
+    for (int j = 0; j < pastSubscriptionList.length; j++)
+      for (int i = 0; i < pastSubscriptionList[j].orders.length; i++)
+        al.add(pastSubscriptionList[j].orders[i]);
 
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -62,33 +98,36 @@ class _PastWidgetWithTabsState extends State<PastWidgetWithTabs> {
             physics: NeverScrollableScrollPhysics(),
             children: [
               PastWidgetTabDataCopy(
-                  pastSubscriptionList.isNotEmpty?
-                  pastSubscriptionList
-                      .where((element) => element.orders[0].catalog.mealCategory.category == "Breakfast")
-                      .toList(): null
+                  pastSubscriptionList.isNotEmpty?brea
+                  // pastSubscriptionList
+                  //     .where((element) => element.orders[0].catalog.mealCategory.category == "Breakfast")
+                  //     .toList()
+                      : null
 
               ),
               PastWidgetTabDataCopy(
-                  pastSubscriptionList.isNotEmpty?
-                  pastSubscriptionList
-                      .where((element) => element.orders[0].catalog.mealCategory.category == "Lunch")
-                      .toList(): null
+                  pastSubscriptionList.isNotEmpty?lun
+                  // pastSubscriptionList
+                  //     .where((element) => element.orders[0].catalog.mealCategory.category == "Lunch")
+                  //     .toList()
+                      : null
               ),
               PastWidgetTabDataCopy(
-                  pastSubscriptionList.isNotEmpty?
-                  pastSubscriptionList
-                      .where((element) => element.orders[0].catalog.mealCategory.category == "Snacks")
-                      .toList(): null
+                  pastSubscriptionList.isNotEmpty?snac
+                  // pastSubscriptionList
+                  //     .where((element) => element.orders[0].catalog.mealCategory.category == "Snacks")
+                  //     .toList()
+                      : null
               ),
               PastWidgetTabDataCopy(
-                  pastSubscriptionList.isNotEmpty?
-                  pastSubscriptionList
-                      .where((element) => element.orders[0].catalog.mealCategory.category == "Dinner")
-                      .toList():
-                  null),
+                  pastSubscriptionList.isNotEmpty?dinn
+                  // pastSubscriptionList
+                  //     .where((element) => element.orders[0].catalog.mealCategory.category == "Dinner")
+                  //     .toList()
+                      : null),
               PastWidgetTabDataCopy(
                   pastSubscriptionList.isNotEmpty?
-                  pastSubscriptionList: null
+                  al: null
               ),
             ],
           ),

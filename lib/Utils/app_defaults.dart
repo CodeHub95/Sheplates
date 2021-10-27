@@ -39,9 +39,9 @@ class SharedPrefHelper {
     return sharedPreferences.get(key) == null ? defValue : await sharedPreferences.get(key);
   }
 
-  Future<bool> clear() async {
-    SharedPreferences sharedPreferences;
-    sharedPreferences = await SharedPreferences.getInstance();
-    return await sharedPreferences.clear();
-  }
+  // Future<bool> clear() async {
+  //   SharedPreferences sharedPreferences;
+  //   sharedPreferences = await SharedPreferences.getInstance();
+  //   return await sharedPreferences.clear();
+  // }
 }

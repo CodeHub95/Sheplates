@@ -145,6 +145,7 @@ class BuildButton extends StatelessWidget {
         ),
         onPressed: () {
           categoryCode = 1;
+          saveCategoryNameID();
           Navigator.push(
               context,
               MaterialPageRoute(
@@ -152,6 +153,12 @@ class BuildButton extends StatelessWidget {
         },
       ),
     );
+  }
+
+  Future<void> saveCategoryNameID() async {
+    await SharedPrefHelper().save("categoryName", categoryName);
+    await SharedPrefHelper().save("mainCategoryID", categoryID.toString());
+
   }
 }
 

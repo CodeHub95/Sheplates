@@ -32,9 +32,9 @@ class CartScreen extends StatefulWidget {
  String name;
  String code;
  String codeType;
-final String categoryname;
+String categoryname;
 final String type;
-final int maincategoryId;
+int maincategoryId;
   num payedAmountAfterDiscount;
   CartScreen({Key key, this.stockCheckOutResponse, this.confirmOrderRequestModel, this.ReferralAmount, this.name, this.code, this.codeType, this.categoryname, this.type, this.maincategoryId}) : super(key: key);
 
@@ -614,7 +614,10 @@ int maincategoryId;
                 ),
               ],
             ),
-            Text(amount, style: TextStyle(fontSize: 17)),
+            Text(
+                // amount
+               (double.parse(amount).toStringAsFixed(2)).toString()
+                , style: TextStyle(fontSize: 17)),
           ],
         ),
         SizedBox(height: 7),
@@ -625,16 +628,26 @@ int maincategoryId;
   }
 
   getCartItem() async {
+
+    // categoryName: widget.categoryname, mainCategoryID:  widget.maincategoryId,
+
     String token = await SharedPrefHelper().getWithDefault("token", "");
     var res = await NetworkUtil().get("user/cartItems", token: token);
     CardResponse cardResponse = CardResponse.fromJson(res);
     if (cardResponse.status == 200) {
+      String categ= await SharedPrefHelper().getWithDefault("categoryName", '');
+      String maincat = await SharedPrefHelper().getWithDefault("mainCategoryID", '');
+      print("cat" + categ);
+      print("mai" + maincat);
+
       _streamController.sink.add(cardResponse);
       setState(() {
         // String itemno = await SharedPrefHelper().save("itemno", cardResponse.data.cartItems !=null? cardResponse.data.cartItems.toString(): null);
         cartRes = cardResponse.data.cartItems !=null?
-
         true : false;
+        widget.categoryname = categ;
+        widget.maincategoryId = int.parse(maincat);
+
       });
 
     } else {
@@ -725,19 +738,21 @@ int maincategoryId;
           ),
           name == "Delivery"
               ? Container(
-                  height: 100,
+                  height: 120,
                   // height: Get.height * 0.4,
-                  child: ListView.builder(
-                    itemCount: cartItems.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Center(
-                        child: Text(
-                            cartItems[index].catalog.mealName +
-                                "-" +
-                                cartItems[index].catalog.deliveryCharges.toString(),
-                            style: TextStyle(fontSize: 18, color: Colors.black, fontWeight: FontWeight.w600)),
-                      );
-                    },
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom:20.0),
+                    child: ListView.builder(
+                      itemCount: cartItems.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        print("deliveryyyyy" + cartItems[1].catalog.deliveryCharges .toString());
+                        return Center(
+                          child: Text(
+                              cartItems[index].catalog.mealName + "-" + (cartItems[index].catalog.deliveryCharges).toString(),
+                              style: TextStyle(fontSize: 18, color: Colors.black, fontWeight: FontWeight.w600)),
+                        );
+                      },
+                    ),
                   ),
                 )
               : Container(
@@ -747,7 +762,12 @@ int maincategoryId;
                     itemCount: 1,
                     itemBuilder: (BuildContext context, int index) {
                       return Center(
-                        child: Text("cGST25: " + taxObj.cGST25.toString() + "\n" + "sGST25:" + taxObj.sGST25.toString(),
+                        child: Text("cGST25: " + (double.parse((taxObj.cGST25).toString()).toStringAsFixed(2)).toString()
+                            // taxObj.cGST25.toString()
+                            + "\n" + "sGST25:" +
+                            (double.parse((taxObj.sGST25).toString()).toStringAsFixed(2)).toString()
+                            // taxObj.sGST25.toString()
+                            ,
                             style: TextStyle(fontSize: 18, color: Colors.black, fontWeight: FontWeight.w600)),
                       );
                     },

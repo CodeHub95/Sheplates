@@ -12,8 +12,45 @@ class ActiveWidgetWithTab extends StatefulWidget {
 }
 
 class ActiveWidgetWithTabState extends State<ActiveWidgetWithTab> {
-  List<dynamic> activeSubscriptionList;
+  List<Subscription> activeSubscriptionList;
   ActiveWidgetWithTabState(this.activeSubscriptionList);
+  List<Order> brea = [];
+  List<Order> lun = [];
+  List<Order> snac = [];
+  List<Order> dinn = [];
+  List<Order> al = [];
+  @override
+  void initState() {
+    // TODO: implement initState
+    getList();
+    super.initState();
+  }
+  void getList() {
+    for (int j = 0; j < activeSubscriptionList.length; j++)
+      for (int i = 0; i < activeSubscriptionList[j].orders.length; i++)
+      if (activeSubscriptionList[j].orders[i].catalog.mealCategory.category == "Breakfast") {
+        brea.add(activeSubscriptionList[j].orders[i]);
+      }
+    for (int j = 0; j < activeSubscriptionList.length; j++)
+      for (int i = 0; i < activeSubscriptionList[j].orders.length; i++)
+    if (activeSubscriptionList[j].orders[i].catalog.mealCategory.category == "Lunch") {
+      lun.add(activeSubscriptionList[j].orders[i]);
+    }
+    for (int j = 0; j < activeSubscriptionList.length; j++)
+      for (int i = 0; i < activeSubscriptionList[j].orders.length; i++)
+    if (activeSubscriptionList[j].orders[i].catalog.mealCategory.category == "Snacks") {
+      snac.add(activeSubscriptionList[j].orders[i]);
+    }
+    for (int j = 0; j < activeSubscriptionList.length; j++)
+      for (int i = 0; i < activeSubscriptionList[j].orders.length; i++)
+    if (activeSubscriptionList[j].orders[i].catalog.mealCategory.category == "Dinner") {
+      dinn.add(activeSubscriptionList[j].orders[i]);
+    }
+    for (int j = 0; j < activeSubscriptionList.length; j++)
+      for (int i = 0; i < activeSubscriptionList[j].orders.length; i++)
+          al.add(activeSubscriptionList[j].orders[i]);
+
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -56,30 +93,33 @@ class ActiveWidgetWithTabState extends State<ActiveWidgetWithTab> {
                   children: [
 
                     ActiveWidgetTabDataCopy(
-                activeSubscriptionList!=null && activeSubscriptionList.isNotEmpty?
-                        activeSubscriptionList
-                        .where((element) => element.orders[0].catalog.mealCategory.category == "Breakfast")
-                        .toList(): null
+
+                activeSubscriptionList!=null && activeSubscriptionList.isNotEmpty? brea:null
+                        // activeSubscriptionList
+                        // .where((element) => element.orders.where((i)=> i.catalog.mealCategory.category == "Breakfast"))
+                        // .toList(): null
 
                     ),
                     ActiveWidgetTabDataCopy(
-                        activeSubscriptionList!=null &&  activeSubscriptionList.isNotEmpty?
-                        activeSubscriptionList
-                        .where((element) => element.orders[0].catalog.mealCategory.category == "Lunch")
-                        .toList(): null),
+                        activeSubscriptionList!=null &&  activeSubscriptionList.isNotEmpty?lun
+                        // activeSubscriptionList
+                        // .where((element) => element.orders[0].catalog.mealCategory.category == "Lunch")
+                        // .toList()
+                            : null),
                     ActiveWidgetTabDataCopy(
-                        activeSubscriptionList!=null && activeSubscriptionList.isNotEmpty?
-                        activeSubscriptionList
-                        .where((element) => element.orders[0].catalog.mealCategory.category == "Snacks")
-                        .toList():null),
+                        activeSubscriptionList!=null && activeSubscriptionList.isNotEmpty?snac
+                        // activeSubscriptionList
+                        // .where((element) => element.orders[0].catalog.mealCategory.category == "Snacks")
+                        // .toList()
+                            :null),
                     ActiveWidgetTabDataCopy(
-                        activeSubscriptionList!=null &&  activeSubscriptionList.isNotEmpty?
-                        activeSubscriptionList
-                        .where((element) => element.orders[0].catalog.mealCategory.category == "Dinner")
-                        .toList(): null),
+                        activeSubscriptionList!=null &&  activeSubscriptionList.isNotEmpty?dinn
+                        // activeSubscriptionList
+                        // .where((element) => element.orders[0].catalog.mealCategory.category == "Dinner")
+                        // .toList()
+                            : null),
                     ActiveWidgetTabDataCopy(
-                        activeSubscriptionList!=null && activeSubscriptionList.isNotEmpty?
-                        activeSubscriptionList: null),
+                        activeSubscriptionList!=null && activeSubscriptionList.isNotEmpty? al: null),
                   ],
                 ),
               ),
@@ -88,4 +128,6 @@ class ActiveWidgetWithTabState extends State<ActiveWidgetWithTab> {
   }
 
   Text buildTab(String tabTitle) => Text(tabTitle, style: TextStyle(fontSize: 17, color: Colors.black));
+
+
 }

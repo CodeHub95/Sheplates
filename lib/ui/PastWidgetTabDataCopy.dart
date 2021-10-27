@@ -1,16 +1,17 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sheplates/modals/response/MySubscriptionsResponse.dart';
 import 'package:intl/intl.dart';
 
 class PastWidgetTabDataCopy extends StatefulWidget {
-  List<dynamic> pastSubscriptionList;
+  List<Order> pastSubscriptionList;
   PastWidgetTabDataCopy(this.pastSubscriptionList);
   @override
   _PastWidgetTabDataCopyState createState() => _PastWidgetTabDataCopyState(pastSubscriptionList);
 }
 
 class _PastWidgetTabDataCopyState extends State<PastWidgetTabDataCopy> {
-  List<dynamic> pastSubscriptionList;
+  List<Order> pastSubscriptionList;
   _PastWidgetTabDataCopyState(this.pastSubscriptionList);
   bool isExpanded = false;
 
@@ -25,7 +26,7 @@ class _PastWidgetTabDataCopyState extends State<PastWidgetTabDataCopy> {
           itemCount: pastSubscriptionList.length,
           itemBuilder: (BuildContext context, int index) {
 
-            for(int i =0; i<=pastSubscriptionList[index].orders.length; i++ ) {
+            // for(int i =0; i<=pastSubscriptionList[index].orders.length; i++ ) {
               return
                 Padding(
                   padding: EdgeInsets.symmetric(
@@ -43,8 +44,7 @@ class _PastWidgetTabDataCopyState extends State<PastWidgetTabDataCopy> {
                                     Padding(
                                       padding: EdgeInsets.only(left: 20),
                                       child: Text(
-                                        pastSubscriptionList[index]
-                                            .orders[i].catalog.mealName
+                                        pastSubscriptionList[index].catalog.mealName
                                             .toString(),
                                         style: TextStyle(
                                             color: Colors.black,
@@ -88,9 +88,7 @@ class _PastWidgetTabDataCopyState extends State<PastWidgetTabDataCopy> {
                                                   padding: EdgeInsets.only(
                                                       top: 10)),
                                               Text(
-                                                pastSubscriptionList[index]
-                                                    .orders[i].kitchen!=null? pastSubscriptionList[index]
-                                                    .orders[i].kitchen.kitchenName
+                                                pastSubscriptionList[index].kitchen!=null? pastSubscriptionList[index].kitchen.kitchenName
                                                     .toString(): "Kitchen details is not available",
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
@@ -107,7 +105,7 @@ class _PastWidgetTabDataCopyState extends State<PastWidgetTabDataCopy> {
                                                 padding: EdgeInsets.only(
                                                     top: 10),
                                                 child: Text(
-                                                  'fssaiNumber' + "${pastSubscriptionList[index].orders[0].kitchen==null?"00000":pastSubscriptionList[index].orders[0].kitchen.fssaiNumber}"
+                                                  'fssaiNumber' + "${pastSubscriptionList[index].kitchen==null?"00000":pastSubscriptionList[index].kitchen.fssaiNumber}"
                                                           ,
                                                   style: TextStyle(
                                                       fontWeight: FontWeight
@@ -120,7 +118,6 @@ class _PastWidgetTabDataCopyState extends State<PastWidgetTabDataCopy> {
                                                 child: Text(
                                                   'Order ID: ' +
                                                       pastSubscriptionList[index]
-                                                          .orders[i]
                                                           .transaction
                                                           .razorpayOrderId
                                                           .toString(),
@@ -134,7 +131,7 @@ class _PastWidgetTabDataCopyState extends State<PastWidgetTabDataCopy> {
                                                       top: 10)),
                                               Text(
                                                 pastSubscriptionList[index]
-                                                    .orders[i].catalog
+                                                    .catalog
                                                     .mealCategory.category
                                                     .toString(),
                                                 style: TextStyle(
@@ -157,7 +154,6 @@ class _PastWidgetTabDataCopyState extends State<PastWidgetTabDataCopy> {
                                                         .format(
                                                         DateTime.parse(
                                                             pastSubscriptionList[index]
-                                                                .orders[0]
                                                                 .endDate
                                                                 .toString())),
                                                   )
@@ -189,7 +185,7 @@ class _PastWidgetTabDataCopyState extends State<PastWidgetTabDataCopy> {
                                           ),
                                           Text(
                                             pastSubscriptionList[index]
-                                                .orders[0].duration
+                                                .duration
                                                 .toString(),
                                             style: TextStyle(
                                                 color: Colors.black,
@@ -219,7 +215,7 @@ class _PastWidgetTabDataCopyState extends State<PastWidgetTabDataCopy> {
                                             DateFormat("MM/dd/yyyy").format(
                                                 DateTime.parse(
                                                     pastSubscriptionList[index]
-                                                        .orders[0].startDate
+                                                        .startDate
                                                         .toString())),
                                             style: TextStyle(
                                                 color: Colors.black,
@@ -247,7 +243,7 @@ class _PastWidgetTabDataCopyState extends State<PastWidgetTabDataCopy> {
                                           ),
                                           Text(
                                             pastSubscriptionList[index]
-                                                .orders[0].totalAmount
+                                                .totalAmount
                                                 .toString(),
                                             style: TextStyle(
                                                 color: Colors.black,
@@ -275,7 +271,7 @@ class _PastWidgetTabDataCopyState extends State<PastWidgetTabDataCopy> {
                                           ),
                                           Text(
                                             pastSubscriptionList[index]
-                                                .orders[0].mealsServed
+                                                .mealsServed
                                                 .toString(),
                                             style: TextStyle(
                                                 color: Colors.black,
@@ -303,9 +299,9 @@ class _PastWidgetTabDataCopyState extends State<PastWidgetTabDataCopy> {
                                           ),
                                           Text(
                                             (pastSubscriptionList[index]
-                                                .orders[0].totalMealCount -
+                                                .totalMealCount -
                                                 pastSubscriptionList[index]
-                                                    .orders[0].mealsServed)
+                                                    .mealsServed)
                                                 .toString(),
                                             style: TextStyle(
                                                 color: Colors.black,
@@ -330,8 +326,8 @@ class _PastWidgetTabDataCopyState extends State<PastWidgetTabDataCopy> {
                             !pastSubscriptionList[index].isExpanded,
                           )),
                 );
-            }
-            return null;
+            // }
+            // return null;
           },
         ),
       ),

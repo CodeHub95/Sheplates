@@ -57,6 +57,7 @@ class _HomeScreenState extends State<NextWeekScreen> {
             preferredSize: Size.fromHeight(1.0)),
       ),
       body: SingleChildScrollView(
+
         child: Container(
           // height:  MediaQuery.of(context).size.height,
           decoration: BoxDecoration(
@@ -94,7 +95,7 @@ class _HomeScreenState extends State<NextWeekScreen> {
                                       style: TextStyle(fontSize: 25, color: Colors.white),
                                     ),
                                     Padding(
-                                        padding: EdgeInsets.only(top: 10),
+                                        padding: EdgeInsets.only(top: 20),
                                         child: Text(
                                           "A Taste of Home Made Food",
                                           style: TextStyle(fontSize: 17, color: Colors.white),
@@ -111,16 +112,18 @@ class _HomeScreenState extends State<NextWeekScreen> {
                                     decoration: BoxDecoration(
                                         image: DecorationImage(
                                             fit: BoxFit.fill, image: AssetImage("assets/arrow_menu.png"))))),
+                            WeekSeparator(weekName: "Week 2"),
                             Container(
-                              // height: MediaQuery.of(context).size.height / 1.2,
-                              height: MediaQuery.of(context).size.height,
+                              height: MediaQuery.of(context).size.height / 1.2,
+                              // height: MediaQuery.of(context).size.height,
                               child: SingleChildScrollView(
+                                physics: NeverScrollableScrollPhysics(),
                                 child: Padding(
                                     padding: EdgeInsets.only(top: 5, left: 30, right: 30),
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        WeekSeparator(weekName: "Week 2"),
+
                                         Day(dayName: "Monday:"),
                                         Meal(mealName: snapshotData.mealDetails.menu.monday2),
                                         Day(dayName: "Tuesday:"),
@@ -153,27 +156,7 @@ class _HomeScreenState extends State<NextWeekScreen> {
                                               maxLines: 3,
                                               style: TextStyle(fontSize: 14, color: Colors.white)),
                                         ),
-                                        Center(
-                                          child: Container(
-                                            margin: EdgeInsets.symmetric(
-                                                vertical: MediaQuery.of(context).size.height * .14),
-                                            height: 35,
-                                            width: MediaQuery.of(context).size.width / 3.2,
-                                            child: RaisedButton(
-                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-                                              color: AppColor.themeButtonColor,
-                                              textColor: Colors.white,
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  Icon(Icons.arrow_back, size: 20),
-                                                  Text("Go back", style: TextStyle(fontSize: 15)),
-                                                ],
-                                              ),
-                                              onPressed: () => Navigator.pop(context),
-                                            ),
-                                          ),
-                                        ),
+
 
                                         // WeekSeparator(weekName: "Week 2"),
                                         // Day(dayName: "Monday:"),
@@ -209,7 +192,28 @@ class _HomeScreenState extends State<NextWeekScreen> {
                                       ],
                                     )),
                               ),
-                            )
+                            ),
+                            Center(
+                              child: Container(
+                                margin: EdgeInsets.symmetric(
+                                    vertical: MediaQuery.of(context).size.height * .14),
+                                height: 35,
+                                width: MediaQuery.of(context).size.width / 3.2,
+                                child: RaisedButton(
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+                                  color: AppColor.themeButtonColor,
+                                  textColor: Colors.white,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Icon(Icons.arrow_back, size: 20),
+                                      Text("Go back", style: TextStyle(fontSize: 15)),
+                                    ],
+                                  ),
+                                  onPressed: () => Navigator.pop(context),
+                                ),
+                              ),
+                            ),
                           ])),
                   Padding(padding: EdgeInsets.only(bottom: 10)),
                 ],

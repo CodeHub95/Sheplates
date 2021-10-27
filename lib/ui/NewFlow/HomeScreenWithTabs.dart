@@ -32,13 +32,15 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
   int mainCategoryID;
   TabNamesFilters tabNamesFilters;
   bool isSubscribed = false;
-
+String categoryN;
+String maincateId;
   _HomeScreenWithTabsState(this.categoryName, this.mainCategoryID);
 
   @override
   initState() {
     super.initState();
     if (mounted) {
+
       getTabs();
       updateCartIconNumber();
     }_appDownload();
@@ -56,8 +58,16 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
     var res = await NetworkUtil().get("user/cartItems", token: token);
     CardResponse cardResponse = CardResponse.fromJson(res);
     if (cardResponse.status == 200) {
+      categoryN= await SharedPrefHelper().getWithDefault("categoryName", "");
+      maincateId= await SharedPrefHelper().getWithDefault("mainCategoryID", "");
+      print("categoryyyIddddddd" + categoryN);
+      print("mainnncategoryyyyyyy" + maincateId);
+
       if (cardResponse.data == null) {
-        setState(() => numberOfCartItems = null);
+        setState((){
+        widget.categoryName = widget.categoryName == null && categoryN!=null ? categoryN.toString():widget.categoryName ;
+        widget.mainCategoryID = widget.mainCategoryID.toString() == null && maincateId!=null ? int.parse(maincateId): widget.mainCategoryID ;
+          numberOfCartItems = null;});
       } else {
         setState(() => numberOfCartItems = cardResponse.data.cartItems.length);
       }
@@ -71,10 +81,20 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
   }
 
   getTabs() async {
+
     String token = await SharedPrefHelper().getWithDefault("token", "");
     var res = await NetworkUtil().get("user/meal-category", token: token);
     tabNamesFilters = TabNamesFilters.fromJson(res);
-    setState(() {});
+
+    categoryN= await SharedPrefHelper().getWithDefault("categoryName", "");
+     maincateId= await SharedPrefHelper().getWithDefault("mainCategoryID", "");
+
+    setState((){
+      widget.categoryName = categoryN.toString() ;
+      widget.mainCategoryID =  int.parse(maincateId) ;
+      print("categoryyyIddddddd" + widget.categoryName );
+      print("mainnncategoryyyyyyy" + widget.mainCategoryID.toString());
+    });
     // if (tabNamesFilters.status == 200) {}
   }
 
@@ -210,8 +230,16 @@ class _HomeScreenWithTabsState extends State<HomeScreenWithTabs> {
                               builder: (context) => CartScreen(),
                             )).then((value) => updateCartIconNumber());
                         if (result == "Update") {
+                          categoryN= await SharedPrefHelper().getWithDefault("categoryName", "");
+                          maincateId= await SharedPrefHelper().getWithDefault("mainCategoryID", "");
                         setState(() {
                           updateCartIconNumber();
+                          print("categoryyyIddddddd" + categoryN);
+                          print("mainnncategoryyyyyyy" + maincateId);
+                            widget.categoryName =
+                            widget.categoryName == null && categoryN!=null ? categoryN.toString():widget.categoryName ;
+                            widget.mainCategoryID =
+                            widget.mainCategoryID.toString() == null && maincateId!=null ? int.parse(maincateId): widget.mainCategoryID ;
                         });
                         }
                       } ),
