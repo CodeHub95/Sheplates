@@ -85,7 +85,7 @@ class _UpcommingMenuTabDataState extends State<UpcommingMenuTabData> {
                                         fit: BoxFit.fill,
                                         image:
                                             AssetImage("assets/bg_menu.png"))),
-                                height: MediaQuery.of(context).size.height,
+                                height: MediaQuery.of(context).size.height/1.1,
                                 width: MediaQuery.of(context).size.width,
                                 child: Column(
                                   children: [
@@ -97,7 +97,7 @@ class _UpcommingMenuTabDataState extends State<UpcommingMenuTabData> {
                                               height: MediaQuery.of(context)
                                                       .size
                                                       .height /
-                                                  1.2,
+                                                  1.3,
                                               decoration: BoxDecoration(
                                                   image: DecorationImage(
                                                       fit: BoxFit.fill,
@@ -174,9 +174,9 @@ class _UpcommingMenuTabDataState extends State<UpcommingMenuTabData> {
                                                 )),
                                             Padding(
                                                 padding: EdgeInsets.only(
-                                                    top: 10, left: 30),
+                                                   left: 30),
                                                 child: Container(
-                                                  height: MediaQuery.of(context).size.height/1.7,
+                                                  height: MediaQuery.of(context).size.height/1.8,
                                                   child: SingleChildScrollView(
                                                     child: Row(
                                                       crossAxisAlignment:
@@ -296,7 +296,7 @@ class _UpcommingMenuTabDataState extends State<UpcommingMenuTabData> {
                                                                       .menu
                                                                       .sunday),
                                                             Padding(
-                                                            padding: EdgeInsets.only(top: 20)),
+                                                            padding: EdgeInsets.only(top: 15)),
                                                             }
                                                           ].sublist(DateTime.now()
                                                                       .weekday >
@@ -322,7 +322,7 @@ class _UpcommingMenuTabDataState extends State<UpcommingMenuTabData> {
                                                 height: MediaQuery.of(context)
                                                         .size
                                                         .height /
-                                                    1.3,
+                                                    1.4,
                                               )),
                                           // Padding(
                                           //   // alignment: Alignment.center,
@@ -419,7 +419,6 @@ class _UpcommingMenuTabDataState extends State<UpcommingMenuTabData> {
                                                    submit(
                                                      menuData[index].subscriptionPlanId
                                                    );
-
                                                   }))
                                         ],
                                       ),

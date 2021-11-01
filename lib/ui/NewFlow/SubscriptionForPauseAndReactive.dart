@@ -92,7 +92,7 @@ class _SubscriptionForPauseAndReactiveState extends State<SubscriptionForPauseAn
                               child: ListTile(
                                 onTap: () {
                                   Navigator.push(context, MaterialPageRoute(builder: (context) => NewPauseScreen(
-                                      snapshot.data.data.activeSubscription[index]
+                                      snapshot.data.data.activeSubscription[index].orders
                                   )));
                                 },
                                 leading: Icon(Icons.subscriptions),

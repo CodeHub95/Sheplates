@@ -17,7 +17,7 @@ import 'package:flutter_sheplates/ui/NewFlow/SubscriptionForPauseAndReactive.dar
 import 'package:intl/intl.dart';
 
 class NewPauseScreen extends StatefulWidget {
-  dynamic activeSubscription;
+  List<Order> activeSubscription;
 
   NewPauseScreen(this.activeSubscription);
 
@@ -39,7 +39,7 @@ class _HomeScreenState extends State<NewPauseScreen> {
 
   _HomeScreenState(this.activeSubscription);
 
-  dynamic activeSubscription;
+  List<Order>  activeSubscription;
 
   @override
   Future<void> initState() {
@@ -48,7 +48,7 @@ class _HomeScreenState extends State<NewPauseScreen> {
     // getPauseList();
     idd.clear();
     if (mounted) {
-      activeStatus = activeSubscription.orders[0].status.toString();
+      activeStatus = activeSubscription[0].status;
       // setState(() {
       //   pause = activeStatus == "Active" ? true : false;
       // });
@@ -105,27 +105,25 @@ class _HomeScreenState extends State<NewPauseScreen> {
           ListView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
-              itemCount: activeSubscription.orders.length,
+              itemCount: activeSubscription.length,
               itemBuilder: (BuildContext context, int index) {
-                pauseSubscriptionDate = activeSubscription
-                    .orders[0].pauseSubscriptionDate
+                pauseSubscriptionDate = activeSubscription[0].pauseSubscriptionDate
                     .toString();
-                resumeSubscriptionDate = activeSubscription
-                    .orders[0].resumeSubscriptionDate
+                resumeSubscriptionDate = activeSubscription[0].resumeSubscriptionDate
                     .toString();
 
                 print("-------------" + pauseSubscriptionDate);
                 print("-------------" + resumeSubscriptionDate);
                 activeStatus =
-                    activeSubscription.orders[index].status.toString();
+                    activeSubscription[index].status.toString();
 
-                idd.add(activeSubscription.orders[index].id);
+                idd.add(activeSubscription[index].id);
                 print("idddddddddddddddddd");
                 print(idd);
-                print(activeSubscription.orders.length);
+                print(activeSubscription.length);
                 pause = activeStatus == "Active" ? true : false;
-                endDate = activeSubscription.orders[0].endDate.toString();
-                startDate = activeSubscription.orders[0].startDate.toString();
+                endDate = activeSubscription[0].endDate.toString();
+                startDate = activeSubscription[0].startDate.toString();
                 return Padding(
                     padding: EdgeInsets.only(left: 30, right: 30, top: 30),
                     child: Container(
@@ -146,11 +144,8 @@ class _HomeScreenState extends State<NewPauseScreen> {
                               ),
                               Padding(padding: EdgeInsets.only(top: 10)),
                               Text(
-                                activeSubscription.orders[0].userAddress != null
-                                    ? activeSubscription
-                                        .orders[0].userAddress.fullAddress
-                                        .toString()
-                                    : '',
+                                activeSubscription[0].userAddress != null
+                                    ? activeSubscription[0].userAddress.fullAddress.toString(): '',
                                 style: TextStyle(
                                     fontSize: 15, fontWeight: FontWeight.bold),
                               ),
@@ -165,10 +160,7 @@ class _HomeScreenState extends State<NewPauseScreen> {
                                         fontSize: 15, color: Colors.grey),
                                   ),
                                   Text(
-                                    activeSubscription.orders[index].catalog
-                                        .mealCategory.category
-                                        .toString()
-                                        .toString(),
+                                    activeSubscription[index].catalog.mealCategory.category.toString(),
                                     style: TextStyle(
                                         fontSize: 15, color: Colors.black),
                                   )
@@ -189,9 +181,7 @@ class _HomeScreenState extends State<NewPauseScreen> {
                                     child: SingleChildScrollView(
                                       scrollDirection: Axis.horizontal,
                                       child: Text(
-                                        activeSubscription
-                                            .orders[index].catalog.mealName
-                                            .toString(),
+                                        activeSubscription[index].catalog.mealName.toString(),
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                             fontSize: 15, color: Colors.black,),
@@ -213,7 +203,7 @@ class _HomeScreenState extends State<NewPauseScreen> {
                                             fontSize: 18, color: Colors.grey),
                                       )),
                                   Text(
-                                    activeSubscription.orders[index].mealsServed
+                                    activeSubscription[index].mealsServed
                                         .toString(),
                                     style: TextStyle(
                                         fontSize: 18, color: Colors.black),
@@ -233,11 +223,7 @@ class _HomeScreenState extends State<NewPauseScreen> {
                                             fontSize: 18, color: Colors.grey),
                                       )),
                                   Text(
-                                    (activeSubscription
-                                                .orders[index].totalMealCount -
-                                            activeSubscription
-                                                .orders[index].mealsServed)
-                                        .toString(),
+                                    (activeSubscription[index].totalMealCount - activeSubscription[index].mealsServed).toString(),
                                     style: TextStyle(
                                         fontSize: 18, color: Colors.black),
                                   )
@@ -259,7 +245,7 @@ class _HomeScreenState extends State<NewPauseScreen> {
                   textColor: Colors.white,
                   color: HexColor("#FF5657"),
                   child: Text(
-                    activeSubscription.orders[0].status.toString() == "Active"
+                    activeSubscription[0].status.toString() == "Active"
                         ?
                         // pause==true
                         // activeStatus =="Active"
@@ -276,7 +262,7 @@ class _HomeScreenState extends State<NewPauseScreen> {
                       // pause==true:
                       // pause==false
                       // pause ==  (activeSubscription.orders[0].status.toString()=="Active")? true:false
-                      activeSubscription.orders[0].status.toString() == "Active" ? () async {
+                      activeSubscription[0].status.toString() == "Active" ? () async {
                               selectedDate = await _selectDate(context, lastDate: DateTime.parse(endDate));
                               if (selectedDate != null) {
                                 setState(() {
@@ -291,9 +277,8 @@ class _HomeScreenState extends State<NewPauseScreen> {
                             })),
           Padding(
             padding: const EdgeInsets.only(top: 30.0),
-            child: Visibility(
-                visible: activeSubscription.orders[0].resumeSubscriptionDate.toString() != "1970-01-01 00:00:00.000" || activeSubscription.orders[0].pauseSubscriptionDate.toString() != "1970-01-01 00:00:00.000" ,
-                child: Container(
+            child:
+            activeSubscription[0].resumeSubscriptionDate.toString() != "1970-01-01 00:00:00.000" || activeSubscription[0].pauseSubscriptionDate.toString() != "1970-01-01 00:00:00.000" ? Container(
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                       color: Colors.grey[300],
@@ -316,129 +301,19 @@ class _HomeScreenState extends State<NewPauseScreen> {
                                         fontSize: 15.0,
                                         fontWeight: FontWeight.bold)),
                                 TextSpan(
-                                    text: activeSubscription.orders[0].status.toString() == "Active" &&
-                                            pauseSubscriptionDate
-                                                    .toString()
-                                                    .compareTo(DateTime.now()
-                                                        .toString()) >
-                                                0
-                                        ? " Your Subscription Will be "
-                                        : activeSubscription.orders[0].status.toString() == "Pause" &&
-                                                resumeSubscriptionDate
-                                                        .toString()
-                                                        .compareTo(
-                                                            DateTime.now()
-                                                                .toString()) >
-                                                    0
-                                            ? " Your Subscription Will be "
-                                            : " Your Subscription is ",
+                                    text: activeSubscription[0].status.toString() == "Active" && pauseSubscriptionDate.toString().compareTo(DateTime.now().toString()) > 0 ? " Your Subscription Will be " : activeSubscription[0].status.toString() == "Pause" && resumeSubscriptionDate.toString().compareTo(DateTime.now().toString()) > 0 &&activeSubscription[0].resumeSubscriptionDate.toString() != "1970-01-01 00:00:00.000" ? " Your Subscription Will be " : " Your Subscription is ",
                                     style: TextStyle(
                                         color: Colors.black, fontSize: 15.0)),
                                 TextSpan(
-                                    text: activeSubscription.orders[0].status.toString() == "Active" &&
-                                            pauseSubscriptionDate
-                                                    .toString()
-                                                    .compareTo(DateTime.now()
-                                                        .toString()) >
-                                                0
-                                        ?
-                                        // &&
-                                        // snapshot.data.data.order.resumeSubscriptionDate != "0000-00-00"?
-                                        'Paused'
-                                        : activeSubscription.orders[0].status.toString() == "Pause" &&
-                                                resumeSubscriptionDate
-                                                        .toString()
-                                                        .compareTo(
-                                                            DateTime.now()
-                                                                .toString()) >
-                                                    0
-                                            ? 'Reactivated'
-                                            : activeSubscription.orders[0].status.toString() == "Pause" &&
-                                                    pauseSubscriptionDate
-                                                            .toString()
-                                                            .compareTo(DateTime
-                                                                    .now()
-                                                                .toString()) != 0
-                                                        // "1970-01-01 00:00:00.000"
-                                                ?
-                                                // &&
-                                                // snapshot.data.data.order.resumeSubscriptionDate != "0000-00-00"?
-                                                'Paused'
-                                                : "Reactivated",
+                                    text: activeSubscription[0].status.toString() == "Active" && pauseSubscriptionDate.toString().compareTo(DateTime.now().toString()) > 0 ? 'Paused' : activeSubscription[0].status.toString() == "Pause" && resumeSubscriptionDate.toString().compareTo(DateTime.now().toString()) > 0 && activeSubscription[0].resumeSubscriptionDate.toString() != "1970-01-01 00:00:00.000"? 'Reactivated' : activeSubscription[0].status.toString() == "Pause" && pauseSubscriptionDate.toString().compareTo(DateTime.now().toString()) != 0 ? 'Paused' : "Reactivated",
                                     style: TextStyle(
                                         color: Colors.black, fontSize: 15.0)),
                                 TextSpan(
-                                    text:
-                                        // pause ?
-                                        // && snapshot.data.data.order.resumeSubscriptionDate.compareTo(DateTime.now().toString())>0
-                                        // && snapshot.data.data.order.resumeSubscriptionDate != "0000-00-00"?
-                                        // " from ":
-                                    activeSubscription.orders[0].status.toString() == "Active" &&
-                                                pauseSubscriptionDate
-                                                        .toString()
-                                                        .compareTo(
-                                                            DateTime.now()
-                                                                .toString()) ==
-                                                    0
-                                            ? " "
-                                            : activeSubscription.orders[0].status.toString() == "Pause" &&
-                                                    resumeSubscriptionDate
-                                                            .toString()
-                                                            .compareTo(DateTime
-                                                                    .now()
-                                                                .toString()) >
-                                                        0
-                                                ? " from "
-                                                : activeSubscription.orders[0].status.toString() == "Active" &&
-                                                        pauseSubscriptionDate
-                                                                .toString()
-                                                                .compareTo(DateTime
-                                                                        .now()
-                                                                    .toString()) >
-                                                            0
-                                                    ? " from "
-                                                    : '',
+                                    text: activeSubscription[0].status.toString() == "Active" && pauseSubscriptionDate.toString().compareTo(DateTime.now().toString()) == 0 ? " " : activeSubscription[0].status.toString() == "Pause" && resumeSubscriptionDate.toString().compareTo(DateTime.now().toString()) > 0 && activeSubscription[0].resumeSubscriptionDate.toString() != "1970-01-01 00:00:00.000"? " from " : activeSubscription[0].status.toString() == "Active" && pauseSubscriptionDate.toString().compareTo(DateTime.now().toString()) > 0 ? " from " : '',
                                     style: TextStyle(
                                         color: Colors.black, fontSize: 15.0)),
                                 TextSpan(
-                                    text: activeSubscription.orders[0].status.toString() == "Active" &&
-                                            pauseSubscriptionDate
-                                                    .toString()
-                                                    .compareTo(DateTime.now()
-                                                        .toString()) >
-                                                0
-                                        ?
-                                    DateFormat("MM-dd-yyyy").format(DateTime.parse(activeSubscription.orders[0].pauseSubscriptionDate.toString()))
-                                        : activeSubscription.orders[0].status.toString() == "Pause" &&
-                                                resumeSubscriptionDate
-                                                        .toString()
-                                                        .compareTo(
-                                                            DateTime.now()
-                                                                .toString()) >
-                                                    0
-                                            ?
-                                            // DateFormat(
-                                            //     "MM/dd/yyyy")
-                                            //     .format(
-                                            //     DateTime
-                                            //         .parse(
-                                    DateFormat("MM-dd-yyyy").format(DateTime.parse(activeSubscription.orders[0].resumeSubscriptionDate.toString()))
-                                            // ))
-                                            : " ",
-                                    // snapshot.data.data.order.resumeSubscriptionDate != "0000-00-00" ?
-                                    //     " "
-                                    // '' : snapshot.data.data.order.resumeSubscriptionDate,
-
-                                    // pause
-                                    //     && snapshot.data.data.order.resumeSubscriptionDate.compareTo(DateTime.now().toString())>0
-                                    //     ?
-                                    // snapshot.data.data.order.resumeSubscriptionDate != "0000-00-00"?
-                                    //
-                                    //      CommonUtils.getSimpleDate(
-                                    //         DateTime.parse(
-                                    //             resume_subscription_date)): CommonUtils.getSimpleDate(
-                                    //     DateTime.parse(
-                                    //         pause_subscription_date)): "",
+                                    text: activeSubscription[0].status.toString() == "Active" && pauseSubscriptionDate.toString().compareTo(DateTime.now().toString()) > 0 ? DateFormat("MM-dd-yyyy").format(DateTime.parse(activeSubscription[0].pauseSubscriptionDate.toString())) : activeSubscription[0].status.toString() == "Pause" && resumeSubscriptionDate.toString().compareTo(DateTime.now().toString()) > 0 && activeSubscription[0].resumeSubscriptionDate.toString() != "1970-01-01 00:00:00.000"? DateFormat("MM-dd-yyyy").format(DateTime.parse(activeSubscription[0].resumeSubscriptionDate.toString())) : " ",
 
                                     style: TextStyle(
                                         color: Colors.black,
@@ -449,7 +324,7 @@ class _HomeScreenState extends State<NewPauseScreen> {
                       ),
                     ],
                   ),
-                )),
+                ): Container(),
           )
         ]))));
     // else if (snapshot.hasError);

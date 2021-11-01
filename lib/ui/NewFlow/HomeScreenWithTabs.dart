@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter_sheplates/ui/NewFlow/CategoryScreen.dart';
 import 'package:flutter_sheplates/ui/NewFlow/TabData.dart';
 import 'dart:convert';
 import 'CartScreen.dart';
@@ -203,124 +204,139 @@ String maincateId;
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      top: true,
-      child: DefaultTabController(
-        length: 5,
-        child: Scaffold(
-          drawer: CustomDrawer(),
-          appBar: AppBar(
-            backgroundColor: Colors.white,
-            centerTitle: true,
-            title: Image.asset("assets/logo_home.png", fit: BoxFit.fill),
-            actions: [
-              Padding(
-                padding: const EdgeInsets.only(right: 8.0),
-                child: Stack(
-                  alignment: Alignment.topRight,
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.shopping_cart_outlined, color: Colors.grey),
-                      onPressed: () async {
-                        // Navigator.push(context, MaterialPageRoute(builder: (context) => CartScreen()))
-                        // .then((value) => updateCartIconNumber()),
-                        var result = await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => CartScreen(),
-                            )).then((value) => updateCartIconNumber());
-                        if (result == "Update") {
+    return WillPopScope(
+      onWillPop: (){
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => CategoryScreen()));
+      },
+      child: SafeArea(
+        top: true,
+        child: DefaultTabController(
+          length: 5,
+          child: Scaffold(
+            drawer: CustomDrawer(),
+            appBar: AppBar(
+              backgroundColor: Colors.white,
+              centerTitle: true,
+              title: Image.asset("assets/logo_home.png", fit: BoxFit.fill),
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: Stack(
+                    alignment: Alignment.topRight,
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.shopping_cart_outlined, color: Colors.grey),
+                        onPressed: () async {
+                          // Navigator.push(context, MaterialPageRoute(builder: (context) => CartScreen()))
+                          // .then((value) => updateCartIconNumber()),
                           categoryN= await SharedPrefHelper().getWithDefault("categoryName", "");
                           maincateId= await SharedPrefHelper().getWithDefault("mainCategoryID", "");
-                        setState(() {
-                          updateCartIconNumber();
-                          print("categoryyyIddddddd" + categoryN);
-                          print("mainnncategoryyyyyyy" + maincateId);
-                            widget.categoryName =
-                            widget.categoryName == null && categoryN!=null ? categoryN.toString():widget.categoryName ;
-                            widget.mainCategoryID =
-                            widget.mainCategoryID.toString() == null && maincateId!=null ? int.parse(maincateId): widget.mainCategoryID ;
-                        });
-                        }
-                      } ),
-                    numberOfCartItems == null
-                        ? Container()
-                        : Container(
-                            decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.red),
-                            child: Padding(
-                                padding: EdgeInsets.symmetric(vertical: 3, horizontal: 3),
-                                child: Text(numberOfCartItems.toString())),
-                          ),
-                  ],
-                ),
-              ),
-            ],
-            leading: Builder(
-              builder: (context) => IconButton(
-                icon: Image.asset("assets/left_menu.png", fit: BoxFit.fill),
-                onPressed: () => Scaffold.of(context).openDrawer(),
-              ),
-            ),
-            elevation: 5,
-            bottom: PreferredSize(
-              preferredSize: Size.fromHeight(100),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(width: MediaQuery.of(context).size.width * .1),
-                      Flexible(
-                        child: Container(width: 50, color: Colors.grey, height: .5),
-                      ),
-                      Text(
-                        "  $categoryName  ",
-                        style:
-                            TextStyle(fontSize: 19, color: Colors.grey, fontWeight: FontWeight.w700, letterSpacing: 2),
-                      ),
-                      Flexible(child: Container(width: 50, color: Colors.grey, height: .5)),
-                      SizedBox(width: MediaQuery.of(context).size.width * .1),
+                          var result = widget.categoryName==null && widget.mainCategoryID==null && categoryN==null && maincateId == null?
+                          await Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => CategoryScreen(),
+                              )):
+
+                          await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => CartScreen(),
+                              )).then((value) => updateCartIconNumber());
+                          if (result == "Update") {
+                            categoryN= await SharedPrefHelper().getWithDefault("categoryName", "");
+                            maincateId= await SharedPrefHelper().getWithDefault("mainCategoryID", "");
+                          setState(() {
+                            updateCartIconNumber();
+                            print("categoryyyIddddddd" + categoryN);
+                            print("mainnncategoryyyyyyy" + maincateId);
+                              widget.categoryName =
+                              widget.categoryName == null && categoryN!=null ? categoryN.toString():widget.categoryName ;
+                              widget.mainCategoryID =
+                              widget.mainCategoryID.toString() == null && maincateId!=null ? int.parse(maincateId): widget.mainCategoryID ;
+                          });
+                          }
+
+                        } ),
+                      numberOfCartItems == null
+                          ? Container()
+                          : Container(
+                              decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.red),
+                              child: Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 3, horizontal: 3),
+                                  child: Text(numberOfCartItems.toString())),
+                            ),
                     ],
                   ),
-                  SizedBox(height: 20),
-                  tabNamesFilters == null
-                      ? Column(children: [SizedBox(height: 40), LinearProgressIndicator()])
-                      : TabBar(
-                          unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal),
-                          isScrollable: true,
-                          labelPadding: EdgeInsets.all(10),
-                          indicator: UnderlineTabIndicator(
-                            insets: EdgeInsets.all(6),
-                            borderSide: BorderSide(color: AppColor.themeButtonColor, width: 2),
-                          ),
-                          tabs: [
-                            buildTab(tabNamesFilters.data.mealCategory.rows[0].category),
-                            buildTab(tabNamesFilters.data.mealCategory.rows[1].category),
-                            buildTab(tabNamesFilters.data.mealCategory.rows[2].category),
-                            buildTab(tabNamesFilters.data.mealCategory.rows[3].category),
-                            buildTab("All Day"),
-                          ],
-                        ),
-                ],
+                ),
+              ],
+              leading: Builder(
+                builder: (context) => IconButton(
+                  icon: Image.asset("assets/left_menu.png", fit: BoxFit.fill),
+                  onPressed: () => Scaffold.of(context).openDrawer(),
+                ),
               ),
-            ),
-          ),
-          body: tabNamesFilters == null
-              ? Center(child: CircularProgressIndicator())
-              : TabBarView(
-                  physics: NeverScrollableScrollPhysics(), //stops data reloading
+              elevation: 5,
+              bottom: PreferredSize(
+                preferredSize: Size.fromHeight(100),
+                child: Column(
                   children: [
-                    TabData(_streamController, isSubscribed, images, mainCategoryID,
-                        tabNamesFilters.data.mealCategory.rows[0].id, updateCartIconNumber, widget.categoryName),
-                    TabData(_streamController, isSubscribed, images, mainCategoryID,
-                        tabNamesFilters.data.mealCategory.rows[1].id, updateCartIconNumber, widget.categoryName),
-                    TabData(_streamController, isSubscribed, images, mainCategoryID,
-                        tabNamesFilters.data.mealCategory.rows[2].id, updateCartIconNumber, widget.categoryName),
-                    TabData(_streamController, isSubscribed, images, mainCategoryID,
-                        tabNamesFilters.data.mealCategory.rows[3].id, updateCartIconNumber, widget.categoryName),
-                    TabData(_streamController, isSubscribed, images, mainCategoryID, 58765, updateCartIconNumber, widget.categoryName),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(width: MediaQuery.of(context).size.width * .1),
+                        Flexible(
+                          child: Container(width: 50, color: Colors.grey, height: .5),
+                        ),
+                        Text(
+                          "  $categoryName  ",
+                          style:
+                              TextStyle(fontSize: 19, color: Colors.grey, fontWeight: FontWeight.w700, letterSpacing: 2),
+                        ),
+                        Flexible(child: Container(width: 50, color: Colors.grey, height: .5)),
+                        SizedBox(width: MediaQuery.of(context).size.width * .1),
+                      ],
+                    ),
+                    SizedBox(height: 20),
+                    tabNamesFilters == null
+                        ? Column(children: [SizedBox(height: 40), LinearProgressIndicator()])
+                        : TabBar(
+                            unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal),
+                            isScrollable: true,
+                            labelPadding: EdgeInsets.all(10),
+                            indicator: UnderlineTabIndicator(
+                              insets: EdgeInsets.all(6),
+                              borderSide: BorderSide(color: AppColor.themeButtonColor, width: 2),
+                            ),
+                            tabs: [
+                              buildTab(tabNamesFilters.data.mealCategory.rows[0].category),
+                              buildTab(tabNamesFilters.data.mealCategory.rows[1].category),
+                              buildTab(tabNamesFilters.data.mealCategory.rows[2].category),
+                              buildTab(tabNamesFilters.data.mealCategory.rows[3].category),
+                              buildTab("All Day"),
+                            ],
+                          ),
                   ],
                 ),
+              ),
+            ),
+            body: tabNamesFilters == null
+                ? Center(child: CircularProgressIndicator())
+                : TabBarView(
+                    physics: NeverScrollableScrollPhysics(), //stops data reloading
+                    children: [
+                      TabData(_streamController, isSubscribed, images, mainCategoryID,
+                          tabNamesFilters.data.mealCategory.rows[0].id, updateCartIconNumber, widget.categoryName),
+                      TabData(_streamController, isSubscribed, images, mainCategoryID,
+                          tabNamesFilters.data.mealCategory.rows[1].id, updateCartIconNumber, widget.categoryName),
+                      TabData(_streamController, isSubscribed, images, mainCategoryID,
+                          tabNamesFilters.data.mealCategory.rows[2].id, updateCartIconNumber, widget.categoryName),
+                      TabData(_streamController, isSubscribed, images, mainCategoryID,
+                          tabNamesFilters.data.mealCategory.rows[3].id, updateCartIconNumber, widget.categoryName),
+                      TabData(_streamController, isSubscribed, images, mainCategoryID, 58765, updateCartIconNumber, widget.categoryName),
+                    ],
+                  ),
+          ),
         ),
       ),
     );

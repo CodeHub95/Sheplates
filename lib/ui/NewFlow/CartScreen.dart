@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:dotted_border/dotted_border.dart';
-import 'package:flutter_sheplates/Utils/Routes.dart';
 import 'package:flutter_sheplates/Utils/app_constants.dart';
 import 'package:flutter_sheplates/Utils/hexColor.dart';
 import 'package:flutter_sheplates/auth/api_config.dart';
@@ -19,6 +18,7 @@ import 'package:flutter_sheplates/modals/request/ConfirmOrderRequest.dart';
 import 'package:flutter_sheplates/modals/response/BaseResponse.dart';
 import 'package:flutter_sheplates/modals/response/CardResponse.dart';
 import 'package:flutter_sheplates/modals/response/CheckOutResponse.dart';
+import 'package:flutter_sheplates/ui/NewFlow/CategoryScreen.dart';
 import 'package:flutter_sheplates/ui/NewFlow/HomeScreenWithTabs.dart';
 import 'package:flutter_sheplates/ui/NewFlow/PromoCodeList.dart';
 import 'package:flutter_sheplates/ui/ProceedToPayment.dart';
@@ -63,7 +63,8 @@ int maincategoryId;
 
   CardResponse orders;
   num payedAmountAfterDiscount;
-
+  String categoryN;
+  String maincateId;
   @override
   Future<void> initState() {
     // TODO: implement initState
@@ -229,7 +230,10 @@ int maincategoryId;
             Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => HomeScreenWithTabs(categoryName: widget.categoryname, mainCategoryID:  widget.maincategoryId,)),
-            ):Navigator.pop(context, "Update")
+            )
+                  :
+
+              Navigator.pop(context, "Update")
             },
           ),
         ),
@@ -501,10 +505,26 @@ int maincategoryId;
                               ),
                               color: Colors.white,
                               child: Text("Back to plans", style: TextStyle(color: Colors.redAccent)),
-                              onPressed: () {
+                              onPressed: () async {
+                                String categor= await SharedPrefHelper().getWithDefault("categoryName", "");
+                                String maincat= await SharedPrefHelper().getWithDefault("mainCategoryID", "");
+                                setState(() {
+                                   categoryN = categor;
+                                   maincateId = maincat;
+                                });
+
+
+                                // Navigator.pushReplacement(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //       builder: (context) => CategoryScreen(),
+                                //     )):
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => HomeScreenWithTabs(categoryName: widget.categoryname, mainCategoryID:  widget.maincategoryId,)),
+                                  MaterialPageRoute(builder: (context) => HomeScreenWithTabs(
+                                    categoryName: widget.categoryname==null && widget.maincategoryId==null ? categoryN: widget.categoryname,
+                                    mainCategoryID: widget.categoryname==null && widget.maincategoryId==null ? int.parse(maincateId): widget.maincategoryId,
+                                  )),
                                 );
                               },
                             ),
@@ -745,10 +765,10 @@ int maincategoryId;
                     child: ListView.builder(
                       itemCount: cartItems.length,
                       itemBuilder: (BuildContext context, int index) {
-                        print("deliveryyyyy" + cartItems[1].catalog.deliveryCharges .toString());
+                        // print("deliveryyyyy" + cartItems[1].catalog.deliveryCharges .toString());
                         return Center(
                           child: Text(
-                              cartItems[index].catalog.mealName + "-" + (cartItems[index].catalog.deliveryCharges).toString(),
+                              cartItems[index].catalog.mealName + "-" + (cartItems[index].delieveryCharges).toString(),
                               style: TextStyle(fontSize: 18, color: Colors.black, fontWeight: FontWeight.w600)),
                         );
                       },
@@ -762,9 +782,9 @@ int maincategoryId;
                     itemCount: 1,
                     itemBuilder: (BuildContext context, int index) {
                       return Center(
-                        child: Text("cGST25: " + (double.parse((taxObj.cGST25).toString()).toStringAsFixed(2)).toString()
+                        child: Text("CGST@2.5%: " + (double.parse((taxObj.cGST25).toString()).toStringAsFixed(2)).toString()
                             // taxObj.cGST25.toString()
-                            + "\n" + "sGST25:" +
+                            + "\n" + "sGST@2.5%:" +
                             (double.parse((taxObj.sGST25).toString()).toStringAsFixed(2)).toString()
                             // taxObj.sGST25.toString()
                             ,
