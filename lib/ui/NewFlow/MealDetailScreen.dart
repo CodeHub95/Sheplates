@@ -57,149 +57,163 @@ class _HomeScreenState extends State<MealDetailScreen> {
             ),
             preferredSize: Size.fromHeight(1.0)),
       ),
-      body: SingleChildScrollView(
-
-        child: Container(
-          // height:  MediaQuery.of(context).size.height,
-          decoration: BoxDecoration(
-              image: DecorationImage(fit: BoxFit.fill, image: AssetImage("assets/bg_menu.png")
-                  // image: AssetImage(
-                  //     "assets/menu_listing.png")
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Container(
+              // height:  MediaQuery.of(context).size.height,
+              decoration: BoxDecoration(
+                  image: DecorationImage(fit: BoxFit.fill, image: AssetImage("assets/bg_menu.png")
+                    // image: AssetImage(
+                    //     "assets/menu_listing.png")
                   )),
-          child: SingleChildScrollView(
-            physics:  NeverScrollableScrollPhysics(),
-            child: Column(
-              // mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Stack(
-                  children: [
-                    Container(
-                      // height: MediaQuery.of(context).size.height,
-                      decoration: BoxDecoration(
-                          image: DecorationImage(fit: BoxFit.fill, image: AssetImage("assets/menu_listing.png"))),
-                      // height: MediaQuery.of(context).size.height,
-                      child: Column(
-                        // mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Padding(padding: EdgeInsets.only(top: 40)),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Column(
-                                mainAxisSize: MainAxisSize.min,
+              child: Column(
+                children: [
+                  SingleChildScrollView(
+                    physics:  NeverScrollableScrollPhysics(),
+                    child: Column(
+                      // mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Stack(
+                          children: [
+                            Container(
+                              // height: MediaQuery.of(context).size.height,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(fit: BoxFit.fill, image: AssetImage("assets/menu_listing.png"))),
+                              // height: MediaQuery.of(context).size.height,
+                              child: Column(
+                                // mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    "QUALITY",
-                                    style: TextStyle(fontSize: 25, color: Colors.white),
+                                  Padding(padding: EdgeInsets.only(top: 40)),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Text(
+                                            "QUALITY",
+                                            style: TextStyle(fontSize: 25, color: Colors.white),
+                                          ),
+                                          Padding(
+                                              padding: EdgeInsets.only(top: 10),
+                                              child: Text(
+                                                "A Taste of Home Made Food",
+                                                style: TextStyle(fontSize: 17, color: Colors.white),
+                                              ))
+                                        ],
+                                      )
+                                    ],
                                   ),
                                   Padding(
-                                      padding: EdgeInsets.only(top: 10),
-                                      child: Text(
-                                        "A Taste of Home Made Food",
-                                        style: TextStyle(fontSize: 17, color: Colors.white),
-                                      ))
-                                ],
-                              )
-                            ],
-                          ),
-                          Padding(
-                              padding: EdgeInsets.only(top: 10, right: 30, left: 30),
-                              child: Container(
-                                  height: 10,
-                                  width: MediaQuery.of(context).size.width,
-                                  decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                          fit: BoxFit.fill, image: AssetImage("assets/arrow_menu.png"))))),
-                          Container(
-                            // height: MediaQuery.of(context).size.height / 1.2,
-                            height: MediaQuery.of(context).size.height,
+                                      padding: EdgeInsets.only(top: 10, right: 30, left: 30),
+                                      child: Container(
+                                          height: 10,
+                                          width: MediaQuery.of(context).size.width,
+                                          decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  fit: BoxFit.fill, image: AssetImage("assets/arrow_menu.png"))))),
+                                  Container(
+                                    // height: MediaQuery.of(context).size.height / 1.2,
+                                    height: MediaQuery.of(context).size.height,
 
 
-                              child: Padding(
-                                padding: EdgeInsets.only(top: 5, left: 30, right: 30),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    widget.mealDetails.menu.monday2 != null
-                                        ? WeekSeparator(weekName: "Current Week")
-                                        : Container(),
+                                    child: Padding(
+                                      padding: EdgeInsets.only(top: 5, left: 30, right: 30),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          widget.mealDetails.menu.monday2 != null
+                                              ? WeekSeparator(weekName: "Current Week")
+                                              : Container(),
 
-                                      SingleChildScrollView(
-                                          // physics: const NeverScrollableScrollPhysics(),
-                                   child: Column(
-                                     crossAxisAlignment: CrossAxisAlignment.start,
-                                     mainAxisAlignment: MainAxisAlignment.center,
-                                     children: [
-                                       Day(dayName: "Monday:"),
-                                       Meal(mealName: widget.mealDetails.menu.monday),
-                                       Day(dayName: "Tuesday:"),
-                                       Meal(mealName: widget.mealDetails.menu.tuesday),
-                                       Day(dayName: "Wednesday:"),
-                                       Meal(mealName: widget.mealDetails.menu.wednesday),
-                                       Day(dayName: "Thursday:"),
-                                       Meal(mealName: widget.mealDetails.menu.thrusday),
-                                       Day(dayName: "Friday:"),
-                                       Meal(mealName: widget.mealDetails.menu.friday),
-                                       Day(dayName: "Saturday:"),
-                                       Meal(mealName: widget.mealDetails.menu.saturday),
-                                       Padding(
-                                         padding: EdgeInsets.only(top: 10),
-                                         child: Text(
-                                           widget.mealDetails.menu.sunday != null && widget.mealDetails.menu.sunday != ""
-                                               ? "Sunday:"
-                                               : "",
-                                           style: TextStyle(fontSize: 20, color: Colors.red),
-                                         ),
-                                       ),
-                                       Container(
-                                         width: MediaQuery.of(context).size.width / 1.1,
-                                         child: Text(
-                                             widget.mealDetails.menu.sunday != null && widget.mealDetails.menu.sunday != ""
-                                                 ? widget.mealDetails.menu.sunday
-                                                 : "",
-                                             maxLines: 3,
-                                             style: TextStyle(fontSize: 14, color: Colors.white)),
-                                       ),
-                                     ],
-                                   ),
+                                          SingleChildScrollView(
+                                            // physics: const NeverScrollableScrollPhysics(),
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Day(dayName: "Monday:"),
+                                                Meal(mealName: widget.mealDetails.menu.monday),
+                                                Day(dayName: "Tuesday:"),
+                                                Meal(mealName: widget.mealDetails.menu.tuesday),
+                                                Day(dayName: "Wednesday:"),
+                                                Meal(mealName: widget.mealDetails.menu.wednesday),
+                                                Day(dayName: "Thursday:"),
+                                                Meal(mealName: widget.mealDetails.menu.thrusday),
+                                                Day(dayName: "Friday:"),
+                                                Meal(mealName: widget.mealDetails.menu.friday),
+                                                Day(dayName: "Saturday:"),
+                                                Meal(mealName: widget.mealDetails.menu.saturday),
+                                                Padding(
+                                                  padding: EdgeInsets.only(top: 10),
+                                                  child: Text(
+                                                    widget.mealDetails.menu.sunday != null && widget.mealDetails.menu.sunday != ""
+                                                        ? "Sunday:"
+                                                        : "",
+                                                    style: TextStyle(fontSize: 20, color: Colors.red),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  width: MediaQuery.of(context).size.width / 1.1,
+                                                  child: Text(
+                                                      widget.mealDetails.menu.sunday != null && widget.mealDetails.menu.sunday != ""
+                                                          ? widget.mealDetails.menu.sunday
+                                                          : "",
+                                                      maxLines: 3,
+                                                      style: TextStyle(fontSize: 14, color: Colors.white)),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+
+
+                                        ],
+                                      ),
                                     ),
 
-
-                                  ],
-                                ),
+                                  )
+                                ],
                               ),
+                            ),
+                            Padding(padding: EdgeInsets.only(bottom: 10)),
 
-                          )
-                        ],
-                      ),
+                          ],
+                        ),
+
+                        widget.mealDetails.menu.monday2 != null ? WeekTwoButton(widget: widget) : Container(),
+
+
+                      ],
                     ),
-                    Padding(padding: EdgeInsets.only(bottom: 10)),
-                  ],
-                ),
+                  ),
 
-                widget.mealDetails.menu.monday2 != null ? WeekTwoButton(widget: widget) : Container(),
-                ScreenUtils.customButton(
-                  context,
-                  title: "Subscribe",
-                  onCLick: () {
-                    mealName = widget.mealDetails.mealName;
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => NewConfirmSubscription(widget.mealDetails, widget.categoryname, widget.maincategoryId),
-                      ),
-                    );
-                  },
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-        ),
+          Positioned(
+            bottom: 50,
+            child:  ScreenUtils.customButton(
+              context,
+              title: "Subscribe",
+              onCLick: () {
+                mealName = widget.mealDetails.mealName;
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => NewConfirmSubscription(widget.mealDetails, widget.categoryname, widget.maincategoryId),
+                  ),
+                );
+              },
+            ),)
+        ],
+
       ),
     );
   }
@@ -218,7 +232,7 @@ class WeekTwoButton extends StatelessWidget {
     return Center(
       child:  Column(
           children: [
-            SizedBox(height: MediaQuery.of(context).size.height * .10),
+            SizedBox(height: 30),
             SizedBox(
               width: MediaQuery.of(context).size.width * .44,
               child: RaisedButton(
@@ -237,6 +251,7 @@ class WeekTwoButton extends StatelessWidget {
                 },
               ),
             ),
+            SizedBox(height: 20),
           ],
         ),
 

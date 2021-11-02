@@ -17,12 +17,12 @@ import 'package:flutter_sheplates/ui/NewFlow/SubscriptionForPauseAndReactive.dar
 import 'package:intl/intl.dart';
 
 class NewPauseScreen extends StatefulWidget {
-  List<Order> activeSubscription;
-
-  NewPauseScreen(this.activeSubscription);
+  Order activeSubscription;
+  String sheplatesOrderId;
+  NewPauseScreen(this.activeSubscription, this.sheplatesOrderId);
 
   @override
-  _HomeScreenState createState() => _HomeScreenState(this.activeSubscription);
+  _HomeScreenState createState() => _HomeScreenState(this.activeSubscription, this.sheplatesOrderId);
 }
 
 class _HomeScreenState extends State<NewPauseScreen> {
@@ -37,10 +37,10 @@ class _HomeScreenState extends State<NewPauseScreen> {
 
   DateTime selectedDate = DateTime.now();
 
-  _HomeScreenState(this.activeSubscription);
+  _HomeScreenState(this.activeSubscription, this.sheplatesOrderId);
 
-  List<Order>  activeSubscription;
-
+ Order activeSubscription;
+  String sheplatesOrderId;
   @override
   Future<void> initState() {
     // TODO: implement initState
@@ -48,7 +48,7 @@ class _HomeScreenState extends State<NewPauseScreen> {
     // getPauseList();
     idd.clear();
     if (mounted) {
-      activeStatus = activeSubscription[0].status;
+      activeStatus = activeSubscription.status;
       // setState(() {
       //   pause = activeStatus == "Active" ? true : false;
       // });
@@ -105,25 +105,25 @@ class _HomeScreenState extends State<NewPauseScreen> {
           ListView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
-              itemCount: activeSubscription.length,
+              itemCount: 1,
               itemBuilder: (BuildContext context, int index) {
-                pauseSubscriptionDate = activeSubscription[0].pauseSubscriptionDate
+                pauseSubscriptionDate = activeSubscription.pauseSubscriptionDate
                     .toString();
-                resumeSubscriptionDate = activeSubscription[0].resumeSubscriptionDate
+                resumeSubscriptionDate = activeSubscription.resumeSubscriptionDate
                     .toString();
 
                 print("-------------" + pauseSubscriptionDate);
                 print("-------------" + resumeSubscriptionDate);
-                activeStatus =
-                    activeSubscription[index].status.toString();
-
-                idd.add(activeSubscription[index].id);
+                // activeStatus =
+                //     activeSubscription[index].status.toString();
+                //
+                // idd.add(activeSubscription[index].id);
                 print("idddddddddddddddddd");
                 print(idd);
-                print(activeSubscription.length);
+
                 pause = activeStatus == "Active" ? true : false;
-                endDate = activeSubscription[0].endDate.toString();
-                startDate = activeSubscription[0].startDate.toString();
+                endDate = activeSubscription.endDate.toString();
+                startDate = activeSubscription.startDate.toString();
                 return Padding(
                     padding: EdgeInsets.only(left: 30, right: 30, top: 30),
                     child: Container(
@@ -144,8 +144,8 @@ class _HomeScreenState extends State<NewPauseScreen> {
                               ),
                               Padding(padding: EdgeInsets.only(top: 10)),
                               Text(
-                                activeSubscription[0].userAddress != null
-                                    ? activeSubscription[0].userAddress.fullAddress.toString(): '',
+                                activeSubscription.userAddress != null
+                                    ? activeSubscription.userAddress.fullAddress.toString(): '',
                                 style: TextStyle(
                                     fontSize: 15, fontWeight: FontWeight.bold),
                               ),
@@ -160,7 +160,7 @@ class _HomeScreenState extends State<NewPauseScreen> {
                                         fontSize: 15, color: Colors.grey),
                                   ),
                                   Text(
-                                    activeSubscription[index].catalog.mealCategory.category.toString(),
+                                    activeSubscription.catalog.mealCategory.category.toString(),
                                     style: TextStyle(
                                         fontSize: 15, color: Colors.black),
                                   )
@@ -181,7 +181,7 @@ class _HomeScreenState extends State<NewPauseScreen> {
                                     child: SingleChildScrollView(
                                       scrollDirection: Axis.horizontal,
                                       child: Text(
-                                        activeSubscription[index].catalog.mealName.toString(),
+                                        activeSubscription.catalog.mealName.toString(),
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                             fontSize: 15, color: Colors.black,),
@@ -203,7 +203,7 @@ class _HomeScreenState extends State<NewPauseScreen> {
                                             fontSize: 18, color: Colors.grey),
                                       )),
                                   Text(
-                                    activeSubscription[index].mealsServed
+                                    activeSubscription.mealsServed
                                         .toString(),
                                     style: TextStyle(
                                         fontSize: 18, color: Colors.black),
@@ -223,7 +223,7 @@ class _HomeScreenState extends State<NewPauseScreen> {
                                             fontSize: 18, color: Colors.grey),
                                       )),
                                   Text(
-                                    (activeSubscription[index].totalMealCount - activeSubscription[index].mealsServed).toString(),
+                                    (activeSubscription.totalMealCount - activeSubscription.mealsServed).toString(),
                                     style: TextStyle(
                                         fontSize: 18, color: Colors.black),
                                   )
@@ -245,7 +245,7 @@ class _HomeScreenState extends State<NewPauseScreen> {
                   textColor: Colors.white,
                   color: HexColor("#FF5657"),
                   child: Text(
-                    activeSubscription[0].status.toString() == "Active"
+                    activeSubscription.status.toString() == "Active"
                         ?
                         // pause==true
                         // activeStatus =="Active"
@@ -262,7 +262,7 @@ class _HomeScreenState extends State<NewPauseScreen> {
                       // pause==true:
                       // pause==false
                       // pause ==  (activeSubscription.orders[0].status.toString()=="Active")? true:false
-                      activeSubscription[0].status.toString() == "Active" ? () async {
+                      activeSubscription.status.toString() == "Active" ? () async {
                               selectedDate = await _selectDate(context, lastDate: DateTime.parse(endDate));
                               if (selectedDate != null) {
                                 setState(() {
@@ -273,12 +273,14 @@ class _HomeScreenState extends State<NewPauseScreen> {
                                 });
                                 _showcontent();
                               }
-                            } : () async {selectedDate = await _selectDate(context);if (selectedDate != null) {reactiveSubcription();}
+                            } : () async {
+                    selectedDate = await _selectDate(context);
+                    if (selectedDate != null) {reactiveSubcription();}
                             })),
           Padding(
             padding: const EdgeInsets.only(top: 30.0),
             child:
-            activeSubscription[0].resumeSubscriptionDate.toString() != "1970-01-01 00:00:00.000" || activeSubscription[0].pauseSubscriptionDate.toString() != "1970-01-01 00:00:00.000" ? Container(
+            activeSubscription.resumeSubscriptionDate.toString() != "1970-01-01 00:00:00.000" || activeSubscription.pauseSubscriptionDate.toString() != "1970-01-01 00:00:00.000" ? Container(
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                       color: Colors.grey[300],
@@ -301,19 +303,19 @@ class _HomeScreenState extends State<NewPauseScreen> {
                                         fontSize: 15.0,
                                         fontWeight: FontWeight.bold)),
                                 TextSpan(
-                                    text: activeSubscription[0].status.toString() == "Active" && pauseSubscriptionDate.toString().compareTo(DateTime.now().toString()) > 0 ? " Your Subscription Will be " : activeSubscription[0].status.toString() == "Pause" && resumeSubscriptionDate.toString().compareTo(DateTime.now().toString()) > 0 &&activeSubscription[0].resumeSubscriptionDate.toString() != "1970-01-01 00:00:00.000" ? " Your Subscription Will be " : " Your Subscription is ",
+                                    text: activeSubscription.status.toString() == "Active" && pauseSubscriptionDate.toString().compareTo(DateTime.now().toString()) > 0 ? " Your Subscription Will be " : activeSubscription.status.toString() == "Pause" && resumeSubscriptionDate.toString().compareTo(DateTime.now().toString()) > 0 &&activeSubscription.resumeSubscriptionDate.toString() != "1970-01-01 00:00:00.000" ? " Your Subscription Will be " : " Your Subscription is ",
                                     style: TextStyle(
                                         color: Colors.black, fontSize: 15.0)),
                                 TextSpan(
-                                    text: activeSubscription[0].status.toString() == "Active" && pauseSubscriptionDate.toString().compareTo(DateTime.now().toString()) > 0 ? 'Paused' : activeSubscription[0].status.toString() == "Pause" && resumeSubscriptionDate.toString().compareTo(DateTime.now().toString()) > 0 && activeSubscription[0].resumeSubscriptionDate.toString() != "1970-01-01 00:00:00.000"? 'Reactivated' : activeSubscription[0].status.toString() == "Pause" && pauseSubscriptionDate.toString().compareTo(DateTime.now().toString()) != 0 ? 'Paused' : "Reactivated",
+                                    text: activeSubscription.status.toString() == "Active" && pauseSubscriptionDate.toString().compareTo(DateTime.now().toString()) > 0 ? 'Paused' : activeSubscription.status.toString() == "Pause" && resumeSubscriptionDate.toString().compareTo(DateTime.now().toString()) > 0 && activeSubscription.resumeSubscriptionDate.toString() != "1970-01-01 00:00:00.000"? 'Reactivated' : activeSubscription.status.toString() == "Pause" && pauseSubscriptionDate.toString().compareTo(DateTime.now().toString()) != 0 ? 'Paused' : "Reactivated",
                                     style: TextStyle(
                                         color: Colors.black, fontSize: 15.0)),
                                 TextSpan(
-                                    text: activeSubscription[0].status.toString() == "Active" && pauseSubscriptionDate.toString().compareTo(DateTime.now().toString()) == 0 ? " " : activeSubscription[0].status.toString() == "Pause" && resumeSubscriptionDate.toString().compareTo(DateTime.now().toString()) > 0 && activeSubscription[0].resumeSubscriptionDate.toString() != "1970-01-01 00:00:00.000"? " from " : activeSubscription[0].status.toString() == "Active" && pauseSubscriptionDate.toString().compareTo(DateTime.now().toString()) > 0 ? " from " : '',
+                                    text: activeSubscription.status.toString() == "Active" && pauseSubscriptionDate.toString().compareTo(DateTime.now().toString()) == 0 ? " " : activeSubscription.status.toString() == "Pause" && resumeSubscriptionDate.toString().compareTo(DateTime.now().toString()) > 0 && activeSubscription.resumeSubscriptionDate.toString() != "1970-01-01 00:00:00.000"? " from " : activeSubscription.status.toString() == "Active" && pauseSubscriptionDate.toString().compareTo(DateTime.now().toString()) > 0 ? " from " : '',
                                     style: TextStyle(
                                         color: Colors.black, fontSize: 15.0)),
                                 TextSpan(
-                                    text: activeSubscription[0].status.toString() == "Active" && pauseSubscriptionDate.toString().compareTo(DateTime.now().toString()) > 0 ? DateFormat("MM-dd-yyyy").format(DateTime.parse(activeSubscription[0].pauseSubscriptionDate.toString())) : activeSubscription[0].status.toString() == "Pause" && resumeSubscriptionDate.toString().compareTo(DateTime.now().toString()) > 0 && activeSubscription[0].resumeSubscriptionDate.toString() != "1970-01-01 00:00:00.000"? DateFormat("MM-dd-yyyy").format(DateTime.parse(activeSubscription[0].resumeSubscriptionDate.toString())) : " ",
+                                    text: activeSubscription.status.toString() == "Active" && pauseSubscriptionDate.toString().compareTo(DateTime.now().toString()) > 0 ? DateFormat("MM-dd-yyyy").format(DateTime.parse(activeSubscription.pauseSubscriptionDate.toString())) : activeSubscription.status.toString() == "Pause" && resumeSubscriptionDate.toString().compareTo(DateTime.now().toString()) > 0 && activeSubscription.resumeSubscriptionDate.toString() != "1970-01-01 00:00:00.000"? DateFormat("MM-dd-yyyy").format(DateTime.parse(activeSubscription.resumeSubscriptionDate.toString())) : " ",
 
                                     style: TextStyle(
                                         color: Colors.black,
@@ -430,7 +432,10 @@ class _HomeScreenState extends State<NewPauseScreen> {
     NewPauseRequest request = NewPauseRequest(
       pauseSubscriptionDate:
           CommonUtils.getPauseDate(selectedDate.toIso8601String()),
-      orderId: idd,
+        orderId: activeSubscription.id,
+        sheplatesOrderId: widget.sheplatesOrderId,
+        kitchenId: activeSubscription.kitchen.id,
+        preferredDeliveryTime: activeSubscription.preferredDeliveryTime
     );
     var res = await NetworkUtil()
         .post(url: url, body: jsonEncode(request), token: token);
@@ -438,10 +443,9 @@ class _HomeScreenState extends State<NewPauseScreen> {
     if (response.status == 200) {
       CommonUtils.dismissProgressDialog(context);
       CommonUtils.showToast(
-          msg: "Paused Successfully",
+          msg: response.message,
           bgColor: AppColor.darkThemeBlueColor,
           textColor: Colors.white);
-
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
@@ -458,11 +462,14 @@ class _HomeScreenState extends State<NewPauseScreen> {
     CommonUtils.fullScreenProgress(context);
     String url = "user/reactive-subscription";
     String token = await SharedPrefHelper().getWithDefault("token", "");
-
     NewReactiveRequest request = NewReactiveRequest(
-        orderId: idd,
+        orderId: activeSubscription.id,
         resumeSubscriptionDate:
-            CommonUtils.getPauseDate(selectedDate.toIso8601String()));
+            CommonUtils.getPauseDate(selectedDate.toIso8601String()),
+      sheplatesOrderId: widget.sheplatesOrderId,
+      kitchenId: activeSubscription.kitchen.id,
+      preferredDeliveryTime: activeSubscription.preferredDeliveryTime
+    );
     print("dateeeee" + selectedDate.toIso8601String());
     var res = await NetworkUtil()
         .post(url: url, body: jsonEncode(request), token: token);
@@ -470,7 +477,8 @@ class _HomeScreenState extends State<NewPauseScreen> {
     if (response.status == 200) {
       CommonUtils.dismissProgressDialog(context);
       CommonUtils.showToast(
-          msg: "Successfully Reactivated Subscription.",
+          // msg: "Successfully Reactivated Subscription.",
+        msg: response.message,
           bgColor: AppColor.darkThemeBlueColor,
           textColor: Colors.white);
       Navigator.pushNamedAndRemoveUntil(
@@ -486,9 +494,11 @@ class _HomeScreenState extends State<NewPauseScreen> {
     final DateTime picked = await showDatePicker(
         context: context,
         initialDate: initialDate != null ? initialDate : DateTime.now().add(Duration(days: 1)), firstDate: startDate != null ? startDate : DateTime.now().add(Duration(days: 1)),
+        //starting code
         // lastDate: lastDate != null ? lastDate : DateTime.parse(endDate));
-        lastDate: lastDate != null  && lastDate.compareTo(DateTime.now().add(Duration(days: 1)))>0 ? lastDate : DateTime.now().add(Duration(days: 1)));
-
+        // last code
+        // lastDate: lastDate != null  && lastDate.compareTo(DateTime.now().add(Duration(days: 1)))>0 ? lastDate : DateTime.now().add(Duration(days: 1)));
+lastDate: lastDate != null && lastDate.compareTo(DateTime.now().add(Duration(days: 1)))>0? lastDate : lastDate != null && lastDate.compareTo(DateTime.now().add(Duration(days: 1)))<0? DateTime.now().add(Duration(days: 1)): DateTime.parse(endDate));
     if (picked != null && picked != selectedDate) return picked;
   }
 }

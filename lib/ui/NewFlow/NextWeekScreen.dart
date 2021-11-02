@@ -73,7 +73,7 @@ class _HomeScreenState extends State<NextWeekScreen> {
               Stack(
                 children: [
                   Container(
-                      // height: MediaQuery.of(context).size.height,
+
                       decoration: BoxDecoration(
                           image: DecorationImage(fit: BoxFit.fill, image: AssetImage("assets/menu_listing.png"))),
                       // height: MediaQuery.of(context).size.height,

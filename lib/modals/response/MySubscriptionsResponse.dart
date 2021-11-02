@@ -58,20 +58,23 @@ class Subscription {
   Subscription({
     this.sheplatesOrderId,
     this.orders,
+    this.isExpanded
   });
 
   String sheplatesOrderId;
   List<Order> orders;
-
+  bool isExpanded = false;
 
   factory Subscription.fromJson(Map<String, dynamic> json) => Subscription(
     sheplatesOrderId: json["sheplates_order_id"],
     orders: json["orders"].length != []? List<Order>.from(json["orders"].map((x) => Order.fromJson(x))): [],
+    isExpanded: false
   );
 
   Map<String, dynamic> toJson() => {
     "sheplates_order_id": sheplatesOrderId,
     "orders": List<dynamic>.from(orders.map((x) => x.toJson())),
+    "isExpanded": false
   };
 }
 
