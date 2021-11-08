@@ -197,8 +197,10 @@ class _HomeScreenState extends State<MealDetailScreen> {
               ),
             ),
           ),
+          // SizedBox(height: ),
           Positioned(
-            bottom: 50,
+            bottom: 0,
+
             child:  ScreenUtils.customButton(
               context,
               title: "Subscribe",
@@ -232,7 +234,7 @@ class WeekTwoButton extends StatelessWidget {
     return Center(
       child:  Column(
           children: [
-            SizedBox(height: 30),
+            // SizedBox(height: 10),
             SizedBox(
               width: MediaQuery.of(context).size.width * .44,
               child: RaisedButton(
@@ -251,7 +253,7 @@ class WeekTwoButton extends StatelessWidget {
                 },
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 50),
           ],
         ),
 

@@ -70,7 +70,7 @@ class ScreenUtils {
       {@required String title, @required Function onCLick}) {
     return Container(
         padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-        margin: EdgeInsets.only(top: 40, bottom: 40, right: 10, left: 25),
+        margin: EdgeInsets.only(top: 40, bottom: 0, right: 10, left: 25),
         height: 40,
         width: MediaQuery.of(context).size.width / 1.2,
         child: RaisedButton(
