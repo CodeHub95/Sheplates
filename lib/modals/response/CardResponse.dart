@@ -126,6 +126,7 @@ class TaxObj {
 }
 
 class CartItems {
+  num distance;
   int kitchenId;
   int quantity;
   String preferredDeliveryTime;
@@ -143,7 +144,9 @@ class CartItems {
   bool stockAvailable;
 
   CartItems(
-      {this.kitchenId,
+      {
+        this.distance,
+        this.kitchenId,
       this.quantity,
       this.preferredDeliveryTime,
       this.id,
@@ -160,6 +163,7 @@ class CartItems {
       this.stockAvailable});
 
   CartItems.fromJson(Map<String, dynamic> json) {
+    distance = json['distance'];
     kitchenId = json['kitchen_id'];
     quantity = json['quantity'];
     preferredDeliveryTime = json['preferred_delivery_time'];
@@ -179,6 +183,7 @@ class CartItems {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['distance'] = this.distance;
     data['kitchen_id'] = this.kitchenId;
     data['quantity'] = this.quantity;
     data['preferred_delivery_time'] = this.preferredDeliveryTime;

@@ -99,12 +99,21 @@ class _ActiveWidgetTabDataCopyState extends State<ServingTodayTabData> {
                                         crossAxisAlignment: CrossAxisAlignment.center,
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
-                                          Text(
-                                            // snapshot.data.data.obj.kitchen,
-                                            menuData != null
-                                                ? menuData[index].kitchen
-                                                : '',
-                                            style: TextStyle(fontSize: 20, color: Colors.red),
+                                          Container(
+                                            width: MediaQuery.of(context).size.width/1.2,
+                                            alignment: Alignment.center,
+                                            child: SingleChildScrollView(
+                                              scrollDirection: Axis.horizontal,
+                                              child: Text(
+                                                // snapshot.data.data.obj.kitchen,
+
+                                                menuData != null
+                                                    ? menuData[index].kitchen
+                                                    : '',
+                                                // overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(fontSize: 20, color: Colors.red),
+                                              ),
+                                            ),
                                           ),
                                         ],
                                       )
@@ -125,11 +134,15 @@ class _ActiveWidgetTabDataCopyState extends State<ServingTodayTabData> {
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         children: [
                                           Container(
-                                            // width: MediaQuery.of(context).size.width,
+                                            width: MediaQuery.of(context).size.width/1.2,
+                                            alignment: Alignment.center,
                                             padding: EdgeInsets.only(left: 20.0),
-                                            child: Text(
-                                              toBeginningOfSentenceCase(menuData[index].mealName.toString()),
-                                              style: TextStyle(fontSize: 25, color: Colors.red),
+                                            child: SingleChildScrollView(
+                                              scrollDirection: Axis.horizontal,
+                                              child: Text(
+                                                toBeginningOfSentenceCase(menuData[index].mealName.toString()),
+                                                style: TextStyle(fontSize: 25, color: Colors.red),
+                                              ),
                                             ),
                                           )
                                         ],

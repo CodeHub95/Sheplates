@@ -400,7 +400,7 @@ int maincategoryId;
                                             ),
                                           ),
                                           buildOtherDetails("Taxes", snapshot.data.data.taxes.toString(),
-                                              snapshot.data.data.cartItems, snapshot.data.data.taxObj),
+                                              snapshot.data.data.cartItems, snapshot.data.data.taxObj, ),
                                           Column(
                                             children: [
                                               SizedBox(height: 5),
@@ -593,7 +593,7 @@ int maincategoryId;
     String name,
     String amount,
     List<CartItems> cartItems,
-    TaxObj taxObj,
+    TaxObj taxObj
   ) {
     return Column(
       children: [
@@ -768,7 +768,7 @@ int maincategoryId;
                         // print("deliveryyyyy" + cartItems[1].catalog.deliveryCharges .toString());
                         return Center(
                           child: Text(
-                              cartItems[index].catalog.mealName + "-" + (cartItems[index].delieveryCharges).toString(),
+                             "Distance between you and Kitchen for " + cartItems[index].catalog.mealName + " is: " + (cartItems[index].distance).toString(),
                               style: TextStyle(fontSize: 18, color: Colors.black, fontWeight: FontWeight.w600)),
                         );
                       },
@@ -783,8 +783,7 @@ int maincategoryId;
                     itemBuilder: (BuildContext context, int index) {
                       return Center(
                         child: Text("CGST@2.5%: " + (double.parse((taxObj.cGST25).toString()).toStringAsFixed(2)).toString()
-                            // taxObj.cGST25.toString()
-                            + "\n" + "sGST@2.5%:" +
+                           + "\n" + "SGST@2.5%: " +
                             (double.parse((taxObj.sGST25).toString()).toStringAsFixed(2)).toString()
                             // taxObj.sGST25.toString()
                             ,

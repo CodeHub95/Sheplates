@@ -85,7 +85,7 @@ class _UpcommingMenuTabDataState extends State<UpcommingMenuTabData> {
                                         fit: BoxFit.fill,
                                         image:
                                             AssetImage("assets/bg_menu.png"))),
-                                height: MediaQuery.of(context).size.height/1.1,
+                                height: MediaQuery.of(context).size.height,
                                 width: MediaQuery.of(context).size.width,
                                 child: Column(
                                   children: [
@@ -124,16 +124,23 @@ class _UpcommingMenuTabDataState extends State<UpcommingMenuTabData> {
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
                                                   children: [
-                                                    Text(
-                                                      menuData[index].kitchen !=
-                                                              null
-                                                          ? menuData[index]
-                                                              .kitchen
-                                                              .toString()
-                                                          : '',
-                                                      style: TextStyle(
-                                                          fontSize: 20,
-                                                          color: Colors.red),
+                                                    Container(
+                                                      width: MediaQuery.of(context).size.width/1.2,
+                                                      alignment: Alignment.center,
+                                                      child: SingleChildScrollView(
+                                                        scrollDirection: Axis.horizontal,
+                                                        child: Text(
+                                                          menuData[index].kitchen !=
+                                                                  null
+                                                              ? menuData[index]
+                                                                  .kitchen
+                                                                  .toString()
+                                                              : '',
+                                                          style: TextStyle(
+                                                              fontSize: 20,
+                                                              color: Colors.red),
+                                                        ),
+                                                      ),
                                                     ),
                                                   ],
                                                 )
@@ -164,11 +171,19 @@ class _UpcommingMenuTabDataState extends State<UpcommingMenuTabData> {
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
                                                   children: [
-                                                    Text(
-                                                      menuData[index].mealName,
-                                                      style: TextStyle(
-                                                          fontSize: 20,
-                                                          color: Colors.red),
+                                                    Container(
+
+                                                      width: MediaQuery.of(context).size.width/1.2,
+                                                      alignment: Alignment.center,
+                                                      child: SingleChildScrollView(
+                                                        scrollDirection: Axis.horizontal,
+                                                        child: Text(
+                                                          menuData[index].mealName,
+                                                          style: TextStyle(
+                                                              fontSize: 20,
+                                                              color: Colors.red),
+                                                        ),
+                                                      ),
                                                     )
                                                   ],
                                                 )),
@@ -405,7 +420,7 @@ class _UpcommingMenuTabDataState extends State<UpcommingMenuTabData> {
                                           //     child:
                                           Padding(
                                               padding: EdgeInsets.fromLTRB(
-                                                  30, 0, 30, 0),
+                                                  20, 0, 20, 0),
                                               child: FlatButton(
                                                   color: HexColor("#FF5657"),
                                                   textColor: Colors.white,

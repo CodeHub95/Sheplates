@@ -5,6 +5,7 @@ import 'package:flutter_sheplates/modals/request/AddUserRequest.dart';
 import 'package:flutter_sheplates/modals/response/loginresponse.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sheplates/modals/response/HomeListResponse.dart';
+import 'package:flutter_sheplates/ui/NewFlow/CategoryScreen.dart';
 import 'dart:async';
 import 'package:flutter_sheplates/ui/NewFlow/MealDetailScreen.dart';
 import 'package:flutter_sheplates/Utils/app_utils.dart';
@@ -300,7 +301,12 @@ void dispose() {
               ),
               color: Colors.white,
               child: Text("Go Back To Categories", style: TextStyle(color: Colors.redAccent)),
-              onPressed: () => Navigator.pop(context),
+              onPressed: () => {
+              Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => CategoryScreen()),
+              )
+              },
             ),
           ),
         ],

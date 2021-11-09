@@ -171,32 +171,28 @@ class _SubscriptionForPauseAndReactiveState
                                                                         MainAxisAlignment
                                                                             .spaceBetween,
                                                                     children: [
-                                                                      Row(
-                                                                        children: [
-                                                                          SingleChildScrollView(
-                                                                            scrollDirection:
-                                                                                Axis.vertical,
-                                                                            child: Container(
-                                                                                width: MediaQuery.of(context).size.width / 2,
-                                                                                child: Text(
-                                                                                  snapshot.data.data.activeSubscription[index].orders[i].catalog.mealName,
-                                                                                  style: TextStyle(color: Colors.black),
-                                                                                )),
-                                                                          ),
-                                                                          RichText(
-                                                                              text: TextSpan(children: <TextSpan>[
-                                                                            TextSpan(
-                                                                                text: "Status: ",
-                                                                                style: TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.bold)),
-                                                                            TextSpan(
-                                                                                text: snapshot.data.data.activeSubscription[index].orders[i].status,
-                                                                                style: TextStyle(
-                                                                                  color: Colors.red,
-                                                                                  fontSize: 15.0,
-                                                                                )),
-                                                                          ])),
-                                                                        ],
+                                                                      SingleChildScrollView(
+                                                                        scrollDirection: Axis.horizontal,
+                                                                        child: Container(
+                                                                            width: MediaQuery.of(context).size.width/2.3,
+                                                                            child: Text(
+                                                                              snapshot.data.data.activeSubscription[index].orders[i].catalog.mealName,
+
+                                                                              style: TextStyle(color: Colors.black),
+                                                                            )),
                                                                       ),
+                                                                      RichText(
+                                                                          text: TextSpan(children: <TextSpan>[
+                                                                        TextSpan(
+                                                                            text: "Status: ",
+                                                                            style: TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.bold)),
+                                                                        TextSpan(
+                                                                            text: snapshot.data.data.activeSubscription[index].orders[i].status,
+                                                                            style: TextStyle(
+                                                                              color: Colors.red,
+                                                                              fontSize: 15.0,
+                                                                            )),
+                                                                      ])),
                                                                     ])))));
                                               },
                                             ),
