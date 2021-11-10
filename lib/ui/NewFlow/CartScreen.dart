@@ -767,9 +767,15 @@ int maincategoryId;
                       itemBuilder: (BuildContext context, int index) {
                         // print("deliveryyyyy" + cartItems[1].catalog.deliveryCharges .toString());
                         return Center(
-                          child: Text(
-                             "Distance between you and Kitchen for " + cartItems[index].catalog.mealName + " is: " + (cartItems[index].distance).toString(),
-                              style: TextStyle(fontSize: 18, color: Colors.black, fontWeight: FontWeight.w600)),
+                          child: SingleChildScrollView(
+                            scrollDirection:Axis.horizontal,
+                            child: Container(
+                              width: MediaQuery.of(context).size.width/1.5,
+                              child: Text(
+                                 cartItems[index].catalog.mealName + ": " + (cartItems[index].distance).toString()+ "kms",
+                                  style: TextStyle(fontSize: 18, color: Colors.black, fontWeight: FontWeight.w600)),
+                            ),
+                          ),
                         );
                       },
                     ),
